@@ -3048,31 +3048,25 @@ HOST: http://www.wantoto.com
 
 ## 6/16 病患醫令記錄 [/account/{accountNo}/orderRecords{?orderCode,orderName,quantity,billType,expectedExTime,hospitalCode,sessionKey}]
 
-## 開立醫令 [POST]:
-+ Parameters
-    + orderCode         (string) ... 醫令碼
-    + orderName         (string) ... 醫令名稱
-    + quantity          (number) ... 數量
-    + billType          (string) ... 記帳別
-    + expectedExTime    (number) ... 預計執行時間
-    + hospitalCode      (string) ... 院區碼
-    + sessionKey        (string) ... SessionKey
-
+### 開立醫令 [POST]
++ Parameters 
+    + orderCode    (string) ... the unique id for the specific order
+    + orderName    (string) ... the order name
 
 + Response 200 (application/json)
 
         {
-            "success" : True,
-            "contacts": {
-                "orderRecordId": "T12300321" // [string] 醫令交易檔 ID
-            } 
+            "success": True,
+            "content": {
+                "orderRecordId": "T123123" // [string] 醫令交易檔 ID
+            }
         }
 
-## 6/16 醫令交易檔 ID 所對應之病患醫令記錄 [/account/{accountNo}/orderRecord/{orderRecordId}{?quantity,billType,expectedExTime,confirmedTime,stage,status,sessionKey,orderRecordIds}]
+## 6/16 醫令交易檔 ID 所對應之病患醫令記錄 [/account/{accountNo}/orderRecord/{orderRecordId}{?quantity,billType,expectedExTime,confirmedTime,stage,status,sessionKey,orderRecordIds,verifier,isEmergency}]
 
 ### 取得醫令記錄內容 [GET]
 + Parameters
-    + sessionKey    (string) .. SessionKey
+    + sessionKey    (string) ... SessionKey
 
 + Response 200 (application/json)
 
@@ -3103,7 +3097,7 @@ HOST: http://www.wantoto.com
     + confirmedTime     (number) ... 確認時間
     + verifier          (string) ... 確認醫師員工編號
     + isEmergency       (boolean) ... 是否急做
-    + statuc            (string) ... 階段
+    + status            (string) ... 階段
     + stage             (string) ... 狀態
 
 + Response 200 (application/json) 
@@ -3220,7 +3214,7 @@ HOST: http://www.wantoto.com
         {
             "success": true,
             "content": {
-
+                
             }
         }
     
