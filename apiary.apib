@@ -2918,7 +2918,7 @@ HOST: http://www.wantoto.com
         
 # Group 開發中 Phase2 APIs
 
-## 6/18 - 影像醫學介面內容: CT [/order/MI/interface/{imageType}{?sessionKey}]
+## 6/18 - 影像醫學介面內容 [/order/MI/interface/{imageType}{?sessionKey}]
 + Parameters
     + sessionKey        (string) ... SessionKey
     + imageType         (string) ... 影像種類，例如: CT, MRI, Plain
@@ -3175,7 +3175,7 @@ HOST: http://www.wantoto.com
         {
             "error": True,
             "content": {
-                "message": "123123" #TODO: setup the proper error response message
+                "message": "123123" //#TODO: setup the proper error response message
             }
         }
 
@@ -3198,7 +3198,7 @@ HOST: http://www.wantoto.com
                     "type": "S",                            // [string] 問題種類，如日期為 D，單選為 S
                     "required": True,                       // [boolean] 問題是否為必填項目
                     "defaultPriority": 0,                   // [optional, number] 預設選取項目之順序代號，當類型為 S 或 M 時使用
-                    "options": {                            // [optional] 選擇項目列表，當類型為 S, M 時使用
+                    "options": [                            // [optional] 選擇項目列表，當類型為 S, M 時使用
                         {
                             "displayValue": "OPTIONA: A",   // [string] 選項顯示內容
                             "returnValue": "optional_a",    // [string] 回傳時該選項所對應的值
@@ -3210,7 +3210,7 @@ HOST: http://www.wantoto.com
                             "priority": 1                   // [number] 項目顯示順序
                         }, 
                         ...
-                    },
+                    ],
                     "additionalOptions": False,             // [optional, boolean] 是否允許增添選項，當類型為 S, M 時使用
                     "selectedOptions": [                    // [optional] 已經填入之答案，若無則不用回傳，當類行為 S, M 時使用
                         "optional_a"
@@ -3222,7 +3222,7 @@ HOST: http://www.wantoto.com
                     "type": "D",                            // [string] 問題種類，如日期為 D，單選為 S
                     "required": True,                       // [boolean] 問題是否為必填項目
                     "dateFormat": "DD",                     // [optional, string] 當類型為 D 時使用
-                    "selectedDate": 1406938026              // [optional, number(datetime)] 已經填入之答案，當類型為 D 時使用
+                    "selectedDate": 1406938026              // [optional, number(timestamp)] 已經填入之答案，當類型為 D 時使用
                 },
                 {
                     "displayTitle": "INPUT_BOX",            // [string] 問題顯示題目
@@ -3258,7 +3258,7 @@ HOST: http://www.wantoto.com
         {
             "error": True,
             "content": {
-                "message": "123123" # TODO: return the proper error message ...
+                "message": "123123" //# TODO: return the proper error message ...
             } 
         }
 
@@ -3324,8 +3324,8 @@ HOST: http://www.wantoto.com
                 2,                              // [number] 已被選取之檢查順序
                 4,                              // [number] 已被選取之檢查順序
                 ...
-            ],
-            #TODO: add aditional content
+            ]
+            //#TODO: add aditional content
         }
 
 ### 登記排程時間 [POST]
@@ -3348,7 +3348,7 @@ HOST: http://www.wantoto.com
         {
             "error": True,
             "content": {
-                "message": "123123" #TODO: setup the proper error response
+                "message": "123123" //#TODO: setup the proper error response
             }
         }
 
@@ -3419,8 +3419,8 @@ HOST: http://www.wantoto.com
                         "division" : [
                             {
                                 "displayName" : "內科ICU",
-                                "divisionCode" ： "MED_ICU"
-                                "isChecked" ： ture //是否已排候床，為ture時回傳[optional]
+                                "divisionCode": "MED_ICU",
+                                "isChecked": true //是否已排候床，為 true 時回傳[optional]
                             },
                             ...
                         ]
@@ -3429,20 +3429,20 @@ HOST: http://www.wantoto.com
                 ],
                 "piority" : {
                     "default" : "piorityA", //預設選項
-                    "option" ： [
+                    "option": [
                         {
-                            "displayName"："A",
-                            "piorityCode"："piorityA"
+                            "displayName": "A",
+                            "piorityCode": "piorityA"
                         },
                         ...
                     ]
                 },
-                "wardClass" ： {
-                    "default"：[
+                "wardClass": {
+                    "default": [
                         "single",
                         ...
                     ],
-                    "option" : [
+                    "option": [
                         {
                             "displayName" : "1人房",
                             "wardClassCode" : "single"
