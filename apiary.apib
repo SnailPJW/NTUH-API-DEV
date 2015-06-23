@@ -2917,6 +2917,70 @@ HOST: http://www.wantoto.com
         }
         
 # Group 開發中 Phase2 APIs
+
+## 6/18 - 影像醫學介面內容: CT [/order/MI/interface/{imageType}{?sessionKey}]
++ Parameters
+    + sessionKey        (string) ... SessionKey
+    + imageType         (string) ... 影像種類，例如: CT, MRI, Plain
+
++ Response 200 (application/json)
+    
+        {
+            "note": "檢查範圍與內容影像...",                              // [string, optional] 注意事項
+            "cre": 31.1,                                                // [number, optional] 病患 CRE 值，若無則不用回傳
+            "indicationOptions": [                                      // [optional] indication 所對應的選項，若無則不用回傳
+                {
+                    "returnValue": "ind_option_1",                      // [string] 項目所對應之回傳值 
+                    "displayName": "123123"                             // [string] 項目顯示名稱          
+                },
+                ...
+            ]
+            "sections": [   
+                {
+                    "title": "Brain",                                   // [string] Section 標題
+                    "sections": [                                       // [string]
+                        {
+                            "title": "Routine",                         // [string] 子 Section 標題
+                            "elements": [                               // 子 Section 內可以勾選的項目
+                                {
+                                    "title": "Whole Brain",             // [string] 項目名稱
+                                    "returnKey": "whole_brain_flag",    // [string] 回傳項目結果時所對應的鍵值
+                                    "split_sides": False                // [boolean] 是否要分成左右邊選項 (etc. Plain Film)
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Special",                         // [string] 子 Section 標題
+                            "elements": [                               // 子 Section 內可以勾選的項目
+                                {
+                                    "title": "Temporal bone",
+                                    "returnKey": "temporal_bone_flag",
+                                    "split_sides": False
+                                },
+                                {
+                                    "title": "For CT cisternography",
+                                    "returnKey": "for_ct_cisternography"
+                                    "split_sides": False
+                                },
+                                ...
+                            ]
+                        },
+                        ...
+                    ]
+                },
+                ...
+            ],
+            "others": [                                                 // [optional] 其它可勾選項目，若無則不用回傳
+                {
+                    "title": "MR-PET",
+                    "returnKey": "others_mr_pet",
+                    "split_sides": False
+                },
+                ...
+            ]
+        }
+
+
 ## 6/16 - 醫令碼所對應的醫令 [/order/{orderCode}{?sessionKey}]
 + Parameters
     + sessionKey        (string) ... SessionKey
