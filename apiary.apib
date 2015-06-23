@@ -3150,7 +3150,8 @@ HOST: http://www.wantoto.com
             "verifier": "111281",               // [string] 確認醫師員工編號
             "isEmergency": False,               // [boolean] 是否急做
             "stage": "一般",                     // [string] 階段
-            "status": "開立"                     // [string] 狀態
+            "status": "開立",                    // [string] 狀態
+            "scheduled": False                  // [boolean] 是否已經排程
         }
 
 ### 更改醫令記錄內容 [PATCH]
@@ -3177,6 +3178,53 @@ HOST: http://www.wantoto.com
             "error": True,
             "content": {
                 "message": "123123" //#TODO: setup the proper error response message
+            }
+        }
+
+## 6/23 醫令交易檔 ID 所對應之排程 [/account/{accountNo}/orderRecord/{orderRecordId}/schedule{?examRoomCode,date,weekDay,session,selectedOrder,sessionKey}]
+
+### 取得排程內容 [GET]
++ Parameters
+    + sessionKey    (string) ...SessionKey 
+
++ Response 200 (application/json)
+        
+        {
+            "examRoomCode": "CTS",
+            "date": "20150623",
+            "weekDay": 2,
+            "session": "A",
+            "order": 10,
+        }
+
++ Response 404 (application/json)
+        
+        {
+            "error": True //# TODO: ...
+        }
+
+
+### 登記排程時間 [PUT]
++ Parameters
+    + examRoomCode  (string) ... 檢查室代號
+    + date          (string) ... 排程日期, 依照格式為 "YYYYmmdd"
+    + weekDay       (number) ... 星期日期
+    + session       (string) ... 排程時段, 上午為 A 下午為 P 晚上為 N
+    + selectedOrder (number) ... 使用者指定的排程順序
+    + sessionKey    (string) ... SessionKey
+    
++ Response 200 (application/json)
+    
+        {
+            "success": True
+        }
+
++ Response 400 (application/json)
+    
+        {
+            "error": True,
+            "content": {
+                "message": "123123" //#TODO: setup the proper error response
             }
         }
 
@@ -3329,29 +3377,6 @@ HOST: http://www.wantoto.com
             //#TODO: add aditional content
         }
 
-### 登記排程時間 [POST]
-+ Parameters
-    + date          (string) ... 排程日期, 依照格式為 "YYYYmmdd"
-    + weekDay       (number) ... 星期日期
-    + session       (string) ... 排程時段
-    + accountNo     (string) ... 帳號代碼
-    + selectedOrder (number) ... 使用者指定的排程順序
-    + orderRecordId (string) ... 醫令記錄 ID
-
-+ Response 200 (application/json)
-    
-        {
-            "success": True
-        }
-
-+ Response 400 (application/json)
-    
-        {
-            "error": True,
-            "content": {
-                "message": "123123" //#TODO: setup the proper error response
-            }
-        }
 
 
 # Group 多媒體相關 Media Relative Service
