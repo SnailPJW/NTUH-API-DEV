@@ -2945,7 +2945,7 @@ HOST: http://www.wantoto.com
                     "type": "S",                            // [string] 問題種類，如日期為 D，單選為 S
                     "required": True,                       // [boolean] 問題是否為必填項目
                     "defaultPriority": 0,                   // [optional, number] 預設選取項目之順序代號，當類型為 S 或 M 時使用
-                    "options": {                            // [optional] 選擇項目列表，當類型為 S, M 時使用
+                    "options": [                            // [optional] 選擇項目列表，當類型為 S, M 時使用
                         {
                             "displayValue": "OPTIONA: A",   // [string] 選項顯示內容
                             "returnValue": "optional_a",    // [string] 回傳時該選項所對應的值
@@ -2957,7 +2957,7 @@ HOST: http://www.wantoto.com
                             "priority": 1                   // [number] 項目顯示順序
                         }, 
                         ...
-                    },
+                    ],
                     "additionalOptions": False              // [optional, boolean] 是否允許增添選項，當類型為 S, M 時使用
                 },
                 {
