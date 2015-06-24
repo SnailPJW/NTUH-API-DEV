@@ -2927,19 +2927,19 @@ HOST: http://www.wantoto.com
 + Response 200 (application/json)
     
         {
-            "note": "檢查範圍與內容影像...",                              // [string, optional] 注意事項
+            "note": "檢查範圍與內容影像...",                                // [string, optional] 注意事項
             "cre": 31.1,                                                // [number, optional] 病患 CRE 值，若無則不用回傳
             "indicationOptions": [                                      // [optional] indication 所對應的選項，若無則不用回傳
                 {
                     "returnValue": "ind_option_1",                      // [string] 項目所對應之回傳值 
-                    "displayName": "123123"                             // [string] 項目顯示名稱          
+                    "displayName": "Follow Up"                          // [string] 項目顯示名稱          
                 },
                 ...
             ]
             "sections": [   
                 {
                     "title": "Brain",                                   // [string] Section 標題
-                    "sections": [                                       // [string]
+                    "sections": [                                       
                         {
                             "title": "Routine",                         // [string] 子 Section 標題
                             "elements": [                               // 子 Section 內可以勾選的項目
