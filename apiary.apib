@@ -2935,33 +2935,39 @@ HOST: http://www.wantoto.com
                     "displayName": "Follow Up"                          // [string] 項目顯示名稱          
                 },
                 ...
-            ]
-            "sections": [   
+            ],
+            "groups": [
                 {
-                    "title": "Brain123",                                   // [string] Section 標題
-                    "sections": [                                       
+                    "title": "Upper Body",                                      // [string, optional] Group 標題 若無則不用回傳
+                    "sections": [   
                         {
-                            "title": "Routine",                         // [string] 子 Section 標題
-                            "elements": [                               // 子 Section 內可以勾選的項目
+                            "title": "Brain",                                   // [string] Section 標題
+                            "sections": [                                       
                                 {
-                                    "title": "Whole Brain",             // [string] 項目名稱
-                                    "returnKey": "whole_brain_flag",    // [string] 回傳項目結果時所對應的鍵值
-                                    "split_sides": false                // [boolean] 是否要分成左右邊選項 (etc. Plain Film)
-                                }
-                            ]
-                        },
-                        {
-                            "title": "Special",                         // [string] 子 Section 標題
-                            "elements": [                               // 子 Section 內可以勾選的項目
-                                {
-                                    "title": "Temporal bone",
-                                    "returnKey": "temporal_bone_flag",
-                                    "split_sides": false
+                                    "title": "Routine",                         // [string] 子 Section 標題
+                                    "elements": [                               // 子 Section 內可以勾選的項目
+                                        {
+                                            "title": "Whole Brain",             // [string] 項目名稱
+                                            "returnKey": "whole_brain_flag",    // [string] 回傳項目結果時所對應的鍵值
+                                            "split_sides": false                // [boolean] 是否要分成左右邊選項 (etc. Plain Film)
+                                        }
+                                    ]
                                 },
                                 {
-                                    "title": "For CT cisternography",
-                                    "returnKey": "for_ct_cisternography"
-                                    "split_sides": false
+                                    "title": "Special",                         // [string] 子 Section 標題
+                                    "elements": [                               // 子 Section 內可以勾選的項目
+                                        {
+                                            "title": "Temporal bone",           // [string] 項目名稱
+                                            "returnKey": "temporal_bone_flag",  // [string] 回傳項目結果時所對應的鍵值
+                                            "split_sides": false                // [boolean] 是否要分成左右邊選項 (etc. Plain Film)
+                                        },
+                                        {
+                                            "title": "For CT cisternography",   // [string] 項目名稱
+                                            "returnKey": "ct_cisternography",   // [string] 回傳項目結果時所對應的鍵值
+                                            "split_sides": false                // [boolean] 是否要分成左右邊選項 (etc. Plain Film)
+                                        },
+                                        ...
+                                    ]
                                 },
                                 ...
                             ]
@@ -2971,11 +2977,11 @@ HOST: http://www.wantoto.com
                 },
                 ...
             ],
-            "others": [                                                 // [optional] 其它可勾選項目，若無則不用回傳
+            "others": [  // [optional] 其它可勾選項目，若無則不用回傳
                 {
-                    "title": "MR-PET",
-                    "returnKey": "others_mr_pet",
-                    "split_sides": false
+                    "title": "MR-PET",                                          // [string] 項目名稱
+                    "returnKey": "others_mr_pet",                               // [string] 回傳項目結果時所對應的鍵值
+                    "split_sides": false                                        // [boolean] 是否要分成左右邊選項 (etc. Plain Film)
                 },
                 ...
             ]
