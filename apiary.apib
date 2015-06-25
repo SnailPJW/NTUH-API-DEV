@@ -3128,29 +3128,82 @@ HOST: http://www.wantoto.com
     + sessionKey    (string) ... SessionKey
 
 + Response 200 (application/json)
+        
 
         {
-            "orderType": "P",                   // [string] 醫令主類別
-            "hospitalCode": "HQ",               // [string] 院區碼
-            "accountNo": "8ccoun7n0",           // [string] 記帳帳號
-            "bedId": "b3dID",                   // [string] 床號
-            "orderName": "Testing Order",       // [string] 醫令名稱
-            "patientClass": "E",                // [string] 病患門住急別
-            "quantity": 10,                     // [number] 數量
-            "billType": "Z",                    // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
-            "expectedExTime": 1406938026,       // [number(timestamp)] 預計執行時間 
-            "confirmedTime": 1407038026,        // [number(timestamp)] 確認時間
-            "creator": "111281",                // [string] 開立醫囑者員工編號
-            "verifier": "111281",               // [string] 確認醫師員工編號
-            "isEmergency": False,               // [boolean] 是否急做
-            "stage": "一般",                     // [string] 階段
-            "status": "開立",                    // [string] 狀態
-            "scheduled": False                  // [boolean] 是否已經排程
+            "content": {
+                "orderType": "P",                   // [string] 醫令主類別
+                "hospitalCode": "HQ",               // [string] 院區碼
+                "accountNo": "8ccoun7n0",           // [string] 記帳帳號
+                "bedId": "b3dID",                   // [string] 床號
+                "orderName": "Testing Order",       // [string] 醫令名稱
+                "patientClass": "E",                // [string] 病患門住急別
+                "quantity": 10,                     // [number] 數量
+                "billType": "Z",                    // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
+                "expectedExTime": 1406938026,       // [number(timestamp)] 預計執行時間 
+                "confirmedTime": 1407038026,        // [number(timestamp)] 確認時間
+                "creator": "111281",                // [string] 開立醫囑者員工編號
+                "verifier": "111281",               // [string] 確認醫師員工編號
+                "isEmergency": False,               // [boolean] 是否急做
+                "stage": "一般",                     // [string] 階段
+                "status": "開立",                    // [string] 狀態
+                "scheduled": False,                 // [boolean] 是否已經排程
+                "questionary": [                    // [optional] 問題清單答案
+                    {
+                        "displayTitle": "SINGLE_SELECTION",     // [string] 問題顯示題目
+                        "returnKey": "s_selection_example",     // [string] 回傳結果時該問題所對應的鍵值
+                        "type": "S",                            // [string] 問題種類，如日期為 D，單選為 S
+                        "required": True,                       // [boolean] 問題是否為必填項目
+                        "defaultSelections": [                  // [optional] 預設或已選取項目之順序代號，當類型為 S 或 M 時使用
+                            0,                                  // [number] 預設或已選取項目對應之順序代號
+                            2,
+                            ...
+                        ],                   
+                        "options": [                            // [optional] 選擇項目列表，當類型為 S, M 時使用
+                            {
+                                "displayValue": "OPTIONA: A",   // [string] 選項顯示內容
+                                "returnValue": "optional_a",    // [string] 回傳時該選項所對應的值
+                                "priority": 0                   // [number] 選項顯示順序
+                            },
+                            {
+                                "displayValue": "OPTIONAL: B",  // [string] 項目顯示內容
+                                "returnValue": "optiona_b",     // [string] 回傳時該選項所對應的值
+                                "priority": 1                   // [number] 項目顯示順序
+                            }, 
+                            ...
+                        ],
+                        "additionalOptions": False,             // [optional, boolean] 是否允許增添選項，當類型為 S, M 時使用
+                    },
+                    {
+                        "displayTitle": "DATE_SELECTION",       // [string] 問題顯示題目
+                        "returnKey": "d_selection_example",     // [string] 回傳結果時該問題所對應的鍵值
+                        "type": "D",                            // [string] 問題種類，如日期為 D，單選為 S
+                        "required": True,                       // [boolean] 問題是否為必填項目
+                        "dateFormat": "DD",                     // [optional, string] 當類型為 D 時使用
+                        "defaultDate": 1406938026               // [optional, number(timestamp)] 預設或已經填入之答案，當類型為 D 時使用
+                    },
+                    {
+                        "displayTitle": "INPUT_BOX",            // [string] 問題顯示題目
+                        "returnKey": "input_box_example",       // [string] 回傳結果時該問題所對應的鍵值
+                        "type": "T",                            // [string] 問題種類，如單行文字框為 T 多行文字框為 P
+                        "required": False,                      // [boolean] 問題是否為必填項目
+                        "dictionary": [                         // [optional] 常用字彙，當類型為 T 或 P 時可使用
+                            "ped_1",
+                            "ped_2",
+                            "operation_AS1",
+                            "operation_AS2",
+                            ...
+                        ],
+                        "defaultText": "ped_1, ped_2"           // [optional, string] 預設或已經輸入之內容，當類型為 T, P 時使用
+                    },
+                    ...
+                ]
+            }
         }
 
-### 更改醫令記錄內容 [PATCH]
+### 更改醫令記錄內容 [PUT]
 + Parameters
-    + orderRecordIds    (string) ... 要更改記錄之 orderRecordId
+    + orderRecordId     (string) ... 要更改記錄之 orderRecordId
     + quantity          (number) ... 數量
     + billType          (number) ... 記帳類別
     + expectedExTime    (number) ... 預計執行時間
