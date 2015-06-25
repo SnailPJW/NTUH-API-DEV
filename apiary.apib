@@ -3216,17 +3216,16 @@ HOST: http://www.wantoto.com
 + Response 200 (application/json) 
         
         {
-            "success": True
+            "success": true
         }
 
 + Response 400 (application/json) 
         
         {
-            "error": True,
-            "content": {
-                "message": "123123" //#TODO: setup the proper error response message
-            }
+            "error": 802,                                   // [number] Error Code
+            "message": "THE LOCAL ERROR DESCRIPTION"        // [string] 錯誤訊息
         }
+
 
 ## 6/23 醫令交易檔 ID 所對應之排程 [/account/{accountNo}/orderRecord/{orderRecordId}/schedule{?examRoomCode,date,weekDay,session,selectedOrder,sessionKey}]
 
@@ -3237,17 +3236,20 @@ HOST: http://www.wantoto.com
 + Response 200 (application/json)
         
         {
-            "examRoomCode": "CTS",
-            "date": "20150623",
-            "weekDay": 2,
-            "session": "A",
-            "order": 10,
+            "content": {
+                "examRoomCode": "CTS",
+                "date": "20150623",
+                "weekDay": 2,
+                "session": "A",
+                "order": 10,
+            }
         }
 
 + Response 404 (application/json)
         
         {
-            "error": True //# TODO: ...
+            "error": 802,                               // [number] Error Code
+            "message": "PUT LOCAL DESCRIPTION HERE"     // [string] 錯誤訊息
         }
 
 
@@ -3352,10 +3354,8 @@ HOST: http://www.wantoto.com
 + Response 400 (application/json)
 
         {
-            "error": True,
-            "content": {
-                "message": "123123" //# TODO: return the proper error message ...
-            } 
+            "error": 400,
+            "message": "123123" // #TODO: return the proper error message ....
         }
 
 ## 6/18 醫令碼 orderCode 所對應的排程資訊 [/order/{orderCode}/schedules{?accountNo,startDate,endDate,searchAll,limit,offset,sessionKey}]
