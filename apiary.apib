@@ -2925,66 +2925,68 @@ HOST: http://www.wantoto.com
     + imageType         (string) ... 影像種類，例如: CT, MRI, Plain
 
 + Response 200 (application/json)
-    
+        
         {
-            "note": "檢查範圍與內容影像...",                                // [string, optional] 注意事項
-            "cre": 31.1,                                                // [number, optional] 病患 CRE 值，若無則不用回傳
-            "indicationOptions": [                                      // [optional] indication 所對應的選項，若無則不用回傳
-                {
-                    "returnValue": "ind_option_1",                      // [string] 項目所對應之回傳值 
-                    "displayName": "Follow Up"                          // [string] 項目顯示名稱          
-                },
-                ...
-            ],
-            "groups": [
-                {
-                    "title": "Upper Body",                                      // [string, optional] Group 標題 若無則不用回傳
-                    "sections": [   
-                        {
-                            "title": "Brain",                                   // [string] Section 標題
-                            "sections": [                                       
-                                {
-                                    "title": "Routine",                         // [string] 子 Section 標題
-                                    "elements": [                               // 子 Section 內可以勾選的項目
-                                        {
-                                            "title": "Whole Brain",             // [string] 項目名稱
-                                            "returnKey": "whole_brain_flag",    // [string] 回傳項目結果時所對應的鍵值
-                                            "split_sides": false                // [boolean] 是否要分成左右邊選項 (etc. Plain Film)
-                                        }
-                                    ]
-                                },
-                                {
-                                    "title": "Special",                         // [string] 子 Section 標題
-                                    "elements": [                               // 子 Section 內可以勾選的項目
-                                        {
-                                            "title": "Temporal bone",           // [string] 項目名稱
-                                            "returnKey": "temporal_bone_flag",  // [string] 回傳項目結果時所對應的鍵值
-                                            "split_sides": false                // [boolean] 是否要分成左右邊選項 (etc. Plain Film)
-                                        },
-                                        {
-                                            "title": "For CT cisternography",   // [string] 項目名稱
-                                            "returnKey": "ct_cisternography",   // [string] 回傳項目結果時所對應的鍵值
-                                            "split_sides": false                // [boolean] 是否要分成左右邊選項 (etc. Plain Film)
-                                        },
-                                        ...
-                                    ]
-                                },
-                                ...
-                            ]
-                        },
-                        ...
-                    ]
-                },
-                ...
-            ],
-            "others": [  // [optional] 其它可勾選項目，若無則不用回傳
-                {
-                    "title": "MR-PET",                                          // [string] 項目名稱
-                    "returnKey": "others_mr_pet",                               // [string] 回傳項目結果時所對應的鍵值
-                    "split_sides": false                                        // [boolean] 是否要分成左右邊選項 (etc. Plain Film)
-                },
-                ...
-            ]
+            "content": {
+                "note": "檢查範圍與內容影像...",                                // [string, optional] 注意事項
+                "cre": 31.1,                                                // [number, optional] 病患 CRE 值，若無則不用回傳
+                "indicationOptions": [                                      // [optional] indication 所對應的選項，若無則不用回傳
+                    {
+                        "returnValue": "ind_option_1",                      // [string] 項目所對應之回傳值 
+                        "displayName": "Follow Up"                          // [string] 項目顯示名稱          
+                    },
+                    ...
+                ],
+                "groups": [
+                    {
+                        "title": "Upper Body",                                      // [string, optional] Group 標題 若無則不用回傳
+                        "sections": [   
+                            {
+                                "title": "Brain",                                   // [string] Section 標題
+                                "sections": [                                       
+                                    {
+                                        "title": "Routine",                         // [string] 子 Section 標題
+                                        "elements": [                               // 子 Section 內可以勾選的項目
+                                            {
+                                                "title": "Whole Brain",             // [string] 項目名稱
+                                                "returnKey": "whole_brain_flag",    // [string] 回傳項目結果時所對應的鍵值
+                                                "splitSides": false                // [boolean] 是否要分成左右邊選項 (etc. Plain Film)
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "title": "Special",                         // [string] 子 Section 標題
+                                        "elements": [                               // 子 Section 內可以勾選的項目
+                                            {
+                                                "title": "Temporal bone",           // [string] 項目名稱
+                                                "returnKey": "temporal_bone_flag",  // [string] 回傳項目結果時所對應的鍵值
+                                                "splitSides": false                // [boolean] 是否要分成左右邊選項 (etc. Plain Film)
+                                            },
+                                            {
+                                                "title": "For CT cisternography",   // [string] 項目名稱
+                                                "returnKey": "ct_cisternography",   // [string] 回傳項目結果時所對應的鍵值
+                                                "splitSides": false                // [boolean] 是否要分成左右邊選項 (etc. Plain Film)
+                                            },
+                                            ...
+                                        ]
+                                    },
+                                    ...
+                                ]
+                            },
+                            ...
+                        ]
+                    },
+                    ...
+                ],
+                "others": [  // [optional] 其它可勾選項目，若無則不用回傳
+                    {
+                        "title": "MR-PET",                                          // [string] 項目名稱
+                        "returnKey": "others_mr_pet",                               // [string] 回傳項目結果時所對應的鍵值
+                        "split_sides": false                                        // [boolean] 是否要分成左右邊選項 (etc. Plain Film)
+                    },
+                    ...
+                ]
+            }
         }
 
 
@@ -2995,90 +2997,91 @@ HOST: http://www.wantoto.com
 ### 取得醫令資訊 [GET]
 + Response 200 (application/json)
 
-
         {
-            "hospitalCode":     "HQ",               // [string] 院區碼     
-            "orderCode":        "T123123",          // [string] 醫令碼
-            "orderType":        "T",                // [string] 醫令主類別，如治療為 T
-            "orderName":        "Testing Order",    // [string] 醫令名稱
-            "orderZhName":      "測試醫令",           // [string] 醫令中文名稱
-            "notification":     "重要提示",           // [string] 重要提示 顯示於介面中
-            "isVirtualOrder":   false,              // [boolean] 是否為虛擬醫令
-            "isAvailable":      true,               // [boolean] 是否可以使用
-            "authCode":         7,                  // [number] 如 110 轉成 6
-            "subType":          "N",                // [string, optional] 如手術為 N, 當不需要時不用回傳
-            "selectable":       true,               // [boolean] 是否可以選取
-            "appendOrders":     [                   // [optional] 附帶醫令，若無則不用回傳
-                {
-                    "orderType":    "T",                    // [string] 醫令主類別，如治療為 T 
-                    "orderCode":    "TSA123",               // [string] 醫令碼
-                    "orderName":    "Testing Order2",       // [string] 醫令名稱
-                    "quantity":     1,                      // [number] 數量
-                    "billType":     "Z",                    // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
-                    "required":     false                   // [boolean] 是否為必帶醫令
-                },
-                {
-                    "orderType":    "P",                    // [string] 醫令主類別
-                    "orderCode":    "PZZ123",               // [string] 醫令碼
-                    "orderName":    "Testing Order3",       // [string] 醫令名稱
-                    "quantity":     4,                      // [number] 數量
-                    "billType":     "Z",                    // [string] 
-                    "required":     true
-                },
-                ...
-            ],
-            "questionary":      [                   // [optional] 附帶問題內容，若無則不用回傳
-                {
-                    "title": "SINGLE_SELECTION",            // [string] 問題顯示題目
-                    "returnKey": "s_selection_example",     // [string] 回傳結果時該問題所對應的鍵值
-                    "type": "S",                            // [string] 問題種類，如日期為 D，單選為 S
-                    "required": true,                       // [boolean] 問題是否為必填項目
-                    "defaultPriority": 0,                   // [optional, number] 預設選取項目之順序代號，當類型為 S 或 M 時使用
-                    "options": [                            // [optional] 選擇項目列表，當類型為 S, M 時使用
-                        {
-                            "title": "OPTIONA: A",          // [string] 選項顯示內容
-                            "returnValue": "optional_a",    // [string] 回傳時該選項所對應的值
-                            "priority": 0                   // [number] 選項顯示順序
-                        },
-                        {
-                            "title": "OPTIONAL: B",         // [string] 項目顯示內容
-                            "returnValue": "optiona_b",     // [string] 回傳時該選項所對應的值
-                            "priority": 1                   // [number] 項目顯示順序
-                        }, 
-                        ...
-                    ],
-                    "additionalOptions": false              // [optional, boolean] 是否允許增添選項，當類型為 S, M 時使用
-                },
-                {
-                    "title": "DATE_SELECTION",              // [string] 問題顯示題目
-                    "returnKey": "d_selection_example",     // [string] 回傳結果時該問題所對應的鍵值
-                    "type": "D",                            // [string] 問題種類，如日期為 D，單選為 S
-                    "required": true,                       // [boolean] 問題是否為必填項目
-                    "dateFormat": "DD",                     // [optional, string] 當類型為 D 時使用
-                    "defaultDate": 1406938026               // [optional, number(timestamp)] 預設顯示日期，當類型為 D 時使用
-                },
-                {
-                    "title": "INPUT_BOX",                   // [string] 問題顯示題目
-                    "returnKey": "input_box_example",       // [string] 回傳結果時該問題所對應的鍵值
-                    "type": "T",                            // [string] 問題種類，如單行文字框為 T 多行文字框為 P
-                    "required": false,                      // [boolean] 問題是否為必填項目
-                    "dictionary": [                         // [optional] 常用字彙，當類型為 T 或 P 時可使用
-                        "ped_1",
-                        "ped_2",
-                        "operation_AS1",
-                        "operation_AS2",
-                        ...
-                    ]
-                },
-                {
-                    "title": "MULTI_LINE_BOX",              // [string] 問題顯示題目
-                    "returnKey": "multi_line_example",      // [string] 回傳結果時該問題所對應的鍵值
-                    "type": "P",                            // [string] 問題種類，如單行文字框為 T 多行文字框為 P
-                    "required": false,                      // [boolean] 問題是否為必填項目
-                    "dictionary_id": "DIC_3201"             // [optional, string] 大型常用字彙對應之編號，當類型為 T 或 P 時可使用
-                },
-                ...
-            ]
+            "content": {
+                "hospitalCode":     "HQ",               // [string] 院區碼     
+                "orderCode":        "T123123",          // [string] 醫令碼
+                "orderType":        "T",                // [string] 醫令主類別，如治療為 T
+                "orderName":        "Testing Order",    // [string] 醫令名稱
+                "orderZhName":      "測試醫令",           // [string] 醫令中文名稱
+                "notification":     "重要提示",           // [string] 重要提示 顯示於介面中
+                "isVirtualOrder":   false,              // [boolean] 是否為虛擬醫令
+                "isAvailable":      true,               // [boolean] 是否可以使用
+                "authCode":         7,                  // [number] 如 110 轉成 6
+                "subType":          "N",                // [string, optional] 如手術為 N, 當不需要時不用回傳
+                "selectable":       true,               // [boolean] 是否可以選取
+                "appendOrders":     [                   // [optional] 附帶醫令，若無則不用回傳
+                    {
+                        "orderType":    "T",                    // [string] 醫令主類別，如治療為 T 
+                        "orderCode":    "TSA123",               // [string] 醫令碼
+                        "orderName":    "Testing Order2",       // [string] 醫令名稱
+                        "quantity":     1,                      // [number] 數量
+                        "billType":     "Z",                    // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
+                        "required":     false                   // [boolean] 是否為必帶醫令
+                    },
+                    {
+                        "orderType":    "P",                    // [string] 醫令主類別
+                        "orderCode":    "PZZ123",               // [string] 醫令碼
+                        "orderName":    "Testing Order3",       // [string] 醫令名稱
+                        "quantity":     4,                      // [number] 數量
+                        "billType":     "Z",                    // [string] 
+                        "required":     true
+                    },
+                    ...
+                ],
+                "questionary":      [                   // [optional] 附帶問題內容，若無則不用回傳
+                    {
+                        "title": "SINGLE_SELECTION",            // [string] 問題顯示題目
+                        "returnKey": "s_selection_example",     // [string] 回傳結果時該問題所對應的鍵值
+                        "type": "S",                            // [string] 問題種類，如日期為 D，單選為 S
+                        "required": true,                       // [boolean] 問題是否為必填項目
+                        "defaultPriority": 0,                   // [optional, number] 預設選取項目之順序代號，當類型為 S 或 M 時使用
+                        "options": [                            // [optional] 選擇項目列表，當類型為 S, M 時使用
+                            {
+                                "title": "OPTIONA: A",          // [string] 選項顯示內容
+                                "returnValue": "optional_a",    // [string] 回傳時該選項所對應的值
+                                "priority": 0                   // [number] 選項顯示順序
+                            },
+                            {
+                                "title": "OPTIONAL: B",         // [string] 項目顯示內容
+                                "returnValue": "optiona_b",     // [string] 回傳時該選項所對應的值
+                                "priority": 1                   // [number] 項目顯示順序
+                            }, 
+                            ...
+                        ],
+                        "additionalOptions": false              // [optional, boolean] 是否允許增添選項，當類型為 S, M 時使用
+                    },
+                    {
+                        "title": "DATE_SELECTION",              // [string] 問題顯示題目
+                        "returnKey": "d_selection_example",     // [string] 回傳結果時該問題所對應的鍵值
+                        "type": "D",                            // [string] 問題種類，如日期為 D，單選為 S
+                        "required": true,                       // [boolean] 問題是否為必填項目
+                        "dateFormat": "DD",                     // [optional, string] 當類型為 D 時使用
+                        "defaultDate": 1406938026               // [optional, number(timestamp)] 預設顯示日期，當類型為 D 時使用
+                    },
+                    {
+                        "title": "INPUT_BOX",                   // [string] 問題顯示題目
+                        "returnKey": "input_box_example",       // [string] 回傳結果時該問題所對應的鍵值
+                        "type": "T",                            // [string] 問題種類，如單行文字框為 T 多行文字框為 P
+                        "required": false,                      // [boolean] 問題是否為必填項目
+                        "dictionary": [                         // [optional] 常用字彙，當類型為 T 或 P 時可使用
+                            "ped_1",
+                            "ped_2",
+                            "operation_AS1",
+                            "operation_AS2",
+                            ...
+                        ]
+                    },
+                    {
+                        "title": "MULTI_LINE_BOX",              // [string] 問題顯示題目
+                        "returnKey": "multi_line_example",      // [string] 回傳結果時該問題所對應的鍵值
+                        "type": "P",                            // [string] 問題種類，如單行文字框為 T 多行文字框為 P
+                        "required": false,                      // [boolean] 問題是否為必填項目
+                        "dictionary_id": "DIC_3201"             // [optional, string] 大型常用字彙對應之編號，當類型為 T 或 P 時可使用
+                    },
+                    ...
+                ]
+            }
         }
 
 ## 6/16 - 大型常用字彙集 [/questionDictionary/{dictionaryId}{?offset,limit,sessionKey}]
