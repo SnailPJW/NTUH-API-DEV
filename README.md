@@ -53,15 +53,13 @@
 
 		+ Response XXX (application/json)
 		{
-			"error": true,
-			"content": {
-				"message": "PUT_THE_ERROR_MESSAGE_HERE",
-				"failed": [
-					"1",			// [string] the tag of the specific failed order
-					"2",			// [string] the tag of the specific failed order
-					...
-				]
-			}
+			"error": 802,
+			"message": "PUT_THE_ERROR_MESSAGE_HERE",
+			"failed": [
+				"1",			// [string] the tag of the specific failed order
+				"2",			// [string] the tag of the specific failed order
+				...
+			]
 		}
 
 
