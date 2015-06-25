@@ -2988,7 +2988,7 @@ HOST: http://www.wantoto.com
         }
 
 
-## 6/16 - 醫令碼所對應的醫令 [/order/{orderCode}{?sessionKey}]
+## 6/25 - 醫令碼所對應的醫令 [/order/{orderCode}{?sessionKey}]
 + Parameters
     + sessionKey        (string) ... SessionKey
 
@@ -3003,13 +3003,31 @@ HOST: http://www.wantoto.com
             "orderName":        "Testing Order",    // [string] 醫令名稱
             "orderZhName":      "測試醫令",           // [string] 醫令中文名稱
             "notification":     "重要提示",           // [string] 重要提示 顯示於介面中
-            "hasAppendOrders":  true,               // [boolean] 是否有附帶醫令
             "isVirtualOrder":   false,              // [boolean] 是否為虛擬醫令
             "isAvailable":      true,               // [boolean] 是否可以使用
             "authCode":         7,                  // [number] 如 110 轉成 6
             "subType":          "N",                // [string, optional] 如手術為 N, 當不需要時不用回傳
             "selectable":       true,               // [boolean] 是否可以選取
-            "questionary":      [                   // [optional] 附帶問題內容
+            "appendOrders":     [                   // [optional] 附帶醫令，若無則不用回傳
+                {
+                    "orderType":    "T",                    // [string] 醫令主類別，如治療為 T 
+                    "orderCode":    "TSA123",               // [string] 醫令碼
+                    "orderName":    "Testing Order2",       // [string] 醫令名稱
+                    "quantity":     1,                      // [number] 數量
+                    "billType":     "Z",                    // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
+                    "required":     false                   // [boolean] 是否為必帶醫令
+                },
+                {
+                    "orderType":    "P",                    // [string] 醫令主類別
+                    "orderCode":    "PZZ123",               // [string] 醫令碼
+                    "orderName":    "Testing Order3",       // [string] 醫令名稱
+                    "quantity":     4,                      // [number] 數量
+                    "billType":     "Z",                    // [string] 
+                    "required":     true
+                },
+                ...
+            ],
+            "questionary":      [                   // [optional] 附帶問題內容，若無則不用回傳
                 {
                     "title": "SINGLE_SELECTION",            // [string] 問題顯示題目
                     "returnKey": "s_selection_example",     // [string] 回傳結果時該問題所對應的鍵值
@@ -3061,40 +3079,6 @@ HOST: http://www.wantoto.com
                 },
                 ...
             ]
-        }
-
-## 6/16 - 醫令碼所對應的醫令之附帶醫令 [/order/{orderCode}/appendOrders{?offset,limit,sessionKey}]
-### 取得醫令資訊 [GET]
-+ Parameters
-    + offset        (number) ... 設定回傳資料偏移數
-    + limit         (number) ... 設定最大回傳筆數
-    + sessionKey    (string) ... SessionKey
-
-+ Response 200 (application/json)
-        
-        {
-            "content": [
-                {
-                    "orderType":    "T",                    // [string] 醫令主類別，如治療為 T 
-                    "orderCode":    "TSA123",               // [string] 醫令碼
-                    "orderName":    "Testing Order2",       // [string] 醫令名稱
-                    "quantity":     1,                      // [number] 數量
-                    "billType":     "Z",                    // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
-                    "required":     false                   // [boolean] 是否為必帶醫令
-                },
-                {
-                    "orderType":    "P",
-                    "orderCode":    "PZZ123",
-                    "orderName":    "Testing Order3", 
-                    "quantity":     4,
-                    "billType":     "Z",
-                    "required":     true
-                },
-                ...
-            ],
-            "total": 5,         // [number] 此次Query總筆數
-            "offset": 0,        // [number] 回傳資料偏移數
-            "limit": 100        // [number] 最大回傳筆數
         }
 
 ## 6/16 - 大型常用字彙集 [/questionDictionary/{dictionaryId}{?offset,limit,sessionKey}]
