@@ -3265,22 +3265,20 @@ HOST: http://www.wantoto.com
 + Response 200 (application/json)
     
         {
-            "success": True
+            "success": true
         }
 
 + Response 400 (application/json)
     
         {
-            "error": True,
-            "content": {
-                "message": "123123" //#TODO: setup the proper error response
-            }
+            "message": "123123", //#TODO: setup the proper error response
+            "error": 400
         }
 
 
 ## 6/17 醫令交易檔 ID 所對應之病患醫令記錄之問題清單 [/account/{accountNo}/orderRecord/{orderRecordId}/questionary{?limit,offset,sessionKey}]
 
-### 取得問題輸入內容　[GET]
+## 取得問題輸入內容　[GET]
 + Parameters
     + limit         (number) ... 設定最大回傳筆數
     + offset        (number) ... 設定回傳資料偏移數
