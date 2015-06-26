@@ -270,11 +270,7 @@ HOST: http://www.wantoto.com
 ### 查詢檢查科室 [GET]
 + Parameters
     + examRoomCode (string, `000CPFT0`) ... 檢查科室代碼
-   
-+ Request MED (text/plain)
 
-        "examRoomCode" : "000CPFT0"
-        
 + Response 200 (application/json)
 
         {
@@ -1680,7 +1676,7 @@ HOST: http://www.wantoto.com
                     "updated": 1406940112,          // the last updated time. [number(timestamp)]
                     "_emp_author": {            
                         "empNo": "111111",          // [string]
-                        "name":  "謝小穎"           // [string]
+                        "name":  "謝小穎"            // [string]
                     },  
                     "title":    "HELLO",            // [string]
                     "id":       "A12-40321"         // the identifier for the topic [string]
@@ -3111,6 +3107,33 @@ HOST: http://www.wantoto.com
 + Parameters 
     + orderCode    (string) ... the unique id for the specific order
     + orderName    (string) ... the order name
+    + sessionKey 
+
++ Request IssueOrders (application/json)
+
+        {
+            "content": [
+                {
+                    "orderCode": "T00001234",           // [string] 醫令碼
+                    "orderName": "TEST_ORDER_001",      // [string] 醫令名稱
+                    "hospitalCode": "HQ",               // [string] 院區碼
+                    "quantity": 3,                      // [number] 數量
+                    "billType": "E",                    // [string] 記帳類別
+                    "isEmergency": false,               // [boolean] 是否急做
+                    "expectedExTime": 1406938026        // [number(timestamp)] 預計執行時間
+                },
+                {
+                    "orderCode": "K00001233",
+                    "orderName": "TEST_ORDER_002", 
+                    "hospitalCode": "HQ",
+                    "quantity": 2,
+                    "billType": "E",
+                    "isEmergency": false,
+                    "expectedExTime": 1405238026        // [number(timestamp)] 預計執行時間
+                },
+                ...
+            ]
+        }
 
 + Response 200 (application/json)
 
