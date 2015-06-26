@@ -3112,8 +3112,8 @@ HOST: http://www.wantoto.com
 + Request IssueOrders (application/json)
 
         {
-            "content": [
-                {
+            "content": { // 開立醫令清單，每個醫令對應的鍵值為該醫令在本次請求中辨識之所用
+                "1": {                                  
                     "orderCode": "T00001234",           // [string] 醫令碼
                     "orderName": "TEST_ORDER_001",      // [string] 醫令名稱
                     "hospitalCode": "HQ",               // [string] 院區碼
@@ -3122,7 +3122,7 @@ HOST: http://www.wantoto.com
                     "isEmergency": false,               // [boolean] 是否急做
                     "expectedExTime": 1406938026        // [number(timestamp)] 預計執行時間
                 },
-                {
+                "2": {
                     "orderCode": "K00001233",
                     "orderName": "TEST_ORDER_002", 
                     "hospitalCode": "HQ",
@@ -3131,8 +3131,16 @@ HOST: http://www.wantoto.com
                     "isEmergency": false,
                     "expectedExTime": 1405238026        // [number(timestamp)] 預計執行時間
                 },
-                ...
-            ]
+                "3": {
+                    "orderCode": "K00001233",
+                    "orderName": "TEST_ORDER_002", 
+                    "hospitalCode": "HQ",
+                    "quantity": 2,
+                    "billType": "E",
+                    "isEmergency": false,
+                    "expectedExTime": 1405238026        // [number(timestamp)] 預計執行時間
+                },
+                ...   
         }
 
 + Response 200 (application/json)
@@ -3140,7 +3148,25 @@ HOST: http://www.wantoto.com
         {
             "success": True,
             "content": {
-                "orderRecordId": "T123123" // [string] 醫令交易檔 ID
+                "orderRecordIds": {
+                    "1": "T123123",     // [string] 醫令交易檔 ID
+                    "2": "K231112",     // [string] 醫令交易檔 ID
+                    ...
+                }
+            }
+        }
+
++ Response 400 (application/json)
+
+        {
+            "error": 802,
+            "content": {
+                "failed": [  // 未能成功開立的醫令之清單，內容為該醫令所對應之鍵值
+                    "1",
+                    "3",
+                    ...
+                ],
+                "message": "ERROR DESCRIPTION"  // [string] 有關請求錯誤之描述
             }
         }
 
