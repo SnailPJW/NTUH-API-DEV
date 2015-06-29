@@ -4,7 +4,7 @@ HOST: http://www.wantoto.com
 # DEV台大醫院行動醫療資訊系統 Web Service v1.2.1
 採用 RESTful 架構規劃。所有字串編碼皆為UTF-8。
 
-# 9/22-登入與取得 SessionKey
+# 9/22-登入與取得或驗證 SessionKey
 ## sessionKey [/sessionKey{?empNo,password}]
 ### 取得 session key[GET]
 + Parameters
@@ -26,6 +26,30 @@ HOST: http://www.wantoto.com
             "message" : "帳號密碼錯誤", //錯誤訊息[string]
             "error" : 101 //錯誤代碼 [number]
         }
+
+## sessionKey Validation [/doctor/{doctorId}/isAuthorized{?sessionKey}]
+### 驗證 sessionKey [GET]
++ Parameters
+    + doctorId (string) ... 使用者醫師帳號
+    + sessionKey (string) ... 需要驗證的 sesssionKey
+
++ Response 200 (application/json)
+
+
+        {
+            "content": {
+                "authorized": ture  // [boolean] 驗證結果
+            }
+        }
+
++ Response 400 (application/json)
+
+
+        {
+            "error": 102,                   // [number] error code
+            "message": "SessionKey 過期"    // [string] error description
+        }
+
 
 # Group Web Service 通則 {example}
 ## 通則 [/{?sessionKey,offset,limit}]
