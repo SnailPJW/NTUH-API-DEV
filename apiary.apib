@@ -2938,6 +2938,27 @@ HOST: http://www.wantoto.com
         
 # Group 開發中 Phase2 APIs
 
+## 6/29 - 病患 cre 值 [/patients/{chartNo}/cre{?sessionKey}]
+### 取得病患 cre 值報告 [GET]
++ Parameters
+    + sessionKey        (string) ... SessionKey
+
++ Response 200 (application/json)
+        
+        {
+            "content": {
+                "cre": 31.2
+            }
+        }
+
++ Response 404 (application/json)
+
+
+        {
+            "error": 104,                                   // [number] error code
+            "message": "找不到病患最近三個月的 cre 數值"    // [string] error message
+        }
+
 ## 6/18 - 影像醫學介面內容 [/order/MI/interface/{imageType}{?sessionKey}]
 ### 取得介面內容 [GET]
 + Parameters
