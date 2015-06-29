@@ -3127,6 +3127,7 @@ HOST: http://www.wantoto.com
             "limit": 100                // [number] 最大回傳筆數
         }
 
+specialIn
 ## 6/16 病患醫令記錄 [/account/{accountNo}/orderRecords{?orderCode,orderName,quantity,billType,expectedExTime,hospitalCode,sessionKey}]
 
 ### 開立醫令 [POST]
@@ -3250,7 +3251,7 @@ HOST: http://www.wantoto.com
             }
         }
 
-## 6/16 醫令交易檔 ID 所對應之病患醫令記錄 [/account/{accountNo}/orderRecord/{orderRecordId}{?quantity,billType,expectedExTime,confirmedTime,stage,status,sessionKey,orderRecordIds,verifier,isEmergency}]
+## 6/16 醫令交易檔 ID 所對應之病患醫令記錄 [/account/{accountNo}/orderRecord/{orderRecordId}{?quantity,billType,expectedExTime,confirmedTime,stage,status,sessionKey,orderRecordIds,verifier,isEmergency,specialInstruction,bedId}]
 
 ### 取得醫令記錄內容 [GET]
 + Parameters
