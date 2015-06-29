@@ -36,7 +36,14 @@
 
 ## Order Related APIs 
 ---
-### 1. 更新醫療記錄之問題清單答案
+### 1. OrderCode, OrderRecordId
+
+- Since the original TREORDERCODE and ORDERIDSE is not unique
+- OrderCode = **{OrderType}{TREORDERCODE}** (etc. T12345678)
+- OrderRecordId = **{OrderType}{ORDERIDSE}** (etc. T00010012001)
+
+
+### 2. 更新醫療記錄之問題清單答案
 
 - API: */account/{accountNo}/orderRecord/{orderRecordId}/questionary{?limit,offset,sessionKey}*
 
@@ -49,7 +56,7 @@
 	- for type D: timestamp (number)
 	- for type T, P: string
 	
-### 2. 開立醫囑或修改醫囑的 Error Response
+### 3. 開立醫囑或修改醫囑的 Error Response
 
 		+ Response XXX (application/json)
 		{
