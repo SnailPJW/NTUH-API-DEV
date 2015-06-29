@@ -3002,7 +3002,7 @@ HOST: http://www.wantoto.com
                     {
                         "title": "MR-PET",                                          // [string] 項目名稱
                         "returnKey": "others_mr_pet",                               // [string] 回傳項目結果時所對應的鍵值
-                        "split_sides": false                                        // [boolean] 是否要分成左右邊選項 (etc. Plain Film)
+                        "splitSides": false                                        // [boolean] 是否要分成左右邊選項 (etc. Plain Film)
                     },
                     ...
                 ]
@@ -3023,17 +3023,19 @@ HOST: http://www.wantoto.com
                 "orderCode":        "T123123",          // [string] 醫令碼
                 "orderType":        "T",                // [string] 醫令主類別，如治療為 T
                 "orderName":        "Testing Order",    // [string] 醫令名稱
-                "orderZhName":      "測試醫令",           // [string] 醫令中文名稱
-                "notification":     "重要提示",           // [string] 重要提示 顯示於介面中
+                "orderChinName":    "測試醫令",           // [string] 醫令中文名稱
+                "screenNote":       "重要提示",           // [string] 重要提示 顯示於介面中
                 "isVirtualOrder":   false,              // [boolean] 是否為虛擬醫令
                 "isAvailable":      true,               // [boolean] 是否可以使用
-                "authCode":         7,                  // [number] 如 110 轉成 6
+                "isOpen":           "OI",               // [string] 註明可用之類別 E 為急診 I 為住院 O 為門診
+                "isOpenSelect":     true,               // [boolean] 是否開放選取
+                "isEmergency":      true,               // [boolean] 是否支援急做               
                 "subType":          "N",                // [string, optional] 如手術為 N, 當不需要時不用回傳
                 "selectable":       true,               // [boolean] 是否可以選取
                 "appendOrders":     [                   // [optional] 附帶醫令，若無則不用回傳
                     {
                         "orderType":    "T",                    // [string] 醫令主類別，如治療為 T 
-                        "orderCode":    "TSA123",               // [string] 醫令碼
+                        "orderCode":    "TSA123zzz",            // [string] 醫令碼
                         "orderName":    "Testing Order2",       // [string] 醫令名稱
                         "quantity":     1,                      // [number] 數量
                         "billType":     "Z",                    // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
@@ -3041,11 +3043,11 @@ HOST: http://www.wantoto.com
                     },
                     {
                         "orderType":    "P",                    // [string] 醫令主類別
-                        "orderCode":    "PZZ123",               // [string] 醫令碼
+                        "orderCode":    "PZZ123qqq",            // [string] 醫令碼
                         "orderName":    "Testing Order3",       // [string] 醫令名稱
                         "quantity":     4,                      // [number] 數量
-                        "billType":     "Z",                    // [string] 
-                        "required":     true
+                        "billType":     "Z",                    // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
+                        "required":     true                    // [boolean] 是否為必帶醫令
                     },
                     ...
                 ],
@@ -3069,7 +3071,7 @@ HOST: http://www.wantoto.com
                             }, 
                             ...
                         ],
-                        "additionalOptions": false              // [optional, boolean] 是否允許增添選項，當類型為 S, M 時使用
+                        "freeSelectionEnable": false            // [optional, boolean] 是否允許增添選項，當類型為 S, M 時使用
                     },
                     {
                         "title": "DATE_SELECTION",              // [string] 問題顯示題目
@@ -3097,7 +3099,7 @@ HOST: http://www.wantoto.com
                         "returnKey": "multi_line_example",      // [string] 回傳結果時該問題所對應的鍵值
                         "type": "P",                            // [string] 問題種類，如單行文字框為 T 多行文字框為 P
                         "required": false,                      // [boolean] 問題是否為必填項目
-                        "dictionary_id": "DIC_3201"             // [optional, string] 大型常用字彙對應之編號，當類型為 T 或 P 時可使用
+                        "dictionaryId": "DIC_3201"              // [optional, string] 大型常用字彙對應之編號，當類型為 T 或 P 時可使用
                     },
                     ...
                 ]
@@ -3144,29 +3146,74 @@ HOST: http://www.wantoto.com
                     "quantity": 3,                      // [number] 數量
                     "billType": "E",                    // [string] 記帳類別
                     "isEmergency": false,               // [boolean] 是否急做
-                    "expectedExTime": 1406938026        // [number(timestamp)] 預計執行時間
+                    "expectedExTime": 1406938026,       // [number(timestamp)] 預計執行時間
+                    "specialInstruction": "Test 1",     // [string] 特殊醫囑
+                    "questionary": [                    // [optional] 問答題答案，若無則不會傳入
+                        {
+                            "returnKey": "d_selection_example",     // [string] 問答題對應鍵值
+                            "type": "S",                            // [string] 問答題類型
+                            "value": [
+                                0,
+                                1,
+                                ...
+                            ]
+                        },
+                        {
+                            "returnKey": "input_box_example",       // [string] 問答題對應鍵值
+                            "type": "T",                            // [string] 問答題類型
+                            "value": "this is the input content"
+                        }
+                    ],
+                    "appendOrders": [ // [optional] 附帶醫令，若無則不會傳入
+                        "TSA123001",  // [string] 醫令碼
+                        "K00123110",
+                        ...
+                    ]
                 },
                 "2": {
-                    "orderCode": "K00001233",
-                    "orderName": "TEST_ORDER_002", 
-                    "hospitalCode": "HQ",
-                    "quantity": 2,
-                    "billType": "E",
-                    "isEmergency": false,
-                    "expectedExTime": 1405238026        // [number(timestamp)] 預計執行時間
+                    "orderCode": "K00001233",           // [string] 醫令碼
+                    "orderName": "TEST_ORDER_002",      // [string] 醫令名稱
+                    "hospitalCode": "HQ",               // [string] 院區碼
+                    "quantity": 2,                      // [number] 數量
+                    "billType": "E",                    // [string] 記帳類別
+                    "isEmergency": false,               // [boolean] 是否急做
+                    "expectedExTime": 1405238026,       // [number(timestamp)] 預計執行時間
+                    "specialInstruction": "Test 2",     // [string] 特殊醫囑
+                    "questionary": [                    // [optional] 問答題答案，若無則不會傳入
+                        {
+                            "returnKey": "d_selection_example",     // [string] 問答題對應鍵值
+                            "type": "S",                            // [string] 問答題類型
+                            "value": [
+                                0,
+                                1,
+                                ...
+                            ]
+                        },
+                        {
+                            "returnKey": "input_box_example",       // [string] 問答題對應鍵值
+                            "type": "T",                            // [string] 問答題類型
+                            "value": "this is the input content"
+                        }
+                    ],
+                    "appendOrders": [ // [optional] 附帶醫令，若無則不會傳入
+                        "TSA123001",  // [string] 醫令碼
+                        "K00123110",
+                        ...
+                    ]
                 },
                 "3": {
-                    "orderCode": "K00001233",
-                    "orderName": "TEST_ORDER_002", 
-                    "hospitalCode": "HQ",
-                    "quantity": 2,
-                    "billType": "E",
-                    "isEmergency": false,
-                    "expectedExTime": 1405238026        // [number(timestamp)] 預計執行時間
+                    "orderCode": "K00001233",           // [string] 醫令碼
+                    "orderName": "TEST_ORDER_002",      // [string] 醫令名稱
+                    "hospitalCode": "HQ",               // [string] 院區碼
+                    "quantity": 2,                      // [number] 數量
+                    "billType": "E",                    // [string] 記帳類別
+                    "isEmergency": false,               // [boolean] 是否急做
+                    "expectedExTime": 1405238026,       // [number(timestamp)] 預計執行時間
+                    "specialInstruction": "Test 3"      // [string] 特殊醫囑
                 },
                 ...   
             },
-            "sessionKey": "SESSION_KEY_HERE"            // [string] SessionKey
+            "sessionKey": "E0B27FAAAE68415BA9E011E569FE4009"
         }
 
 + Response 200 (application/json)
@@ -3175,8 +3222,8 @@ HOST: http://www.wantoto.com
             "success": True,
             "content": {
                 "orderRecordIds": {
-                    "1": "T123123",     // [string] 醫令交易檔 ID
-                    "2": "K231112",     // [string] 醫令交易檔 ID
+                    "1": "T12312311111",     // [string] 醫令交易檔 ID
+                    "2": "K23111222222",     // [string] 醫令交易檔 ID
                     ...
                 }
             }
@@ -3187,7 +3234,14 @@ HOST: http://www.wantoto.com
         {
             "error": 802,
             "content": {
-                "failed": [  // 未能成功開立的醫令之清單，內容為該醫令所對應之鍵值
+                "succeeded": {  // [optional] 回傳成功開立的醫令之清單，若無則不用回傳
+                    "orderRecordIds" {
+                        "2": "K23111222222", 
+                        ...
+                    }
+                }
+
+                "failed": [     // 未能成功開立的醫令之清單，內容為該醫令所對應之鍵值
                     "1",
                     "3",
                     ...
@@ -3219,16 +3273,17 @@ HOST: http://www.wantoto.com
                 "confirmedTime": 1407038026,        // [number(timestamp)] 確認時間
                 "creator": "111281",                // [string] 開立醫囑者員工編號
                 "verifier": "111281",               // [string] 確認醫師員工編號
-                "isEmergency": False,               // [boolean] 是否急做
+                "isEmergency": false,               // [boolean] 是否急做
                 "stage": "一般",                     // [string] 階段
                 "status": "開立",                    // [string] 狀態
-                "scheduled": False,                 // [boolean] 是否已經排程
+                "scheduled": false,                 // [boolean] 是否已經排程
+                "specialInstruction": "特殊醫囑內容",  // [string] 特殊醫囑
                 "questionary": [                    // [optional] 問題清單答案
                     {
                         "displayTitle": "SINGLE_SELECTION",     // [string] 問題顯示題目
                         "returnKey": "s_selection_example",     // [string] 回傳結果時該問題所對應的鍵值
                         "type": "S",                            // [string] 問題種類，如日期為 D，單選為 S
-                        "required": True,                       // [boolean] 問題是否為必填項目
+                        "required": true,                       // [boolean] 問題是否為必填項目
                         "defaultSelections": [                  // [optional] 預設或已選取項目之順序代號，當類型為 S 或 M 時使用
                             0,                                  // [number] 預設或已選取項目對應之順序代號
                             2,
@@ -3247,13 +3302,13 @@ HOST: http://www.wantoto.com
                             }, 
                             ...
                         ],
-                        "additionalOptions": False,             // [optional, boolean] 是否允許增添選項，當類型為 S, M 時使用
+                        "freeSelectionEnable": false,           // [optional, boolean] 是否允許增添選項，當類型為 S, M 時使用
                     },
                     {
                         "displayTitle": "DATE_SELECTION",       // [string] 問題顯示題目
                         "returnKey": "d_selection_example",     // [string] 回傳結果時該問題所對應的鍵值
                         "type": "D",                            // [string] 問題種類，如日期為 D，單選為 S
-                        "required": True,                       // [boolean] 問題是否為必填項目
+                        "required": true,                       // [boolean] 問題是否為必填項目
                         "dateFormat": "DD",                     // [optional, string] 當類型為 D 時使用
                         "defaultDate": 1406938026               // [optional, number(timestamp)] 預設或已經填入之答案，當類型為 D 時使用
                     },
@@ -3261,7 +3316,7 @@ HOST: http://www.wantoto.com
                         "displayTitle": "INPUT_BOX",            // [string] 問題顯示題目
                         "returnKey": "input_box_example",       // [string] 回傳結果時該問題所對應的鍵值
                         "type": "T",                            // [string] 問題種類，如單行文字框為 T 多行文字框為 P
-                        "required": False,                      // [boolean] 問題是否為必填項目
+                        "required": false,                      // [boolean] 問題是否為必填項目
                         "dictionary": [                         // [optional] 常用字彙，當類型為 T 或 P 時可使用
                             "ped_1",
                             "ped_2",
@@ -3278,15 +3333,55 @@ HOST: http://www.wantoto.com
 
 ### 更改醫令記錄內容 [PUT]
 + Parameters
-    + orderRecordId     (string) ... 要更改記錄之 orderRecordId
-    + quantity          (number) ... 數量
-    + billType          (number) ... 記帳類別
-    + expectedExTime    (number) ... 預計執行時間
-    + confirmedTime     (number) ... 確認時間
-    + verifier          (string) ... 確認醫師員工編號
-    + isEmergency       (boolean) ... 是否急做
-    + status            (string) ... 階段
-    + stage             (string) ... 狀態
+    + orderRecordId      (string) ... 要更改記錄之 orderRecordId
+    + quantity           (number) ... 數量
+    + billType           (number) ... 記帳類別
+    + expectedExTime     (number) ... 預計執行時間
+    + confirmedTime      (number) ... 確認時間
+    + verifier           (string) ... 確認醫師員工編號
+    + isEmergency        (boolean) ... 是否急做
+    + status             (string) ... 階段
+    + stage              (string) ... 狀態
+    + specialInstruction (string) ... 特殊醫囑內容
+    + bedId              (string) ... 床號
+
++ Request ModifyOrder (application/json)
+
+        {
+            "content": {                                  
+                "orderCode": "T00001234",           // [string] 醫令碼
+                "orderName": "TEST_ORDER_001",      // [string] 醫令名稱
+                "hospitalCode": "HQ",               // [string] 院區碼
+                "quantity": 3,                      // [number] 數量
+                "billType": "E",                    // [string] 記帳類別
+                "isEmergency": false,               // [boolean] 是否急做
+                "expectedExTime": 1406938026,       // [number(timestamp)] 預計執行時間
+                "specialInstruction": "Test 1",     // [string] 特殊醫囑
+                "questionary": [                    // [optional] 問答題答案，若無則不會傳入
+                    {
+                        "returnKey": "d_selection_example",     // [string] 問答題對應鍵值
+                        "type": "S",                            // [string] 問答題類型
+                        "value": [
+                            0,
+                            1,
+                            ...
+                        ]
+                    },
+                    {
+                        "returnKey": "input_box_example",       // [string] 問答題對應鍵值
+                        "type": "T",                            // [string] 問答題類型
+                        "value": "this is the input content"
+                    }
+                ],
+                "appendOrders": [ // [optional] 附帶醫令，若無則不會傳入
+                    "TSA123001",  // [string] 醫令碼
+                    "K00123110",
+                    ...
+                ]
+            },
+            "sessionKey": "E0B27FAAAE68415BA9E011E569FE4009"
+        }
+
 
 + Response 200 (application/json) 
         
@@ -3348,87 +3443,6 @@ HOST: http://www.wantoto.com
         {
             "message": "123123", //#TODO: setup the proper error response
             "error": 400
-        }
-
-
-## 6/17 醫令交易檔 ID 所對應之病患醫令記錄之問題清單 [/account/{accountNo}/orderRecord/{orderRecordId}/questionary{?limit,offset,sessionKey}]
-
-## 取得問題輸入內容　[GET]
-+ Parameters
-    + limit         (number) ... 設定最大回傳筆數
-    + offset        (number) ... 設定回傳資料偏移數
-    + sessionKey    (string) ... SessionKey
-
-+ Response 200 (application/json)
-
-        {
-            "content": [
-                {
-                    "displayTitle": "SINGLE_SELECTION",     // [string] 問題顯示題目
-                    "returnKey": "s_selection_example",     // [string] 回傳結果時該問題所對應的鍵值
-                    "type": "S",                            // [string] 問題種類，如日期為 D，單選為 S
-                    "required": True,                       // [boolean] 問題是否為必填項目
-                    "defaultPriority": 0,                   // [optional, number] 預設選取項目之順序代號，當類型為 S 或 M 時使用
-                    "options": [                            // [optional] 選擇項目列表，當類型為 S, M 時使用
-                        {
-                            "displayValue": "OPTIONA: A",   // [string] 選項顯示內容
-                            "returnValue": "optional_a",    // [string] 回傳時該選項所對應的值
-                            "priority": 0                   // [number] 選項顯示順序
-                        },
-                        {
-                            "displayValue": "OPTIONAL: B",  // [string] 項目顯示內容
-                            "returnValue": "optiona_b",     // [string] 回傳時該選項所對應的值
-                            "priority": 1                   // [number] 項目顯示順序
-                        }, 
-                        ...
-                    ],
-                    "additionalOptions": False,             // [optional, boolean] 是否允許增添選項，當類型為 S, M 時使用
-                    "selectedOptions": [                    // [optional] 已經填入之答案，若無則不用回傳，當類行為 S, M 時使用
-                        "optional_a"
-                    ]
-                },
-                {
-                    "displayTitle": "DATE_SELECTION",       // [string] 問題顯示題目
-                    "returnKey": "d_selection_example",     // [string] 回傳結果時該問題所對應的鍵值
-                    "type": "D",                            // [string] 問題種類，如日期為 D，單選為 S
-                    "required": True,                       // [boolean] 問題是否為必填項目
-                    "dateFormat": "DD",                     // [optional, string] 當類型為 D 時使用
-                    "selectedDate": 1406938026              // [optional, number(timestamp)] 已經填入之答案，當類型為 D 時使用
-                },
-                {
-                    "displayTitle": "INPUT_BOX",            // [string] 問題顯示題目
-                    "returnKey": "input_box_example",       // [string] 回傳結果時該問題所對應的鍵值
-                    "type": "T",                            // [string] 問題種類，如單行文字框為 T 多行文字框為 P
-                    "required": False,                      // [boolean] 問題是否為必填項目
-                    "dictionary": [                         // [optional] 常用字彙，當類型為 T 或 P 時可使用
-                        "ped_1",
-                        "ped_2",
-                        "operation_AS1",
-                        "operation_AS2",
-                        ...
-                    ],
-                    "inputText": "ped_1, ped_2"             // [optional, string] 已經輸入之內容，當類型為 T, P 時使用
-                },
-                ...
-            ],
-            "limit": 100,           // [number] 最大回傳筆數
-            "offset": 0,            // [number] 回傳資料偏移數
-            "total": 5              // [number] 此次請求回傳資料筆數
-        }
-
-### 更改問題答案 [PATCH]
-
-+ Response 200 (application/json)
-        
-        {
-            "success": True
-        } 
-
-+ Response 400 (application/json)
-
-        {
-            "error": 400,
-            "message": "123123" // #TODO: return the proper error message ....
         }
 
 ## 6/18 醫令碼 orderCode 所對應的排程資訊 [/order/{orderCode}/schedules{?accountNo,startDate,endDate,searchAll,limit,offset,sessionKey}]
