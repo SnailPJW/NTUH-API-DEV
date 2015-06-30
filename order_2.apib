@@ -235,7 +235,7 @@
                         {
                             "returnKey": "d_selection_example",     // [string] 問答題對應鍵值
                             "type": "S",                            // [string] 問答題類型
-                            "value": [
+                            "value": [                              // [optional]
                                 0,
                                 1,
                                 ...
@@ -244,7 +244,7 @@
                         {
                             "returnKey": "input_box_example",       // [string] 問答題對應鍵值
                             "type": "T",                            // [string] 問答題類型
-                            "value": "this is the input content"
+                            "value": "this is the input content"    // [optional]
                         }
                     ],
                     "appendOrders": [ // [optional] 附帶醫令，若無則不會傳入
@@ -266,7 +266,7 @@
                         {
                             "returnKey": "d_selection_example",     // [string] 問答題對應鍵值
                             "type": "S",                            // [string] 問答題類型
-                            "value": [
+                            "value": [                              // [optional]
                                 0,
                                 1,
                                 ...
@@ -275,7 +275,7 @@
                         {
                             "returnKey": "input_box_example",       // [string] 問答題對應鍵值
                             "type": "T",                            // [string] 問答題類型
-                            "value": "this is the input content"
+                            "value": "this is the input content"    // [optional]
                         }
                     ],
                     "appendOrders": [ // [optional] 附帶醫令，若無則不會傳入
@@ -318,7 +318,7 @@
             "error": 802,
             "content": {
                 "succeeded": {  // [optional] 回傳成功開立的醫令之清單，若無則不用回傳
-                    "orderRecordIds" {
+                    "orderRecordIds": {
                         "2": "K23111222222",
                         ...
                     }
@@ -443,7 +443,7 @@
                     {
                         "returnKey": "d_selection_example",     // [string] 問答題對應鍵值
                         "type": "S",                            // [string] 問答題類型
-                        "value": [
+                        "value": [                              // [optional]
                             0,
                             1,
                             ...
@@ -452,7 +452,7 @@
                     {
                         "returnKey": "input_box_example",       // [string] 問答題對應鍵值
                         "type": "T",                            // [string] 問答題類型
-                        "value": "this is the input content"
+                        "value": "this is the input content"    // [optional]
                     }
                 ],
                 "appendOrders": [ // [optional] 附帶醫令，若無則不會傳入
