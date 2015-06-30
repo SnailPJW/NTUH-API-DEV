@@ -5,7 +5,7 @@ import shlex
 import subprocess
 from subprocess import PIPE
 
-API_FILE 		= '%s/apiary.apib' % os.getcwd()
+API_FILE 		= '%s/template.apib' % os.getcwd()
 VERSION_LINE 	= r'.* Web Service'
 VERSION_PATTERN = r'v[0-9]+\.[0-9]+\.[0-9]+'
 DEBUG           = True
@@ -48,8 +48,9 @@ def get_document_version(document):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-if __name__ == '__main__':
-    document = API_FILE
+# define the main function for version_update
+def version_update(**kwargs):
+    document = kwargs.get('target')
     document_version = get_document_version(document)
     assert document_version, 'Cannot read version from document: %s' % document
     git_version = get_git_version()
@@ -62,4 +63,8 @@ if __name__ == '__main__':
     else:
         print('the document version is the latest one: %s' % document_version)
 
+
+# ----------------------------------------------------------------------------------------------------------------------
+if __name__ == '__main__':
+    version_update(target=API_FILE)
     exit(0)
