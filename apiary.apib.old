@@ -1,0 +1,3656 @@
+FORMAT: 1A
+HOST: http://www.wantoto.com
+
+# DEV台大醫院行動醫療資訊系統 Web Service v1.2.3
+採用 RESTful 架構規劃。所有字串編碼皆為UTF-8。
+
+# Group 登入與取得或驗證 SessionKey
+## sessionKey [/sessionKey{?empNo,password}]
+### 取得 session key[GET]
++ Parameters
+    + empNo (string) ... 使用者帳號
+    + password (string) ... 使用者密碼
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "empName" : "葉小菜",    //員工姓名[string]
+                "sessionKey" : "51ADFDA9C02D4E1E9930D88A26963612" //Session key [string]
+            }
+        }
+
++ Response 401 (application/json)
+
+        {
+            "message" : "帳號密碼錯誤", //錯誤訊息[string]
+            "error" : 101 //錯誤代碼 [number]
+        }
+
+## sessionKey Validation [/doctor/{doctorId}/isAuthorized{?sessionKey}]
+### 驗證 sessionKey [GET]
++ Parameters
+    + doctorId (string) ... 使用者醫師帳號
+    + sessionKey (string) ... 需要驗證的 sesssionKey
+
++ Response 200 (application/json)
+
+
+        {
+            "content": {
+                "authorized": ture  // [boolean] 驗證結果
+            }
+        }
+
++ Response 400 (application/json)
+
+
+        {
+            "error": 102,                   // [number] error code
+            "message": "SessionKey 過期"    // [string] error description
+        }
+
+
+# Group Web Service 通則 {example}
+## 通則 [/{?sessionKey,offset,limit}]
+### 驗證 Session Key 與資料分頁參數[GET]
+所有 Web Service 都須帶入 Session Key 檢查是否過期與是否具有存取權限。
+
+過期則回傳 401；無存取權限則回傳 403。
+
+所有資料回傳時間，皆以時間序號表示，以秒為單位。
+(使用 1 January 1970, GMT為基準時間 http://zh.wikipedia.org/wiki/Help:%E6%99%82%E9%96%93%E5%BA%8F%E8%99%9F）
++ Parameters
+    + sessionKey (string) ... 使用者登入 Session Key
+    + offset = `0` (number, optional) ... 資料偏移數，需與 limit 一起傳入，當content為陣列或collection時使用
+    + limit (number, optional) ... 最大回傳筆數，需與 offset 一起傳入，當content為陣列或collection時使用
+
++ Response 200 (application/json)
+
+        {
+            "content" : [], // 回傳內容(可以是單一物件，也可以是陣列)
+            "limit" : 50,   // 最大回傳筆數，當client傳入時需回傳[number]
+            "offset" : 0,   // 回傳資料偏移數，當client傳入時需回傳[number]
+            "total" : 100   // 此次Query總筆數，當content為陣列或collection時需回傳[number]
+        }
+
++ Response 401 (application/json)
+
+        {
+            "message" : "Session Key 過期", //錯誤訊息 [string]
+            "error" :  102                  //錯誤代碼 [number]
+        }
+
++ Response 403 (application/json)
+
+        {
+            "message" : "無存取權限",   //錯誤訊息 [string]
+            "error" :  103              //錯誤代碼 [number]
+        }
+
+# Group 病患清單 Patient List
+病患清單相關 Web Service
+## 6/4 -病患清單 [/patients{?chartNo,personID,wardCode,empNo,empNoConsult,empNoStarred,ORCode,ERCode,OPDCode,examRoomCode}]
+### 查詢病患清單 [GET]
+可傳入病歷號、身分證號、病房、醫師員編、開刀房號、急診科別、門診科別、檢查科室等參數，回傳符合參數條件之病患
++ Parameters
+    + chartNo (string, optional) ... 病歷號
+    + personID (string, optional) ... 身分證號
+    + wardCode (string, optional, `5W3`) ... 病房號
+    + empNo (string, optional) ... 醫師員編 (依照醫師員編顯示個人病患)
+    + empNoConsult (string, optional) ... 醫師員編 (依照醫師員編顯示照會病患)
+    + empNoStarred (string, optional) ... 醫師員編 (依照醫師員編顯示追蹤病患)
+    + ORCode (string, optional) ... 開刀房號
+    + ERCode (string, optional) ... 急診科別
+    + OPDCode (string, optional) ... 門診科別
+    + examRoomCode (string, optional) ... 檢查科室
+
++ Response 200 (application/json)
+
+        {
+            "content" : [   //病患資訊陣列
+                {   //病患資訊
+                    "patName" : "王小明",           //病患姓名[string]
+                    "patSexCode" : "M",             //性別[string]（男性："M";女性："F"）
+                    "patBirthday" : 1406938026,     //出生日期[number(timestamp)]
+                    "chartNo" : "12345678",         //病歷號[string]
+                    "personID" : "A123456789",      //身分證號[string]
+                    "bedInfo" : "5W3 01-01",        //病房病床號(住院與急診)，非住院或急診中則不回傳Key[string]
+                    "inDate" : 1406938026,          //入院日期(住院或急診檢傷時間)，非住院或在急診則不回傳Key [number(timestamp)]
+                    "triageLevels" : "1",           //檢傷分級，非急診則不回傳 Key [string, optional]
+                    "_emp_VS" : {                   //主治醫師(如遇回傳資料為醫師者，變數皆為_emp_開頭)[string, optional]
+                        "empNo" : "111281",         //醫師員編[string]
+                        "name" : "葉小菜"
+                    },
+                    "_emp_RS" : {           //住院醫師(如遇回傳資料為醫師者，變數皆為_emp_開頭)[string, optional]
+                        "empNo" : "000123", //醫師員編[string]
+                        "name" : "蘇小宇"
+                    },
+                    "_emp_NP" : {           //護理師 [string, optional]
+                        "empNo" : "111111", //員編 [string]
+                        "name" : "謝小穎"
+                    },
+                    "status" : "住院中",    //狀態[string]
+                    "specialTag" : [        //特殊標記[string array] (ex:DNR,...)
+                        {
+                            "tagCode" : "DNR",      // [string]
+                            "displayName" : "DNR"   // [string]
+                        },
+                        ...
+                    ],
+                    "latestPacsReportDateTime" : 1406938026, //最新影像時間 [number(timestamp)]
+                    "latestLISReportDateTime" : 1406938026,  //最新報告時間 [number(timestamp)]
+                    "accountIDSE" : "14T05267794",           //帳號 [string, optional]
+                    "patClassCode" : "I",                    //門住急別 [string, optional]
+                    "visible": true                          //是否可以瀏覽 [boolean]
+                },
+                ...
+            ],
+            "limit" : 50,   //最大回傳筆數 [number]
+            "offset" : 0,   //回傳資料偏移數 [number]
+            "total" : 50    //此次Query總筆數 [number]
+        }
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+## 病房號 [/wards]
+### 查詢所有病房 [GET]
++ Response 200 (application/json)
+
+        {
+            "content" : [   //病房資訊陣列
+                {   //病房資訊
+                    "hospCode" : "T0",      //醫院代碼[string]
+                    "wardCode" : "01A1",    //病房代碼[string]
+                    "displayName" : "01A1"  //顯示名稱[string]
+                },
+                ...
+            ],
+            "limit" : 50, //最大回傳筆數[number]
+            "offset" : 0, //回傳資料偏移數[number]
+            "total" : 50  //此次Query總筆數[number]
+        }
+
+## 開刀房號 [/ORs]
+### 查詢開刀房 [GET]
++ Response 200 (application/json)
+
+         {
+            "content":[                      //手術房資訊陣列
+                {                           //手術房資訊
+                    "hospCode" : "T0",      //醫院代碼 [string]
+                    "ORCode" : "1",         //開刀房代碼 [string]
+                    "displayName" : "1"     //顯示名稱 [string]
+                },
+                ...
+            ],
+            "limit" : 50,   //最大回傳筆數[number]
+            "offset" : 0,   //回傳資料偏移數[number]
+            "total" : 50    //此次Query總筆數[number]
+        }
+
+## 急診科別 [/ERs]
+### 查詢急診科別 [GET]
++ Response 200 (application/json)
+
+         {
+            "content":[   //急診科別資訊陣列
+                {   //急診科別資訊
+                    "hospCode" : "T0",          //醫院代碼[string]
+                    "ERCode" : "ALL",           //急診科別代碼[string]
+                    "displayName" : "不分科"    //顯示名稱[string]
+                },
+                {   //急診科別資訊
+                    "hospCode" : "T0",          //醫院代碼[string]
+                    "ERCode" : "MED",           //急診科別代碼[string]
+                    "displayName" : "非外傷"    //顯示名稱[string]
+                },
+                ...
+            ],
+            "limit" : 50, //最大回傳筆數[number]
+            "offset" : 0, //回傳資料偏移數[number]
+            "total" : 50 //此次Query總筆數[number]
+        }
+
+## 門診科別 [/OPDs]
+### 查詢今日門診科別 [GET]
++ Response 200 (application/json)
+
+        {
+            "content" : [                       //門診科別資訊陣列
+                {                               //門診科別資訊
+                    "hospCode" : "T0",          //醫院代碼[string]
+                    "OPDCode" : "MED",          //門診科別代碼[string]
+                    "displayName" : "內科部",   //顯示名稱[string]
+                    "childPath" : "/OPDs/MED"   //下一層內容連結，無下層則不回傳[string]
+                },
+                ...
+            ],
+            "limit" : 50,   //最大回傳筆數[number]
+            "offset" : 0,   //回傳資料偏移數[number]
+            "total" : 50    //此次Query總筆數[number]
+        }
+
+## 門診科別層級 [/OPDs/{OPDCode}]
+### 查詢今日門診科別 [GET]
++ Parameters
+    + OPDCode (string) ... 門診代碼
+
++ Response 200 (application/json)
+
+        {
+            "content" : [   //門診科別資訊陣列
+                {
+                    "hospCode" : "T0",  //醫院代碼[string]
+                    "OPDCode" : "MED_A",   //門診科別代碼[string]
+                    "displayName" : "內科部 上午",    //顯示名稱[string]
+                    "childPath" : "/OPDs/MED_A"   //下一層內容連結，無下層則不回傳[string]
+                },
+                {
+                    "hospCode" : "T0",  //醫院代碼[string]
+                    "OPDCode" : "MED_P",   //門診科別代碼[string]
+                    "displayName" : "內科部 下午",    //顯示名稱[string]
+                    "childPath" : "/OPDs/MED_P"   //下一層內容連結，無下層則不回傳[string]
+                },
+                ...
+            ],
+            "limit" : 50, //最大回傳筆數[number]
+            "offset" : 0, //回傳資料偏移數[number]
+            "total" : 50 //此次Query總筆數[number]
+        }
+
+## 檢查科室 [/examRooms]
+### 查詢檢查科室 [GET]
++ Response 200 (application/json)
+
+        {
+            "content" : [   //檢查科別資訊陣列
+                {   //檢查科別資訊
+                    "hospCode" : "T0",  //醫院代碼[string]
+                    "examRoomCode" : "000CPFT0",   //檢查科室代碼[string]
+                    "displayName" : "[檢查照會] 肺功能室",    //顯示名稱[string]
+                    "childPath" : "/examRooms/000CPFT0"   //下一層內容連結，無下層則不回傳[string]
+                },
+                ...
+            ],
+            "limit" : 50, //最大回傳筆數[number]
+            "offset" : 0, //回傳資料偏移數[number]
+            "total" : 50 //此次Query總筆數[number]
+        }
+
+## 檢查科室層級 [/examRooms/{examRoomCode}]
+### 查詢檢查科室 [GET]
++ Parameters
+    + examRoomCode (string, `000CPFT0`) ... 檢查科室代碼
+
++ Response 200 (application/json)
+
+        {
+            "content" : [   //檢查科別資訊陣列
+                {
+                    "hospCode" : "T0",  //醫院代碼[string]
+                    "examRoomCode" : "000CPFT0_A",   //檢查科室代碼[string]
+                    "displayName" : "[檢查照會] 肺功能室 上午"    //顯示名稱[string]
+                },
+                {
+                    "hospCode" : "T0",  //醫院代碼[string]
+                    "examRoomCode" : "000CPFT0_P",   //檢查科室代碼[string]
+                    "displayName" : "[檢查照會] 肺功能室 上午"    //顯示名稱[string]
+                },
+                {
+                    "hospCode" : "T0",  //醫院代碼[string]
+                    "examRoomCode" : "000CPFT0_N",   //檢查科室代碼[string]
+                    "displayName" : "[檢查照會] 肺功能室 晚上"    //顯示名稱[string]
+                }
+            ],
+            "limit" : 3, //最大回傳筆數[number]
+            "offset" : 0, //回傳資料偏移數[number]
+            "total" : 3 //此次Query總筆數[number]
+        }
+
+# Group 病歷資料 Medical Record
+## 6/4 病患醫療基本資料 [/patients/{chartNo}{?startDate,endDate}]
+### 取得病患醫療基本資料 [GET]
++ Parameters
+    + chartNo (string) ... 病歷號
+    + startDate = `三日前` (string, optional, `20141108`) ... Query 起始日期，以yyyyMMdd表示 (包含此日期)
+    + endDate = `今日` (string, optional, `20141108`) ... Query 結束日期，以yyyyMMdd表示 (包含此日期)
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "basic" : [
+                    {
+                        "title" : "Active Problem List",                                        // [string, optional]
+                        "content" : [
+                            {
+                                "item" : "Gastrointestinal stromal tumor, gastrointestinal",    //診斷[string]
+                                "value" : "238.1"    //診斷代碼[string]
+                            },
+                            ...
+                        ]
+                    },
+                    {
+                        "title" : "過敏",                       // [string, optional]
+                        "content" : [
+                            {
+                                "item" : "Penicillin group",    //過敏[string]
+                                "value" : "R"                   //過敏類型[string]
+                            },
+                            ...
+                        ]
+                    },
+                    {
+                        "content" : [
+                            {
+                                "date" : 1406938026,    //報告時間[nubmer(timestamp), optional]
+                                "item" : "RBC",         //危及項目[string]
+                                "value" : "1.0"         //危急值[string]
+                            },
+                            ...
+                        ]
+                    },
+                    ...
+                ],
+                "history" :[    //兩年內就診診斷記錄
+                    {
+                        "item" : "Gastrointestinal stromal tumor, gastrointestinal",    //診斷[string]
+                        "value" : "238.1"    //診斷代碼[string]
+                    },
+                    ...
+                ],
+                "TPR" : [
+                    {   //每次TPR紀錄
+                        "date" : 1406938026,    //紀錄時間[nubmer(timestamp)]
+                        "breathing" : 20,       //呼吸[number,optional]
+                        "temperature" : 37.5,   //體溫[number,optional]
+                        "heartRate" : 59,       //心跳[number,optional]
+                        "bloodPressure" : { //血壓
+                            "systolic" : 116,   //收縮壓[number,optional]
+                            "diastolic" : 69    //舒張壓[number,optional]
+                        }
+                    },
+                    ...
+                ],
+                "labReport" : [
+                    {   //檢驗報告
+                        "reportDate" : 1406938026,          //最後報告時間[nubmer(timestamp)]
+                        "content" : [
+                            {   //依據欄位填入資料，無資料則不回傳 [optional]
+                                "item" : "RBC",
+                                "labValue" : {              //若為檢驗數值則回傳object
+                                    "value" :"2.66",        //檢驗值[string]
+                                    "status" : "normal"     //檢驗值狀態。ex:"normal"(正常)、"abnormal"(異常)、"low"(過低)、"high"(過高)、"unknow"(無法判斷)[string]
+                                }
+                            },
+                            ...
+                        ]
+                    },
+                    ...
+                ],
+                "otherReport" : [
+                    {
+                        "date" : 1406938026,                            //報告時間[nubmer(timestamp)]
+                        "item" : "Chest PA View (Standing)",            //報告項目[string]
+                        "type" : "影核醫",                              //報告種類[string]
+                        "report" : {    //如有報告則回傳 [optional]
+                            "reportType" : "HTML",                      //報告型態，HTML或PDF
+                            "reportPath" : "/report/{reportID}",        //報告路徑
+                            "encoding" : "utf-16",                      //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                            "baseURL" : "http://baseUrl.ntuh.gov.tw"    //報告基礎連結(報告中如有相對連結時回傳)[string, optional]
+                        }
+                    },
+                    ...
+                ],
+                "progressNote" : [
+                    {
+                        "date" : 1406938026,                            //時間[nubmer(timestamp)]
+                        "item" : "Admission Note",                      //項目[string]
+                        "report" : {    //如有報告則回傳 [optional]
+                            "reportType" : "HTML",                      //報告型態，HTML或PDF
+                            "reportPath" : "/report/{reportID}",        //報告路徑
+                            "encoding" : "utf-16",                      //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                            "baseURL" : "http://baseUrl.ntuh.gov.tw"    //報告基礎連結(報告中如有相對連結時回傳)[string, optional]
+                        }
+                    },
+                    ...
+                ],
+                "OPNote" : [
+                    {
+                        "date" : 1406938026,                            //時間[nubmer(timestamp)]
+                        "item" : "Subxiphoid drainage with sternal",    //項目[string]
+                        "report" : {    //如有報告則回傳 [optional]
+                            "reportType" : "HTML",                      //報告型態，HTML或PDF
+                            "reportPath" : "/report/{reportID}",        //報告路徑
+                            "encoding" : "utf-16",                      //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                            "baseURL" : "http://baseUrl.ntuh.gov.tw"    //報告基礎連結(報告中如有相對連結時回傳)[string, optional]
+                        }
+                    },
+                    ...
+                ],
+                "order" : [    //抓本日 active 就好
+                    {
+                        "startDate" : 1406938026,                       // [number(timestamp)]
+                        "endDate" : 1406938026,                         // [number(timestamp)]
+                        "type" : "執行中",                              //醫囑進度
+                        "item" : "Chest PA View (Standing)",            //醫令內容[string]
+                        "bgColor" : "FFFFFF",                           //如需調整背景顏色則回傳16進位色碼[string,optional]
+                        "report" : {    //如有報告則回傳 [optional]
+                            "reportType" : "HTML",                      //報告型態，HTML或PDF
+                            "reportPath" : "/report/{reportID}",        //報告路徑
+                            "encoding" : "utf-16",                      //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                            "baseURL" : "http://baseUrl.ntuh.gov.tw"    //報告基礎連結(報告中如有相對連結時回傳)[string, optional]
+                        }
+                    },
+                    ...
+                ],
+                "medication" : [    //抓本日 active 就好
+                    {
+                        "startDate" : 1406938026,       // [number(timestamp)]
+                        "endDate" : 1406938026,         // [number(timestamp)]
+                        "item" : "Magnesium Oxide"      //組合名[string]
+                    },
+                    ...
+                ],
+                "consult" : [    //會診資訊
+                    {
+                        "date" : 1406938026,                    //會診時間 [number(timestamp)]
+                        "item" : "xxx 會診資訊",                //會診資訊 [string]
+                        "type" : "葉XX醫師",                    //會診醫師 [string]
+                        "report" : {    //會診單
+                            "reportType" : "HTML",                      //報告型態，HTML或PDF
+                            "reportPath" : "/report/{reportID}",        //報告路徑
+                            "encoding" : "utf-16",                      //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                            "baseURL" : "http://baseUrl.ntuh.gov.tw"    //報告基礎連結(報告中如有相對連結時回傳)[string, optional]
+                        }
+                    }
+                ]
+            },
+            "startDate" : 1406938026, // [number(timestamp)] Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026    // [number(timestamp)] Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+## 6/4 -病歷資料 Web Service 通則 {example} [/patients/{chartNo}/{dataPath}{?startDate,endDate}]
+### 取得病歷資料 [GET]
++ Parameters
+    + chartNo (string) ... 病歷號
+    + dataPath (string) ... 各項病歷資料路徑
+    + startDate = `入院日` (string, optional, `1406938026`) ... Query 起始日期，以時間序號表示 (包含此日期)
+    + endDate = `今日` (string, optional, `1406938026`) ... Query 結束日期，以時間序號表示 (包含此日期)
++ Response 200 (application/json)
+
+        {
+            "content" : [], //回傳內容(可以是單一物件，也可以是陣列)
+            "startDate" : 1406938026, // [number(timestamp)] Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026, // [number(timestamp)] Query 結束日期，以時間序號表示 (包含此日期)
+            "limit" : 50, //最大回傳筆數，當client傳入與content為陣列或collection時需回傳[number]
+            "offset" : 0, //回傳資料偏移數，當client傳入與content為陣列或collection時需回傳[number]
+            "total" : 100 //此次Query總筆數，當content為陣列或collection時需回傳[number]
+        }
+
+## 6/4 -檢驗報告-清單報告 [/patients/{chartNo}/labReport/report]
+### 取得病歷資料 [GET]
+
++ Response 200 (application/json)
+
+
+        {
+            "content" : {
+                "data" : [
+                    {   //檢驗報告
+                        "specimen" : "BLOOD", //檢體[string]
+                        "lab" : "血液檢驗組血液室HE",    //檢驗單位[string]
+                        "requestNo" : "4025928",    //檢驗單號[string]
+                        "inspectionDate" : 1406938026,   //採檢時間[number(timestamp)]
+                        "recordDate" : 1406938026,    //登入時間[number(timestamp)]
+                        "reportDate" : 1406938026,   //最後報告時間[number(timestamp)]
+                        "filterCode" : [    //篩選代碼
+                            "HE"
+                        ],
+                        "report" : {    //有額外報告時回傳 [optional]
+                            "reportType" : "HTML",                      //報告型態，HTML或PDF
+                            "reportPath" : "/labReport/{labReportID}",  //報告路徑
+                            "encoding" : "utf-16",                      //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                            "baseURL" : "http://baseUrl.ntuh.gov.tw"    //報告基礎連結(報告中如有相對連結時回傳)[string, optional]
+                        },
+                        "table" : {
+                            "field" : [    //欄位資訊
+                                {
+                                    "fieldCode" : "item",       //欄位代碼[string]
+                                    "displayName" : "檢驗項目"  //欄位顯示名稱[string]
+                                },
+                                {
+                                    "fieldCode" : "labValue",
+                                    "displayName" : "檢驗值"
+                                },
+                                {
+                                    "fieldCode" : "unit",
+                                    "displayName" : "單位"
+                                },
+                                {
+                                    "fieldCode" : "reference",
+                                    "displayName" : "參考值"
+                                },
+                                {
+                                    "fieldCode" : "critical",
+                                    "displayName" : "危急值"
+                                },
+                                {
+                                    "fieldCode" : "note",
+                                    "displayName" : "說明"
+                                },
+                                {
+                                    "fieldCode" : "specialOrder",
+                                    "displayName" : "特別醫囑"
+                                }
+                            ],
+                            "data" : [
+                                {
+                                    "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                                        "item" : "RBC",
+                                        "labValue" : {              //若為檢驗數值則回傳object
+                                            "value" :"2.66",        //檢驗值[string]
+                                            "status" : "normal"     //檢驗值狀態。ex:"normal"(正常)、"abnormal"(異常)、"low"(過低)、"high"(過高)、"unknow"(無法判斷)[string]
+                                        },
+                                        "unit" : "M/ul",
+                                        "reference" : "4 ~ 5.52",
+                                        "critical" : "< 2.0 & > 7.0",
+                                        "note" : "",                // [optional]
+                                        "specialOrder" : ""
+                                    }
+                                },
+                                ...
+                            ]
+                        }
+                    },
+                    ...
+                ],
+                "filter" : [
+                    {
+                        "filterCode" : "HE",
+                        "displayName" : "血液檢驗組血液室HE"
+                    },
+                    {
+                        "filterCode" : "BC",
+                        "displayName" : "生化檢驗組BC"
+                    },
+                    ...
+                ],
+                "limit" : 50,                   //最大回傳筆數，當client傳入與content為陣列或collection時需回傳[number]
+                "offset" : 0,                   //回傳資料偏移數，當client傳入與content為陣列或collection時需回傳傳[number]
+                "total" : 100                   //此次Query總筆數，當content為陣列或collection時需回傳[number]
+            },
+            "startDate" : 1406938026,           // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026              // Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+
+## 6/4 -檢驗報告-累積報告 [/patients/{chartNo}/labReport/accmulatedReport]
+### 取得病歷資料 [GET]
+
++ Response 200 (application/json)
+
+
+        {
+            "content" : {
+                "data" : [
+                    {
+                        "item" : "CBC+PLT BLOOD",           //檢驗項目[string]
+                        "lab" : "血液檢驗組血液室HE",       //檢驗單位[string]
+                        "filterCode" : [                    //篩選代碼
+                            "HE"
+                        ],
+                        "table" : {
+                            "field" : [    //欄位資訊
+                                {
+                                    "fieldCode" : "inspectionDate",         //欄位代碼[string]
+                                    "displayName" : "採檢時間",             //欄位顯示名稱[string]
+                                    "dateFormat" : "yyyy-MM-dd HH:mm"       //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳 [string, optional]
+                                },
+                                {
+                                    "fieldCode" : "WBC",
+                                    "displayName" : "WBC(k/uL)",
+                                    "labInfo" : {                           //檢驗項目相關資訊 [optional]
+                                        "reference" : "3.54 ~ 9.06"         //參考值[string]
+                                    }
+
+                                },
+                                ...
+                            ],
+                            "data" : [
+                                {
+                                    "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                                        "inspectionDate" : 1406938026,          //採檢時間[number(timestamp)]
+                                        "date" : 1406938026,                    //報告時間(不顯示，但須保留作為篩選用)[number(timestamp)]
+                                        "WBC" : {   //若為檢驗數值則回傳object [optional]
+                                            "value" :"4.05",                    //檢驗值[string]
+                                            "status" : "normal",                //檢驗值狀態。ex:"normal"(正常)、"abnormal"(異常)、"low"(過低)、"high"(過高)、"unknow"(無法判斷)[string]
+                                            "note" : "123",                     //檢醫部註記，無資料則不回傳[string, optional]
+                                            "reportDate" : 1406938026           //報告時間[number(timestamp)]
+                                        }
+                                    }
+                                },
+                                ...
+                            ]
+                        }
+                    },
+                    ...
+                ],
+                "filter" : [
+                    {
+                        "filterCode" : "HE",
+                        "displayName" : "血液檢驗組血液室HE"
+                    },
+                    {
+                        "filterCode" : "BC",
+                        "displayName" : "生化檢驗組BC"
+                    },
+                    ...
+                ]
+            },
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+## 6/4 -檢驗報告-綠單報告 [/patients/{chartNo}/labReport/greenReport]
+### 取得病歷資料 [GET]
+
++ Response 200 (application/json)
+
+
+        {
+            "content" : {
+                "data" : [
+                    {
+                        "item" : "Complete Blood Cell Count BLOOD", //綠單項目[string]
+                        "filterCode" : [    //篩選代碼
+                            "CBC"
+                        ],
+                        "table" : {
+                            "field" : [    //欄位資訊
+                                {
+                                    "fieldCode" : "inspectionDate",     //欄位代碼[string]
+                                    "displayName" : "採檢時間",         //欄位顯示名稱[string]
+                                    "dateFormat" : "yyyy-MM-dd HH:mm"   //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                                },
+                                {
+                                    "fieldCode" : "WBC",
+                                    "displayName" : "WBC(k/uL)",
+                                    "labInfo" : {   //檢驗項目相關資訊  // [optional]
+                                        "reference" : "3.54 ~ 9.06"     //參考值[string]
+                                    }
+
+                                },
+                                ...
+                            ],
+                            "data" : [
+                                {
+                                    "content" : {   //依據欄位填入資料，無資料則不回傳
+                                        "inspectionDate" : 1406938026,   //採檢時間[number(timestamp)]
+                                        "date" : 1406938026,    //報告時間(不顯示，但須保留作為篩選用)[number(timestamp)]
+                                        "WBC" : {   //若為檢驗數值則回傳[optional]
+                                            "value" :"4.05",    //檢驗值[string]
+                                            "status" : "normal",    //檢驗值狀態。ex:"normal"(正常)、"abnormal"(異常)、"low"(過低)、"high"(過高)、"unknow"(無法判斷)[string]
+                                            "note" : "123", //檢醫部註記，無資料則不回傳[string, optional]
+                                            "reportDate" : 1406938026  //報告時間[number(timestamp)]
+                                        }
+                                    }
+                                },
+                                ...
+                            ]
+                        }
+                    },
+                    ...
+                ],
+                "filter" : [
+                    {
+                        "filterCode" : "CBC",
+                        "displayName" : "CBC"
+                    },
+                    {
+                        "filterCode" : "biochemistry",
+                        "displayName" : "Biochemistry"
+                    },
+                    ...
+                ]
+            },
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+## 6/4 -報告系統 [/patients/{chartNo}/otherReport]
+檢驗報告之外的其他報告
+### 取得病歷資料 [GET]
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "field" : [    //欄位資訊
+                    {
+                        "fieldCode" : "item",
+                        "displayName" : "檢查項目"
+                    },
+                    {
+                        "fieldCode" : "examDate",  //欄位代碼[string]
+                        "displayName" : "檢查時間", //欄位顯示名稱[string]
+                        "dateFormat" : "yyyy-MM-dd HH:mm"   //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                    },
+                    {
+                        "fieldCode" : "date",  //欄位代碼[string]
+                        "displayName" : "報告時間", //欄位顯示名稱[string]
+                        "dateFormat" : "yyyy-MM-dd HH:mm"   //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                    },
+                    {
+                        "fieldCode" : "type",
+                        "displayName" : "報告種類"
+                    }
+                ],
+                "data" : [
+                    {
+                        "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                            "examDate" : 1406938026,
+                            "date" : 1406938026,
+                            "item" : "Chest PA View (Standing)",
+                            "type" : "影核醫"
+                        },
+                        "filterCode" : [    //篩選類別
+                            "image"
+                        ],
+                        "report" : {    //如有報告則回傳 [optional]
+                            "reportType" : "HTML",                              //報告型態，HTML或PDF
+                            "reportPath" : "/imageReport/{imageReportID}",      //報告路徑
+                            "encoding" : "utf-16",                              //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                            "baseURL" : "http://baseUrl.ntuh.gov.tw"            //報告基礎連結(報告中如有相對連結時回傳)[string, optional]
+                        }
+                    },
+                    ...
+                ],
+                "filter" : [
+                    {
+                        "filterCode" : "image",
+                        "displayName" : "影核醫"
+                    },
+                    {
+                        "filterCode" : "ECG",
+                        "displayName" : "心電圖"
+                    },
+                    ...
+                ],
+                "limit" : 50, //最大回傳筆數傳[number]
+                "offset" : 0, //回傳資料偏移數[number]
+                "total" : 100 //此次Query總筆數[number]
+            },
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+
+## 6/4 -影像報告 [/patients/{chartNo}/ImageReport]
+### 取得病歷資料 [GET]
+
++ Response 200 (application/json)
+
+        {
+            "content" : [
+                {
+                    "AccessionNumber" : "T0146067566",  //影像報告序號[string]
+                    "report" : {    //如有報告則回傳 [optional]
+                        "reportType" : "HTML",                              //報告型態，HTML或PDF
+                        "reportPath" : "/imageReport/{imageReportID}",      //報告路徑
+                        "encoding" : "utf-16",                              //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                        "baseURL" : "http://baseUrl.ntuh.gov.tw"            //報告基礎連結(報告中如有相對連結時回傳)[string, optional]
+                    }
+                },
+                ...
+            ],
+            "limit" : 50,               //最大回傳筆數傳[number]
+            "offset" : 0,               //回傳資料偏移數[number]
+            "total" : 100,              //此次Query總筆數[number]
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+
+## 6/4 -生命徵象 [/patients/{chartNo}/TPR]
+### 取得病歷資料 [GET]
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "TPR" : [   //TPR 圖表資料
+                    {   //每次TPR紀錄
+                        "date" : 1406938026,        //紀錄時間[nubmer(timestamp)]
+                        "breathing" : 20,           //呼吸[number,optional]
+                        "temperature" : 37.5,       //體溫[number,optional]
+                        "heartRate" : 59,           //心跳[number,optional]
+                        "bloodPressure" : { //血壓
+                            "systolic" : 116,       //收縮壓[number,optional]
+                            "diastolic" : 69        //舒張壓[number,optional]
+                        }
+                    },
+                    ...
+                ],
+                "IO" : [    //IO資料
+                    {   //欄位資料
+                        "fieldName" : "血壓",           //欄位名稱[string]
+                        "data" : [
+                            {
+                                "date" : 1406938026,    //資料時間[number(timestamp)]
+                                "data" : "125/75"       //資料內容[string]
+                            },
+                            ...
+                        ]
+                    },
+                    {   //欄位資料
+                        "fieldName" : "身高",   //欄位名稱[string]
+                        "unit" : "cm",          //單位，有單位時回傳[string,optional]
+                        "range" : { //繪圖範圍，可以圖形表示時回傳 [optional]
+                            "max" : "210",
+                            "min" : "100"
+                        },
+                        "data" : [
+                            {
+                                "date" : 1406938026,    //資料時間[number(timestamp)]
+                                "data" : "173"          //資料內容[string]
+                            },
+                            {
+                                "date" : 1406948026,    //資料時間[number(timestamp)]
+                                "data" : "173.5"        //資料內容[string]
+                            },
+                            ...
+                        ]
+                    },
+                    {   //欄位資料
+                        "fieldName" : "血糖",   //欄位名稱[string]
+                        "unit" : "ug/ml",       //單位，有單位時回傳[string,optional]
+                        "range" : { //繪圖範圍，可以圖形表示時回傳 [optional]
+                            "max" : "210",
+                            "min" : "100"
+                        },
+                        "data" : [
+                            {
+                                "date" : 1406938026,    //資料時間[number(timestamp)]
+                                "data" : "100",         //資料內容[string]
+                                "note" : "STAT"         //測量狀態[string, optional]
+                            },
+                            ...
+                        ]
+                    },
+                    ...
+                ],
+            "medication" : {
+                "content" : [
+                    {
+                        "drugName" : "Magnesium Oxide",                 //學名[string]
+                        "itemName" : "MgO",                             //品名[string]
+                        "combineName" : "Magnesium Oxide 250 mg/tab",   //組合名[string]
+                        "itemUnit" : "250 mg/tab", //劑量單位[string]
+                        "filterCode" : [ //篩選代碼[string]
+                            "antibiotic"
+                        ],
+                        "medicationID" : "MET4FB18", //藥品八碼[string]
+                        "dose" : "2 tab", //劑量[string]
+                        "approach" : "PO", //途徑[string]
+                        "frequency" : "BID", //頻次[string]
+                        "orderDate" : 1406938026, //開立日期[number(timestamp)]
+                        "startDate" : 1406938026, //用藥開始日期[number(timestamp)]
+                        "endDate" : 1406938026, //用藥結束日期[number(timestamp)]
+                        "_emp_order" : { //開立醫師
+                            "empNo" : "23454353",
+                            "name" : "葉小菜"
+                        },
+                        "note" : "自費 特殊醫囑: For scrotal ulcers", //備註[string, optional]
+                        "category" : "prolonged", //處方類別。ex:"prolonged"(長期)、"stat"(臨時)、"cancel"(取消)、"own"(自備藥)[string]
+                        "drugInfoPath" : "/medication/{medicationID}",  //藥物資訊連結[string]
+                        "drugRecord" : [    //Query期間所有給藥記錄
+                            {
+                                "date" : 1406938026, //日期[number(timestamp)]
+                                "status" : "taken", //用藥狀態。ex:"taken"(已給藥)、"pending"(未處理)、"failure"(未給藥)[string]
+                                "note" : "", //護理給藥備註[string, optional]
+                                "executor" : "張小珍 護理師" //執行人員[string]
+                            },
+                        ...
+                        ]
+                    },
+                 ...
+                ],
+                "filter" : [
+                    {
+                        "filterCode" : "antibiotic",
+                        "displayName" : "抗生素"
+                    },
+                    {
+                        "filterCode" : "Corticosteroids",
+                        "displayName" : "類固醇"
+
+                    },
+                ...
+                ]}
+            },
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026      //Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+## 6/4 -非處方醫囑 [/patients/{chartNo}/order]
+### 取得病歷資料 [GET]
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "field" : [    //欄位資訊
+                    {
+                        "fieldCode" : "startDate",      // 欄位代碼[string]
+                        "displayName" : "開始時間",     // 欄位顯示名稱[string]
+                        "dateFormat" : "yyyy-MM-dd"     // 若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                    },
+                    {
+                        "fieldCode" : "endDate",        // 欄位代碼[string]
+                        "displayName" : "結束時間",     // 欄位顯示名稱[string]
+                        "dateFormat" : "yyyy-MM-dd"     // 若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                    },
+                    {
+                        "fieldCode" : "order",
+                        "displayName" : "醫令內容",
+                        "textAlignment" : "left"        // 欄位內容對齊方式  ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]
+                    },
+                    {
+                        "fieldCode" : "status",
+                        "displayName" : "狀態"
+                    }
+                ],
+                "data" : [
+                    {
+                        "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                            "order" : "Chest PA View (Standing)",
+                            "startDate" : 1406938026,
+                            "endDate" : 1406938026,
+                            "_emp_doctor" : {
+                                "empNo" : "23454353",
+                                "name" : "葉小菜"
+                            },
+                            "status" : "已完成",
+                            "orderDate" : 1406938026
+                        },
+                        "filterCode" : [    //篩選類別
+                            "image"
+                        ],
+                        "report" : {    //如有報告則回傳 [optional]
+                            "reportType" : "HTML",                              // 報告型態，HTML或PDF
+                            "reportPath" : "/ImageReport/{ImageReportID}",      // 報告路徑
+                            "encoding" : "utf-16",                              // 編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                            "baseURL" : "http://baseUrl.ntuh.gov.tw"            // 報告基礎連結(報告中如有相對連結時回傳)[string, optional]
+                        },
+                        "bgColor" : "FFFFFF" //如需調整此列背景顏色則回傳16進位色碼[string,optional]
+                    },
+                    ...
+                ],
+                "filter" : [
+                    {
+                        "filterCode" : "order",
+                        "displayName" : "醫囑"
+                    },
+                    {
+                        "filterCode" : "medication",
+                        "displayName" : "處方"
+                    },
+                    {
+                        "filterCode" : "lab",
+                        "displayName" : "檢驗"
+                    },
+                    {
+                        "filterCode" : "image",
+                        "displayName" : "影醫"
+                    },
+                    ...
+                ],
+                "limit" : 50, //最大回傳筆數傳[number]
+                "offset" : 0, //回傳資料偏移數[number]
+                "total" : 100 //此次Query總筆數[number]
+            },
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+
+## 6/4 -處方醫囑 [/patients/{chartNo}/medication]
+### 取得病歷資料 [GET]
+
++ Response 200 (application/json)
+
+        {
+            "content" : [
+                {
+                    "drugName" : "Magnesium Oxide",                 //學名[string]
+                    "itemName" : "MgO",                             //品名[string]
+                    "combineName" : "Magnesium Oxide 250 mg/tab",   //組合名[string]
+                    "itemUnit" : "250 mg/tab",                      //劑量單位[string]
+                    "filterCode" : [ //篩選代碼
+                        "antibiotic"
+                    ],
+                    "medicationID" : "MET4FB18",                    //藥品八碼[string]
+                    "dose" : "2 tab",                               //劑量[string]
+                    "approach" : "PO",                              //途徑[string]
+                    "frequency" : "BID",                            //頻次[string]
+                    "orderDate" : 1406938026,                       //開立日期[number(timestamp)]
+                    "startDate" : 1406938026,                       //用藥開始日期[number(timestamp)]
+                    "endDate" : 1406938026,                         //用藥結束日期[number(timestamp)]
+                    "_emp_order" : { //開立醫師
+                        "empNo" : "23454353",
+                        "name" : "葉小菜"
+                    },
+                    "note" : "自費 特殊醫囑: For scrotal ulcers",   //備註[string, optional]
+                    "category" : "prolonged",                       //處方類別。ex:"prolonged"(長期)、"stat"(臨時)、"cancel"(取消)、"own"(自備藥)[string]
+                    "drugInfoPath" : "/medication/{medicationID}",  //藥物資訊連結[string]
+                    "drugRecord" : [    //Query期間所有給藥記錄
+                        {
+                            "date" : 1406938026,                    //日期[number(timestamp)]
+                            "status" : "taken",                     //用藥狀態。ex:"taken"(已給藥)、"pending"(未處理)、"failure"(未給藥)[string]
+                            "note" : "",                            //護理給藥備註[string, optional]
+                            "executor" : "張小珍 護理師"            //執行人員[string]
+                        },
+                        ...
+                    ]
+                },
+                ...
+            ],
+            "filter" : [
+                {
+                    "filterCode" : "antibiotic",
+                    "displayName" : "抗生素"
+                },
+                {
+                    "filterCode" : "acesodyne",
+                    "displayName" : "止痛藥"
+
+                },
+                ...
+            ],
+            "startDate" : 1406938026,           // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026,             // Query 結束日期，以時間序號表示 (包含此日期)
+            "limit" : 50,                       //最大回傳筆數，當client傳入時需回傳[number]
+            "offset" : 0,                       //回傳資料偏移數，當client傳入時需回傳[number]
+            "total" : 100                       //此次Query總筆數，當content為陣列或collection時需回傳[number]
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+
+## 9/15-藥物資訊 [/medication/{medicationID}]
+### 取得藥物資訊 [GET]
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "drugName" : "Mecobalamin",                         //學名[string]
+                "itemName" : "Methycobal Capsule 500 mcg / cap",    //品名[string]
+                "chineseName" : "彌可保膠囊",                       //中文名[string]
+                "aliases" : "",                                     //別名[string]
+                "formulations" : "硬膠囊",                          //劑型[string]
+                "medicationID" : "MET4FB18",                        //藥品八碼[string]
+                "pharmaClassification" : "VIII. Hematological Agents\r1. Agents Used to Treat Deficiency Anemia",   //藥理分類，如需換行換行符號為"\r"[string]
+                "usualDose" : "Peripheral neuropathies:\rPO, 500 mcg tid.",                                         //常用劑量[string]
+                "indications" : "末梢性神經障礙",                   //適應症[string]
+                "maxDose" : "BID",                                  // 最大劑量[string]
+                "PregnantClassification" : "",                      //懷孕分級[string]
+                "Contraindications" : "",                           //禁忌[string]
+                "role" : "補充維他命Ｂ１２",                        //作用[string]
+                "drugSafetyAlert" : "",                             //藥物安全警訊[string]
+                "sideEffects" : "可能引起胃部不適, 過敏反應等",     //副作用[string]
+                "precautions" : "",                                 //注意事項[string]
+                "storage" : "< 30 C & protect from light.",         //儲存方法[string]
+                "DrugDealers" : "衛采製藥股份有限公司",             //藥商[string]
+                "appearanceImages" : [ //藥品外觀圖片連結
+                    "https://dept.ntuh.gov.tw/phar/DrugImage/New/s/MET4FB18-A.JPG",
+                    "https://dept.ntuh.gov.tw/phar/DrugImage/New/s/MET4FB18-B.JPG"
+                ]
+            }
+        }
+
+
+## 6/4 -手術紀錄 [/patients/{chartNo}/OPNote]
+### 取得病歷資料 [GET]
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "field" : [    //欄位資訊
+                    {
+                        "fieldCode" : "OPType",
+                        "displayName" : "術式"
+                    },
+                    {
+                        "fieldCode" : "dept",
+                        "displayName" : "科部"
+                    },
+                    {
+                        "fieldCode" : "date",               //欄位代碼[string]
+                        "displayName" : "手術開始時間",     //欄位顯示名稱[string]
+                        "dateFormat" : "yyyy-MM-dd HH:mm"   //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                    },
+                    {
+                        "fieldCode" : "_emp_doctor",
+                        "displayName" : "醫師"
+                    },
+                    {
+                        "fieldCode" : "status",
+                        "displayName" : "狀態"
+                    }
+                ],
+                "data" : [
+                    {
+                        "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                            "OPType" : "1. Subxiphoid drainage with sternal... ",
+                            "dept" : "外科部",
+                            "date" : 1406938026,
+                            "_emp_doctor" : {
+                                "empNo" : "123342",
+                                "name" : "葉小菜"
+                            },
+                            "status" : "V"
+                        },
+                        "report" : {    //如有報告則回傳 [optional]
+                            "reportType" : "HTML",                      //報告型態，HTML或PDF
+                            "reportPath" : "/OPNote/{OPNoteID}",        //報告路徑
+                            "encoding" : "utf-16",                      //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                            "baseURL" : "http://baseUrl.ntuh.gov.tw"    //報告基礎連結(報告中如有相對連結時回傳)[string, optional]
+                        }
+                    },
+                    ...
+                ],
+                "limit" : 50, //最大回傳筆數傳[number]
+                "offset" : 0, //回傳資料偏移數[number]
+                "total" : 100 //此次Query總筆數[number]
+            },
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+
+## 6/4 -病程紀錄 [/patients/{chartNo}/progressNote]
+### 取得病歷資料 [GET]
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "field" : [ //欄位資訊
+                    {
+                        "fieldCode" : "type",       // [string]
+                        "displayName" : "類別"      // [string]
+                    },
+                    {
+                        "fieldCode" : "status",     // [string]
+                        "displayName" : "狀態"      // [string]
+                    }
+                ],
+                "data" : [
+                    {
+                        "content" : { //依據欄位填入資料，無資料則不回傳 [optional]
+                            "date" : 1406938026,            //預載用需保留 [number(timestamp)]
+                            "status" : "V",                 // [string]
+                            "type" : "11-01 Admission Note" // [string]
+                        },
+                        "filterCode" : [    //篩選類別
+                            "ADM"
+                        ],
+                        "report" : { //如有報告則回傳 [optional]
+                            "reportType" : "HTML",                                  //報告型態，HTML或PDF [string]
+                            "reportPath" : "/progressNote/{progressNoteID}",        //報告路徑 [string]
+                            "encoding" : "utf-16",                                  //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                            "baseURL" : "http://baseUrl.ntuh.gov.tw",               //報告基礎連結(報告中如有相對連結時回傳 [string(url), optional]
+                            "confirmInfo" : {   //如果此病歷可以確認，則有此資料 [optional]
+                                "postURL" : "url/to/post",  // 確認時要post的URL [string(url)]
+                                "postContent" : [
+                                    {
+                                        "title" : "備註",   // [string]
+                                        "key" : "note",     // [string]
+                                        "required" : true,  // [boolean]
+                                        "elements": [
+                                            {
+                                                "type" : "textField",
+                                                "options" : [
+                                                    {
+                                                        "displayName" : "Syncope",
+                                                        "optionCode" : "Syncope"
+                                                    },
+                                                    {
+                                                        "displayName" : "Evaluation of pacemaker fuction",
+                                                        "optionCode" : "Evaluation of pacemaker fuction"
+                                                    },
+                                                    {
+                                                        "displayName" : "Other",
+                                                        "optionCode" : "Other"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    ...
+                ],
+                "filter" : [
+                    {
+                        "filterCode" : "ADM",               // [string]
+                        "displayName" : "Admission Note"    // [string]
+                    },
+                    {
+                        "filterCode" : "PRO",               // [string]
+                        "displayName" : "Progress Note"     // [string]
+                    },
+                    ...
+                ],
+                "limit" : 50, //最大回傳筆數傳  [number]
+                "offset" : 0, //回傳資料偏移數  [number]
+                "total" : 100 //此次Query總筆數 [number]
+            },
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期) [number(timestamp)]
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期) [number(timestamp)]
+        }
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+
+## 6/4 -電子病歷 [/patients/{chartNo}/EMR]
+### 取得病歷資料 [GET]
+
++ Response 200 (application/json)
+
+
+        {
+            "content" : {
+                "field" : [    //欄位資訊
+                    {
+                        "fieldCode" : "item",
+                        "displayName" : "項目"
+                    }
+                ],
+                "data" : [
+                    {
+                        "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                            "item" : "置頂"                                         // [string]
+                        },
+                        "children" : [                                              //有次階層時回傳 [optional]
+                            {
+                                "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                                    "item" : "病歷首頁及摘要"                       // [string]
+                                },
+                                "report" : {    //如有報告則回傳 [optional]
+                                    "reportType" : "HTML",                          //報告型態，HTML或PDF [string]
+                                    "reportPath" : "/EMRReport/{EMRReportID}",      //報告路徑 [string]
+                                    "encoding" : "utf-16",                          //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                                    "baseURL" : "http://baseUrl.ntuh.gov.tw"        //報告基礎連結(報告中如有相對連結時回傳) [string(url), optional]
+                                },
+                                "children" : [ // [optional, duplicate]
+                                    {
+                                        "content" : { //依據欄位填入資料，無資料則不回傳 [optional]
+                                            "item" : "PDF病歷首頁及摘要"            // [string]
+                                        },
+                                        "report" : { //如有報告則回傳 [optional]
+                                            "reportType" : "PDF",                       //報告型態，HTML或PDF [string]
+                                            "reportPath" : "/EMRReport/{EMRReportID}",  //報告路徑 [string]
+                                            "encoding" : "utf-16",                      //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                                            "baseURL" : "http://baseUrl.ntuh.gov.tw"    //報告基礎連結(報告中如有相對連結時回傳) [string(url), optional]
+                                        }
+                                    },
+                                    ...
+                                ]
+                            },
+                            ...
+                        ]
+                    },
+                    {
+                        "content" : {  //依據欄位填入資料，無資料則不回傳 [optional]
+                            "item" : "住院"    // [string]
+                        },
+                        "children" : [  // [optional, duplicate]
+                            {
+                                "content" : {                       //依據欄位填入資料，無資料則不回傳 [optional]
+                                    "item" : "2014/06/25 外科部"    // [string]
+                                },
+                                "children" : [  // [optional, duplicate]
+                                    {
+                                        "content" : {               //依據欄位填入資料，無資料則不回傳 [optional]
+                                            "item" : "出院病摘"     // [string]
+                                        },
+                                        "report" : {    //如有報告則回傳 [optional]
+                                            "reportType" : "HTML",                      //報告型態，HTML或PDF
+                                            "reportPath" : "/EMRReport/{EMRReportID}",  //報告路徑 [string]
+                                            "encoding" : "utf-16",                      //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                                            "baseURL" : "http://baseUrl.ntuh.gov.tw"    //報告基礎連結(報告中如有相對連結時回傳)[string(url), optional]
+                                        },
+                                        "children" : [ // [optional, duplicate]
+                                            {
+                                                "content" : {                                   //依據欄位填入資料，無資料則不回傳 [optional]
+                                                    "item" : "2014/06/25 葉小菜主治"            // [string]
+                                                },
+                                                "report" : { //如有報告則回傳 [optional]
+                                                    "reportType" : "PDF",                       //報告型態，HTML或PDF [string]
+                                                    "reportPath" : "/EMRReport/{EMRReportID}",  //報告路徑 [string]
+                                                    "encoding" : "utf-16",                      //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                                                    "baseURL" : "http://baseUrl.ntuh.gov.tw"    //報告基礎連結(報告中如有相對連結時回傳)[string(url), optional]
+                                                }
+                                            },
+                                            ...
+                                        ]
+                                    },
+                                    ...
+                                ]
+                            },
+                            ...
+                        ]
+                    },
+                    ...
+                ],
+                "limit" : 50, //最大回傳筆數傳[number]
+                "offset" : 0, //回傳資料偏移數[number]
+                "total" : 100 //此次Query總筆數[number]
+            },
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+# Group 其他 Other Web Service
+## 9/24-通訊錄 [/contacts{?offset,limit}]
+### 取得資料 [GET]
+
++ Parameters
+    + offset = `0` (number, optional) ... 資料偏移數，需與 limit 一起傳入
+    + limit (number, optional) ... 最大回傳筆數，需與 offset 一起傳入
+
++ Response 200 (application/json)
+
+
+        {
+            "content" : [
+                {
+                    "empNo" : "123456",             //員工編號[string]
+                    "empName" : "葉小菜",           //員工姓名[string, optional]
+                    "DEPT" : "內科部",              //單位[string, optional]
+                    "division" : "腸胃科",          //二級單位[string, optional]
+                    "title" : "主治醫師",           //職稱[string, optional]
+                    "TEL" : "71707",                //院內電話[string, optional]
+                    "mobile" : "0972111222",        //公務手機[string, optional]
+                    "mobileBriefCode" : "11222",    //手機簡碼[string, optional]
+                    "EngFirstName" : "Hao-Tsai",    //英文首名[string, optional]
+                    "EngLastName" : "Yeh",          //英文姓[string, optional]
+                    "EngMiddleName" : "",           //英文中名[string, optional]
+                    "email" : "xxx@ntuh.gov.tw",    //email[string, optional]
+                    "remark" : ""                   //備註[string, optional]
+                },
+                ...
+            ],
+            "limit" : 50, //最大回傳筆數[number]
+            "offset" : 0, //回傳資料偏移數[number]
+            "total" : 100 //此次Query總筆數[number]
+        }
+
+
+# Group iPad 容量管理規則
+## 1/29 - iPad 容量警示參數 [/device/storage_limit]
+### 取得iPad 容量警示參數[GET]
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "size": 1024 //size in mb [number]
+            }
+        }
+
+##  1/29 - 系統閒置自動登出時間 [/device/logout_limit]
+### 取得系統閒置自動登出時間[GET]
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "time": 3600 //time in seconds [number]
+            }
+        }
+
+# Group 院內訊息通知系統
+## 3/15 - 醫師所屬之通知訊息 [/notifications/doctor/{empNo}{?startDate,endDate,offset,limit}]
+### 取得醫師所屬之通知訊息內容 [GET]
++ Parameters
+    + offset (number, optional) ... 資料偏移數，需與 limit 一起傳入
+    + limit  (number, optional) ... 最大回傳筆數，需與 offset 一起傳入
+    + startDate (string, optional, `20150103`) ... Query 起始日期，以時間序號表示 (包含此日期)
+    + endDate   (string, optional, `20150103`) ... Query 結束日期，以時間序號表示 (包含此日期)
+
++ Response 200 (application/json)
+
+        {
+            "content": [
+                {
+                    "id":         "K123321",                            // The identifier for the notification [string]
+                    "title":      "TITLE",                              // The title [string]
+                    "message":    "this is the example notification.",  // The message content of the notification. [string]
+                    "datetime":   1406938026,                           // The time when the notification was issues [number(timestamp)]
+                    "type":       "TEST_TYPE",                          // The type of the notification [string]
+                    "confirmed":  false                                 // The flag indicated that the notification had been confirmed [boolean]
+                }, ...
+            ],
+            "limit": 50,                // 最大回傳筆數 [number]
+            "offset": 0,                // 回傳資料偏移數 [number]
+            "total" : 100,              // 此次Query總筆數 [number]
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期) [number(timestamp)]
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期) [number(timestamp)]
+        }
+
+## 6/4 - 院內訊息通知系統 [/notification/{id}{?confirmed,sessionKey}]
+### 取得通知訊息內容 [GET]
++ Response 200 (application/json)
+
+
+        {
+            "content": {
+                "id":         "K123321",                            // The identifier for the notification [string]
+                "title":      "TITLE",                              // The title [string]
+                "message":    "this is the example notification.",  // The message content of the notification. [string]
+                "datetime":   1406938026,                           // The time when the notification was issues. [number(timestamp)]
+                "typeCode":     "consult",                          // The type code of the notification. [string]
+                "displayName":  "會診",                             // The type display name of the notification. [string]
+                "confirmed":  false                                 // The flag indicated that the notification had been confirmed. [boolean]
+            }
+        }
+
+### 確認通知訊息 [PUT]
++ Parameters
+    + confirmed  (boolean)  ... 設定指定之通知訊息為確認(true)/未確認(false)
+    + sessionKey (string)   ... Session Key
+
++ Response 200 (application/json)
+
+        {
+            "success": true
+        }
+
++ Response 400 (application/json)
+
+        {
+            "error": 701,
+            "message": "缺少參數 xxx"
+        }
+
++ Response 400 (application/json)
+
+
+        {
+            "error": 702,
+            "message": "參數 xxx 型態錯誤"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 103,
+            "message": "無存取權限"
+        }
+
+# Group 病患留言板系統
+## 4/5 - 病患對應之布告欄主題標題 [/bulletin/{chartNo}/topicTitles{?startDate,endDate,offset,limit}]
+### 取得病患對應之布告欄主題標題[GET]
++ Parameters
+    + offset (number, optional) ... 資料偏移數，需與limit一起傳入
+    + limit  (number, optional) ... 最大回傳筆數，需與 offset 一起傳入
+    + startDate (string, optional) ... Query 起始日期，以 YYYYMMDD 格式表示 (包含此日期)
+    + endDate   (string, optional) ... Query 結束日期，以 YYYYMMDD 格式表示 (包含此日期)
+
++ Response 200 (application/json)
+
+        {
+            "content": [
+                {
+                    "created": 1406938026,          // the created time. [number(timestamp)]
+                    "updated": 1406940112,          // the last updated time. [number(timestamp)]
+                    "_emp_author": {
+                        "empNo": "111111",          // [string]
+                        "name":  "謝小穎"            // [string]
+                    },
+                    "title":    "HELLO",            // [string]
+                    "id":       "A12-40321"         // the identifier for the topic [string]
+                }, ...
+            ],
+            "limit": 50,                // 最大回傳筆數 [number]
+            "offset": 0,                // 回傳資料偏移數 [number]
+            "total" : 100,              // 此次Query總筆數 [number]
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期) [number(timestamp)]
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期) [number(timestamp)]
+        }
+
+
+## 6/4 - 病患留言板系統 [/bulletin/{chartNo}/topics{?startDate,endDate,offset,limit,empNo,title,content,sessionKey,authGroup}]
+### 取得病患所對應之布告欄內容[GET]
++ Parameters
+    + offset (number, optional) ... 資料偏移數，需與 limit 一起傳入
+    + limit  (number, optional) ... 最大回傳筆數，需與 offset 一起傳入
+    + startDate (string, optional, `20150103`) ... Query 起始日期，以 YYYYMMDD 格式表示 (包含此日期)
+    + endDate   (string, optional, `20150113`) ... Query 結束日期，以 YYYYMMDD 格式表示 (包含此日期)
+    + sessionKey (string) ... Session Key
+
++ Response 200 (application/json)
+
+
+        {
+            "content": [
+                {
+                    "_emp_author" : {
+                        "empNo" : "111111",      // the id for the one created the topic [string]
+                        "name" : "謝小穎"        // the name of the one created the topic [string]
+                    },
+                    "created":    1406938026,    // the timestamp for the created time. [number(timestamp)]
+                    "updated":    1406940112,    // the timestamp for the last updated time [number(timestamp)]
+                    "title":      "HELLO",       // the title [string]
+                    "message":    "hello world", // the message content [string]
+                    "id":         "A12-40321",   // the identifier for the topic [string]
+                    "editable":   false,         // the flag that indeicates weather the user could edit the topic. [boolean]
+                    "replies": {
+                        "list": [
+                            {
+                                "_emp_author": {
+                                    "empNo": "111381",                  // the id for the one created the reply  [string]
+                                    "name":  "震大事"                   // the name of the one created the reply [string]
+                                },
+                                "created": 1406939126,                  // the timestamp for the created time. [number(timestamp)]
+                                "updated": 1407000112,                  // the timestamp for last updated time. [number(timestamp)]
+                                "message": "This is the test reply.",   // the message content [string]
+                                "id": "R12-3012",                       // the identifier for the reply [string]
+                                "editable": false                       // the flag that indicated weather the user could edit reply. [boolean]
+                            },...
+                        ],
+                        "offset": 0,                                    // the offset of the replies [number]
+                        "limit": 5,                                     // the max number of replies in the response [number]
+                        "total": 6                                      // the total number of the replies [number]
+                    }
+                }, ...
+            ],
+            "limit": 50,                // 最大回傳筆數. [number]
+            "offset": 0,                // 回傳資料偏移數. [number]
+            "total" : 100,              // 此次Query總筆數. [number]
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期). [number(timestamp)]
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期). [number(timestamp)]
+        }
+
+### 新增主題至病患所對應之留言板[POST]
++ Parameters
+    + empNo (string)        ... 使用者帳號
+    + title (string)        ... 主題標題
+    + content (string)      ... 主題訊息內容
+    + authGroup (string)    ... 設定開放權限, 'A'=私人, 'B'=開放所有人瀏覽, 'C'=開放所有人編輯
+    + sessionKey (string)   ... Session Key
+
++ Response 200 (application/json)
+
+
+        {
+            "success": true,
+            "content": {
+                "id": "A12-40322"      // The identifier for the newly created topic [string].
+            }
+        }
+
++ Response 400 (application/json)
+
+        {
+            "error": 701,
+            "message": "缺少參數xxx"
+        }
+
++ Response 400 (application/json)
+
+
+        {
+            "error": 702,
+            "message": "參數xxx 型態錯誤"
+        }
+
++ Response 403 (application/json)
+
+
+        {
+            "error": 103,
+            "message": "無存取權限"
+        }
+
+
+## 6/4 - 留言板系統之主題 [/bulletin/topic/{topicId}{?empNo,title,content,sessionKey,chartNo,authGroup}]
+### 取得留言板某個主題[GET]
++ Parameters
+    + topicId (string)      ... The identifier for the specified topic.
+    + sessionKey (string)   ... Session Key
+
++ Response 200 (application/json)
+
+
+        {
+            "content": {
+                "_emp_author" : {
+                    "empNo" : "111111",         // the id for the one created the topic [string]
+                    "name" : "謝小穎"           // the name of the one created the topic [string]
+                },
+                "created":     1406938026,      // [number(timestamp)]
+                "updated":     1406940012,      // [number(timestamp)]
+                "title":       "HELLO",         // [string]
+                "message":     "hello world",   // [string]
+                "id":          "A13-3321",      // [string]
+                "editable":    false,
+                "replies": {
+                    "list": [
+                        {
+                            "_emp_author": {
+                                "empNo": "111381",                  // the id for the one created the reply  [string]
+                                "name":  "震大事"                   // the name of the one created the reply [string]
+                            },
+                            "created":  1406939126,                 // the timestamp for the created time. [number(timestamp)]
+                            "updated":  1407000123,                 // the timestamp for the updated time. [number(timestamp)]
+                            "message": "This is the test reply.",   // the message content [string]
+                            "id": "R12-3012",                       // the identifier for the reply [string]
+                            "editable": false                       // the flag that indicated weather the user could edit reply. [boolean]
+                        },...
+                    ],
+                    "offset": 0,                                    // the offset of the replies [number]
+                    "limit": 5,                                     // the max number of replies in the response [number]
+                    "total": 6                                      // the total number of the replies [number]
+                }
+            }
+        }
+
+### 編輯留言板某個主題[PUT]
++ Parameters
+    + topicId (string)      ... The identifier for the specified topic.
+    + empNo (string)        ... 請求更新之使用者帳號
+    + title (string)        ... 請求更新之標題
+    + content (string)      ... 更新之訊息內容
+    + sessionKey (string)   ... Session Key
+    + chartNo (string)      ... 病例號碼
+    + authGroup (string)    ... 設定開放權限, 'A'=私人, 'B'=開放所有人瀏覽, 'C'=開放所有人編輯
+
++ Response 200 (application/json)
+
+        {
+            "success": true
+        }
+
++ Response 400 (application/json)
+
+        {
+            "error": 701,
+            "message": "缺少參數xxx"
+        }
+
++ Response 400 (application/json)
+
+        {
+            "error": 702,
+            "message": "參數xxx 型態錯誤"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 103,
+            "message": "無存取權限"
+        }
+
+### 刪除留言板某個主題[DELETE]
++ Parameters
+    + topicId (string)      ... The identifier for the specified reply.
+    + sessionKey (string)   ... Session Key
+    + chartNo (string)      ... 病例號碼
+
++ Response 200 (application/json)
+
+        {
+            "success": true
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 103,
+            "message": "無存取權限"
+        }
+
+## 6/4 - 留言板系統指定主題之回應 [/bulletin/topic/{topicId}/replies{?empNo,content,offset,limit,sessionKey}]
+### 取得指定主題之所有回應 [GET]
++ Parameters
+    + topicId (string)          ... the identifier for the specified topic.
+    + limit (number, optional)  ... the max number of replies in response data.
+    + offset (number, optional) ... the offset index for the reponse reply list
+    + sessionKey (string)       ... Session Key
+
++ Response 200 (application/json)
+
+        {
+            "content": [
+                {
+                    "_emp_author": {
+                        "empNo": "111381",                  // the id for the one created the reply  [string]
+                        "name":  "震大事"                   // the name of the one created the reply [string]
+                    },
+                    "created": 1406939126,                  // the timestamp for the created time. [number(timestamp)]
+                    "updated": 1407000123,                  // the timestamp for the updated time. [number(timestamp)]
+                    "message": "This is the test reply.",   // the message content [string]
+                    "id": "R12-3012",                       // the identifier for the reply [string]
+                    "editable": false                       // the flag that indicated weather the user could edit reply. [boolean]
+                },...
+            ],
+            "offset": 0,                                    // the offset of the replies [number]
+            "limit": 5,                                     // the max number of replies in the response [number]
+            "total": 6                                      // the total number of the replies [number]
+        }
+
+
+### 新增回應至留言板至指定主題[POST]
++ Parameters
+    + topicId (string)      ... The identifier for the specified topic.
+    + empNo (string)        ... The employment id for the one requesting for posting the reply.
+    + content (string)      ... The message content for the replay.
+    + sessionKey (string)   ... Session Key
+
++ Response 200 (application/json)
+
+        {
+            "success": true,
+            "content": {
+                "id": "R12-3013"   // The identifier for the nwely created reply [string].
+            }
+        }
+
++ Response 400 (application/json)
+
+        {
+            "error": 701,
+            "message": "缺少參數 xxx"
+        }
+
++ Response 400 (application/json)
+
+        {
+            "error": 702,
+            "message": "參數 xxx 型態錯誤"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 103,
+            "message": "無存取權限"
+        }
+
+
+## 6/4 - 留言板系統之回應 [/bulletin/reply/{replyId}{?empNo,content,sessionKey,chartNo}]
+### 取得留言板某個回應[GET]
++ Parameters
+    + replyId (string)      ... The identifier for the specified reply.
+    + sessionKey (string)   ... Session Key
+
++ Response 200 (application/json)
+
+
+        {
+            "content": {
+                "_emp_author" : {
+                    "empNo" : "111111",         // the id for the one created the reply [string]
+                    "name" : "謝小穎"           // the name of the one created the reply [string]
+                },
+                "created":     1406938026,      // created time. [number(timestamp)]
+                "updated":     1407000123,      // the last updated time. [number(timestamp)]
+                "message":     "hello world",   // [string]
+                "id":          "A13-3321",      // [string]
+                "editable":    false
+            }
+        }
+
+### 編輯留言板某個回復[PUT]
++ Parameter
+    + replyId (string)      ... The identifier for the specified reply.
+    + empNo (string)        ... 請求更新之使用者帳號
+    + content (string)      ... 更新之訊息內容
+    + sessionKey (string)   ... Session Key
+
++ Response 200 (application/json)
+
+
+        {
+            "success": true
+        }
+
++ Response 400 (application/json)
+
+        {
+            "error": 701,
+            "message": "缺少參數xxx"
+        }
+
++ Response 400 (application/json)
+
+        {
+            "error": 702,
+            "message": "參數xxx 型態錯誤"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 103,
+            "message": "無存取權限"
+        }
+
+### 刪除留言板某個主題[DELETE]
++ Parameters
+    + replyId (string)      ... The identifier for the specified reply.
+    + sessionKey (string)   ... Session Key
+    + chartNo (string)      ... 病例號碼
+
++ Response 200 (application/json)
+
+
+        {
+            "success": true
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 103,
+            "message": "無存取權限"
+        }
+
+# Group 新增/修改醫令 Order
+
+## 3/25 - 可修改藥囑清單 [/patients/{chartNo}/modify/drug{?empNo}]
+### 取得可修改藥囑清單 [GET]
+
++ Parameters
+    + empNo (string)    ....員工編號
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "field" : [ //欄位資訊
+                    {
+                        "fieldCode" : "status",             //欄位代碼 [string]
+                        "displayName" : "已"                //欄位顯示名稱 [string]
+                    },
+                    {
+                        "fieldCode" : "plan",               //欄位代碼 [string]
+                        "displayName" : "擬"                //欄位顯示名稱 [string]
+                    },
+                    {
+                        "fieldCode" : "stage",              //欄位代碼 [string]
+                        "displayName" : "階段"              //欄位顯示名稱 [string]
+                    },
+                    {
+                        "fieldCode" : "startDate",          // 欄位代碼 [string]
+                        "displayName" : "開始時間",         // 欄位顯示名稱 [string]
+                        "dateFormat" : "yyyy-MM-dd HH:mm"   // 若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳 [string, optional]
+                    },
+                    {
+                        "fieldCode" : "drugName",           //欄位代碼 [string]
+                        "displayName" : "藥名",             //欄位顯示名稱[string]
+                        "textAlignment" : "left"            // 欄位內容對齊方式 ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊) [string,optional]
+                    },
+                    {
+                        "fieldCode" : "dose",               //欄位代碼 [string]
+                        "displayName" : "劑量"              //欄位顯示名稱 [string]
+                    },
+                    {
+                        "fieldCode" : "unit",               //欄位代碼 [string]
+                        "displayName" : "單位"              //欄位顯示名稱[string]
+                    },
+                    {
+                        "fieldCode" : "frequency",          //欄位代碼 [string]
+                        "displayName" : "頻率"              //欄位顯示名稱[string]
+                    },
+                    {
+                        "fieldCode" : "approach",           //欄位代碼 [string]
+                        "displayName" : "途徑"              //欄位顯示名稱[string]
+                    },
+                    {
+                        "fieldCode" : "days",               //欄位代碼 [string]
+                        "displayName" : "天數"              //欄位顯示名稱[string]
+                    },
+                    {
+                        "fieldCode" : "specialOrder",       //欄位代碼[string]
+                        "displayName" : "特殊事項"          //欄位顯示名稱[string]
+                    },
+                    {
+                        "fieldCode" : "account",            //欄位代碼 [string]
+                        "displayName" : "帳"                //欄位顯示名稱[string]
+                    }
+                ],
+                "data" : [
+                    {
+                        "id" : "A12321",                                                                            // 此醫囑的ID  (非醫令碼) [string]
+                        "content" : {                                                                               //依據欄位填入資料，無資料則不回傳 [optional]
+                            "status" : "確認",                                                                      // [string]
+                            "plan"  : "",                                                                           // [string]
+                            "stage" : "一般",                                                                       // [string]
+                            "startDate" : 1406938026,                                                               // [number(timestamp)]
+                            "drugName" : "Tetracycline HCl ((5g) 眼 Tetracycline Oph Oint 10 mg/1 g 1% 5 g/tube)",  // [string]
+                            "dose" : "1",                                                                           // [string]
+                            "unit" : "xx",                                                                          // [string]
+                            "frequency" : "QD",                                                                     // [string]
+                            "approach" : "D",                                                                       // [string]
+                            "days" : "0",                                                                           // [string]
+                            "specialOrder" : "",                                                                    // [string]
+                            "account" : "健"
+                        }
+                    },
+                    {
+                        "id" : "B45654",                                                                            // [string]
+                        "content" : {                                                                               // 依據欄位填入資料，無資料則不回傳 [optional]
+                            "status" : "確認",                                                                      // [string]
+                            "plan"  : "",                                                                           // [string]
+                            "stage" : "一般",                                                                       // [string]
+                            "startDate" : 1406938026,                                                               // [number(timestamp)]
+                            "drugName" : "Tetracycline HCl ((5g) 眼 Tetracycline Oph Oint 10 mg/1 g 1% 5 g/tube)",  // [string]
+                            "dose" : "1",                                                                           // [string]
+                            "unit" : "xx",                                                                          // [string]
+                            "frequency" : "QD",                                                                     // [string]
+                            "approach" : "D",                                                                       // [string]
+                            "days" : "0",                                                                           // [string]
+                            "specialOrder" : "",                                                                    // [string]
+                            "account" : "健"                                                                        // [string]
+                        }
+                    },
+                    ...
+                ]
+            }
+        }
+
+
+## 4/20 - 可修改醫囑清單 [/patients/{chartNo}/modify/order{?empNo}]
+### 取得可修改醫囑清單 [GET]
+
++ Parameters
+    + empNo (string)    ... 員工編號
+
++ Response 200 (applicaiton/json)
+
+
+        {
+            "content": [
+                {
+                    "id": "000L0114",               // [string]
+                    "postURL" :  "url/to/server",   // [string(url)]
+                    "postContent":[
+                        {
+                            "title":"階段",     // 欄位名稱 [string]
+                            "key":"stage",      // 開立時需要post至server的key, 如果單純顯示用則不需回傳 [string, optional]
+                            "required": true,   // 此欄位是否必要, 如果單純顯示用則不需回傳  [boolean, optional]
+                            "elements": [
+                                {
+                                    "type":"option",    // element的格式  ex: label, textField, checkbox, switch, option, date, number [string]
+                                    "options": [    // 選項或是預設文字，如果沒有則不回傳 [optional]
+                                        {
+                                            "displayName" : "一般",
+                                            "optionCode" : "general",
+                                        },
+                                        {
+                                            "displayName" : "PAT",
+                                            "optionCode" : "pat",
+                                        },
+                                        {
+                                            "displayName" : "術前",
+                                            "optionCode" : "preopr",
+                                        }, ...
+                                    ],
+                                    "default": "general",   // 預設值(如果是傳醫囑ID，則回傳醫囑裡設定的值)   [string, optional]
+                                }, ...
+                            ],
+                            "relativeContent": {    // [optional]
+                                "general": [
+                                    {
+                                        "title":"預計時間",
+                                        "key":  "estimatedTime",
+                                        "required" : true,
+                                        "elements" : [
+                                            {
+                                                "type" : "date",
+                                                "default" : 1406938026,
+                                                "dateformat" : "yyyy-MM-dd HH"  //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string]
+                                            }, ...
+                                        ]
+                                    }, ...
+                                ],
+                            }
+                        },
+                        {
+                            "title" : "稀釋體積",
+                            "key":  "dilutionVolume",   // [optional]
+                            "required" : true,          // [optional]
+                            "elements": [
+                                {
+                                    "title" : "稀釋液", // [string, optional]
+                                    "type": "option",   // [string]
+                                    "options":  [ //[optional]
+                                        {
+                                            "displayName" : "NS",   // [string]
+                                            "optionCode" : "NS",    // [string]
+                                        }, ...
+                                    ],
+                                    "default": "NS" // [optional]
+                                },
+                                {
+                                    "title" : "體積",   // 此元件的title [string, optional]
+                                    "type": "number",   // [string]
+                                    "default": 100,     // [optional]
+                                    "unit" : "ml",      // 單位(或是後面的字) [string, optional]
+                                }, ...
+                            ],
+                        },
+                        {
+                            "title" : "藥品名稱",
+                            "elements": [
+                                {
+                                    "type": "label",    // [string]
+                                    "default": "NS"     // [optional]
+                                },
+                                ...
+                            ],
+                        },
+                        {
+                            "title" : "自費",
+                            "key" : "expense",          // [optional]
+                            "required" : true,          // [optional]
+                            "elements": [
+                                {
+                                    "type": "switch",
+                                },
+                                ...
+                            ],
+                        },
+                        {
+                            "title" : "特殊醫囑",
+                            "key" : "specialOrder",     // [optional]
+                            "required" : false,         // [optional]
+                            "elements" : [
+                                {
+                                    "type" : "textField",
+                                    "options" : [      // [optional]
+                                        {
+                                            "displayName" : "Syncope",   // [string]
+                                            "optionCode" : "Syncope",    // [string]
+                                        },
+                                        {
+                                            "displayName" : "Evaluation of pacemaker function",   // [string]
+                                            "optionCode" : "Evaluation of pacemaker function",    // [string]
+                                        },
+                                        {
+                                            "displayName" : "Assessment of total ischemic burden",   // [string]
+                                            "optionCode" : "Assessment of total ischemic burden",    // [string]
+                                        },
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+                ,
+                ...
+            ]
+        }
+
+## 4/13 - 取得帳戶清單 [/accountList{?chartNo}]
+### 取得帳戶清單 [GET]
+
++ Parameters
+    + chartNo (string)  ...病患編號
+
++ Response 200 (application/json)
+
+
+        {
+            "content": {
+                "default" : "A0B1C2D3",     // 預設 [string]
+                "list" : [
+                    {
+                        "accountNo" : "A0B1C2D3",            // [string]
+                        "displayName" : "X月XX日 XX:XX住院"  // [string]
+                    },
+                    {
+                        "accountNo" : "A4B5C6D7",
+                        "displayName" : "X月XX日 XX:XX急診"
+                    },
+                    {
+                        "accountNo" : "Z0Y1X2W3",
+                        "displayName" : "X月XX日 XX:XX門診"
+                    }, ...
+                ]
+            }
+        }
+
+
+## 6/3 - 醫令套餐 [/orderPackage{?empNo,chartNo,accountNo}]
+### 取得醫令套餐清單 [GET]
+
++ Parameters
+    + empNo (string)       ...員工編號
+    + chartNo (string)     ...病人編號
+    + accountNo (string)   ...帳號編號
+
++ Response 200 (application/json)
+
+
+        {
+            "content" : {
+                "general" : [   // Portal的上半部份 (科部, 病房, 員工, 病人, 路徑)
+                    {
+                        "content" : {
+                            "packageName" : "科部",    // [string]
+                            "default" : true           // 預設選項，使用者選擇上一層選項之後，要預設選取的項目 [boolean, optional]
+                        },
+                        "children" : [ // [optional]
+                            {
+                                "content" : {
+                                    "packageName" : "內科部",                       // 顯示的title名  [string]
+                                    "default": true
+                                },
+                                "children" : [  // 如果有sublist的話, 則顯示此key  [optional]
+                                    {
+                                        "content" : {
+                                            "packageName" : "骨髓移植 BMT",
+                                            "default" : true                            // [boolean, optional]
+                                        },
+                                        "children" : [  // [duplicate, optional]
+                                            {
+                                                "content" : {
+                                                    "packageName" : "Admission Orders", // [string]
+                                                    "packageCode" : "admissionorder",   // 透過此碼查詢醫令 [string, optional]
+                                                    "default" : true                    // [boolean, optional]
+                                                }
+                                            },
+                                            {
+                                                "content" : {
+                                                    "packageName" : "Admission Lab",
+                                                    "packageCode" : "admissionlab"      // [string, optional]
+                                                }
+                                            },
+                                            {
+                                                "content" : {
+                                                    "packageName" : "Routine Lab",
+                                                    "packageCode" : "routinelab"        // [string, optional]
+                                                }
+                                            },
+                                            {
+                                                "content" : {
+                                                    "packageName" : "CPCR",
+                                                    "packageCode" : "cpcr"              // [string, optional]
+                                                }
+                                            },
+                                            ...
+                                        ],
+                                    }, ...
+                                ],
+                            }, ...
+                        ]
+                    },
+                    {
+                        "content" : {
+                            "packageName" : "病房"
+                        },
+                        "children" : [ // [optional]
+                            {
+                                "content" : {
+                                    "packageName" : "Major Burn"
+                                },
+                                "children" : [ // [optional]
+                                    {
+                                        "content" : {
+                                            "packageName" : "照會",
+                                            "packageCode" : "A1234"
+                                        }
+                                    },
+                                    {
+                                        "content" : {
+                                            "packageName" : "醫囑",
+                                            "packageCode" : "A1235"
+                                        }
+                                    }, ...
+                                ]
+                            }, ...
+                        ]
+                    },
+                    ...
+                ],
+                "category" : [  // 醫令開立部份 (檢驗, 檢查, 影醫, 核醫, 病理, 治療, 醫囑)
+                    {
+                        "content" : {
+                            "packageName" : "檢驗"
+                        },
+                        "children" : [
+                            {
+                                "content" : {
+                                    "packageName" : "常用檢驗項目"
+                                },
+                                "children" : [
+                                    {
+                                        "content" : {
+                                            "packageName" : "CBC+BCS_Glu",
+                                            "packageCode" : "cbcbcsglu"
+                                        },
+                                    },
+                                    ...
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "content" : {
+                            "packageName" : "檢查"
+                        },
+                        "children" : [
+                            {
+                                "content" : {
+                                    "packageName" : "外科檢查"
+                                },
+                                "children" : [
+                                    {
+                                        "content" : {
+                                            "packageName" : "血管檢查",
+                                            "packageCode" : "blood"
+                                        },
+                                    },
+                                    ...
+                                ]
+                            }
+                        ]
+                    },
+                    ...
+                ]
+            }
+        }
+
+
+## 6/3 - 醫令搜尋 [/orderSearch{?name,packageCode,accountNo}]
+### 取得藥物清單 [GET]
+
++ Parameters
+    + name (string, optional)           ...搜尋字串
+    + packageCode (string, optional)    ...套餐
+    + accountNo (string)                ...帳號編號
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "field" : [
+                    {
+                        "fieldCode" : "orderType",
+                        "displayName" : "醫令類別"
+                    }
+                    {
+                        "fieldCode" : "orderCode",
+                        "displayName" : "醫令碼",
+                    },
+                    {
+                        "fieldCode" : "order",
+                        "displayName" : "醫令內容"
+                    },
+                    ...
+                ],
+                "data" : [
+                    {
+                        "id" : "000L0114",  // 醫令碼 [string, required]
+                        "content" : {
+                            "orderCode" : "000L0114",
+                            "orderType" : "治療",
+                            "order"     : "複印全口顎Ｘ光照相"
+                        }
+                    },
+                    {
+                        "id" : "000L0113",
+                        "content" : {
+                            "orderCode" : "000L0113",
+                            "orderType" : "治療",
+                            "order"     : "複印咬合片Ｘ光照相"
+                        }
+                    },
+                    {
+                        "id" : "000L0112",
+                        "content" : {
+                            "orderCode" : "000L0112",
+                            "orderType" : "治療",
+                            "order"     : "複印根尖周Ｘ光照相"
+                        }
+                    } ,
+                    ...
+                ]
+            }
+        }
+
+
+
+
+## 6/3 - 藥物套餐 [/drugPackage{?empNo,chartNo,accountNo}]
+### 取得藥物套餐清單 [GET]
+
++ Parameters
+    + empNo (string)       ...員工編號
+    + chartNo (string)     ...病人編號
+    + accountNo (string)   ...帳號編號
+
++ Response 200 (application/json)
+
+
+        {
+            "content" : [   // Portal的上半部份 (科部, 病房, 員工, 病人, 路徑)
+                {
+                    "content" : {
+                        "packageName" : "科部",
+                        "default" : true    // 預設選項，使用者選擇上一層選項之後，要預設選取的項目 [boolean, optional]
+                    },
+                    "children" : [  // 如果有sublist的話, 則顯示此key  [optional, duplicate]
+                        {
+                            "content" : {
+                                "packageName" : "內科部",   // 顯示的title名  [string]
+                                "default" : true            // [boolean, optional]
+                            },
+                            "children" : [  // 如果有sublist的話, 則顯示此key  [optional, duplicate]
+                                {
+                                    "content" : {
+                                        "packageName" : "骨髓移植 BMT",     // [string]
+                                        "default" : true                    // [boolean, optional]
+                                    },
+                                    "children" : [  // 如果有sublist的話, 則顯示此key [optional, duplicate]
+                                        {
+                                            "content" : {
+                                                "packageName" : "Admission Orders",
+                                                "packageCode" : "admissionorder",       // 透過此碼查詢醫令 [string, optional]
+                                                "default" : true                        // [boolean, optional]
+                                            }
+                                        },
+                                        {
+                                            "content" : {
+                                                "packageName" : "Admission Lab",
+                                                "packageCode" : "admissionlab"          // [string, optional]
+                                            }
+                                        },
+                                        {
+                                            "content" : {
+                                                "packageName" : "Routine Lab",
+                                                "packageCode" : "routinelab"            // [string, optional]
+                                            }
+                                        },
+                                        {
+                                            "content" : {
+                                                "packageName" : "CPCR",
+                                                "packageCode" : "cpcr"                  // [string, optional]
+                                            }
+                                        },
+                                        ...
+                                    ]
+                                }
+                            ]
+                        }, ...
+                    ],
+                },
+                {
+                    "content" : {
+                        "packageName" : "病房"
+                    },
+                    "children" : [ // [optional]
+                        {
+                            "content" : {
+                                "packageName" : "Major Burn"
+                            },
+                            "children" : [
+                                {
+                                    "content" : {
+                                        "packageName" : "照會",
+                                        "packageCode" : "A1234"
+                                    }
+                                },
+                                {
+                                    "content" : {
+                                        "packageName" : "醫囑",
+                                        "packageCode" : "A1235"
+                                    }
+                                },
+                                ...
+                            ]
+                        }, ...
+                    ]
+                },
+                ...
+            ]
+        }
+
+
+## 6/3 - 藥物搜尋 [/drugSearch{?name,packageCode,accountNo}]
+### 取得藥物清單 [GET]
+
++ Parameters
+    + name (string, optional)           ... 搜尋字串(搜尋全部藥名)
+    + packageCode (string, optional)    ... 套餐
+    + accountNo                         ... 帳號編號
+
++ Response 200 (application/json)
+
+
+        {
+            "content" : {
+                "field" : [    //欄位資訊
+                    {
+                        "fieldCode" : "drugName",       //欄位代碼[string]
+                        "displayName" : "學名",         //欄位顯示名稱[string]
+                        "textAlignment" : "left",       //欄位內容對齊方式ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]
+                    },
+                    {
+                        "fieldCode" : "itemName",  //欄位代碼[string]
+                        "displayName" : "商品名", //欄位顯示名稱[string]
+                    },
+                    {
+                        "fieldCode" : "dose",
+                        "displayName" : "常用劑量",
+                    },
+                    {
+                        "fieldCode" : "frequency",
+                        "displayName" : "常用頻率",
+                    },
+                    {
+                        "fieldCode" : "unit",
+                        "displayName" : "單位"
+                    }
+                ],
+                "data" : [
+                    {
+                        "id" : "v1234567",    // 藥品代碼 [string]
+                        "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                            "drugName" : "Dextrose and Electrolyte Solution",
+                            "itemName" : "Taita No. 1 500 ml/btl",
+                            "dose" : "1",
+                            "unit" : "tab",
+                            "frequency" : "TID",
+                        },
+
+                    },
+                    ...
+                ],
+            },
+        }
+
+## 4/20 - 取得開立/修改醫囑需要資料 [/order{?drugCode%5B%5D,orderCode%5B%5D,orderID%5B%5D}]
+### 醫囑通用格式 [GET]
+
++ Parameters
+    + drugCode%5B%5D (array[string], optional)    ... 藥碼
+    + orderCode%5B%5D (array[string], optional)   ... 醫令碼
+    + orderID%5B%5D (array[string], optional)     ... 醫囑ID
+
++ Response 200 (application/json)
+
+
+        {
+            "content": [
+                {
+                    "id": "000L0114",               // [string]
+                    "postURL" :  "url/to/server",   // [string(url)]
+                    "postContent":[
+                        {
+                            "title":"階段", // 欄位名稱 [string]
+                            "key":"stage",  // 開立時需要post至server的key, 如果單純顯示用則不需回傳 [string, optional]
+                            "required": true,   // 此欄位是否必要, 如果單純顯示用則不需回傳  [boolean, optional]
+                            "elements": [
+                                {
+                                    "type":"option",    // element的格式  ex: label, textField, checkbox, switch, option, date, number [string]
+                                    "options": [    // 選項或是預設文字，如果沒有則不回傳 [optional]
+                                        {
+                                            "displayName" : "一般",
+                                            "optionCode" : "general",
+                                        },
+                                        {
+                                            "displayName" : "PAT",
+                                            "optionCode" : "pat",
+                                        },
+                                        {
+                                            "displayName" : "術前",
+                                            "optionCode" : "preopr",
+                                        }, ...
+                                    ],
+                                    "default": "general",   // 預設值(如果是傳醫囑ID，則回傳醫囑裡設定的值)   [string, optional]
+                                }, ...
+                            ],
+                            "relativeContent": [       // [optional]
+                                {
+                                    "optionCode" : "general",
+                                    "postContent": [
+                                        {
+                                            "title":"預計時間",
+                                            "key":  "estimatedTime",
+                                            "required" : true,
+                                            "elements" : [
+                                                {
+                                                    "type" : "date",
+                                                    "default" : 1406938026,
+                                                    "dateformat" : "yyyy-MM-dd HH"  //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string]
+                                                }
+                                            ]
+                                        }, ...
+                                    ],
+                                }, ...
+                            ]
+                        },
+                        {
+                            "title" : "稀釋體積",
+                            "key":  "dilutionVolume",    // [optional]
+                            "required" : true,           // [optional]
+                            "elements": [
+                                {
+                                    "title" : "稀釋液", // [string, optional]
+                                    "type": "option",   // [string]
+                                    "options":  [ // [optional]
+                                        {
+                                            "displayName" : "NS",   // [string]
+                                            "optionCode" : "NS",    // [string]
+                                        }, ...
+                                    ],
+                                    "default": "NS"         // [string, optional]
+                                },
+                                {
+                                    "title" : "體積",       // 此元件的title [string, optional]
+                                    "type": "number",       // [string]
+                                    "default": 100,         // [number, optional]
+                                    "unit" : "ml",          // 單位(或是後面的字) [string, optional]
+                                }, ...
+                            ],
+                        },
+                        {
+                            "title" : "藥品名稱",
+                            "elements": [
+                                {
+                                    "type": "label",
+                                    "default": "Acetaminophen" // [optional]
+                                },
+                                ...
+                            ],
+                        },
+                        {
+                            "title" : "自費",
+                            "key" : "expense",    // [optional]
+                            "required" : true,   // [optional]
+                            "elements": [
+                                {
+                                    "type": "switch",
+                                },
+                                ...
+                            ],
+                        },
+                        {
+                            "title" : "特殊醫囑",
+                            "key" : "specialOrder",     // [optional]
+                            "required" : false,         // [optional]
+                            "elements" : [
+                                {
+                                    "type" : "textField",
+                                    "options" : [ // [optional]
+                                        {
+                                            "displayName" : "Syncope",   // [string]
+                                            "optionCode" : "Syncope",    // [string]
+                                        },
+                                        {
+                                            "displayName" : "Evaluation of pacemaker function",   // [string]
+                                            "optionCode" : "Evaluation of pacemaker function",    // [string]
+                                        },
+                                        {
+                                            "displayName" : "Assessment of total ischemic burden",   // [string]
+                                            "optionCode" : "Assessment of total ischemic burden",    // [string]
+                                        },
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "notice" : "本藥品可能增加跌倒風險"     // 注意事項 [string, optional]
+                },
+                ...
+            ]
+        }
+
+
+## 3/20 - 未確認醫令 [/patients/{charNo}/unconfirmOrder{?empNo}]
+### 取得未確認醫令清單 [GET]
+
++ Parameters
+    + empNo (string)    ...員工編號
+
++ Response 200 (application/json)
+
+
+        {
+            "content" : [
+                {   // 醫囑部份
+                    "field" : [    //欄位資訊
+                        {
+                            "fieldCode" : "startDate",  //欄位代碼[string]
+                            "displayName" : "開始時間", //欄位顯示名稱[string]
+                            "dateFormat" : "yyyy-MM-dd"   //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                        },
+                        {
+                            "fieldCode" : "period",  //欄位代碼[string]
+                            "displayName" : "期間", //欄位顯示名稱[string]
+                        },
+                        {
+                            "fieldCode" : "category",
+                            "displayName" : "類別",
+                        },
+                        {
+                            "fieldCode" : "drugName",
+                            "displayName" : "學名",
+                            "textAlignment" : "left", //欄位內容對齊方式  //ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]
+                        },
+                        {
+                            "fieldCode" : "itemName",
+                            "displayName" : "商品名",
+                            "textAlignment" : "left", //欄位內容對齊方式  //ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]
+                        },
+                        {
+                            "fieldCode" : "status",
+                            "displayName" : "狀態"
+                        },
+                        {
+                            "fieldCode" : "_emp_doctor",
+                            "displayName" : "輸入人員"
+                        }
+                    ],
+                    "data" : [
+                        {
+                            "id" : "v1234567", // 醫囑ID  (非藥碼)
+                            "content" : {   //依據欄位填入資料，無資料則不回傳[optional]
+                                "itemName" : "Depakine Chrono 500 mg/tab",
+                                "category" : "處方",
+                                "startDate" : 1406938026, // [number(timestamp)]
+                                "period" : "長",
+                                "_emp_doctor" : {
+                                    "empNo" : "23454353",
+                                    "name" : "葉小菜"
+                                },
+                                "status" : "開立",
+                            },
+                        },
+                        ...
+                    ],
+                },
+                {   // 診療醫令部份
+                    "field" : [    //欄位資訊
+                        {
+                            "fieldCode" : "startDate",  //欄位代碼[string]
+                            "displayName" : "開始時間", //欄位顯示名稱[string]
+                            "dateFormat" : "yyyy-MM-dd"   //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                        },
+                        {
+                            "fieldCode" : "period",  //欄位代碼[string]
+                            "displayName" : "期間", //欄位顯示名稱[string]
+                        },
+                        {
+                            "fieldCode" : "category",
+                            "displayName" : "類別",
+                        },
+                        {
+                            "fieldCode" : "order",
+                            "displayName" : "醫令名稱",
+                            "textAlignment" : "left", //欄位內容對齊方式  //ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]
+                        },
+                        {
+                            "fieldCode" : "status",
+                            "displayName" : "狀態"
+                        },
+                        {
+                            "fieldCode" : "_emp_doctor",
+                            "displayName" : "輸入人員"
+                        },
+                        ...
+                    ],
+                    "data" : [
+                        {
+                            "id" : "v7654321",  // 醫囑ID (非醫令碼)
+                            "content" : {   //依據欄位填入資料，無資料則不回傳[optional]
+                                "category" : "檢查",
+                                "startDate" : 1406938026,
+                                "period" : "",
+                                "_emp_doctor" : {
+                                    "empNo" : "23454353",
+                                    "name" : "葉小菜"
+                                },
+                                "status" : "新增",
+                            },
+                        },
+                        ...
+                    ],
+                },
+            ]
+        }
+
+
+## 4/08 - 確認醫令 [/patients/{charNo}/orderConfirm{?orderID%5B%5D,empNo}]
+### 取得未確認醫令清單 [POST]
+
++ Parameters
+    + orderID%5B%5D   (array[string]) ... 要確認的醫令ID
+    + empNo (string)    ... 確認醫囑員工
+
++ Response 200 (application/json)
+
+
+        {
+            "content": {
+                "success":  true,
+            }
+        }
+
+# Group 開發中 Phase2 APIs
+
+## 6/29 - 病患 cre 值 [/patients/{chartNo}/cre{?sessionKey}]
+### 取得病患 cre 值報告 [GET]
++ Parameters
+    + sessionKey        (string) ... SessionKey
+
++ Response 200 (application/json)
+
+        {
+            "content": {
+                "cre": 31.2
+            }
+        }
+
++ Response 404 (application/json)
+
+
+        {
+            "error": 104,                                   // [number] error code
+            "message": "找不到病患最近三個月的 cre 數值"    // [string] error message
+        }
+
+## 6/18 - 影像醫學介面內容 [/order/MI/interface/{imageType}{?sessionKey}]
+### 取得介面內容 [GET]
++ Parameters
+    + sessionKey        (string) ... SessionKey
+    + imageType         (string) ... 影像種類，例如: CT, MRI, Plain
+
++ Response 200 (application/json)
+
+        {
+            "content": {
+                "note": "檢查範圍與內容影像...",                            // [string, optional] 注意事項
+                "indicationOptions": [                                      // [optional] indication 所對應的選項，若無則不用回傳
+                    {
+                        "returnValue": "ind_option_1",                      // [string] 項目所對應之回傳值
+                        "displayName": "Follow Up"                          // [string] 項目顯示名稱
+                    },
+                    ...
+                ],
+                "groups": [
+                    {
+                        "title": "Upper Body",                                      // [string, optional] Group 標題 若無則不用回傳
+                        "sections": [
+                            {
+                                "title": "Brain",                                   // [string] Section 標題
+                                "sections": [
+                                    {
+                                        "title": "Routine",                         // [string] 子 Section 標題
+                                        "elements": [                               // 子 Section 內可以勾選的項目
+                                            {
+                                                "title": "Whole Brain",             // [string] 項目名稱
+                                                "returnKey": "whole_brain_flag",    // [string] 回傳項目結果時所對應的鍵值
+                                                "splitSides": false                // [boolean] 是否要分成左右邊選項 (etc. Plain Film)
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "title": "Special",                         // [string] 子 Section 標題
+                                        "elements": [                               // 子 Section 內可以勾選的項目
+                                            {
+                                                "title": "Temporal bone",           // [string] 項目名稱
+                                                "returnKey": "temporal_bone_flag",  // [string] 回傳項目結果時所對應的鍵值
+                                                "splitSides": false                // [boolean] 是否要分成左右邊選項 (etc. Plain Film)
+                                            },
+                                            {
+                                                "title": "For CT cisternography",   // [string] 項目名稱
+                                                "returnKey": "ct_cisternography",   // [string] 回傳項目結果時所對應的鍵值
+                                                "splitSides": false                // [boolean] 是否要分成左右邊選項 (etc. Plain Film)
+                                            },
+                                            ...
+                                        ]
+                                    },
+                                    ...
+                                ]
+                            },
+                            ...
+                        ]
+                    },
+                    ...
+                ],
+                "others": [  // [optional] 其它可勾選項目，若無則不用回傳
+                    {
+                        "title": "MR-PET",                                          // [string] 項目名稱
+                        "returnKey": "others_mr_pet",                               // [string] 回傳項目結果時所對應的鍵值
+                        "splitSides": false                                        // [boolean] 是否要分成左右邊選項 (etc. Plain Film)
+                    },
+                    ...
+                ]
+            }
+        }
+
+
+## 6/25 - 醫令碼所對應的醫令 [/order/{orderCode}{?sessionKey}]
++ Parameters
+    + sessionKey        (string) ... SessionKey
+
+### 取得醫令資訊 [GET]
++ Response 200 (application/json)
+
+        {
+            "content": {
+                "hospitalCode":     "HQ",               // [string] 院區碼
+                "orderCode":        "T123123",          // [string] 醫令碼
+                "orderType":        "T",                // [string] 醫令主類別，如治療為 T
+                "orderName":        "Testing Order",    // [string] 醫令名稱
+                "orderChinName":    "測試醫令",           // [string] 醫令中文名稱
+                "screenNote":       "重要提示",           // [string] 重要提示 顯示於介面中
+                "isVirtualOrder":   false,              // [boolean] 是否為虛擬醫令
+                "isAvailable":      true,               // [boolean] 是否可以使用
+                "isOpen":           "OI",               // [string] 註明可用之類別 E 為急診 I 為住院 O 為門診
+                "isOpenSelect":     true,               // [boolean] 是否開放選取
+                "isEmergency":      true,               // [boolean] 是否支援急做
+                "subType":          "N",                // [string, optional] 如手術為 N, 當不需要時不用回傳
+                "selectable":       true,               // [boolean] 是否可以選取
+                "appendOrders":     [                   // [optional] 附帶醫令，若無則不用回傳
+                    {
+                        "orderType":    "T",                    // [string] 醫令主類別，如治療為 T
+                        "orderCode":    "TSA123zzz",            // [string] 醫令碼
+                        "orderName":    "Testing Order2",       // [string] 醫令名稱
+                        "quantity":     1,                      // [number] 數量
+                        "billType":     "Z",                    // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
+                        "required":     false                   // [boolean] 是否為必帶醫令
+                    },
+                    {
+                        "orderType":    "P",                    // [string] 醫令主類別
+                        "orderCode":    "PZZ123qqq",            // [string] 醫令碼
+                        "orderName":    "Testing Order3",       // [string] 醫令名稱
+                        "quantity":     4,                      // [number] 數量
+                        "billType":     "Z",                    // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
+                        "required":     true                    // [boolean] 是否為必帶醫令
+                    },
+                    ...
+                ],
+                "questionary":      [                   // [optional] 附帶問題內容，若無則不用回傳
+                    {
+                        "title": "SINGLE_SELECTION",            // [string] 問題顯示題目
+                        "returnKey": "s_selection_example",     // [string] 回傳結果時該問題所對應的鍵值
+                        "type": "S",                            // [string] 問題種類，如日期為 D，單選為 S
+                        "required": true,                       // [boolean] 問題是否為必填項目
+                        "defaultPriority": 0,                   // [optional, number] 預設選取項目之順序代號，當類型為 S 或 M 時使用
+                        "options": [                            // [optional] 選擇項目列表，當類型為 S, M 時使用
+                            {
+                                "title": "OPTIONA: A",          // [string] 選項顯示內容
+                                "returnValue": "optional_a",    // [string] 回傳時該選項所對應的值
+                                "priority": 0                   // [number] 選項顯示順序
+                            },
+                            {
+                                "title": "OPTIONAL: B",         // [string] 項目顯示內容
+                                "returnValue": "optiona_b",     // [string] 回傳時該選項所對應的值
+                                "priority": 1                   // [number] 項目顯示順序
+                            },
+                            ...
+                        ],
+                        "freeSelectionEnable": false            // [optional, boolean] 是否允許增添選項，當類型為 S, M 時使用
+                    },
+                    {
+                        "title": "DATE_SELECTION",              // [string] 問題顯示題目
+                        "returnKey": "d_selection_example",     // [string] 回傳結果時該問題所對應的鍵值
+                        "type": "D",                            // [string] 問題種類，如日期為 D，單選為 S
+                        "required": true,                       // [boolean] 問題是否為必填項目
+                        "dateFormat": "DD",                     // [optional, string] 當類型為 D 時使用
+                        "defaultDate": 1406938026               // [optional, number(timestamp)] 預設顯示日期，當類型為 D 時使用
+                    },
+                    {
+                        "title": "INPUT_BOX",                   // [string] 問題顯示題目
+                        "returnKey": "input_box_example",       // [string] 回傳結果時該問題所對應的鍵值
+                        "type": "T",                            // [string] 問題種類，如單行文字框為 T 多行文字框為 P
+                        "required": false,                      // [boolean] 問題是否為必填項目
+                        "dictionary": [                         // [optional] 常用字彙，當類型為 T 或 P 時可使用
+                            "ped_1",
+                            "ped_2",
+                            "operation_AS1",
+                            "operation_AS2",
+                            ...
+                        ]
+                    },
+                    {
+                        "title": "MULTI_LINE_BOX",              // [string] 問題顯示題目
+                        "returnKey": "multi_line_example",      // [string] 回傳結果時該問題所對應的鍵值
+                        "type": "P",                            // [string] 問題種類，如單行文字框為 T 多行文字框為 P
+                        "required": false,                      // [boolean] 問題是否為必填項目
+                        "dictionaryId": "DIC_3201"              // [optional, string] 大型常用字彙對應之編號，當類型為 T 或 P 時可使用
+                    },
+                    ...
+                ]
+            }
+        }
+
+## 6/16 - 大型常用字彙集 [/questionDictionary/{dictionaryId}{?offset,limit,sessionKey}]
+### 取得 dictionaryId 所對應之大型常用字彙集內容 [GET]
++ Parameters
+    + offset        (number) ... 設定回傳資料偏移數
+    + limit         (number) ... 設定最大回傳筆數
+    + sessionKey    (string) ... SessionKey
+
++ Response 200 (application/json)
+
+        {
+            "content": [
+                "台灣大學醫學院",         // [string] 字彙選項
+                "台灣大學醫學院竹東分院",
+                "榮民總醫院",
+                ...
+            ],
+            "total": 10,                // [number] 此次Query總筆數
+            "offset": 0,                // [number] 回傳資料偏移數
+            "limit": 100                // [number] 最大回傳筆數
+        }
+
+
+## 6/16 病患醫令記錄 [/account/{accountNo}/orderRecords{?orderCode,orderName,quantity,billType,expectedExTime,hospitalCode,sessionKey}]
+
+### 開立醫令 [POST]
++ Parameters
+    + orderCode    (string) ... the unique id for the specific order
+    + orderName    (string) ... the order name
+    + sessionKey
+
++ Request IssueOrders (application/json)
+
+        {
+            "content": { // 開立醫令清單，每個醫令對應的鍵值為該醫令在本次請求中辨識之所用
+                "1": {
+                    "orderCode": "T00001234",           // [string] 醫令碼
+                    "orderName": "TEST_ORDER_001",      // [string] 醫令名稱
+                    "hospitalCode": "HQ",               // [string] 院區碼
+                    "quantity": 3,                      // [number] 數量
+                    "billType": "E",                    // [string] 記帳類別
+                    "isEmergency": false,               // [boolean] 是否急做
+                    "expectedExTime": 1406938026,       // [number(timestamp)] 預計執行時間
+                    "specialInstruction": "Test 1",     // [string] 特殊醫囑
+                    "questionary": [                    // [optional] 問答題答案，若無則不會傳入
+                        {
+                            "returnKey": "d_selection_example",     // [string] 問答題對應鍵值
+                            "type": "S",                            // [string] 問答題類型
+                            "value": [
+                                0,
+                                1,
+                                ...
+                            ]
+                        },
+                        {
+                            "returnKey": "input_box_example",       // [string] 問答題對應鍵值
+                            "type": "T",                            // [string] 問答題類型
+                            "value": "this is the input content"
+                        }
+                    ],
+                    "appendOrders": [ // [optional] 附帶醫令，若無則不會傳入
+                        "TSA123001",  // [string] 醫令碼
+                        "K00123110",
+                        ...
+                    ]
+                },
+                "2": {
+                    "orderCode": "K00001233",           // [string] 醫令碼
+                    "orderName": "TEST_ORDER_002",      // [string] 醫令名稱
+                    "hospitalCode": "HQ",               // [string] 院區碼
+                    "quantity": 2,                      // [number] 數量
+                    "billType": "E",                    // [string] 記帳類別
+                    "isEmergency": false,               // [boolean] 是否急做
+                    "expectedExTime": 1405238026,       // [number(timestamp)] 預計執行時間
+                    "specialInstruction": "Test 2",     // [string] 特殊醫囑
+                    "questionary": [                    // [optional] 問答題答案，若無則不會傳入
+                        {
+                            "returnKey": "d_selection_example",     // [string] 問答題對應鍵值
+                            "type": "S",                            // [string] 問答題類型
+                            "value": [
+                                0,
+                                1,
+                                ...
+                            ]
+                        },
+                        {
+                            "returnKey": "input_box_example",       // [string] 問答題對應鍵值
+                            "type": "T",                            // [string] 問答題類型
+                            "value": "this is the input content"
+                        }
+                    ],
+                    "appendOrders": [ // [optional] 附帶醫令，若無則不會傳入
+                        "TSA123001",  // [string] 醫令碼
+                        "K00123110",
+                        ...
+                    ]
+                },
+                "3": {
+                    "orderCode": "K00001233",           // [string] 醫令碼
+                    "orderName": "TEST_ORDER_002",      // [string] 醫令名稱
+                    "hospitalCode": "HQ",               // [string] 院區碼
+                    "quantity": 2,                      // [number] 數量
+                    "billType": "E",                    // [string] 記帳類別
+                    "isEmergency": false,               // [boolean] 是否急做
+                    "expectedExTime": 1405238026,       // [number(timestamp)] 預計執行時間
+                    "specialInstruction": "Test 3"      // [string] 特殊醫囑
+                },
+                ...
+            },
+            "sessionKey": "E0B27FAAAE68415BA9E011E569FE4009"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "success": True,
+            "content": {
+                "orderRecordIds": {
+                    "1": "T12312311111",     // [string] 醫令交易檔 ID
+                    "2": "K23111222222",     // [string] 醫令交易檔 ID
+                    ...
+                }
+            }
+        }
+
++ Response 400 (application/json)
+
+        {
+            "error": 802,
+            "content": {
+                "succeeded": {  // [optional] 回傳成功開立的醫令之清單，若無則不用回傳
+                    "orderRecordIds" {
+                        "2": "K23111222222",
+                        ...
+                    }
+                }
+
+                "failed": [     // 未能成功開立的醫令之清單，內容為該醫令所對應之鍵值
+                    "1",
+                    "3",
+                    ...
+                ],
+                "message": "ERROR DESCRIPTION"  // [string] 有關請求錯誤之描述
+            }
+        }
+
+## 6/16 醫令交易檔 ID 所對應之病患醫令記錄 [/account/{accountNo}/orderRecord/{orderRecordId}{?quantity,billType,expectedExTime,confirmedTime,stage,status,sessionKey,orderRecordIds,verifier,isEmergency,specialInstruction,bedId}]
+
+### 取得醫令記錄內容 [GET]
++ Parameters
+    + sessionKey    (string) ... SessionKey
+
++ Response 200 (application/json)
+
+
+        {
+            "content": {
+                "orderType": "P",                   // [string] 醫令主類別
+                "orderSeqNo": "P0002",              // [string] 醫令序號 (登記排程使用)
+                "hospitalCode": "HQ",               // [string] 院區碼
+                "accountNo": "8ccoun7n0",           // [string] 記帳帳號
+                "bedId": "b3dID",                   // [string] 床號
+                "orderName": "Testing Order",       // [string] 醫令名稱
+                "patientClass": "E",                // [string] 病患門住急別
+                "quantity": 10,                     // [number] 數量
+                "billType": "Z",                    // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
+                "expectedExTime": 1406938026,       // [number(timestamp)] 預計執行時間
+                "confirmedTime": 1407038026,        // [number(timestamp)] 確認時間
+                "creator": "111281",                // [string] 開立醫囑者員工編號
+                "verifier": "111281",               // [string] 確認醫師員工編號
+                "isEmergency": false,               // [boolean] 是否急做
+                "stage": "一般",                     // [string] 階段
+                "status": "開立",                    // [string] 狀態
+                "scheduled": false,                 // [boolean] 是否已經排程
+                "specialInstruction": "特殊醫囑內容",  // [string] 特殊醫囑
+                "questionary": [                    // [optional] 問題清單答案
+                    {
+                        "displayTitle": "SINGLE_SELECTION",     // [string] 問題顯示題目
+                        "returnKey": "s_selection_example",     // [string] 回傳結果時該問題所對應的鍵值
+                        "type": "S",                            // [string] 問題種類，如日期為 D，單選為 S
+                        "required": true,                       // [boolean] 問題是否為必填項目
+                        "defaultSelections": [                  // [optional] 預設或已選取項目之順序代號，當類型為 S 或 M 時使用
+                            0,                                  // [number] 預設或已選取項目對應之順序代號
+                            2,
+                            ...
+                        ],
+                        "options": [                            // [optional] 選擇項目列表，當類型為 S, M 時使用
+                            {
+                                "displayValue": "OPTIONA: A",   // [string] 選項顯示內容
+                                "returnValue": "optional_a",    // [string] 回傳時該選項所對應的值
+                                "priority": 0                   // [number] 選項顯示順序
+                            },
+                            {
+                                "displayValue": "OPTIONAL: B",  // [string] 項目顯示內容
+                                "returnValue": "optiona_b",     // [string] 回傳時該選項所對應的值
+                                "priority": 1                   // [number] 項目顯示順序
+                            },
+                            ...
+                        ],
+                        "freeSelectionEnable": false,           // [optional, boolean] 是否允許增添選項，當類型為 S, M 時使用
+                    },
+                    {
+                        "displayTitle": "DATE_SELECTION",       // [string] 問題顯示題目
+                        "returnKey": "d_selection_example",     // [string] 回傳結果時該問題所對應的鍵值
+                        "type": "D",                            // [string] 問題種類，如日期為 D，單選為 S
+                        "required": true,                       // [boolean] 問題是否為必填項目
+                        "dateFormat": "DD",                     // [optional, string] 當類型為 D 時使用
+                        "defaultDate": 1406938026               // [optional, number(timestamp)] 預設或已經填入之答案，當類型為 D 時使用
+                    },
+                    {
+                        "displayTitle": "INPUT_BOX",            // [string] 問題顯示題目
+                        "returnKey": "input_box_example",       // [string] 回傳結果時該問題所對應的鍵值
+                        "type": "T",                            // [string] 問題種類，如單行文字框為 T 多行文字框為 P
+                        "required": false,                      // [boolean] 問題是否為必填項目
+                        "dictionary": [                         // [optional] 常用字彙，當類型為 T 或 P 時可使用
+                            "ped_1",
+                            "ped_2",
+                            "operation_AS1",
+                            "operation_AS2",
+                            ...
+                        ],
+                        "defaultText": "ped_1, ped_2"           // [optional, string] 預設或已經輸入之內容，當類型為 T, P 時使用
+                    },
+                    ...
+                ]
+            }
+        }
+
+### 更改醫令記錄內容 [PUT]
++ Parameters
+    + orderRecordId      (string) ... 要更改記錄之 orderRecordId
+    + quantity           (number) ... 數量
+    + billType           (number) ... 記帳類別
+    + expectedExTime     (number) ... 預計執行時間
+    + confirmedTime      (number) ... 確認時間
+    + verifier           (string) ... 確認醫師員工編號
+    + isEmergency        (boolean) ... 是否急做
+    + status             (string) ... 階段
+    + stage              (string) ... 狀態
+    + specialInstruction (string) ... 特殊醫囑內容
+    + bedId              (string) ... 床號
+
++ Request ModifyOrder (application/json)
+
+        {
+            "content": {
+                "hospitalCode": "HQ",               // [string] 院區碼
+                "quantity": 3,                      // [number] 數量
+                "billType": "E",                    // [string] 記帳類別
+                "isEmergency": false,               // [boolean] 是否急做
+                "expectedExTime": 1406938026,       // [number(timestamp)] 預計執行時間
+                "specialInstruction": "Test 1",     // [string] 特殊醫囑
+                "questionary": [                    // [optional] 問答題答案，若無則不會傳入
+                    {
+                        "returnKey": "d_selection_example",     // [string] 問答題對應鍵值
+                        "type": "S",                            // [string] 問答題類型
+                        "value": [
+                            0,
+                            1,
+                            ...
+                        ]
+                    },
+                    {
+                        "returnKey": "input_box_example",       // [string] 問答題對應鍵值
+                        "type": "T",                            // [string] 問答題類型
+                        "value": "this is the input content"
+                    }
+                ],
+                "appendOrders": [ // [optional] 附帶醫令，若無則不會傳入
+                    "TSA123001",  // [string] 醫令碼
+                    "K00123110",
+                    ...
+                ]
+            },
+            "sessionKey": "E0B27FAAAE68415BA9E011E569FE4009"
+        }
+
+
++ Response 200 (application/json)
+
+        {
+            "success": true
+        }
+
++ Response 400 (application/json)
+
+        {
+            "error": 802,                                   // [number] Error Code
+            "message": "THE LOCAL ERROR DESCRIPTION"        // [string] 錯誤訊息
+        }
+
+# Group 排程相關
+
+## 6/23 醫令交易檔 ID 所對應之排程 [/account/{accountNo}/orderRecord/{orderRecordId}/schedule{?examRoomCode,date,weekDay,session,selectedOrder,orderSeqNo,sessionKey}]
+
+### 取得排程內容 [GET]
++ Parameters
+    + sessionKey    (string) ... SessionKey
+    + orderSeqNo    (string) ... 醫令序號
+
++ Response 200 (application/json)
+
+        {
+            "content": {
+                "examRoomCode": "CTS",
+                "date": "20150623",
+                "weekDay": 2,
+                "session": "A",
+                "order": 10,
+            }
+        }
+
++ Response 404 (application/json)
+
+        {
+            "error": 802,                               // [number] Error Code
+            "message": "PUT LOCAL DESCRIPTION HERE"     // [string] 錯誤訊息
+        }
+
+
+### 登記修改排程時間 [PUT]
++ Parameters
+    + examRoomCode  (string) ... 檢查室代號
+    + orderSeqNo    (string) ... 醫令序號
+    + date          (string) ... 排程日期, 依照格式為 "YYYYmmdd"
+    + weekDay       (number) ... 星期日期
+    + session       (string) ... 排程時段, 上午為 A 下午為 P 晚上為 N
+    + selectedOrder (number) ... 使用者指定的排程順序
+    + sessionKey    (string) ... SessionKey
+
++ Response 200 (application/json)
+
+        {
+            "success": true
+        }
+
++ Response 400 (application/json)
+
+        {
+            "message": "123123", // [string] error message #TODO: setup the proper error response
+            "error": 400         // [number] error code
+        }
+
+## 6/18 醫令碼 orderCode 所對應的排程資訊 [/order/{orderCode}/schedules{?accountNo,startDate,endDate,searchAll,limit,offset,sessionKey}]
+### 取得排成資訊 [GET]
++ Parameters
+    + accountNo     (string) ... 記帳帳號
+    + orderCode     (string) ... 醫令碼
+    + startDate     (number) ... 起始時間 timestamp
+    + endDate       (number) ... 結束時間 timestamp
+    + searchAll     (boolean) ... 是否要搜尋所有包含目前不可預約之排程，預設為否
+    + sessionKey    (string) ... SessionKey
+    + limit         (number) ... 設定搜尋結果最大筆數
+    + offset        (number) ... 設定搜尋結果偏移量
+
++ Response 200 (application/json)
+
+        {
+            "content": [
+                {
+                    "weekDay":          1,              // [number] 星期日期, 如星期一為 1
+                    "date":             "20150213",     // [string] 排程日期, 依照格式 "YYYYmmdd"
+                    "session":          "A",            // [string] 排程時段, 上午為 A 下午為 P 晚上為 N
+                    "examRoomCode":     "CTAB",         // [string] 檢查室代碼
+                    "examRoomName":     "CTAB_檢查室",   // [string] 檢查室名稱
+                    "ErOpdBookCount":   10,             // [number] 門診/急診 登記個數
+                    "PatientBookCount": 12,             // [number] 住院 登記個數
+                    "ErOpdTotal":       20,             // [number] 門診/急診 開放總數
+                    "PatientTotal":     20,             // [number] 住院 開放總數
+                    "availability":     "O",            // [string] 開放代碼
+                    "contacts":         "590012"        // [string] 聯絡方式
+                },
+                ...
+            ],
+            "limit": 100,       // [number] 搜尋結果最大筆數
+            "offset": 0,        // [number] 搜尋結果偏移量
+            "total": 20         // [number] 搜尋結果總筆數
+        }
+
+## 6/18 檢查室之排程資訊 [/examRoom/{examRoomCode}/schedules{?date,weekDay,session,accountNo,selectedOrder,orderRecordId,sessionKey}]
+### 取得排程內容 [GET]
++ Parameters
+    + date          (string) ... 排程日期, 依照格式為 "YYYYmmdd"
+    + weekDay       (number) ... 星期日期
+    + session       (string) ... 排程時段
+    + sessionKey    (string) ... SessionKey
+
++ Response 200 (application/json)
+
+        {
+            "weekDay":          1,
+            "date":             "20150213",
+            "session":          "A",
+            "examRoomCode":     "CTAB",
+            "examRoomName":     "CTAB_檢查室",
+            "ErOpdBookCount":   10,
+            "PatientBookCount": 12,
+            "ErOpdTotal":       20,
+            "PatientTotal":     20,
+            "availability":     "O",
+            "contacts":         "590012",
+            "selectedOrders": [
+                2,                              // [number] 已被選取之檢查順序
+                4,                              // [number] 已被選取之檢查順序
+                ...
+            ]
+            //#TODO: add aditional content
+        }
+
+
+
+# Group 多媒體相關 Media Relative Service
+## 6/5 - ProgressNote 上傳 [/patients/{chartNo}/progressNote{?image%5B%5D,accountNo,uploader,description,reviewer}]
+### 新增 ProgressNote [POST]
++ Parameters
+    + image%5B%5D (array[binary])   ... 上傳之影像byte array(可多張image)
+    + accountNo (string)            ... 帳號編號
+    + uploader (string)             ... 上傳者之員工編號
+    + description (string)          ... 上傳之 ProgressNote 之描述
+    + reviewer (string, optional)   ... 欲請求簽章之員工編號
+
++ Response 200 (application/json)
+
+
+        {
+            "success": true,
+            "content": {
+
+            }
+        }
+
+# 6/5 - 暫存空間照片上傳 [/patients/{chartNo}/tempStorage{?image%5B%5D,uploader}]
+### 新增照片至暫存空間 [POST]
++ Parameters
+    + image%5B%5D (array[binary])   ... 上傳影像之byte array(可多張image)
+    + uploader (string)             ... 上傳者之員工編號
+
++ Response 200 (application/json)
+
+        {
+            "success": true,
+            "content": {
+
+            }
+        }
+
+
+## 4/08 - 多媒體上傳 [/patients/{chartNo}/media/upload{?image%5B%5D,accountNo}]
+### 上傳 [POST]
+
++ Parameters
+    + image%5B%5D (array[binary])    ... 上傳之影像byte array(可多張image)
+    + accountNo (string, optional)   ... 帳號編號
+
++ Response 200 (application/json)
+
+
+        {
+            "success" : true,
+            "content": {
+            }
+        }
+
+# Group 候床、配床 waitBed
+## 6/12 - 候床 [/patients/{charNo}/waitBed{?wards,piority,wardClass}]
+### 取得候床資訊[GET]
+
++ Response 200 (application/json)
+
+        {
+            "content": {
+                "wards": [
+                    {
+                        "title" : "加護病房",
+                        "division" : [
+                            {
+                                "displayName" : "內科ICU",
+                                "divisionCode": "MED_ICU",
+                                "isChecked": true //是否已排候床，為 true 時回傳[optional]
+                            },
+                            ...
+                        ]
+                    },
+                    ...
+                ],
+                "piority" : {
+                    "default" : "piorityA", //預設選項
+                    "option": [
+                        {
+                            "displayName": "A",
+                            "piorityCode": "piorityA"
+                        },
+                        ...
+                    ]
+                },
+                "wardClass": {
+                    "default": [
+                        "single",
+                        ...
+                    ],
+                    "option": [
+                        {
+                            "displayName" : "1人房",
+                            "wardClassCode" : "single"
+                        },
+                        ...
+                    ]
+                }
+
+            }
+        }
+
+
+### 回傳候床資訊[POST]
+
++ Parameters
+
+    + wards (array[string])    ... 病房
+    + piority (string)   ... 候床優先順序
+    + wardClass (array[string], optional) ... 床等
+
++ Response 200 (application/json)
+
+        {
+            "success" : true,
+            "content" : {
+
+            }
+        }
