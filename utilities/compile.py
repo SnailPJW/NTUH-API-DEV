@@ -1,6 +1,5 @@
 __author__ = 'admin'
 
-import docopt
 import re
 
 DEBUG = False
@@ -8,7 +7,7 @@ DEBUG = False
 # ----------------------------------------------------------------------------------------------------------------------
 # Default variables:
 _TEMPLATE  = 'template.apib'
-_DUMP_FILE = 'result.apib'
+_DUMPFILE = 'result.apib'
 
 # Command Related:
 _INCLUDE        = 'include'
@@ -114,6 +113,20 @@ class Parser(object):
 
         return self._parsed_content
 
+# ----------------------------------------------------------------------------------------------------------------------
+# define the main function for the compile process:
+def compile(**kwargs):
+    template = kwargs.get('template', _TEMPLATE)
+    dumpfile = kwargs.get('dumpfile', _DUMPFILE)
+
+    main_parser = Parser()
+    contents = main_parser.parse(template)
+
+    with open(dumpfile, 'w') as file:
+        file.writelines(contents)
+
+    pass
+
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -121,15 +134,6 @@ class Parser(object):
 if __name__ == '__main__':
     print('start compiling process ...')
 
-    # TODO: get the related parameters
-
-    # Parse the template:
-    main_parser = Parser()
-    contents = main_parser.parse(_TEMPLATE)
-
-    # Write the contents to the dump_file:
-    with open(_DUMP_FILE, 'w') as f:
-        f.writelines(contents)
-
+    compile()
 
     exit(0)
