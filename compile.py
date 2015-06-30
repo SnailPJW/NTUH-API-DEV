@@ -1,10 +1,9 @@
 __author__ = 'admin'
 
 import docopt
-import os
 import re
 
-DEBUG = True
+DEBUG = False
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Default variables:
@@ -88,8 +87,7 @@ class Parser(object):
         # @param  {list(string)} tag, default: empty list
         # @return {list(string)} parsed contents
         assert isinstance(filename, str) and (isinstance(tag, str) or tag is None)
-        if DEBUG:
-            print('Start parsing: %s with tag %s' % (filename, tag))
+        print('Start parsing: %s with tag %s' % (filename, tag))
 
         self._parsed_content = list()
         self._tag = tag
