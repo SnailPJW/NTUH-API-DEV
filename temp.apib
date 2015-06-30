@@ -1,0 +1,883 @@
+# Group 新增/修改醫令 Order
+
+## 3/25 - 可修改藥囑清單 [/patients/{chartNo}/modify/drug{?empNo}]
+### 取得可修改藥囑清單 [GET]
+
++ Parameters
+    + empNo (string)    ....員工編號
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "field" : [ //欄位資訊
+                    {
+                        "fieldCode" : "status",             //欄位代碼 [string]
+                        "displayName" : "已"                //欄位顯示名稱 [string]
+                    },
+                    {
+                        "fieldCode" : "plan",               //欄位代碼 [string]
+                        "displayName" : "擬"                //欄位顯示名稱 [string]
+                    },
+                    {
+                        "fieldCode" : "stage",              //欄位代碼 [string]
+                        "displayName" : "階段"              //欄位顯示名稱 [string]
+                    },
+                    {
+                        "fieldCode" : "startDate",          // 欄位代碼 [string]
+                        "displayName" : "開始時間",         // 欄位顯示名稱 [string]
+                        "dateFormat" : "yyyy-MM-dd HH:mm"   // 若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳 [string, optional]
+                    },
+                    {
+                        "fieldCode" : "drugName",           //欄位代碼 [string]
+                        "displayName" : "藥名",             //欄位顯示名稱[string]
+                        "textAlignment" : "left"            // 欄位內容對齊方式 ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊) [string,optional]
+                    },
+                    {
+                        "fieldCode" : "dose",               //欄位代碼 [string]
+                        "displayName" : "劑量"              //欄位顯示名稱 [string]
+                    },
+                    {
+                        "fieldCode" : "unit",               //欄位代碼 [string]
+                        "displayName" : "單位"              //欄位顯示名稱[string]
+                    },
+                    {
+                        "fieldCode" : "frequency",          //欄位代碼 [string]
+                        "displayName" : "頻率"              //欄位顯示名稱[string]
+                    },
+                    {
+                        "fieldCode" : "approach",           //欄位代碼 [string]
+                        "displayName" : "途徑"              //欄位顯示名稱[string]
+                    },
+                    {
+                        "fieldCode" : "days",               //欄位代碼 [string]
+                        "displayName" : "天數"              //欄位顯示名稱[string]
+                    },
+                    {
+                        "fieldCode" : "specialOrder",       //欄位代碼[string]
+                        "displayName" : "特殊事項"          //欄位顯示名稱[string]
+                    },
+                    {
+                        "fieldCode" : "account",            //欄位代碼 [string]
+                        "displayName" : "帳"                //欄位顯示名稱[string]
+                    }
+                ],
+                "data" : [
+                    {
+                        "id" : "A12321",                                                                            // 此醫囑的ID  (非醫令碼) [string]
+                        "content" : {                                                                               //依據欄位填入資料，無資料則不回傳 [optional]
+                            "status" : "確認",                                                                      // [string]
+                            "plan"  : "",                                                                           // [string]
+                            "stage" : "一般",                                                                       // [string]
+                            "startDate" : 1406938026,                                                               // [number(timestamp)]
+                            "drugName" : "Tetracycline HCl ((5g) 眼 Tetracycline Oph Oint 10 mg/1 g 1% 5 g/tube)",  // [string]
+                            "dose" : "1",                                                                           // [string]
+                            "unit" : "xx",                                                                          // [string]
+                            "frequency" : "QD",                                                                     // [string]
+                            "approach" : "D",                                                                       // [string]
+                            "days" : "0",                                                                           // [string]
+                            "specialOrder" : "",                                                                    // [string]
+                            "account" : "健"
+                        }
+                    },
+                    {
+                        "id" : "B45654",                                                                            // [string]
+                        "content" : {                                                                               // 依據欄位填入資料，無資料則不回傳 [optional]
+                            "status" : "確認",                                                                      // [string]
+                            "plan"  : "",                                                                           // [string]
+                            "stage" : "一般",                                                                       // [string]
+                            "startDate" : 1406938026,                                                               // [number(timestamp)]
+                            "drugName" : "Tetracycline HCl ((5g) 眼 Tetracycline Oph Oint 10 mg/1 g 1% 5 g/tube)",  // [string]
+                            "dose" : "1",                                                                           // [string]
+                            "unit" : "xx",                                                                          // [string]
+                            "frequency" : "QD",                                                                     // [string]
+                            "approach" : "D",                                                                       // [string]
+                            "days" : "0",                                                                           // [string]
+                            "specialOrder" : "",                                                                    // [string]
+                            "account" : "健"                                                                        // [string]
+                        }
+                    },
+                    ...
+                ]
+            }
+        }
+
+
+## 4/20 - 可修改醫囑清單 [/patients/{chartNo}/modify/order{?empNo}]
+### 取得可修改醫囑清單 [GET]
+
++ Parameters
+    + empNo (string)    ... 員工編號
+
++ Response 200 (applicaiton/json)
+
+
+        {
+            "content": [
+                {
+                    "id": "000L0114",               // [string]
+                    "postURL" :  "url/to/server",   // [string(url)]
+                    "postContent":[
+                        {
+                            "title":"階段",     // 欄位名稱 [string]
+                            "key":"stage",      // 開立時需要post至server的key, 如果單純顯示用則不需回傳 [string, optional]
+                            "required": true,   // 此欄位是否必要, 如果單純顯示用則不需回傳  [boolean, optional]
+                            "elements": [
+                                {
+                                    "type":"option",    // element的格式  ex: label, textField, checkbox, switch, option, date, number [string]
+                                    "options": [    // 選項或是預設文字，如果沒有則不回傳 [optional]
+                                        {
+                                            "displayName" : "一般",
+                                            "optionCode" : "general",
+                                        },
+                                        {
+                                            "displayName" : "PAT",
+                                            "optionCode" : "pat",
+                                        },
+                                        {
+                                            "displayName" : "術前",
+                                            "optionCode" : "preopr",
+                                        }, ...
+                                    ],
+                                    "default": "general",   // 預設值(如果是傳醫囑ID，則回傳醫囑裡設定的值)   [string, optional]
+                                }, ...
+                            ],
+                            "relativeContent": {    // [optional]
+                                "general": [
+                                    {
+                                        "title":"預計時間",
+                                        "key":  "estimatedTime",
+                                        "required" : true,
+                                        "elements" : [
+                                            {
+                                                "type" : "date",
+                                                "default" : 1406938026,
+                                                "dateformat" : "yyyy-MM-dd HH"  //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string]
+                                            }, ...
+                                        ]
+                                    }, ...
+                                ],
+                            }
+                        },
+                        {
+                            "title" : "稀釋體積",
+                            "key":  "dilutionVolume",   // [optional]
+                            "required" : true,          // [optional]
+                            "elements": [
+                                {
+                                    "title" : "稀釋液", // [string, optional]
+                                    "type": "option",   // [string]
+                                    "options":  [ //[optional]
+                                        {
+                                            "displayName" : "NS",   // [string]
+                                            "optionCode" : "NS",    // [string]
+                                        }, ...
+                                    ],
+                                    "default": "NS" // [optional]
+                                },
+                                {
+                                    "title" : "體積",   // 此元件的title [string, optional]
+                                    "type": "number",   // [string]
+                                    "default": 100,     // [optional]
+                                    "unit" : "ml",      // 單位(或是後面的字) [string, optional]
+                                }, ...
+                            ],
+                        },
+                        {
+                            "title" : "藥品名稱",
+                            "elements": [
+                                {
+                                    "type": "label",    // [string]
+                                    "default": "NS"     // [optional]
+                                },
+                                ...
+                            ],
+                        },
+                        {
+                            "title" : "自費",
+                            "key" : "expense",          // [optional]
+                            "required" : true,          // [optional]
+                            "elements": [
+                                {
+                                    "type": "switch",
+                                },
+                                ...
+                            ],
+                        },
+                        {
+                            "title" : "特殊醫囑",
+                            "key" : "specialOrder",     // [optional]
+                            "required" : false,         // [optional]
+                            "elements" : [
+                                {
+                                    "type" : "textField",
+                                    "options" : [      // [optional]
+                                        {
+                                            "displayName" : "Syncope",   // [string]
+                                            "optionCode" : "Syncope",    // [string]
+                                        },
+                                        {
+                                            "displayName" : "Evaluation of pacemaker function",   // [string]
+                                            "optionCode" : "Evaluation of pacemaker function",    // [string]
+                                        },
+                                        {
+                                            "displayName" : "Assessment of total ischemic burden",   // [string]
+                                            "optionCode" : "Assessment of total ischemic burden",    // [string]
+                                        },
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+                ,
+                ...
+            ]
+        }
+
+## 4/13 - 取得帳戶清單 [/accountList{?chartNo}]
+### 取得帳戶清單 [GET]
+
++ Parameters
+    + chartNo (string)  ...病患編號
+
++ Response 200 (application/json)
+
+
+        {
+            "content": {
+                "default" : "A0B1C2D3",     // 預設 [string]
+                "list" : [
+                    {
+                        "accountNo" : "A0B1C2D3",            // [string]
+                        "displayName" : "X月XX日 XX:XX住院"  // [string]
+                    },
+                    {
+                        "accountNo" : "A4B5C6D7",
+                        "displayName" : "X月XX日 XX:XX急診"
+                    },
+                    {
+                        "accountNo" : "Z0Y1X2W3",
+                        "displayName" : "X月XX日 XX:XX門診"
+                    }, ...
+                ]
+            }
+        }
+
+
+## 6/3 - 醫令套餐 [/orderPackage{?empNo,chartNo,accountNo}]
+### 取得醫令套餐清單 [GET]
+
++ Parameters
+    + empNo (string)       ...員工編號
+    + chartNo (string)     ...病人編號
+    + accountNo (string)   ...帳號編號
+
++ Response 200 (application/json)
+
+
+        {
+            "content" : {
+                "general" : [   // Portal的上半部份 (科部, 病房, 員工, 病人, 路徑)
+                    {
+                        "content" : {
+                            "packageName" : "科部",    // [string]
+                            "default" : true           // 預設選項，使用者選擇上一層選項之後，要預設選取的項目 [boolean, optional]
+                        },
+                        "children" : [ // [optional]
+                            {
+                                "content" : {
+                                    "packageName" : "內科部",                       // 顯示的title名  [string]
+                                    "default": true
+                                },
+                                "children" : [  // 如果有sublist的話, 則顯示此key  [optional]
+                                    {
+                                        "content" : {
+                                            "packageName" : "骨髓移植 BMT",
+                                            "default" : true                            // [boolean, optional]
+                                        },
+                                        "children" : [  // [duplicate, optional]
+                                            {
+                                                "content" : {
+                                                    "packageName" : "Admission Orders", // [string]
+                                                    "packageCode" : "admissionorder",   // 透過此碼查詢醫令 [string, optional]
+                                                    "default" : true                    // [boolean, optional]
+                                                }
+                                            },
+                                            {
+                                                "content" : {
+                                                    "packageName" : "Admission Lab",
+                                                    "packageCode" : "admissionlab"      // [string, optional]
+                                                }
+                                            },
+                                            {
+                                                "content" : {
+                                                    "packageName" : "Routine Lab",
+                                                    "packageCode" : "routinelab"        // [string, optional]
+                                                }
+                                            },
+                                            {
+                                                "content" : {
+                                                    "packageName" : "CPCR",
+                                                    "packageCode" : "cpcr"              // [string, optional]
+                                                }
+                                            },
+                                            ...
+                                        ],
+                                    }, ...
+                                ],
+                            }, ...
+                        ]
+                    },
+                    {
+                        "content" : {
+                            "packageName" : "病房"
+                        },
+                        "children" : [ // [optional]
+                            {
+                                "content" : {
+                                    "packageName" : "Major Burn"
+                                },
+                                "children" : [ // [optional]
+                                    {
+                                        "content" : {
+                                            "packageName" : "照會",
+                                            "packageCode" : "A1234"
+                                        }
+                                    },
+                                    {
+                                        "content" : {
+                                            "packageName" : "醫囑",
+                                            "packageCode" : "A1235"
+                                        }
+                                    }, ...
+                                ]
+                            }, ...
+                        ]
+                    },
+                    ...
+                ],
+                "category" : [  // 醫令開立部份 (檢驗, 檢查, 影醫, 核醫, 病理, 治療, 醫囑)
+                    {
+                        "content" : {
+                            "packageName" : "檢驗"
+                        },
+                        "children" : [
+                            {
+                                "content" : {
+                                    "packageName" : "常用檢驗項目"
+                                },
+                                "children" : [
+                                    {
+                                        "content" : {
+                                            "packageName" : "CBC+BCS_Glu",
+                                            "packageCode" : "cbcbcsglu"
+                                        },
+                                    },
+                                    ...
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "content" : {
+                            "packageName" : "檢查"
+                        },
+                        "children" : [
+                            {
+                                "content" : {
+                                    "packageName" : "外科檢查"
+                                },
+                                "children" : [
+                                    {
+                                        "content" : {
+                                            "packageName" : "血管檢查",
+                                            "packageCode" : "blood"
+                                        },
+                                    },
+                                    ...
+                                ]
+                            }
+                        ]
+                    },
+                    ...
+                ]
+            }
+        }
+
+
+## 6/3 - 醫令搜尋 [/orderSearch{?name,packageCode,accountNo}]
+### 取得藥物清單 [GET]
+
++ Parameters
+    + name (string, optional)           ...搜尋字串
+    + packageCode (string, optional)    ...套餐
+    + accountNo (string)                ...帳號編號
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "field" : [
+                    {
+                        "fieldCode" : "orderType",
+                        "displayName" : "醫令類別"
+                    }
+                    {
+                        "fieldCode" : "orderCode",
+                        "displayName" : "醫令碼",
+                    },
+                    {
+                        "fieldCode" : "order",
+                        "displayName" : "醫令內容"
+                    },
+                    ...
+                ],
+                "data" : [
+                    {
+                        "id" : "000L0114",  // 醫令碼 [string, required]
+                        "content" : {
+                            "orderCode" : "000L0114",
+                            "orderType" : "治療",
+                            "order"     : "複印全口顎Ｘ光照相"
+                        }
+                    },
+                    {
+                        "id" : "000L0113",
+                        "content" : {
+                            "orderCode" : "000L0113",
+                            "orderType" : "治療",
+                            "order"     : "複印咬合片Ｘ光照相"
+                        }
+                    },
+                    {
+                        "id" : "000L0112",
+                        "content" : {
+                            "orderCode" : "000L0112",
+                            "orderType" : "治療",
+                            "order"     : "複印根尖周Ｘ光照相"
+                        }
+                    } ,
+                    ...
+                ]
+            }
+        }
+
+
+
+
+## 6/3 - 藥物套餐 [/drugPackage{?empNo,chartNo,accountNo}]
+### 取得藥物套餐清單 [GET]
+
++ Parameters
+    + empNo (string)       ...員工編號
+    + chartNo (string)     ...病人編號
+    + accountNo (string)   ...帳號編號
+
++ Response 200 (application/json)
+
+
+        {
+            "content" : [   // Portal的上半部份 (科部, 病房, 員工, 病人, 路徑)
+                {
+                    "content" : {
+                        "packageName" : "科部",
+                        "default" : true    // 預設選項，使用者選擇上一層選項之後，要預設選取的項目 [boolean, optional]
+                    },
+                    "children" : [  // 如果有sublist的話, 則顯示此key  [optional, duplicate]
+                        {
+                            "content" : {
+                                "packageName" : "內科部",   // 顯示的title名  [string]
+                                "default" : true            // [boolean, optional]
+                            },
+                            "children" : [  // 如果有sublist的話, 則顯示此key  [optional, duplicate]
+                                {
+                                    "content" : {
+                                        "packageName" : "骨髓移植 BMT",     // [string]
+                                        "default" : true                    // [boolean, optional]
+                                    },
+                                    "children" : [  // 如果有sublist的話, 則顯示此key [optional, duplicate]
+                                        {
+                                            "content" : {
+                                                "packageName" : "Admission Orders",
+                                                "packageCode" : "admissionorder",       // 透過此碼查詢醫令 [string, optional]
+                                                "default" : true                        // [boolean, optional]
+                                            }
+                                        },
+                                        {
+                                            "content" : {
+                                                "packageName" : "Admission Lab",
+                                                "packageCode" : "admissionlab"          // [string, optional]
+                                            }
+                                        },
+                                        {
+                                            "content" : {
+                                                "packageName" : "Routine Lab",
+                                                "packageCode" : "routinelab"            // [string, optional]
+                                            }
+                                        },
+                                        {
+                                            "content" : {
+                                                "packageName" : "CPCR",
+                                                "packageCode" : "cpcr"                  // [string, optional]
+                                            }
+                                        },
+                                        ...
+                                    ]
+                                }
+                            ]
+                        }, ...
+                    ],
+                },
+                {
+                    "content" : {
+                        "packageName" : "病房"
+                    },
+                    "children" : [ // [optional]
+                        {
+                            "content" : {
+                                "packageName" : "Major Burn"
+                            },
+                            "children" : [
+                                {
+                                    "content" : {
+                                        "packageName" : "照會",
+                                        "packageCode" : "A1234"
+                                    }
+                                },
+                                {
+                                    "content" : {
+                                        "packageName" : "醫囑",
+                                        "packageCode" : "A1235"
+                                    }
+                                },
+                                ...
+                            ]
+                        }, ...
+                    ]
+                },
+                ...
+            ]
+        }
+
+
+## 6/3 - 藥物搜尋 [/drugSearch{?name,packageCode,accountNo}]
+### 取得藥物清單 [GET]
+
++ Parameters
+    + name (string, optional)           ... 搜尋字串(搜尋全部藥名)
+    + packageCode (string, optional)    ... 套餐
+    + accountNo                         ... 帳號編號
+
++ Response 200 (application/json)
+
+
+        {
+            "content" : {
+                "field" : [    //欄位資訊
+                    {
+                        "fieldCode" : "drugName",       //欄位代碼[string]
+                        "displayName" : "學名",         //欄位顯示名稱[string]
+                        "textAlignment" : "left",       //欄位內容對齊方式ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]
+                    },
+                    {
+                        "fieldCode" : "itemName",  //欄位代碼[string]
+                        "displayName" : "商品名", //欄位顯示名稱[string]
+                    },
+                    {
+                        "fieldCode" : "dose",
+                        "displayName" : "常用劑量",
+                    },
+                    {
+                        "fieldCode" : "frequency",
+                        "displayName" : "常用頻率",
+                    },
+                    {
+                        "fieldCode" : "unit",
+                        "displayName" : "單位"
+                    }
+                ],
+                "data" : [
+                    {
+                        "id" : "v1234567",    // 藥品代碼 [string]
+                        "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                            "drugName" : "Dextrose and Electrolyte Solution",
+                            "itemName" : "Taita No. 1 500 ml/btl",
+                            "dose" : "1",
+                            "unit" : "tab",
+                            "frequency" : "TID",
+                        },
+
+                    },
+                    ...
+                ],
+            },
+        }
+
+## 4/20 - 取得開立/修改醫囑需要資料 [/order{?drugCode%5B%5D,orderCode%5B%5D,orderID%5B%5D}]
+### 醫囑通用格式 [GET]
+
++ Parameters
+    + drugCode%5B%5D (array[string], optional)    ... 藥碼
+    + orderCode%5B%5D (array[string], optional)   ... 醫令碼
+    + orderID%5B%5D (array[string], optional)     ... 醫囑ID
+
++ Response 200 (application/json)
+
+
+        {
+            "content": [
+                {
+                    "id": "000L0114",               // [string]
+                    "postURL" :  "url/to/server",   // [string(url)]
+                    "postContent":[
+                        {
+                            "title":"階段", // 欄位名稱 [string]
+                            "key":"stage",  // 開立時需要post至server的key, 如果單純顯示用則不需回傳 [string, optional]
+                            "required": true,   // 此欄位是否必要, 如果單純顯示用則不需回傳  [boolean, optional]
+                            "elements": [
+                                {
+                                    "type":"option",    // element的格式  ex: label, textField, checkbox, switch, option, date, number [string]
+                                    "options": [    // 選項或是預設文字，如果沒有則不回傳 [optional]
+                                        {
+                                            "displayName" : "一般",
+                                            "optionCode" : "general",
+                                        },
+                                        {
+                                            "displayName" : "PAT",
+                                            "optionCode" : "pat",
+                                        },
+                                        {
+                                            "displayName" : "術前",
+                                            "optionCode" : "preopr",
+                                        }, ...
+                                    ],
+                                    "default": "general",   // 預設值(如果是傳醫囑ID，則回傳醫囑裡設定的值)   [string, optional]
+                                }, ...
+                            ],
+                            "relativeContent": [       // [optional]
+                                {
+                                    "optionCode" : "general",
+                                    "postContent": [
+                                        {
+                                            "title":"預計時間",
+                                            "key":  "estimatedTime",
+                                            "required" : true,
+                                            "elements" : [
+                                                {
+                                                    "type" : "date",
+                                                    "default" : 1406938026,
+                                                    "dateformat" : "yyyy-MM-dd HH"  //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string]
+                                                }
+                                            ]
+                                        }, ...
+                                    ],
+                                }, ...
+                            ]
+                        },
+                        {
+                            "title" : "稀釋體積",
+                            "key":  "dilutionVolume",    // [optional]
+                            "required" : true,           // [optional]
+                            "elements": [
+                                {
+                                    "title" : "稀釋液", // [string, optional]
+                                    "type": "option",   // [string]
+                                    "options":  [ // [optional]
+                                        {
+                                            "displayName" : "NS",   // [string]
+                                            "optionCode" : "NS",    // [string]
+                                        }, ...
+                                    ],
+                                    "default": "NS"         // [string, optional]
+                                },
+                                {
+                                    "title" : "體積",       // 此元件的title [string, optional]
+                                    "type": "number",       // [string]
+                                    "default": 100,         // [number, optional]
+                                    "unit" : "ml",          // 單位(或是後面的字) [string, optional]
+                                }, ...
+                            ],
+                        },
+                        {
+                            "title" : "藥品名稱",
+                            "elements": [
+                                {
+                                    "type": "label",
+                                    "default": "Acetaminophen" // [optional]
+                                },
+                                ...
+                            ],
+                        },
+                        {
+                            "title" : "自費",
+                            "key" : "expense",    // [optional]
+                            "required" : true,   // [optional]
+                            "elements": [
+                                {
+                                    "type": "switch",
+                                },
+                                ...
+                            ],
+                        },
+                        {
+                            "title" : "特殊醫囑",
+                            "key" : "specialOrder",     // [optional]
+                            "required" : false,         // [optional]
+                            "elements" : [
+                                {
+                                    "type" : "textField",
+                                    "options" : [ // [optional]
+                                        {
+                                            "displayName" : "Syncope",   // [string]
+                                            "optionCode" : "Syncope",    // [string]
+                                        },
+                                        {
+                                            "displayName" : "Evaluation of pacemaker function",   // [string]
+                                            "optionCode" : "Evaluation of pacemaker function",    // [string]
+                                        },
+                                        {
+                                            "displayName" : "Assessment of total ischemic burden",   // [string]
+                                            "optionCode" : "Assessment of total ischemic burden",    // [string]
+                                        },
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "notice" : "本藥品可能增加跌倒風險"     // 注意事項 [string, optional]
+                },
+                ...
+            ]
+        }
+
+
+## 3/20 - 未確認醫令 [/patients/{charNo}/unconfirmOrder{?empNo}]
+### 取得未確認醫令清單 [GET]
+
++ Parameters
+    + empNo (string)    ...員工編號
+
++ Response 200 (application/json)
+
+
+        {
+            "content" : [
+                {   // 醫囑部份
+                    "field" : [    //欄位資訊
+                        {
+                            "fieldCode" : "startDate",  //欄位代碼[string]
+                            "displayName" : "開始時間", //欄位顯示名稱[string]
+                            "dateFormat" : "yyyy-MM-dd"   //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                        },
+                        {
+                            "fieldCode" : "period",  //欄位代碼[string]
+                            "displayName" : "期間", //欄位顯示名稱[string]
+                        },
+                        {
+                            "fieldCode" : "category",
+                            "displayName" : "類別",
+                        },
+                        {
+                            "fieldCode" : "drugName",
+                            "displayName" : "學名",
+                            "textAlignment" : "left", //欄位內容對齊方式  //ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]
+                        },
+                        {
+                            "fieldCode" : "itemName",
+                            "displayName" : "商品名",
+                            "textAlignment" : "left", //欄位內容對齊方式  //ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]
+                        },
+                        {
+                            "fieldCode" : "status",
+                            "displayName" : "狀態"
+                        },
+                        {
+                            "fieldCode" : "_emp_doctor",
+                            "displayName" : "輸入人員"
+                        }
+                    ],
+                    "data" : [
+                        {
+                            "id" : "v1234567", // 醫囑ID  (非藥碼)
+                            "content" : {   //依據欄位填入資料，無資料則不回傳[optional]
+                                "itemName" : "Depakine Chrono 500 mg/tab",
+                                "category" : "處方",
+                                "startDate" : 1406938026, // [number(timestamp)]
+                                "period" : "長",
+                                "_emp_doctor" : {
+                                    "empNo" : "23454353",
+                                    "name" : "葉小菜"
+                                },
+                                "status" : "開立",
+                            },
+                        },
+                        ...
+                    ],
+                },
+                {   // 診療醫令部份
+                    "field" : [    //欄位資訊
+                        {
+                            "fieldCode" : "startDate",  //欄位代碼[string]
+                            "displayName" : "開始時間", //欄位顯示名稱[string]
+                            "dateFormat" : "yyyy-MM-dd"   //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                        },
+                        {
+                            "fieldCode" : "period",  //欄位代碼[string]
+                            "displayName" : "期間", //欄位顯示名稱[string]
+                        },
+                        {
+                            "fieldCode" : "category",
+                            "displayName" : "類別",
+                        },
+                        {
+                            "fieldCode" : "order",
+                            "displayName" : "醫令名稱",
+                            "textAlignment" : "left", //欄位內容對齊方式  //ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]
+                        },
+                        {
+                            "fieldCode" : "status",
+                            "displayName" : "狀態"
+                        },
+                        {
+                            "fieldCode" : "_emp_doctor",
+                            "displayName" : "輸入人員"
+                        },
+                        ...
+                    ],
+                    "data" : [
+                        {
+                            "id" : "v7654321",  // 醫囑ID (非醫令碼)
+                            "content" : {   //依據欄位填入資料，無資料則不回傳[optional]
+                                "category" : "檢查",
+                                "startDate" : 1406938026,
+                                "period" : "",
+                                "_emp_doctor" : {
+                                    "empNo" : "23454353",
+                                    "name" : "葉小菜"
+                                },
+                                "status" : "新增",
+                            },
+                        },
+                        ...
+                    ],
+                },
+            ]
+        }
+
+
+## 4/08 - 確認醫令 [/patients/{charNo}/orderConfirm{?orderID%5B%5D,empNo}]
+### 取得未確認醫令清單 [POST]
+
++ Parameters
+    + orderID%5B%5D   (array[string]) ... 要確認的醫令ID
+    + empNo (string)    ... 確認醫囑員工
+
++ Response 200 (application/json)
+
+
+        {
+            "content": {
+                "success":  true,
+            }
+        }

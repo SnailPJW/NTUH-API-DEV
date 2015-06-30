@@ -1,0 +1,369 @@
+# Group 病患留言板系統
+## 4/5 - 病患對應之布告欄主題標題 [/bulletin/{chartNo}/topicTitles{?startDate,endDate,offset,limit}]
+### 取得病患對應之布告欄主題標題[GET]
++ Parameters
+    + offset (number, optional) ... 資料偏移數，需與limit一起傳入
+    + limit  (number, optional) ... 最大回傳筆數，需與 offset 一起傳入
+    + startDate (string, optional) ... Query 起始日期，以 YYYYMMDD 格式表示 (包含此日期)
+    + endDate   (string, optional) ... Query 結束日期，以 YYYYMMDD 格式表示 (包含此日期)
+
++ Response 200 (application/json)
+
+        {
+            "content": [
+                {
+                    "created": 1406938026,          // the created time. [number(timestamp)]
+                    "updated": 1406940112,          // the last updated time. [number(timestamp)]
+                    "_emp_author": {
+                        "empNo": "111111",          // [string]
+                        "name":  "謝小穎"            // [string]
+                    },
+                    "title":    "HELLO",            // [string]
+                    "id":       "A12-40321"         // the identifier for the topic [string]
+                }, ...
+            ],
+            "limit": 50,                // 最大回傳筆數 [number]
+            "offset": 0,                // 回傳資料偏移數 [number]
+            "total" : 100,              // 此次Query總筆數 [number]
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期) [number(timestamp)]
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期) [number(timestamp)]
+        }
+
+
+## 6/4 - 病患留言板系統 [/bulletin/{chartNo}/topics{?startDate,endDate,offset,limit,empNo,title,content,sessionKey,authGroup}]
+### 取得病患所對應之布告欄內容[GET]
++ Parameters
+    + offset (number, optional) ... 資料偏移數，需與 limit 一起傳入
+    + limit  (number, optional) ... 最大回傳筆數，需與 offset 一起傳入
+    + startDate (string, optional, `20150103`) ... Query 起始日期，以 YYYYMMDD 格式表示 (包含此日期)
+    + endDate   (string, optional, `20150113`) ... Query 結束日期，以 YYYYMMDD 格式表示 (包含此日期)
+    + sessionKey (string) ... Session Key
+
++ Response 200 (application/json)
+
+
+        {
+            "content": [
+                {
+                    "_emp_author" : {
+                        "empNo" : "111111",      // the id for the one created the topic [string]
+                        "name" : "謝小穎"        // the name of the one created the topic [string]
+                    },
+                    "created":    1406938026,    // the timestamp for the created time. [number(timestamp)]
+                    "updated":    1406940112,    // the timestamp for the last updated time [number(timestamp)]
+                    "title":      "HELLO",       // the title [string]
+                    "message":    "hello world", // the message content [string]
+                    "id":         "A12-40321",   // the identifier for the topic [string]
+                    "editable":   false,         // the flag that indeicates weather the user could edit the topic. [boolean]
+                    "replies": {
+                        "list": [
+                            {
+                                "_emp_author": {
+                                    "empNo": "111381",                  // the id for the one created the reply  [string]
+                                    "name":  "震大事"                   // the name of the one created the reply [string]
+                                },
+                                "created": 1406939126,                  // the timestamp for the created time. [number(timestamp)]
+                                "updated": 1407000112,                  // the timestamp for last updated time. [number(timestamp)]
+                                "message": "This is the test reply.",   // the message content [string]
+                                "id": "R12-3012",                       // the identifier for the reply [string]
+                                "editable": false                       // the flag that indicated weather the user could edit reply. [boolean]
+                            },...
+                        ],
+                        "offset": 0,                                    // the offset of the replies [number]
+                        "limit": 5,                                     // the max number of replies in the response [number]
+                        "total": 6                                      // the total number of the replies [number]
+                    }
+                }, ...
+            ],
+            "limit": 50,                // 最大回傳筆數. [number]
+            "offset": 0,                // 回傳資料偏移數. [number]
+            "total" : 100,              // 此次Query總筆數. [number]
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期). [number(timestamp)]
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期). [number(timestamp)]
+        }
+
+### 新增主題至病患所對應之留言板[POST]
++ Parameters
+    + empNo (string)        ... 使用者帳號
+    + title (string)        ... 主題標題
+    + content (string)      ... 主題訊息內容
+    + authGroup (string)    ... 設定開放權限, 'A'=私人, 'B'=開放所有人瀏覽, 'C'=開放所有人編輯
+    + sessionKey (string)   ... Session Key
+
++ Response 200 (application/json)
+
+
+        {
+            "success": true,
+            "content": {
+                "id": "A12-40322"      // The identifier for the newly created topic [string].
+            }
+        }
+
++ Response 400 (application/json)
+
+        {
+            "error": 701,
+            "message": "缺少參數xxx"
+        }
+
++ Response 400 (application/json)
+
+
+        {
+            "error": 702,
+            "message": "參數xxx 型態錯誤"
+        }
+
++ Response 403 (application/json)
+
+
+        {
+            "error": 103,
+            "message": "無存取權限"
+        }
+
+
+## 6/4 - 留言板系統之主題 [/bulletin/topic/{topicId}{?empNo,title,content,sessionKey,chartNo,authGroup}]
+### 取得留言板某個主題[GET]
++ Parameters
+    + topicId (string)      ... The identifier for the specified topic.
+    + sessionKey (string)   ... Session Key
+
++ Response 200 (application/json)
+
+
+        {
+            "content": {
+                "_emp_author" : {
+                    "empNo" : "111111",         // the id for the one created the topic [string]
+                    "name" : "謝小穎"           // the name of the one created the topic [string]
+                },
+                "created":     1406938026,      // [number(timestamp)]
+                "updated":     1406940012,      // [number(timestamp)]
+                "title":       "HELLO",         // [string]
+                "message":     "hello world",   // [string]
+                "id":          "A13-3321",      // [string]
+                "editable":    false,
+                "replies": {
+                    "list": [
+                        {
+                            "_emp_author": {
+                                "empNo": "111381",                  // the id for the one created the reply  [string]
+                                "name":  "震大事"                   // the name of the one created the reply [string]
+                            },
+                            "created":  1406939126,                 // the timestamp for the created time. [number(timestamp)]
+                            "updated":  1407000123,                 // the timestamp for the updated time. [number(timestamp)]
+                            "message": "This is the test reply.",   // the message content [string]
+                            "id": "R12-3012",                       // the identifier for the reply [string]
+                            "editable": false                       // the flag that indicated weather the user could edit reply. [boolean]
+                        },...
+                    ],
+                    "offset": 0,                                    // the offset of the replies [number]
+                    "limit": 5,                                     // the max number of replies in the response [number]
+                    "total": 6                                      // the total number of the replies [number]
+                }
+            }
+        }
+
+### 編輯留言板某個主題[PUT]
++ Parameters
+    + topicId (string)      ... The identifier for the specified topic.
+    + empNo (string)        ... 請求更新之使用者帳號
+    + title (string)        ... 請求更新之標題
+    + content (string)      ... 更新之訊息內容
+    + sessionKey (string)   ... Session Key
+    + chartNo (string)      ... 病例號碼
+    + authGroup (string)    ... 設定開放權限, 'A'=私人, 'B'=開放所有人瀏覽, 'C'=開放所有人編輯
+
++ Response 200 (application/json)
+
+        {
+            "success": true
+        }
+
++ Response 400 (application/json)
+
+        {
+            "error": 701,
+            "message": "缺少參數xxx"
+        }
+
++ Response 400 (application/json)
+
+        {
+            "error": 702,
+            "message": "參數xxx 型態錯誤"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 103,
+            "message": "無存取權限"
+        }
+
+### 刪除留言板某個主題[DELETE]
++ Parameters
+    + topicId (string)      ... The identifier for the specified reply.
+    + sessionKey (string)   ... Session Key
+    + chartNo (string)      ... 病例號碼
+
++ Response 200 (application/json)
+
+        {
+            "success": true
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 103,
+            "message": "無存取權限"
+        }
+
+## 6/4 - 留言板系統指定主題之回應 [/bulletin/topic/{topicId}/replies{?empNo,content,offset,limit,sessionKey}]
+### 取得指定主題之所有回應 [GET]
++ Parameters
+    + topicId (string)          ... the identifier for the specified topic.
+    + limit (number, optional)  ... the max number of replies in response data.
+    + offset (number, optional) ... the offset index for the reponse reply list
+    + sessionKey (string)       ... Session Key
+
++ Response 200 (application/json)
+
+        {
+            "content": [
+                {
+                    "_emp_author": {
+                        "empNo": "111381",                  // the id for the one created the reply  [string]
+                        "name":  "震大事"                   // the name of the one created the reply [string]
+                    },
+                    "created": 1406939126,                  // the timestamp for the created time. [number(timestamp)]
+                    "updated": 1407000123,                  // the timestamp for the updated time. [number(timestamp)]
+                    "message": "This is the test reply.",   // the message content [string]
+                    "id": "R12-3012",                       // the identifier for the reply [string]
+                    "editable": false                       // the flag that indicated weather the user could edit reply. [boolean]
+                },...
+            ],
+            "offset": 0,                                    // the offset of the replies [number]
+            "limit": 5,                                     // the max number of replies in the response [number]
+            "total": 6                                      // the total number of the replies [number]
+        }
+
+
+### 新增回應至留言板至指定主題[POST]
++ Parameters
+    + topicId (string)      ... The identifier for the specified topic.
+    + empNo (string)        ... The employment id for the one requesting for posting the reply.
+    + content (string)      ... The message content for the replay.
+    + sessionKey (string)   ... Session Key
+
++ Response 200 (application/json)
+
+        {
+            "success": true,
+            "content": {
+                "id": "R12-3013"   // The identifier for the nwely created reply [string].
+            }
+        }
+
++ Response 400 (application/json)
+
+        {
+            "error": 701,
+            "message": "缺少參數 xxx"
+        }
+
++ Response 400 (application/json)
+
+        {
+            "error": 702,
+            "message": "參數 xxx 型態錯誤"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 103,
+            "message": "無存取權限"
+        }
+
+
+## 6/4 - 留言板系統之回應 [/bulletin/reply/{replyId}{?empNo,content,sessionKey,chartNo}]
+### 取得留言板某個回應[GET]
++ Parameters
+    + replyId (string)      ... The identifier for the specified reply.
+    + sessionKey (string)   ... Session Key
+
++ Response 200 (application/json)
+
+
+        {
+            "content": {
+                "_emp_author" : {
+                    "empNo" : "111111",         // the id for the one created the reply [string]
+                    "name" : "謝小穎"           // the name of the one created the reply [string]
+                },
+                "created":     1406938026,      // created time. [number(timestamp)]
+                "updated":     1407000123,      // the last updated time. [number(timestamp)]
+                "message":     "hello world",   // [string]
+                "id":          "A13-3321",      // [string]
+                "editable":    false
+            }
+        }
+
+### 編輯留言板某個回復[PUT]
++ Parameter
+    + replyId (string)      ... The identifier for the specified reply.
+    + empNo (string)        ... 請求更新之使用者帳號
+    + content (string)      ... 更新之訊息內容
+    + sessionKey (string)   ... Session Key
+
++ Response 200 (application/json)
+
+
+        {
+            "success": true
+        }
+
++ Response 400 (application/json)
+
+        {
+            "error": 701,
+            "message": "缺少參數xxx"
+        }
+
++ Response 400 (application/json)
+
+        {
+            "error": 702,
+            "message": "參數xxx 型態錯誤"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 103,
+            "message": "無存取權限"
+        }
+
+### 刪除留言板某個主題[DELETE]
++ Parameters
+    + replyId (string)      ... The identifier for the specified reply.
+    + sessionKey (string)   ... Session Key
+    + chartNo (string)      ... 病例號碼
+
++ Response 200 (application/json)
+
+
+        {
+            "success": true
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 103,
+            "message": "無存取權限"
+        }

@@ -1,0 +1,1553 @@
+
+# Group Web Service 通則 {example}
+## 通則 [/{?sessionKey,offset,limit}]
+### 驗證 Session Key 與資料分頁參數[GET]
+所有 Web Service 都須帶入 Session Key 檢查是否過期與是否具有存取權限。
+
+過期則回傳 401；無存取權限則回傳 403。
+
+所有資料回傳時間，皆以時間序號表示，以秒為單位。
+(使用 1 January 1970, GMT為基準時間 http://zh.wikipedia.org/wiki/Help:%E6%99%82%E9%96%93%E5%BA%8F%E8%99%9F）
++ Parameters
+    + sessionKey (string) ... 使用者登入 Session Key
+    + offset = `0` (number, optional) ... 資料偏移數，需與 limit 一起傳入，當content為陣列或collection時使用
+    + limit (number, optional) ... 最大回傳筆數，需與 offset 一起傳入，當content為陣列或collection時使用
+
++ Response 200 (application/json)
+
+        {
+            "content" : [], // 回傳內容(可以是單一物件，也可以是陣列)
+            "limit" : 50,   // 最大回傳筆數，當client傳入時需回傳[number]
+            "offset" : 0,   // 回傳資料偏移數，當client傳入時需回傳[number]
+            "total" : 100   // 此次Query總筆數，當content為陣列或collection時需回傳[number]
+        }
+
++ Response 401 (application/json)
+
+        {
+            "message" : "Session Key 過期", //錯誤訊息 [string]
+            "error" :  102                  //錯誤代碼 [number]
+        }
+
++ Response 403 (application/json)
+
+        {
+            "message" : "無存取權限",   //錯誤訊息 [string]
+            "error" :  103              //錯誤代碼 [number]
+        }
+
+# Group 病患清單 Patient List
+病患清單相關 Web Service
+## 6/4 -病患清單 [/patients{?chartNo,personID,wardCode,empNo,empNoConsult,empNoStarred,ORCode,ERCode,OPDCode,examRoomCode}]
+### 查詢病患清單 [GET]
+可傳入病歷號、身分證號、病房、醫師員編、開刀房號、急診科別、門診科別、檢查科室等參數，回傳符合參數條件之病患
++ Parameters
+    + chartNo (string, optional) ... 病歷號
+    + personID (string, optional) ... 身分證號
+    + wardCode (string, optional, `5W3`) ... 病房號
+    + empNo (string, optional) ... 醫師員編 (依照醫師員編顯示個人病患)
+    + empNoConsult (string, optional) ... 醫師員編 (依照醫師員編顯示照會病患)
+    + empNoStarred (string, optional) ... 醫師員編 (依照醫師員編顯示追蹤病患)
+    + ORCode (string, optional) ... 開刀房號
+    + ERCode (string, optional) ... 急診科別
+    + OPDCode (string, optional) ... 門診科別
+    + examRoomCode (string, optional) ... 檢查科室
+
++ Response 200 (application/json)
+
+        {
+            "content" : [   //病患資訊陣列
+                {   //病患資訊
+                    "patName" : "王小明",           //病患姓名[string]
+                    "patSexCode" : "M",             //性別[string]（男性："M";女性："F"）
+                    "patBirthday" : 1406938026,     //出生日期[number(timestamp)]
+                    "chartNo" : "12345678",         //病歷號[string]
+                    "personID" : "A123456789",      //身分證號[string]
+                    "bedInfo" : "5W3 01-01",        //病房病床號(住院與急診)，非住院或急診中則不回傳Key[string]
+                    "inDate" : 1406938026,          //入院日期(住院或急診檢傷時間)，非住院或在急診則不回傳Key [number(timestamp)]
+                    "triageLevels" : "1",           //檢傷分級，非急診則不回傳 Key [string, optional]
+                    "_emp_VS" : {                   //主治醫師(如遇回傳資料為醫師者，變數皆為_emp_開頭)[string, optional]
+                        "empNo" : "111281",         //醫師員編[string]
+                        "name" : "葉小菜"
+                    },
+                    "_emp_RS" : {           //住院醫師(如遇回傳資料為醫師者，變數皆為_emp_開頭)[string, optional]
+                        "empNo" : "000123", //醫師員編[string]
+                        "name" : "蘇小宇"
+                    },
+                    "_emp_NP" : {           //護理師 [string, optional]
+                        "empNo" : "111111", //員編 [string]
+                        "name" : "謝小穎"
+                    },
+                    "status" : "住院中",    //狀態[string]
+                    "specialTag" : [        //特殊標記[string array] (ex:DNR,...)
+                        {
+                            "tagCode" : "DNR",      // [string]
+                            "displayName" : "DNR"   // [string]
+                        },
+                        ...
+                    ],
+                    "latestPacsReportDateTime" : 1406938026, //最新影像時間 [number(timestamp)]
+                    "latestLISReportDateTime" : 1406938026,  //最新報告時間 [number(timestamp)]
+                    "accountIDSE" : "14T05267794",           //帳號 [string, optional]
+                    "patClassCode" : "I",                    //門住急別 [string, optional]
+                    "visible": true                          //是否可以瀏覽 [boolean]
+                },
+                ...
+            ],
+            "limit" : 50,   //最大回傳筆數 [number]
+            "offset" : 0,   //回傳資料偏移數 [number]
+            "total" : 50    //此次Query總筆數 [number]
+        }
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+## 病房號 [/wards]
+### 查詢所有病房 [GET]
++ Response 200 (application/json)
+
+        {
+            "content" : [   //病房資訊陣列
+                {   //病房資訊
+                    "hospCode" : "T0",      //醫院代碼[string]
+                    "wardCode" : "01A1",    //病房代碼[string]
+                    "displayName" : "01A1"  //顯示名稱[string]
+                },
+                ...
+            ],
+            "limit" : 50, //最大回傳筆數[number]
+            "offset" : 0, //回傳資料偏移數[number]
+            "total" : 50  //此次Query總筆數[number]
+        }
+
+## 開刀房號 [/ORs]
+### 查詢開刀房 [GET]
++ Response 200 (application/json)
+
+         {
+            "content":[                      //手術房資訊陣列
+                {                           //手術房資訊
+                    "hospCode" : "T0",      //醫院代碼 [string]
+                    "ORCode" : "1",         //開刀房代碼 [string]
+                    "displayName" : "1"     //顯示名稱 [string]
+                },
+                ...
+            ],
+            "limit" : 50,   //最大回傳筆數[number]
+            "offset" : 0,   //回傳資料偏移數[number]
+            "total" : 50    //此次Query總筆數[number]
+        }
+
+## 急診科別 [/ERs]
+### 查詢急診科別 [GET]
++ Response 200 (application/json)
+
+         {
+            "content":[   //急診科別資訊陣列
+                {   //急診科別資訊
+                    "hospCode" : "T0",          //醫院代碼[string]
+                    "ERCode" : "ALL",           //急診科別代碼[string]
+                    "displayName" : "不分科"    //顯示名稱[string]
+                },
+                {   //急診科別資訊
+                    "hospCode" : "T0",          //醫院代碼[string]
+                    "ERCode" : "MED",           //急診科別代碼[string]
+                    "displayName" : "非外傷"    //顯示名稱[string]
+                },
+                ...
+            ],
+            "limit" : 50, //最大回傳筆數[number]
+            "offset" : 0, //回傳資料偏移數[number]
+            "total" : 50 //此次Query總筆數[number]
+        }
+
+## 門診科別 [/OPDs]
+### 查詢今日門診科別 [GET]
++ Response 200 (application/json)
+
+        {
+            "content" : [                       //門診科別資訊陣列
+                {                               //門診科別資訊
+                    "hospCode" : "T0",          //醫院代碼[string]
+                    "OPDCode" : "MED",          //門診科別代碼[string]
+                    "displayName" : "內科部",   //顯示名稱[string]
+                    "childPath" : "/OPDs/MED"   //下一層內容連結，無下層則不回傳[string]
+                },
+                ...
+            ],
+            "limit" : 50,   //最大回傳筆數[number]
+            "offset" : 0,   //回傳資料偏移數[number]
+            "total" : 50    //此次Query總筆數[number]
+        }
+
+## 門診科別層級 [/OPDs/{OPDCode}]
+### 查詢今日門診科別 [GET]
++ Parameters
+    + OPDCode (string) ... 門診代碼
+
++ Response 200 (application/json)
+
+        {
+            "content" : [   //門診科別資訊陣列
+                {
+                    "hospCode" : "T0",  //醫院代碼[string]
+                    "OPDCode" : "MED_A",   //門診科別代碼[string]
+                    "displayName" : "內科部 上午",    //顯示名稱[string]
+                    "childPath" : "/OPDs/MED_A"   //下一層內容連結，無下層則不回傳[string]
+                },
+                {
+                    "hospCode" : "T0",  //醫院代碼[string]
+                    "OPDCode" : "MED_P",   //門診科別代碼[string]
+                    "displayName" : "內科部 下午",    //顯示名稱[string]
+                    "childPath" : "/OPDs/MED_P"   //下一層內容連結，無下層則不回傳[string]
+                },
+                ...
+            ],
+            "limit" : 50, //最大回傳筆數[number]
+            "offset" : 0, //回傳資料偏移數[number]
+            "total" : 50 //此次Query總筆數[number]
+        }
+
+## 檢查科室 [/examRooms]
+### 查詢檢查科室 [GET]
++ Response 200 (application/json)
+
+        {
+            "content" : [   //檢查科別資訊陣列
+                {   //檢查科別資訊
+                    "hospCode" : "T0",  //醫院代碼[string]
+                    "examRoomCode" : "000CPFT0",   //檢查科室代碼[string]
+                    "displayName" : "[檢查照會] 肺功能室",    //顯示名稱[string]
+                    "childPath" : "/examRooms/000CPFT0"   //下一層內容連結，無下層則不回傳[string]
+                },
+                ...
+            ],
+            "limit" : 50, //最大回傳筆數[number]
+            "offset" : 0, //回傳資料偏移數[number]
+            "total" : 50 //此次Query總筆數[number]
+        }
+
+## 檢查科室層級 [/examRooms/{examRoomCode}]
+### 查詢檢查科室 [GET]
++ Parameters
+    + examRoomCode (string, `000CPFT0`) ... 檢查科室代碼
+
++ Response 200 (application/json)
+
+        {
+            "content" : [   //檢查科別資訊陣列
+                {
+                    "hospCode" : "T0",  //醫院代碼[string]
+                    "examRoomCode" : "000CPFT0_A",   //檢查科室代碼[string]
+                    "displayName" : "[檢查照會] 肺功能室 上午"    //顯示名稱[string]
+                },
+                {
+                    "hospCode" : "T0",  //醫院代碼[string]
+                    "examRoomCode" : "000CPFT0_P",   //檢查科室代碼[string]
+                    "displayName" : "[檢查照會] 肺功能室 上午"    //顯示名稱[string]
+                },
+                {
+                    "hospCode" : "T0",  //醫院代碼[string]
+                    "examRoomCode" : "000CPFT0_N",   //檢查科室代碼[string]
+                    "displayName" : "[檢查照會] 肺功能室 晚上"    //顯示名稱[string]
+                }
+            ],
+            "limit" : 3, //最大回傳筆數[number]
+            "offset" : 0, //回傳資料偏移數[number]
+            "total" : 3 //此次Query總筆數[number]
+        }
+
+# Group 病歷資料 Medical Record
+## 6/4 病患醫療基本資料 [/patients/{chartNo}{?startDate,endDate}]
+### 取得病患醫療基本資料 [GET]
++ Parameters
+    + chartNo (string) ... 病歷號
+    + startDate = `三日前` (string, optional, `20141108`) ... Query 起始日期，以yyyyMMdd表示 (包含此日期)
+    + endDate = `今日` (string, optional, `20141108`) ... Query 結束日期，以yyyyMMdd表示 (包含此日期)
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "basic" : [
+                    {
+                        "title" : "Active Problem List",                                        // [string, optional]
+                        "content" : [
+                            {
+                                "item" : "Gastrointestinal stromal tumor, gastrointestinal",    //診斷[string]
+                                "value" : "238.1"    //診斷代碼[string]
+                            },
+                            ...
+                        ]
+                    },
+                    {
+                        "title" : "過敏",                       // [string, optional]
+                        "content" : [
+                            {
+                                "item" : "Penicillin group",    //過敏[string]
+                                "value" : "R"                   //過敏類型[string]
+                            },
+                            ...
+                        ]
+                    },
+                    {
+                        "content" : [
+                            {
+                                "date" : 1406938026,    //報告時間[nubmer(timestamp), optional]
+                                "item" : "RBC",         //危及項目[string]
+                                "value" : "1.0"         //危急值[string]
+                            },
+                            ...
+                        ]
+                    },
+                    ...
+                ],
+                "history" :[    //兩年內就診診斷記錄
+                    {
+                        "item" : "Gastrointestinal stromal tumor, gastrointestinal",    //診斷[string]
+                        "value" : "238.1"    //診斷代碼[string]
+                    },
+                    ...
+                ],
+                "TPR" : [
+                    {   //每次TPR紀錄
+                        "date" : 1406938026,    //紀錄時間[nubmer(timestamp)]
+                        "breathing" : 20,       //呼吸[number,optional]
+                        "temperature" : 37.5,   //體溫[number,optional]
+                        "heartRate" : 59,       //心跳[number,optional]
+                        "bloodPressure" : { //血壓
+                            "systolic" : 116,   //收縮壓[number,optional]
+                            "diastolic" : 69    //舒張壓[number,optional]
+                        }
+                    },
+                    ...
+                ],
+                "labReport" : [
+                    {   //檢驗報告
+                        "reportDate" : 1406938026,          //最後報告時間[nubmer(timestamp)]
+                        "content" : [
+                            {   //依據欄位填入資料，無資料則不回傳 [optional]
+                                "item" : "RBC",
+                                "labValue" : {              //若為檢驗數值則回傳object
+                                    "value" :"2.66",        //檢驗值[string]
+                                    "status" : "normal"     //檢驗值狀態。ex:"normal"(正常)、"abnormal"(異常)、"low"(過低)、"high"(過高)、"unknow"(無法判斷)[string]
+                                }
+                            },
+                            ...
+                        ]
+                    },
+                    ...
+                ],
+                "otherReport" : [
+                    {
+                        "date" : 1406938026,                            //報告時間[nubmer(timestamp)]
+                        "item" : "Chest PA View (Standing)",            //報告項目[string]
+                        "type" : "影核醫",                              //報告種類[string]
+                        "report" : {    //如有報告則回傳 [optional]
+                            "reportType" : "HTML",                      //報告型態，HTML或PDF
+                            "reportPath" : "/report/{reportID}",        //報告路徑
+                            "encoding" : "utf-16",                      //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                            "baseURL" : "http://baseUrl.ntuh.gov.tw"    //報告基礎連結(報告中如有相對連結時回傳)[string, optional]
+                        }
+                    },
+                    ...
+                ],
+                "progressNote" : [
+                    {
+                        "date" : 1406938026,                            //時間[nubmer(timestamp)]
+                        "item" : "Admission Note",                      //項目[string]
+                        "report" : {    //如有報告則回傳 [optional]
+                            "reportType" : "HTML",                      //報告型態，HTML或PDF
+                            "reportPath" : "/report/{reportID}",        //報告路徑
+                            "encoding" : "utf-16",                      //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                            "baseURL" : "http://baseUrl.ntuh.gov.tw"    //報告基礎連結(報告中如有相對連結時回傳)[string, optional]
+                        }
+                    },
+                    ...
+                ],
+                "OPNote" : [
+                    {
+                        "date" : 1406938026,                            //時間[nubmer(timestamp)]
+                        "item" : "Subxiphoid drainage with sternal",    //項目[string]
+                        "report" : {    //如有報告則回傳 [optional]
+                            "reportType" : "HTML",                      //報告型態，HTML或PDF
+                            "reportPath" : "/report/{reportID}",        //報告路徑
+                            "encoding" : "utf-16",                      //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                            "baseURL" : "http://baseUrl.ntuh.gov.tw"    //報告基礎連結(報告中如有相對連結時回傳)[string, optional]
+                        }
+                    },
+                    ...
+                ],
+                "order" : [    //抓本日 active 就好
+                    {
+                        "startDate" : 1406938026,                       // [number(timestamp)]
+                        "endDate" : 1406938026,                         // [number(timestamp)]
+                        "type" : "執行中",                              //醫囑進度
+                        "item" : "Chest PA View (Standing)",            //醫令內容[string]
+                        "bgColor" : "FFFFFF",                           //如需調整背景顏色則回傳16進位色碼[string,optional]
+                        "report" : {    //如有報告則回傳 [optional]
+                            "reportType" : "HTML",                      //報告型態，HTML或PDF
+                            "reportPath" : "/report/{reportID}",        //報告路徑
+                            "encoding" : "utf-16",                      //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                            "baseURL" : "http://baseUrl.ntuh.gov.tw"    //報告基礎連結(報告中如有相對連結時回傳)[string, optional]
+                        }
+                    },
+                    ...
+                ],
+                "medication" : [    //抓本日 active 就好
+                    {
+                        "startDate" : 1406938026,       // [number(timestamp)]
+                        "endDate" : 1406938026,         // [number(timestamp)]
+                        "item" : "Magnesium Oxide"      //組合名[string]
+                    },
+                    ...
+                ],
+                "consult" : [    //會診資訊
+                    {
+                        "date" : 1406938026,                    //會診時間 [number(timestamp)]
+                        "item" : "xxx 會診資訊",                //會診資訊 [string]
+                        "type" : "葉XX醫師",                    //會診醫師 [string]
+                        "report" : {    //會診單
+                            "reportType" : "HTML",                      //報告型態，HTML或PDF
+                            "reportPath" : "/report/{reportID}",        //報告路徑
+                            "encoding" : "utf-16",                      //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                            "baseURL" : "http://baseUrl.ntuh.gov.tw"    //報告基礎連結(報告中如有相對連結時回傳)[string, optional]
+                        }
+                    }
+                ]
+            },
+            "startDate" : 1406938026, // [number(timestamp)] Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026    // [number(timestamp)] Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+## 6/4 -病歷資料 Web Service 通則 {example} [/patients/{chartNo}/{dataPath}{?startDate,endDate}]
+### 取得病歷資料 [GET]
++ Parameters
+    + chartNo (string) ... 病歷號
+    + dataPath (string) ... 各項病歷資料路徑
+    + startDate = `入院日` (string, optional, `1406938026`) ... Query 起始日期，以時間序號表示 (包含此日期)
+    + endDate = `今日` (string, optional, `1406938026`) ... Query 結束日期，以時間序號表示 (包含此日期)
++ Response 200 (application/json)
+
+        {
+            "content" : [], //回傳內容(可以是單一物件，也可以是陣列)
+            "startDate" : 1406938026, // [number(timestamp)] Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026, // [number(timestamp)] Query 結束日期，以時間序號表示 (包含此日期)
+            "limit" : 50, //最大回傳筆數，當client傳入與content為陣列或collection時需回傳[number]
+            "offset" : 0, //回傳資料偏移數，當client傳入與content為陣列或collection時需回傳[number]
+            "total" : 100 //此次Query總筆數，當content為陣列或collection時需回傳[number]
+        }
+
+## 6/4 -檢驗報告-清單報告 [/patients/{chartNo}/labReport/report]
+### 取得病歷資料 [GET]
+
++ Response 200 (application/json)
+
+
+        {
+            "content" : {
+                "data" : [
+                    {   //檢驗報告
+                        "specimen" : "BLOOD", //檢體[string]
+                        "lab" : "血液檢驗組血液室HE",    //檢驗單位[string]
+                        "requestNo" : "4025928",    //檢驗單號[string]
+                        "inspectionDate" : 1406938026,   //採檢時間[number(timestamp)]
+                        "recordDate" : 1406938026,    //登入時間[number(timestamp)]
+                        "reportDate" : 1406938026,   //最後報告時間[number(timestamp)]
+                        "filterCode" : [    //篩選代碼
+                            "HE"
+                        ],
+                        "report" : {    //有額外報告時回傳 [optional]
+                            "reportType" : "HTML",                      //報告型態，HTML或PDF
+                            "reportPath" : "/labReport/{labReportID}",  //報告路徑
+                            "encoding" : "utf-16",                      //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                            "baseURL" : "http://baseUrl.ntuh.gov.tw"    //報告基礎連結(報告中如有相對連結時回傳)[string, optional]
+                        },
+                        "table" : {
+                            "field" : [    //欄位資訊
+                                {
+                                    "fieldCode" : "item",       //欄位代碼[string]
+                                    "displayName" : "檢驗項目"  //欄位顯示名稱[string]
+                                },
+                                {
+                                    "fieldCode" : "labValue",
+                                    "displayName" : "檢驗值"
+                                },
+                                {
+                                    "fieldCode" : "unit",
+                                    "displayName" : "單位"
+                                },
+                                {
+                                    "fieldCode" : "reference",
+                                    "displayName" : "參考值"
+                                },
+                                {
+                                    "fieldCode" : "critical",
+                                    "displayName" : "危急值"
+                                },
+                                {
+                                    "fieldCode" : "note",
+                                    "displayName" : "說明"
+                                },
+                                {
+                                    "fieldCode" : "specialOrder",
+                                    "displayName" : "特別醫囑"
+                                }
+                            ],
+                            "data" : [
+                                {
+                                    "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                                        "item" : "RBC",
+                                        "labValue" : {              //若為檢驗數值則回傳object
+                                            "value" :"2.66",        //檢驗值[string]
+                                            "status" : "normal"     //檢驗值狀態。ex:"normal"(正常)、"abnormal"(異常)、"low"(過低)、"high"(過高)、"unknow"(無法判斷)[string]
+                                        },
+                                        "unit" : "M/ul",
+                                        "reference" : "4 ~ 5.52",
+                                        "critical" : "< 2.0 & > 7.0",
+                                        "note" : "",                // [optional]
+                                        "specialOrder" : ""
+                                    }
+                                },
+                                ...
+                            ]
+                        }
+                    },
+                    ...
+                ],
+                "filter" : [
+                    {
+                        "filterCode" : "HE",
+                        "displayName" : "血液檢驗組血液室HE"
+                    },
+                    {
+                        "filterCode" : "BC",
+                        "displayName" : "生化檢驗組BC"
+                    },
+                    ...
+                ],
+                "limit" : 50,                   //最大回傳筆數，當client傳入與content為陣列或collection時需回傳[number]
+                "offset" : 0,                   //回傳資料偏移數，當client傳入與content為陣列或collection時需回傳傳[number]
+                "total" : 100                   //此次Query總筆數，當content為陣列或collection時需回傳[number]
+            },
+            "startDate" : 1406938026,           // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026              // Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+
+## 6/4 -檢驗報告-累積報告 [/patients/{chartNo}/labReport/accmulatedReport]
+### 取得病歷資料 [GET]
+
++ Response 200 (application/json)
+
+
+        {
+            "content" : {
+                "data" : [
+                    {
+                        "item" : "CBC+PLT BLOOD",           //檢驗項目[string]
+                        "lab" : "血液檢驗組血液室HE",       //檢驗單位[string]
+                        "filterCode" : [                    //篩選代碼
+                            "HE"
+                        ],
+                        "table" : {
+                            "field" : [    //欄位資訊
+                                {
+                                    "fieldCode" : "inspectionDate",         //欄位代碼[string]
+                                    "displayName" : "採檢時間",             //欄位顯示名稱[string]
+                                    "dateFormat" : "yyyy-MM-dd HH:mm"       //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳 [string, optional]
+                                },
+                                {
+                                    "fieldCode" : "WBC",
+                                    "displayName" : "WBC(k/uL)",
+                                    "labInfo" : {                           //檢驗項目相關資訊 [optional]
+                                        "reference" : "3.54 ~ 9.06"         //參考值[string]
+                                    }
+
+                                },
+                                ...
+                            ],
+                            "data" : [
+                                {
+                                    "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                                        "inspectionDate" : 1406938026,          //採檢時間[number(timestamp)]
+                                        "date" : 1406938026,                    //報告時間(不顯示，但須保留作為篩選用)[number(timestamp)]
+                                        "WBC" : {   //若為檢驗數值則回傳object [optional]
+                                            "value" :"4.05",                    //檢驗值[string]
+                                            "status" : "normal",                //檢驗值狀態。ex:"normal"(正常)、"abnormal"(異常)、"low"(過低)、"high"(過高)、"unknow"(無法判斷)[string]
+                                            "note" : "123",                     //檢醫部註記，無資料則不回傳[string, optional]
+                                            "reportDate" : 1406938026           //報告時間[number(timestamp)]
+                                        }
+                                    }
+                                },
+                                ...
+                            ]
+                        }
+                    },
+                    ...
+                ],
+                "filter" : [
+                    {
+                        "filterCode" : "HE",
+                        "displayName" : "血液檢驗組血液室HE"
+                    },
+                    {
+                        "filterCode" : "BC",
+                        "displayName" : "生化檢驗組BC"
+                    },
+                    ...
+                ]
+            },
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+## 6/4 -檢驗報告-綠單報告 [/patients/{chartNo}/labReport/greenReport]
+### 取得病歷資料 [GET]
+
++ Response 200 (application/json)
+
+
+        {
+            "content" : {
+                "data" : [
+                    {
+                        "item" : "Complete Blood Cell Count BLOOD", //綠單項目[string]
+                        "filterCode" : [    //篩選代碼
+                            "CBC"
+                        ],
+                        "table" : {
+                            "field" : [    //欄位資訊
+                                {
+                                    "fieldCode" : "inspectionDate",     //欄位代碼[string]
+                                    "displayName" : "採檢時間",         //欄位顯示名稱[string]
+                                    "dateFormat" : "yyyy-MM-dd HH:mm"   //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                                },
+                                {
+                                    "fieldCode" : "WBC",
+                                    "displayName" : "WBC(k/uL)",
+                                    "labInfo" : {   //檢驗項目相關資訊  // [optional]
+                                        "reference" : "3.54 ~ 9.06"     //參考值[string]
+                                    }
+
+                                },
+                                ...
+                            ],
+                            "data" : [
+                                {
+                                    "content" : {   //依據欄位填入資料，無資料則不回傳
+                                        "inspectionDate" : 1406938026,   //採檢時間[number(timestamp)]
+                                        "date" : 1406938026,    //報告時間(不顯示，但須保留作為篩選用)[number(timestamp)]
+                                        "WBC" : {   //若為檢驗數值則回傳[optional]
+                                            "value" :"4.05",    //檢驗值[string]
+                                            "status" : "normal",    //檢驗值狀態。ex:"normal"(正常)、"abnormal"(異常)、"low"(過低)、"high"(過高)、"unknow"(無法判斷)[string]
+                                            "note" : "123", //檢醫部註記，無資料則不回傳[string, optional]
+                                            "reportDate" : 1406938026  //報告時間[number(timestamp)]
+                                        }
+                                    }
+                                },
+                                ...
+                            ]
+                        }
+                    },
+                    ...
+                ],
+                "filter" : [
+                    {
+                        "filterCode" : "CBC",
+                        "displayName" : "CBC"
+                    },
+                    {
+                        "filterCode" : "biochemistry",
+                        "displayName" : "Biochemistry"
+                    },
+                    ...
+                ]
+            },
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+## 6/4 -報告系統 [/patients/{chartNo}/otherReport]
+檢驗報告之外的其他報告
+### 取得病歷資料 [GET]
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "field" : [    //欄位資訊
+                    {
+                        "fieldCode" : "item",
+                        "displayName" : "檢查項目"
+                    },
+                    {
+                        "fieldCode" : "examDate",  //欄位代碼[string]
+                        "displayName" : "檢查時間", //欄位顯示名稱[string]
+                        "dateFormat" : "yyyy-MM-dd HH:mm"   //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                    },
+                    {
+                        "fieldCode" : "date",  //欄位代碼[string]
+                        "displayName" : "報告時間", //欄位顯示名稱[string]
+                        "dateFormat" : "yyyy-MM-dd HH:mm"   //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                    },
+                    {
+                        "fieldCode" : "type",
+                        "displayName" : "報告種類"
+                    }
+                ],
+                "data" : [
+                    {
+                        "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                            "examDate" : 1406938026,
+                            "date" : 1406938026,
+                            "item" : "Chest PA View (Standing)",
+                            "type" : "影核醫"
+                        },
+                        "filterCode" : [    //篩選類別
+                            "image"
+                        ],
+                        "report" : {    //如有報告則回傳 [optional]
+                            "reportType" : "HTML",                              //報告型態，HTML或PDF
+                            "reportPath" : "/imageReport/{imageReportID}",      //報告路徑
+                            "encoding" : "utf-16",                              //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                            "baseURL" : "http://baseUrl.ntuh.gov.tw"            //報告基礎連結(報告中如有相對連結時回傳)[string, optional]
+                        }
+                    },
+                    ...
+                ],
+                "filter" : [
+                    {
+                        "filterCode" : "image",
+                        "displayName" : "影核醫"
+                    },
+                    {
+                        "filterCode" : "ECG",
+                        "displayName" : "心電圖"
+                    },
+                    ...
+                ],
+                "limit" : 50, //最大回傳筆數傳[number]
+                "offset" : 0, //回傳資料偏移數[number]
+                "total" : 100 //此次Query總筆數[number]
+            },
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+
+## 6/4 -影像報告 [/patients/{chartNo}/ImageReport]
+### 取得病歷資料 [GET]
+
++ Response 200 (application/json)
+
+        {
+            "content" : [
+                {
+                    "AccessionNumber" : "T0146067566",  //影像報告序號[string]
+                    "report" : {    //如有報告則回傳 [optional]
+                        "reportType" : "HTML",                              //報告型態，HTML或PDF
+                        "reportPath" : "/imageReport/{imageReportID}",      //報告路徑
+                        "encoding" : "utf-16",                              //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                        "baseURL" : "http://baseUrl.ntuh.gov.tw"            //報告基礎連結(報告中如有相對連結時回傳)[string, optional]
+                    }
+                },
+                ...
+            ],
+            "limit" : 50,               //最大回傳筆數傳[number]
+            "offset" : 0,               //回傳資料偏移數[number]
+            "total" : 100,              //此次Query總筆數[number]
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+
+## 6/4 -生命徵象 [/patients/{chartNo}/TPR]
+### 取得病歷資料 [GET]
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "TPR" : [   //TPR 圖表資料
+                    {   //每次TPR紀錄
+                        "date" : 1406938026,        //紀錄時間[nubmer(timestamp)]
+                        "breathing" : 20,           //呼吸[number,optional]
+                        "temperature" : 37.5,       //體溫[number,optional]
+                        "heartRate" : 59,           //心跳[number,optional]
+                        "bloodPressure" : { //血壓
+                            "systolic" : 116,       //收縮壓[number,optional]
+                            "diastolic" : 69        //舒張壓[number,optional]
+                        }
+                    },
+                    ...
+                ],
+                "IO" : [    //IO資料
+                    {   //欄位資料
+                        "fieldName" : "血壓",           //欄位名稱[string]
+                        "data" : [
+                            {
+                                "date" : 1406938026,    //資料時間[number(timestamp)]
+                                "data" : "125/75"       //資料內容[string]
+                            },
+                            ...
+                        ]
+                    },
+                    {   //欄位資料
+                        "fieldName" : "身高",   //欄位名稱[string]
+                        "unit" : "cm",          //單位，有單位時回傳[string,optional]
+                        "range" : { //繪圖範圍，可以圖形表示時回傳 [optional]
+                            "max" : "210",
+                            "min" : "100"
+                        },
+                        "data" : [
+                            {
+                                "date" : 1406938026,    //資料時間[number(timestamp)]
+                                "data" : "173"          //資料內容[string]
+                            },
+                            {
+                                "date" : 1406948026,    //資料時間[number(timestamp)]
+                                "data" : "173.5"        //資料內容[string]
+                            },
+                            ...
+                        ]
+                    },
+                    {   //欄位資料
+                        "fieldName" : "血糖",   //欄位名稱[string]
+                        "unit" : "ug/ml",       //單位，有單位時回傳[string,optional]
+                        "range" : { //繪圖範圍，可以圖形表示時回傳 [optional]
+                            "max" : "210",
+                            "min" : "100"
+                        },
+                        "data" : [
+                            {
+                                "date" : 1406938026,    //資料時間[number(timestamp)]
+                                "data" : "100",         //資料內容[string]
+                                "note" : "STAT"         //測量狀態[string, optional]
+                            },
+                            ...
+                        ]
+                    },
+                    ...
+                ],
+            "medication" : {
+                "content" : [
+                    {
+                        "drugName" : "Magnesium Oxide",                 //學名[string]
+                        "itemName" : "MgO",                             //品名[string]
+                        "combineName" : "Magnesium Oxide 250 mg/tab",   //組合名[string]
+                        "itemUnit" : "250 mg/tab", //劑量單位[string]
+                        "filterCode" : [ //篩選代碼[string]
+                            "antibiotic"
+                        ],
+                        "medicationID" : "MET4FB18", //藥品八碼[string]
+                        "dose" : "2 tab", //劑量[string]
+                        "approach" : "PO", //途徑[string]
+                        "frequency" : "BID", //頻次[string]
+                        "orderDate" : 1406938026, //開立日期[number(timestamp)]
+                        "startDate" : 1406938026, //用藥開始日期[number(timestamp)]
+                        "endDate" : 1406938026, //用藥結束日期[number(timestamp)]
+                        "_emp_order" : { //開立醫師
+                            "empNo" : "23454353",
+                            "name" : "葉小菜"
+                        },
+                        "note" : "自費 特殊醫囑: For scrotal ulcers", //備註[string, optional]
+                        "category" : "prolonged", //處方類別。ex:"prolonged"(長期)、"stat"(臨時)、"cancel"(取消)、"own"(自備藥)[string]
+                        "drugInfoPath" : "/medication/{medicationID}",  //藥物資訊連結[string]
+                        "drugRecord" : [    //Query期間所有給藥記錄
+                            {
+                                "date" : 1406938026, //日期[number(timestamp)]
+                                "status" : "taken", //用藥狀態。ex:"taken"(已給藥)、"pending"(未處理)、"failure"(未給藥)[string]
+                                "note" : "", //護理給藥備註[string, optional]
+                                "executor" : "張小珍 護理師" //執行人員[string]
+                            },
+                        ...
+                        ]
+                    },
+                 ...
+                ],
+                "filter" : [
+                    {
+                        "filterCode" : "antibiotic",
+                        "displayName" : "抗生素"
+                    },
+                    {
+                        "filterCode" : "Corticosteroids",
+                        "displayName" : "類固醇"
+
+                    },
+                ...
+                ]}
+            },
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026      //Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+## 6/4 -非處方醫囑 [/patients/{chartNo}/order]
+### 取得病歷資料 [GET]
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "field" : [    //欄位資訊
+                    {
+                        "fieldCode" : "startDate",      // 欄位代碼[string]
+                        "displayName" : "開始時間",     // 欄位顯示名稱[string]
+                        "dateFormat" : "yyyy-MM-dd"     // 若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                    },
+                    {
+                        "fieldCode" : "endDate",        // 欄位代碼[string]
+                        "displayName" : "結束時間",     // 欄位顯示名稱[string]
+                        "dateFormat" : "yyyy-MM-dd"     // 若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                    },
+                    {
+                        "fieldCode" : "order",
+                        "displayName" : "醫令內容",
+                        "textAlignment" : "left"        // 欄位內容對齊方式  ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]
+                    },
+                    {
+                        "fieldCode" : "status",
+                        "displayName" : "狀態"
+                    }
+                ],
+                "data" : [
+                    {
+                        "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                            "order" : "Chest PA View (Standing)",
+                            "startDate" : 1406938026,
+                            "endDate" : 1406938026,
+                            "_emp_doctor" : {
+                                "empNo" : "23454353",
+                                "name" : "葉小菜"
+                            },
+                            "status" : "已完成",
+                            "orderDate" : 1406938026
+                        },
+                        "filterCode" : [    //篩選類別
+                            "image"
+                        ],
+                        "report" : {    //如有報告則回傳 [optional]
+                            "reportType" : "HTML",                              // 報告型態，HTML或PDF
+                            "reportPath" : "/ImageReport/{ImageReportID}",      // 報告路徑
+                            "encoding" : "utf-16",                              // 編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                            "baseURL" : "http://baseUrl.ntuh.gov.tw"            // 報告基礎連結(報告中如有相對連結時回傳)[string, optional]
+                        },
+                        "bgColor" : "FFFFFF" //如需調整此列背景顏色則回傳16進位色碼[string,optional]
+                    },
+                    ...
+                ],
+                "filter" : [
+                    {
+                        "filterCode" : "order",
+                        "displayName" : "醫囑"
+                    },
+                    {
+                        "filterCode" : "medication",
+                        "displayName" : "處方"
+                    },
+                    {
+                        "filterCode" : "lab",
+                        "displayName" : "檢驗"
+                    },
+                    {
+                        "filterCode" : "image",
+                        "displayName" : "影醫"
+                    },
+                    ...
+                ],
+                "limit" : 50, //最大回傳筆數傳[number]
+                "offset" : 0, //回傳資料偏移數[number]
+                "total" : 100 //此次Query總筆數[number]
+            },
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+
+## 6/4 -處方醫囑 [/patients/{chartNo}/medication]
+### 取得病歷資料 [GET]
+
++ Response 200 (application/json)
+
+        {
+            "content" : [
+                {
+                    "drugName" : "Magnesium Oxide",                 //學名[string]
+                    "itemName" : "MgO",                             //品名[string]
+                    "combineName" : "Magnesium Oxide 250 mg/tab",   //組合名[string]
+                    "itemUnit" : "250 mg/tab",                      //劑量單位[string]
+                    "filterCode" : [ //篩選代碼
+                        "antibiotic"
+                    ],
+                    "medicationID" : "MET4FB18",                    //藥品八碼[string]
+                    "dose" : "2 tab",                               //劑量[string]
+                    "approach" : "PO",                              //途徑[string]
+                    "frequency" : "BID",                            //頻次[string]
+                    "orderDate" : 1406938026,                       //開立日期[number(timestamp)]
+                    "startDate" : 1406938026,                       //用藥開始日期[number(timestamp)]
+                    "endDate" : 1406938026,                         //用藥結束日期[number(timestamp)]
+                    "_emp_order" : { //開立醫師
+                        "empNo" : "23454353",
+                        "name" : "葉小菜"
+                    },
+                    "note" : "自費 特殊醫囑: For scrotal ulcers",   //備註[string, optional]
+                    "category" : "prolonged",                       //處方類別。ex:"prolonged"(長期)、"stat"(臨時)、"cancel"(取消)、"own"(自備藥)[string]
+                    "drugInfoPath" : "/medication/{medicationID}",  //藥物資訊連結[string]
+                    "drugRecord" : [    //Query期間所有給藥記錄
+                        {
+                            "date" : 1406938026,                    //日期[number(timestamp)]
+                            "status" : "taken",                     //用藥狀態。ex:"taken"(已給藥)、"pending"(未處理)、"failure"(未給藥)[string]
+                            "note" : "",                            //護理給藥備註[string, optional]
+                            "executor" : "張小珍 護理師"            //執行人員[string]
+                        },
+                        ...
+                    ]
+                },
+                ...
+            ],
+            "filter" : [
+                {
+                    "filterCode" : "antibiotic",
+                    "displayName" : "抗生素"
+                },
+                {
+                    "filterCode" : "acesodyne",
+                    "displayName" : "止痛藥"
+
+                },
+                ...
+            ],
+            "startDate" : 1406938026,           // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026,             // Query 結束日期，以時間序號表示 (包含此日期)
+            "limit" : 50,                       //最大回傳筆數，當client傳入時需回傳[number]
+            "offset" : 0,                       //回傳資料偏移數，當client傳入時需回傳[number]
+            "total" : 100                       //此次Query總筆數，當content為陣列或collection時需回傳[number]
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+
+## 9/15-藥物資訊 [/medication/{medicationID}]
+### 取得藥物資訊 [GET]
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "drugName" : "Mecobalamin",                         //學名[string]
+                "itemName" : "Methycobal Capsule 500 mcg / cap",    //品名[string]
+                "chineseName" : "彌可保膠囊",                       //中文名[string]
+                "aliases" : "",                                     //別名[string]
+                "formulations" : "硬膠囊",                          //劑型[string]
+                "medicationID" : "MET4FB18",                        //藥品八碼[string]
+                "pharmaClassification" : "VIII. Hematological Agents\r1. Agents Used to Treat Deficiency Anemia",   //藥理分類，如需換行換行符號為"\r"[string]
+                "usualDose" : "Peripheral neuropathies:\rPO, 500 mcg tid.",                                         //常用劑量[string]
+                "indications" : "末梢性神經障礙",                   //適應症[string]
+                "maxDose" : "BID",                                  // 最大劑量[string]
+                "PregnantClassification" : "",                      //懷孕分級[string]
+                "Contraindications" : "",                           //禁忌[string]
+                "role" : "補充維他命Ｂ１２",                        //作用[string]
+                "drugSafetyAlert" : "",                             //藥物安全警訊[string]
+                "sideEffects" : "可能引起胃部不適, 過敏反應等",     //副作用[string]
+                "precautions" : "",                                 //注意事項[string]
+                "storage" : "< 30 C & protect from light.",         //儲存方法[string]
+                "DrugDealers" : "衛采製藥股份有限公司",             //藥商[string]
+                "appearanceImages" : [ //藥品外觀圖片連結
+                    "https://dept.ntuh.gov.tw/phar/DrugImage/New/s/MET4FB18-A.JPG",
+                    "https://dept.ntuh.gov.tw/phar/DrugImage/New/s/MET4FB18-B.JPG"
+                ]
+            }
+        }
+
+
+## 6/4 -手術紀錄 [/patients/{chartNo}/OPNote]
+### 取得病歷資料 [GET]
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "field" : [    //欄位資訊
+                    {
+                        "fieldCode" : "OPType",
+                        "displayName" : "術式"
+                    },
+                    {
+                        "fieldCode" : "dept",
+                        "displayName" : "科部"
+                    },
+                    {
+                        "fieldCode" : "date",               //欄位代碼[string]
+                        "displayName" : "手術開始時間",     //欄位顯示名稱[string]
+                        "dateFormat" : "yyyy-MM-dd HH:mm"   //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                    },
+                    {
+                        "fieldCode" : "_emp_doctor",
+                        "displayName" : "醫師"
+                    },
+                    {
+                        "fieldCode" : "status",
+                        "displayName" : "狀態"
+                    }
+                ],
+                "data" : [
+                    {
+                        "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                            "OPType" : "1. Subxiphoid drainage with sternal... ",
+                            "dept" : "外科部",
+                            "date" : 1406938026,
+                            "_emp_doctor" : {
+                                "empNo" : "123342",
+                                "name" : "葉小菜"
+                            },
+                            "status" : "V"
+                        },
+                        "report" : {    //如有報告則回傳 [optional]
+                            "reportType" : "HTML",                      //報告型態，HTML或PDF
+                            "reportPath" : "/OPNote/{OPNoteID}",        //報告路徑
+                            "encoding" : "utf-16",                      //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                            "baseURL" : "http://baseUrl.ntuh.gov.tw"    //報告基礎連結(報告中如有相對連結時回傳)[string, optional]
+                        }
+                    },
+                    ...
+                ],
+                "limit" : 50, //最大回傳筆數傳[number]
+                "offset" : 0, //回傳資料偏移數[number]
+                "total" : 100 //此次Query總筆數[number]
+            },
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+
+## 6/4 -病程紀錄 [/patients/{chartNo}/progressNote]
+### 取得病歷資料 [GET]
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "field" : [ //欄位資訊
+                    {
+                        "fieldCode" : "type",       // [string]
+                        "displayName" : "類別"      // [string]
+                    },
+                    {
+                        "fieldCode" : "status",     // [string]
+                        "displayName" : "狀態"      // [string]
+                    }
+                ],
+                "data" : [
+                    {
+                        "content" : { //依據欄位填入資料，無資料則不回傳 [optional]
+                            "date" : 1406938026,            //預載用需保留 [number(timestamp)]
+                            "status" : "V",                 // [string]
+                            "type" : "11-01 Admission Note" // [string]
+                        },
+                        "filterCode" : [    //篩選類別
+                            "ADM"
+                        ],
+                        "report" : { //如有報告則回傳 [optional]
+                            "reportType" : "HTML",                                  //報告型態，HTML或PDF [string]
+                            "reportPath" : "/progressNote/{progressNoteID}",        //報告路徑 [string]
+                            "encoding" : "utf-16",                                  //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                            "baseURL" : "http://baseUrl.ntuh.gov.tw",               //報告基礎連結(報告中如有相對連結時回傳 [string(url), optional]
+                            "confirmInfo" : {   //如果此病歷可以確認，則有此資料 [optional]
+                                "postURL" : "url/to/post",  // 確認時要post的URL [string(url)]
+                                "postContent" : [
+                                    {
+                                        "title" : "備註",   // [string]
+                                        "key" : "note",     // [string]
+                                        "required" : true,  // [boolean]
+                                        "elements": [
+                                            {
+                                                "type" : "textField",
+                                                "options" : [
+                                                    {
+                                                        "displayName" : "Syncope",
+                                                        "optionCode" : "Syncope"
+                                                    },
+                                                    {
+                                                        "displayName" : "Evaluation of pacemaker fuction",
+                                                        "optionCode" : "Evaluation of pacemaker fuction"
+                                                    },
+                                                    {
+                                                        "displayName" : "Other",
+                                                        "optionCode" : "Other"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    ...
+                ],
+                "filter" : [
+                    {
+                        "filterCode" : "ADM",               // [string]
+                        "displayName" : "Admission Note"    // [string]
+                    },
+                    {
+                        "filterCode" : "PRO",               // [string]
+                        "displayName" : "Progress Note"     // [string]
+                    },
+                    ...
+                ],
+                "limit" : 50, //最大回傳筆數傳  [number]
+                "offset" : 0, //回傳資料偏移數  [number]
+                "total" : 100 //此次Query總筆數 [number]
+            },
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期) [number(timestamp)]
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期) [number(timestamp)]
+        }
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+
+## 6/4 -電子病歷 [/patients/{chartNo}/EMR]
+### 取得病歷資料 [GET]
+
++ Response 200 (application/json)
+
+
+        {
+            "content" : {
+                "field" : [    //欄位資訊
+                    {
+                        "fieldCode" : "item",
+                        "displayName" : "項目"
+                    }
+                ],
+                "data" : [
+                    {
+                        "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                            "item" : "置頂"                                         // [string]
+                        },
+                        "children" : [                                              //有次階層時回傳 [optional]
+                            {
+                                "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                                    "item" : "病歷首頁及摘要"                       // [string]
+                                },
+                                "report" : {    //如有報告則回傳 [optional]
+                                    "reportType" : "HTML",                          //報告型態，HTML或PDF [string]
+                                    "reportPath" : "/EMRReport/{EMRReportID}",      //報告路徑 [string]
+                                    "encoding" : "utf-16",                          //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                                    "baseURL" : "http://baseUrl.ntuh.gov.tw"        //報告基礎連結(報告中如有相對連結時回傳) [string(url), optional]
+                                },
+                                "children" : [ // [optional, duplicate]
+                                    {
+                                        "content" : { //依據欄位填入資料，無資料則不回傳 [optional]
+                                            "item" : "PDF病歷首頁及摘要"            // [string]
+                                        },
+                                        "report" : { //如有報告則回傳 [optional]
+                                            "reportType" : "PDF",                       //報告型態，HTML或PDF [string]
+                                            "reportPath" : "/EMRReport/{EMRReportID}",  //報告路徑 [string]
+                                            "encoding" : "utf-16",                      //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                                            "baseURL" : "http://baseUrl.ntuh.gov.tw"    //報告基礎連結(報告中如有相對連結時回傳) [string(url), optional]
+                                        }
+                                    },
+                                    ...
+                                ]
+                            },
+                            ...
+                        ]
+                    },
+                    {
+                        "content" : {  //依據欄位填入資料，無資料則不回傳 [optional]
+                            "item" : "住院"    // [string]
+                        },
+                        "children" : [  // [optional, duplicate]
+                            {
+                                "content" : {                       //依據欄位填入資料，無資料則不回傳 [optional]
+                                    "item" : "2014/06/25 外科部"    // [string]
+                                },
+                                "children" : [  // [optional, duplicate]
+                                    {
+                                        "content" : {               //依據欄位填入資料，無資料則不回傳 [optional]
+                                            "item" : "出院病摘"     // [string]
+                                        },
+                                        "report" : {    //如有報告則回傳 [optional]
+                                            "reportType" : "HTML",                      //報告型態，HTML或PDF
+                                            "reportPath" : "/EMRReport/{EMRReportID}",  //報告路徑 [string]
+                                            "encoding" : "utf-16",                      //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                                            "baseURL" : "http://baseUrl.ntuh.gov.tw"    //報告基礎連結(報告中如有相對連結時回傳)[string(url), optional]
+                                        },
+                                        "children" : [ // [optional, duplicate]
+                                            {
+                                                "content" : {                                   //依據欄位填入資料，無資料則不回傳 [optional]
+                                                    "item" : "2014/06/25 葉小菜主治"            // [string]
+                                                },
+                                                "report" : { //如有報告則回傳 [optional]
+                                                    "reportType" : "PDF",                       //報告型態，HTML或PDF [string]
+                                                    "reportPath" : "/EMRReport/{EMRReportID}",  //報告路徑 [string]
+                                                    "encoding" : "utf-16",                      //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                                                    "baseURL" : "http://baseUrl.ntuh.gov.tw"    //報告基礎連結(報告中如有相對連結時回傳)[string(url), optional]
+                                                }
+                                            },
+                                            ...
+                                        ]
+                                    },
+                                    ...
+                                ]
+                            },
+                            ...
+                        ]
+                    },
+                    ...
+                ],
+                "limit" : 50, //最大回傳筆數傳[number]
+                "offset" : 0, //回傳資料偏移數[number]
+                "total" : 100 //此次Query總筆數[number]
+            },
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+
+# Group 其他 Other Web Service
+## 9/24-通訊錄 [/contacts{?offset,limit}]
+### 取得資料 [GET]
+
++ Parameters
+    + offset = `0` (number, optional) ... 資料偏移數，需與 limit 一起傳入
+    + limit (number, optional) ... 最大回傳筆數，需與 offset 一起傳入
+
++ Response 200 (application/json)
+
+
+        {
+            "content" : [
+                {
+                    "empNo" : "123456",             //員工編號[string]
+                    "empName" : "葉小菜",           //員工姓名[string, optional]
+                    "DEPT" : "內科部",              //單位[string, optional]
+                    "division" : "腸胃科",          //二級單位[string, optional]
+                    "title" : "主治醫師",           //職稱[string, optional]
+                    "TEL" : "71707",                //院內電話[string, optional]
+                    "mobile" : "0972111222",        //公務手機[string, optional]
+                    "mobileBriefCode" : "11222",    //手機簡碼[string, optional]
+                    "EngFirstName" : "Hao-Tsai",    //英文首名[string, optional]
+                    "EngLastName" : "Yeh",          //英文姓[string, optional]
+                    "EngMiddleName" : "",           //英文中名[string, optional]
+                    "email" : "xxx@ntuh.gov.tw",    //email[string, optional]
+                    "remark" : ""                   //備註[string, optional]
+                },
+                ...
+            ],
+            "limit" : 50, //最大回傳筆數[number]
+            "offset" : 0, //回傳資料偏移數[number]
+            "total" : 100 //此次Query總筆數[number]
+        }
+
+
+# Group iPad 容量管理規則
+## 1/29 - iPad 容量警示參數 [/device/storage_limit]
+### 取得iPad 容量警示參數[GET]
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "size": 1024 //size in mb [number]
+            }
+        }
+
+##  1/29 - 系統閒置自動登出時間 [/device/logout_limit]
+### 取得系統閒置自動登出時間[GET]
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "time": 3600 //time in seconds [number]
+            }
+        }

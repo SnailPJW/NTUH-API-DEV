@@ -1,0 +1,45 @@
+# Group 登入與取得或驗證 SessionKey
+## sessionKey [/sessionKey{?empNo,password}]
+### 取得 session key[GET]
++ Parameters
+    + empNo (string) ... 使用者帳號
+    + password (string) ... 使用者密碼
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "empName" : "葉小菜",    //員工姓名[string]
+                "sessionKey" : "51ADFDA9C02D4E1E9930D88A26963612" //Session key [string]
+            }
+        }
+
++ Response 401 (application/json)
+
+        {
+            "message" : "帳號密碼錯誤", //錯誤訊息[string]
+            "error" : 101 //錯誤代碼 [number]
+        }
+
+## sessionKey Validation [/doctor/{doctorId}/isAuthorized{?sessionKey}]
+### 驗證 sessionKey [GET]
++ Parameters
+    + doctorId (string) ... 使用者醫師帳號
+    + sessionKey (string) ... 需要驗證的 sesssionKey
+
++ Response 200 (application/json)
+
+
+        {
+            "content": {
+                "authorized": ture  // [boolean] 驗證結果
+            }
+        }
+
++ Response 400 (application/json)
+
+
+        {
+            "error": 102,                   // [number] error code
+            "message": "SessionKey 過期"    // [string] error description
+        }

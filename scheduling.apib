@@ -1,0 +1,117 @@
+# Group 排程相關
+
+## 6/23 醫令交易檔 ID 所對應之排程 [/account/{accountNo}/orderRecord/{orderRecordId}/schedule{?examRoomCode,date,weekDay,session,selectedOrder,orderSeqNo,sessionKey}]
+
+### 取得排程內容 [GET]
++ Parameters
+    + sessionKey    (string) ... SessionKey
+    + orderSeqNo    (string) ... 醫令序號
+
++ Response 200 (application/json)
+
+        {
+            "content": {
+                "examRoomCode": "CTS",
+                "date": "20150623",
+                "weekDay": 2,
+                "session": "A",
+                "order": 10,
+            }
+        }
+
++ Response 404 (application/json)
+
+        {
+            "error": 802,                               // [number] Error Code
+            "message": "PUT LOCAL DESCRIPTION HERE"     // [string] 錯誤訊息
+        }
+
+
+### 登記修改排程時間 [PUT]
++ Parameters
+    + examRoomCode  (string) ... 檢查室代號
+    + orderSeqNo    (string) ... 醫令序號
+    + date          (string) ... 排程日期, 依照格式為 "YYYYmmdd"
+    + weekDay       (number) ... 星期日期
+    + session       (string) ... 排程時段, 上午為 A 下午為 P 晚上為 N
+    + selectedOrder (number) ... 使用者指定的排程順序
+    + sessionKey    (string) ... SessionKey
+
++ Response 200 (application/json)
+
+        {
+            "success": true
+        }
+
++ Response 400 (application/json)
+
+        {
+            "message": "123123", // [string] error message #TODO: setup the proper error response
+            "error": 400         // [number] error code
+        }
+
+## 6/18 醫令碼 orderCode 所對應的排程資訊 [/order/{orderCode}/schedules{?accountNo,startDate,endDate,searchAll,limit,offset,sessionKey}]
+### 取得排成資訊 [GET]
++ Parameters
+    + accountNo     (string) ... 記帳帳號
+    + orderCode     (string) ... 醫令碼
+    + startDate     (number) ... 起始時間 timestamp
+    + endDate       (number) ... 結束時間 timestamp
+    + searchAll     (boolean) ... 是否要搜尋所有包含目前不可預約之排程，預設為否
+    + sessionKey    (string) ... SessionKey
+    + limit         (number) ... 設定搜尋結果最大筆數
+    + offset        (number) ... 設定搜尋結果偏移量
+
++ Response 200 (application/json)
+
+        {
+            "content": [
+                {
+                    "weekDay":          1,              // [number] 星期日期, 如星期一為 1
+                    "date":             "20150213",     // [string] 排程日期, 依照格式 "YYYYmmdd"
+                    "session":          "A",            // [string] 排程時段, 上午為 A 下午為 P 晚上為 N
+                    "examRoomCode":     "CTAB",         // [string] 檢查室代碼
+                    "examRoomName":     "CTAB_檢查室",   // [string] 檢查室名稱
+                    "ErOpdBookCount":   10,             // [number] 門診/急診 登記個數
+                    "PatientBookCount": 12,             // [number] 住院 登記個數
+                    "ErOpdTotal":       20,             // [number] 門診/急診 開放總數
+                    "PatientTotal":     20,             // [number] 住院 開放總數
+                    "availability":     "O",            // [string] 開放代碼
+                    "contacts":         "590012"        // [string] 聯絡方式
+                },
+                ...
+            ],
+            "limit": 100,       // [number] 搜尋結果最大筆數
+            "offset": 0,        // [number] 搜尋結果偏移量
+            "total": 20         // [number] 搜尋結果總筆數
+        }
+
+## 6/18 檢查室之排程資訊 [/examRoom/{examRoomCode}/schedules{?date,weekDay,session,accountNo,selectedOrder,orderRecordId,sessionKey}]
+### 取得排程內容 [GET]
++ Parameters
+    + date          (string) ... 排程日期, 依照格式為 "YYYYmmdd"
+    + weekDay       (number) ... 星期日期
+    + session       (string) ... 排程時段
+    + sessionKey    (string) ... SessionKey
+
++ Response 200 (application/json)
+
+        {
+            "weekDay":          1,
+            "date":             "20150213",
+            "session":          "A",
+            "examRoomCode":     "CTAB",
+            "examRoomName":     "CTAB_檢查室",
+            "ErOpdBookCount":   10,
+            "PatientBookCount": 12,
+            "ErOpdTotal":       20,
+            "PatientTotal":     20,
+            "availability":     "O",
+            "contacts":         "590012",
+            "selectedOrders": [
+                2,                              // [number] 已被選取之檢查順序
+                4,                              // [number] 已被選取之檢查順序
+                ...
+            ]
+            //#TODO: add aditional content
+        }

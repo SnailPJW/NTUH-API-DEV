@@ -1,0 +1,78 @@
+# Group 院內訊息通知系統
+## 3/15 - 醫師所屬之通知訊息 [/notifications/doctor/{empNo}{?startDate,endDate,offset,limit}]
+### 取得醫師所屬之通知訊息內容 [GET]
++ Parameters
+    + offset (number, optional) ... 資料偏移數，需與 limit 一起傳入
+    + limit  (number, optional) ... 最大回傳筆數，需與 offset 一起傳入
+    + startDate (string, optional, `20150103`) ... Query 起始日期，以時間序號表示 (包含此日期)
+    + endDate   (string, optional, `20150103`) ... Query 結束日期，以時間序號表示 (包含此日期)
+
++ Response 200 (application/json)
+
+        {
+            "content": [
+                {
+                    "id":         "K123321",                            // The identifier for the notification [string]
+                    "title":      "TITLE",                              // The title [string]
+                    "message":    "this is the example notification.",  // The message content of the notification. [string]
+                    "datetime":   1406938026,                           // The time when the notification was issues [number(timestamp)]
+                    "type":       "TEST_TYPE",                          // The type of the notification [string]
+                    "confirmed":  false                                 // The flag indicated that the notification had been confirmed [boolean]
+                }, ...
+            ],
+            "limit": 50,                // 最大回傳筆數 [number]
+            "offset": 0,                // 回傳資料偏移數 [number]
+            "total" : 100,              // 此次Query總筆數 [number]
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期) [number(timestamp)]
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期) [number(timestamp)]
+        }
+
+## 6/4 - 院內訊息通知系統 [/notification/{id}{?confirmed,sessionKey}]
+### 取得通知訊息內容 [GET]
++ Response 200 (application/json)
+
+
+        {
+            "content": {
+                "id":         "K123321",                            // The identifier for the notification [string]
+                "title":      "TITLE",                              // The title [string]
+                "message":    "this is the example notification.",  // The message content of the notification. [string]
+                "datetime":   1406938026,                           // The time when the notification was issues. [number(timestamp)]
+                "typeCode":     "consult",                          // The type code of the notification. [string]
+                "displayName":  "會診",                             // The type display name of the notification. [string]
+                "confirmed":  false                                 // The flag indicated that the notification had been confirmed. [boolean]
+            }
+        }
+
+### 確認通知訊息 [PUT]
++ Parameters
+    + confirmed  (boolean)  ... 設定指定之通知訊息為確認(true)/未確認(false)
+    + sessionKey (string)   ... Session Key
+
++ Response 200 (application/json)
+
+        {
+            "success": true
+        }
+
++ Response 400 (application/json)
+
+        {
+            "error": 701,
+            "message": "缺少參數 xxx"
+        }
+
++ Response 400 (application/json)
+
+
+        {
+            "error": 702,
+            "message": "參數 xxx 型態錯誤"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 103,
+            "message": "無存取權限"
+        }
