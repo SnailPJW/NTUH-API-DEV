@@ -10,20 +10,64 @@
 
         {
             "content": {
-                "medicationCode":   "P1110023",               // [string] 處方代碼
-                "medicationName":   "TEST_ORDER_NAME",        // [string] 處方名稱
-                "medicationType":   "N",                      // [string] 處方類別 如一般為 N 注射為 I
-                "doseUnit":         "mg",                     // [string] 藥品劑量使用單位名稱
-                "packUnit":         "mg",                     // [string] 藥品包裝劑量使用單位名稱
-                "defaultDose":      0.13,                     // [number, optional] 藥品預設劑量 若無則不用回傳
-                "defaultRoute":     "IF",                     // [string, optional] 預設途徑代碼 若無則不用回傳
-                "defaultFrequency": "QD",                     // [string, optional] 預設頻率代碼 若無則不用回傳
-                "defaultDays":      0,                        // [number, optional] 預設使用天數 若無則不用回傳
-                "billType":         "Z",                      // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
-                "createdTime":      1435744800,               // [number(timestamp)] 此項處方醫令編輯起始時間 (UI 介面顯示用)
-                "specialDose":      "TEXT_CONTENT ...",       // [string, optional] 特殊劑量 若無則不用回傳
-                "reason":           "TEXT_CONTENT ...",       // [string, optional] 用要原因 若無則不用回傳
-                "allergicIndex":    False,                    // [boolean] 過敏 是否需要預設勾選
-                "ADRIndex":         False                     // [boolean] ADR 是否預設勾選
+                "medicationCode":           "P1110023",               // [string] 處方代碼
+                "medicationName":           "TEST_ORDER_NAME",        // [string] 處方名稱
+                "medicationType":           "N",                      // [string] 處方類別 如一般為 N 注射為 I
+                "doseUnit":                 "mg",                     // [string] 藥品劑量使用單位名稱
+                "packUnit":                 "mg",                     // [string] 藥品包裝劑量使用單位名稱
+                "defaultDose":              0.13,                     // [number, optional] 藥品預設劑量 若無則不用回傳
+                "defaultRoute":             "IF",                     // [string, optional] 預設途徑代碼 若無則不用回傳
+                "defaultRepeatedPattern":   "QD",                     // [string, optional] 預設頻率代碼 若無則不用回傳
+                "defaultDays":              0,                        // [number, optional] 預設使用天數 若無則不用回傳
+                "billType":                 "Z",                      // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
+                "createdTime":              1435744800,               // [number(timestamp)] 此項處方醫令編輯起始時間 (UI 介面顯示用)
+                "specialDose":              "TEXT_CONTENT ...",       // [string, optional] 特殊劑量 若無則不用回傳
+                "reason":                   "TEXT_CONTENT ...",       // [string, optional] 用要原因 若無則不用回傳
+                "allergicIndex":            False,                    // [boolean] 過敏 是否需要預設勾選
+                "ADRIndex":                 False                     // [boolean] ADR 是否預設勾選
+                "supportedRoutes":  [ // [optional] 注射處方使用 若沒有對應的途徑則不用回傳
+                    "IF",                                     // [string] 途徑代碼
+                    "IV",
+                    "cIF",
+                    ...
+                ],
+                "diluentOptions": [  // [optional] 注射處方使用 若沒有對應的稀釋液不用回傳
+                    {
+                        "code": "1233213",                  // [string] 稀釋液代碼
+                        "name": "DILUENT_001",              // [string] 稀釋液名稱
+                    },
+                    ...
+                ],
+                "defaultDiluent": { // [optional] 注射處方使用 若沒有則不用回傳
+                    "code": "123123",                       // [string] 稀釋液代碼
+                    "name": "DILUENT_001"                   // [string] 稀釋液名稱
+                }
+            }
+        }
+
++ Response 400 (application/json)
+
+        {
+            "error": 901,                           // [number] ErrorCode
+            "content": {                            // The content to help the client to handle the error response
+            "stateIndex":  1,                       // [number]
+                "message": "Validation XXX failed"  // [string] error description
+            }
+        }
+
+## 處方醫令開令記錄 [/account/{accountNo}/medicationRecords{?sessionKey}]
+### 開立處方醫令 [POST]
+
++ Request IssueMedicationOrder (application/json)
+
+        {
+            "medicationCode": "P1110023"            // [string] 處方醫令代碼
+        }
++ Response 201 (application/json)
+
+        {
+            "success": true
+            "content": {
+                "medicationRecordId": "123123"      // [string] 交易記錄ID
             }
         }
