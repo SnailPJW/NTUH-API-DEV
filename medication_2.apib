@@ -1,0 +1,29 @@
+# Group MedicationOrder
+
+## 處方醫令資訊 [/medication/{medicationCode}{?sessionKey}]
+### 取得處方醫令屬性資料 [GET]
++ Parameters
+    + sessionKey    (string) ... SessionKey
+
++ Response 200 (application/json)
+
+
+        {
+            "content": {
+                "medicationCode":   "P1110023",               // [string] 處方代碼
+                "medicationName":   "TEST_ORDER_NAME",        // [string] 處方名稱
+                "medicationType":   "N",                      // [string] 處方類別 如一般為 N 注射為 I
+                "doseUnit":         "mg",                     // [string] 藥品劑量使用單位名稱
+                "packUnit":         "mg",                     // [string] 藥品包裝劑量使用單位名稱
+                "defaultDose":      0.13,                     // [number, optional] 藥品預設劑量 若無則不用回傳
+                "defaultRoute":     "IF",                     // [string, optional] 預設途徑代碼 若無則不用回傳
+                "defaultFrequency": "QD",                     // [string, optional] 預設頻率代碼 若無則不用回傳
+                "defaultDays":      0,                        // [number, optional] 預設使用天數 若無則不用回傳
+                "billType":         "Z",                      // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
+                "createdTime":      1435744800,               // [number(timestamp)] 此項處方醫令編輯起始時間 (UI 介面顯示用)
+                "specialDose":      "TEXT_CONTENT ...",       // [string, optional] 特殊劑量 若無則不用回傳
+                "reason":           "TEXT_CONTENT ...",       // [string, optional] 用要原因 若無則不用回傳
+                "allergicIndex":    False,                    // [boolean] 過敏 是否需要預設勾選
+                "ADRIndex":         False                     // [boolean] ADR 是否預設勾選
+            }
+        }
