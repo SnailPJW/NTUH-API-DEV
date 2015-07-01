@@ -18,7 +18,7 @@
 
         {
             "error": 104,                                   // [number] error code
-            "message": "找不到病患最近三個月的 cre 數值"    // [string] error message
+            "message": "找不到病患最近三個月的 cre 數值"       // [string] error message
         }
 
 ## 6/18 - 影像醫學介面內容 [/order/MI/interface/{imageType}{?sessionKey}]
@@ -32,10 +32,10 @@
         {
             "content": {
                 "note": "檢查範圍與內容影像...",                            // [string, optional] 注意事項
-                "indicationOptions": [                                      // [optional] indication 所對應的選項，若無則不用回傳
+                "indicationOptions": [                                    // [optional] indication 所對應的選項，若無則不用回傳
                     {
-                        "returnValue": "ind_option_1",                      // [string] 項目所對應之回傳值
-                        "displayName": "Follow Up"                          // [string] 項目顯示名稱
+                        "returnValue": "ind_option_1",                    // [string] 項目所對應之回傳值
+                        "displayName": "Follow Up"                        // [string] 項目顯示名稱
                     },
                     ...
                 ],
@@ -112,8 +112,21 @@
                 "isOpen":           "OI",               // [string] 註明可用之類別 E 為急診 I 為住院 O 為門診
                 "isOpenSelect":     true,               // [boolean] 是否開放選取
                 "isEmergency":      true,               // [boolean] 是否支援急做
-                "subType":          "N",                // [string, optional] 如手術為 N, 當不需要時不用回傳
+                "subType":          "N",                // [string, optional] orderType = T 時使用 一般為 N, 手術為 O, 麻醉為 A, 齒位為 D, 技工所為 E, 復健為 P
                 "selectable":       true,               // [boolean] 是否可以選取
+                "specimenList":     [                   // [optional] orderType = L 時使用
+                    {
+                        "code": "ts1",                  // [string] 檢體代號
+                        "title": "TEST_SPECIMEN_1",     // [string] 檢體名稱
+                        "selected": false               // [boolean] 預設選取的時候回傳 True 否則回傳 False
+                    },
+                    {
+                        "code": "ts2",                  // [string] 檢體代號
+                        "title": "TEST_SPECIMEN_2",     // [string] 檢體名稱
+                        "selected": true                // [boolean] 預設選取的時候回傳 True 否則回傳 False
+                    },
+                    ...
+                ],
                 "appendOrders":     [                   // [optional] 附帶醫令，若無則不用回傳
                     {
                         "orderType":    "T",                    // [string] 醫令主類別，如治療為 T
@@ -362,7 +375,12 @@
                 "status": "開立",                    // [string] 狀態
                 "scheduled": false,                 // [boolean] 是否已經排程
                 "specialInstruction": "特殊醫囑內容",  // [string] 特殊醫囑
-                "questionary": [                    // [optional] 問題清單答案
+                "startActivateDatetime": 1435744800, // [number(timestamp), optional] 醫令有效起日 K類醫囑使用
+                "endActivateDatetime": 1438423200,   // [number(timestamp), optional] 醫令有效迄日 K類醫囑使用
+                "frequency": "QD",                   // [string] 頻率碼 K類醫囑使用
+                "isBedside": false,                  // [boolean, optional] 是否為床邊攝影 R類醫囑使用
+                "specimenCode": "sp1",               // [string] 檢體代碼 L類醫囑使用
+                "questionary": [                     // [optional] 問題清單答案
                     {
                         "displayTitle": "SINGLE_SELECTION",     // [string] 問題顯示題目
                         "returnKey": "s_selection_example",     // [string] 回傳結果時該問題所對應的鍵值
@@ -433,13 +451,21 @@
 
         {
             "content": {
-                "hospitalCode": "HQ",               // [string] 院區碼
-                "quantity": 3,                      // [number] 數量
-                "billType": "E",                    // [string] 記帳類別
-                "isEmergency": false,               // [boolean] 是否急做
-                "expectedExTime": 1406938026,       // [number(timestamp)] 預計執行時間
-                "specialInstruction": "Test 1",     // [string] 特殊醫囑
-                "questionary": [                    // [optional] 問答題答案，若無則不會傳入
+                "hospitalCode": "HQ",                // [string] 院區碼
+                "quantity": 3,                       // [number] 數量
+                "billType": "E",                     // [string] 記帳類別
+                "confirmedTime": 1438423200,         // [number(timestamp)] 確認時間
+                "verifier": "111283",                // [string]  確認醫師員工編號
+                "isEmergency": false,                // [boolean] 是否急做
+                "expectedExTime": 1406938026,        // [number(timestamp)] 預計執行時間
+                "specialInstruction": "Test 1",      // [string] 特殊醫囑
+                "bedId": "b3dID",                    // [string] 床號
+                "startActivateDatetime": 1435744800, // [number(timestamp), optional] 醫令有效起日 K類醫囑使用
+                "endActivateDatetime": 1438423200,   // [number(timestamp), optional] 醫令有效迄日 K類醫囑使用
+                "frequency": "QD",                   // [string] 頻率碼 K類醫囑使用
+                "isBedside": false,                  // [boolean, optional] 是否為床邊攝影 R類醫囑使用
+                "specimenCode": "sp1",               // [string] 檢體代碼 L類醫囑使用
+                "questionary": [                     // [optional] 問答題答案，若無則不會傳入
                     {
                         "returnKey": "d_selection_example",     // [string] 問答題對應鍵值
                         "type": "S",                            // [string] 問答題類型
@@ -453,7 +479,8 @@
                         "returnKey": "input_box_example",       // [string] 問答題對應鍵值
                         "type": "T",                            // [string] 問答題類型
                         "value": "this is the input content"    // [optional]
-                    }
+                    },
+                    ...
                 ],
                 "appendOrders": [ // [optional] 附帶醫令，若無則不會傳入
                     "TSA123001",  // [string] 醫令碼
