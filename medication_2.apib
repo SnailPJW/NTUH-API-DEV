@@ -1,9 +1,10 @@
 # Group MedicationOrder
 
-## 處方醫令資訊 [/medication/{medicationCode}{?sessionKey}]
+## 處方醫令資訊 [/medication/{medicationCode}{?sessionKey,stateIndex}]
 ### 取得處方醫令屬性資料 [GET]
 + Parameters
     + sessionKey    (string) ... SessionKey
+    + stateIndex    (number) ... 請求階段 index 開始為 0
 
 + Response 200 (application/json)
 
@@ -52,6 +53,15 @@
                     ],
                     ...
                 }
+            }
+        }
+
++ Response 400 (application/json)
+
+        {
+            "error": 804,                       // [number] error code
+            "content": {
+                "message": "TEST_MESSAGE",      // [string] error message
             }
         }
 
@@ -114,7 +124,7 @@
 + Response 400 (application/json)
 
         {
-            "error": 803,                           // [number] ErrorCode
+            "error": 804,                           // [number] ErrorCode
             "content": {                            // The content to help the client to handle the error response
                 "stateIndex":  1,                   // [number]
                 "message": "Validation XXX failed"  // [string] error description
