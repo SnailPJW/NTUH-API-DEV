@@ -32,6 +32,9 @@
 
 - **HTTP400** 802: [醫囑] 醫囑相關內容需要修改 細節提示用 message 回傳，不通過的 order request 會回傳對應的 tag 至 failed list 中
 
+- **HTTP400** 803: [藥囑] 藥囑事前檢核流程使用
+
+- **HTTP400** 804: [藥囑] 藥囑事後檢核流程使用
 
 
 ## II. Order Related APIs
@@ -69,5 +72,10 @@
 			]
 		}
 
-## III. API Compilation
+## III. Medication Related APIs
 ---
+...
+
+## IV. API Compilation
+---
+...
