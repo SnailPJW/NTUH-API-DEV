@@ -25,22 +25,32 @@
                 "repeatReason":             "TEXT_CONTENT ...",       // [string, optional] 用要原因 若無則不用回傳
                 "isAllergic":               false,                    // [boolean] 過敏 是否需要預設勾選
                 "isADR":                    false                     // [boolean] ADR 是否預設勾選
-                "supportedRoutes":  [ // [optional] 注射處方使用 若沒有對應的途徑則不用回傳
-                    "IF",                                     // [string] 途徑代碼
+                "supportedRoutes":  [                                 // [optional] 注射處方使用 若沒有對應的途徑則不用回傳
+                    "IF",                                             // [string] 途徑代碼
                     "IV",
                     "cIF",
                     ...
                 ],
-                "diluentOptions": [  // [optional] 注射處方使用 若沒有對應的稀釋液不用回傳
-                    {
-                        "code": "1233213",                  // [string] 稀釋液代碼
-                        "name": "DILUENT_001",              // [string] 稀釋液名稱
-                    },
+                "diluentOptions": {                                   // [optional] 稀釋液指示 注射處方式使用
+                    "default": [                                      // [optional] 預設稀釋液選項 若無不用回傳
+                        {
+                            "code": "123123",                         // [string] 稀釋液代碼
+                            "name": "DILUENT_001"                     // [string] 稀釋液名稱
+                        },
+                        ...
+                    ],
+                    "IF": [                                           // [optional] 對應的鍵值為路徑代碼，陣列內容為該路徑所支援的稀釋液
+                        {
+                            "code": "123123",                         // [string] 稀釋液代碼
+                            "name": "DILUENT_001"                     // [string] 稀釋液名稱
+                        },
+                        {
+                            "code": "321321",                         // [string] 稀釋液代碼
+                            "name": "DILUENT_002"                     // [string] 稀釋液名稱
+                        }
+                        ...
+                    ],
                     ...
-                ],
-                "defaultDiluent": { // [optional] 注射處方使用 若沒有則不用回傳
-                    "code": "123123",                       // [string] 稀釋液代碼
-                    "name": "DILUENT_001"                   // [string] 稀釋液名稱
                 }
             }
         }
@@ -79,7 +89,14 @@
                     "flowVelocity":     100,                        // [number] 速度 注射處方使用
                     "infusionTime":     10,                         // [number] 輸注時間 注射處方使用
                     "mlPerHour":        0.01,                       // [number] 流速 注射處方使用
-                }
+                },
+                "dispenseWay":  1,                                  // [number, optional] 調劑方式
+                "dispenseDayList": [                                // [optional] 調劑指定日期
+                    "20150707",                                     // [string] 調劑日期 依照格式 yyyymmDD
+                    "20150714",
+                    "20150721",
+                    ...
+                ]
             },
             "stateIndex": 0,                                        // [number] 交易狀態的 state 從 0 開始
             "sessionKey": "E0B27FAAAE68415BA9E011E569FE4009"        // [string] SessionKey
@@ -88,7 +105,7 @@
 + Response 201 (application/json)
 
         {
-            "success": true
+            "success": true,
             "content": {
                 "medicationRecordId": "123123",     // [string] 交易記錄ID
             }
