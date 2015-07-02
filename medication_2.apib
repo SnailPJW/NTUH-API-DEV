@@ -97,9 +97,30 @@
 + Response 400 (application/json)
 
         {
-            "error": 901,                           // [number] ErrorCode
+            "error": 803,                           // [number] ErrorCode
             "content": {                            // The content to help the client to handle the error response
                 "stateIndex":  1,                   // [number]
                 "message": "Validation XXX failed"  // [string] error description
             }
+        }
+
+
+## 處方頻率表 [/medication/repeatedPatterns{?sessionKey}]
+### 取得處方頻率表 [GET]
++ Parameters
+    + sessionKey        (string) ... SessionKey
+
++ Response 200 (application/json)
+
+        {
+            "content": [
+                {
+                    "code":         "QD",           // [string] 頻率代碼
+                    "name":         "QD",           // [string] 頻率名稱
+                    "daysOfPeriod":  7,             // [number] 週期天數 一個週期幾天
+                    "daysPerPeriod": 1,             // [number] 週期內服用天數
+                    "timesPerDay":   1,             // [number] 每日次數
+                },
+                ...
+            ]
         }
