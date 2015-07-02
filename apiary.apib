@@ -331,7 +331,7 @@ HOST: http://www.wantoto.com
         }
 
 # Group 病歷資料 Medical Record
-## 6/4 病患醫療基本資料 [/patients/{chartNo}{?startDate,endDate}]
+## 7/2 病患醫療基本資料 [/patients/{chartNo}{?startDate,endDate}]
 ### 取得病患醫療基本資料 [GET]
 + Parameters
     + chartNo (string) ... 病歷號
@@ -372,6 +372,20 @@ HOST: http://www.wantoto.com
                             ...
                         ]
                     },
+                    {
+                        "title" : "血品醫令",                                        // [string, optional]
+                        "content" : [
+                            {
+                                "item" : "開立血量",    //[string]
+                                "value" : "238"    //[string]
+                            },
+                            {
+                                "item" : "輸入血量",    //[string]
+                                "value" : "238"    //[string]
+                            },
+                            ...
+                        ]
+                    }
                     ...
                 ],
                 "history" :[    //兩年內就診診斷記錄
@@ -412,7 +426,8 @@ HOST: http://www.wantoto.com
                 ],
                 "otherReport" : [
                     {
-                        "date" : 1406938026,                            //報告時間[nubmer(timestamp)]
+                        "date" : 1406938026,                            //報告時間(顯示於畫面)[nubmer(timestamp)]
+                        "modifiedDate" 1406938026,              //報告更新時間(用於判斷提示) [number(timestamp)]
                         "item" : "Chest PA View (Standing)",            //報告項目[string]
                         "type" : "影核醫",                              //報告種類[string]
                         "report" : {    //如有報告則回傳 [optional]
@@ -476,7 +491,8 @@ HOST: http://www.wantoto.com
                 ],
                 "consult" : [    //會診資訊
                     {
-                        "date" : 1406938026,                    //會診時間 [number(timestamp)]
+                        "date" : 1406938026,                    //會診時間(顯示於畫面) [number(timestamp)]
+                        "modifiedDate" 1406938026,              //會診訪視更新時間(用於判斷提示) [number(timestamp)]
                         "item" : "xxx 會診資訊",                //會診資訊 [string]
                         "type" : "葉XX醫師",                    //會診醫師 [string]
                         "report" : {    //會診單
