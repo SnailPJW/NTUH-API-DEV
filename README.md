@@ -115,16 +115,22 @@
 ---
 ### 1. Usage:
 - Update the api version (sync with the git tag):
+
 		python main.py version_update	// updated the version if necessary
 
 - Generate the apipary.apib from latest apib files:
 
 		python main.py compile
 
-- Parameters for each command can be found by using **-h**
+- Parameters for each command can be found with the **-h** option
 
 ### 2. Procedure:
 - Modify the corresponding apiary file(s)
 - Change the git tag & run version_update if necessary
 - Compile to generate the latest apiary.apib
 - git push to push the latest apipary.apib to the main branch
+
+### Resources:
+
+- Download the erditor [Atom](https://atom.io/)
+- Download the apiary rendering package for Atom with the [instructions](https://atom.io/packages/api-blueprint-preview)
