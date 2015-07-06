@@ -74,7 +74,42 @@
 
 ## III. Medication Related APIs
 ---
-...
+###1. The string format for SpecialDoseOptions [/medication/specialDoseOptions]
+- For example:
+
+		"take __{%f:dose1}__mg in the morning, take __{%f:dose2}__mg in the afternoon"
+
+  will generate following element on the user interface:
+
+  ** take `(  )`mg in the morning, take `(  )`mg in the afternoon **
+
+- If the user fill the input box like this:
+
+  ** take `( 0.1 )`mg in the morning, take `( 0.5 )`mg in the afternoon **
+
+  will return with the following content:
+
+		{
+			"dose1": 0.1,
+	    	"dose2": 0.5
+		}
+
+- Description: the pattern contains two parts: **[data_type]** : **[data_key]**, and should be encapsulated by `__{` and `}__`
+
+- **data_key** Rules:
+
+  should contains only [0-9a-zA-Z] **WITHOUT** any special characters
+
+- **data_type** Options:
+
+|           Type          | Syntax |                         Description                        |
+|:-----------------------:|:------:|:----------------------------------------------------------:|
+| number                  |   %f   | The input box specifically for the integer or the float.   |
+| text                    |   %s   | The input box for plain text content.                      |
+| single selection item   |   %p   | Define the option for single selection.                    |
+| multiple selection item |   %m   | Define the option for multiple selection.                  |
+| hour picker             |   %h   | The dropdown menu for selecting specific hour in a day.    |
+
 
 ## IV. API Development Tools
 ---
