@@ -16,6 +16,7 @@
                 "medicationType":           "N",                      // [string] 處方類別 如一般為 N 注射為 I
                 "doseUnit":                 "mg",                     // [string] 藥品劑量使用單位名稱
                 "packUnit":                 "mg",                     // [string] 藥品包裝劑量使用單位名稱
+                "packConvertRate":          1,                        // [number] 一個包裝內有幾個 dose unit
                 "defaultDose":              "0.13",                   // [string, optional] 藥品預設劑量 若無則不用回傳
                 "defaultRoute":             "IF",                     // [string, optional] 預設途徑代碼 若無則不用回傳
                 "defaultRepeatedPattern":   "QD",                     // [string, optional] 預設頻率代碼 若無則不用回傳
@@ -25,32 +26,53 @@
                 "specialDose":              "TEXT_CONTENT ...",       // [string, optional] 特殊劑量 若無則不用回傳
                 "repeatReason":             "TEXT_CONTENT ...",       // [string, optional] 用要原因 若無則不用回傳
                 "isAllergic":               false,                    // [boolean] 過敏 是否需要預設勾選
-                "isADR":                    false                     // [boolean] ADR 是否預設勾選
+                "isADR":                    false,                    // [boolean] ADR 是否預設勾選
                 "supportedRoutes":  [                                 // [optional] 注射處方使用 若沒有對應的途徑則不用回傳
                     "IF",                                             // [string] 途徑代碼
                     "IV",
                     "cIF",
                     ...
                 ],
-                "diluentOptions": {                                   // [optional] 稀釋液指示 注射處方式使用
+                "hiddenRoutes": [                                     // [optional] 注射處方使用 隱藏的途徑清單 若沒有不用回傳
+                    "LL",
+                    ...
+                ],
+                "diluentInstructions": {                              // [optional] 稀釋液指示 注射處方式使用
                     "default": [                                      // [optional] 預設稀釋液選項 若無不用回傳
-                        {
-                            "code": "123123",                         // [string] 稀釋液代碼
-                            "name": "DILUENT_001"                     // [string] 稀釋液名稱
-                        },
+                        "NS",
+                        "D5W",
                         ...
                     ],
-                    "IF": [                                           // [optional] 對應的鍵值為路徑代碼，陣列內容為該路徑所支援的稀釋液
-                        {
-                            "code": "123123",                         // [string] 稀釋液代碼
-                            "name": "DILUENT_001"                     // [string] 稀釋液名稱
+                    "IF": {                                           // [optional] 對應的鍵值為路徑代碼，陣列內容為該路徑所支援的稀釋液
+                        "options": [
+                            "NS",                                     // [string] 稀釋液
+                            "LR",
+                            ...
+                        ],
+                        "default": "NS",                              // [string] 預設選取稀釋液
+                        "othersEnable": false,                        // [boolean] 是否可以輸入其他稀釋液
+                        "displayOptions": "1122",                     // [string] 顯示輸注說明欄位代碼 1: 顯示但不可編輯 2: 可編輯 0: 不顯示
+                        "volumeSug": {                                // [optional] 容量輸注指示
+                            "max": 1000,
+                            "min": 10,
+                            "unit": "ml"
                         },
-                        {
-                            "code": "321321",                         // [string] 稀釋液代碼
-                            "name": "DILUENT_002"                     // [string] 稀釋液名稱
+                        "concentrationSug": {                         // [optional] 濃度輸注指示
+                            "max": 100,
+                            "min": 20,
+                            "unit": "ml/minute"
+                        },
+                        "InfusionTimeSug": {                          // [optional] 輸注時間指示
+                            "max": 20,
+                            "min": 5,
+                            "unit": "min"
+                        },
+                        "VelocitySug": {                              // [optional] 流速指示
+                            "max": 300,
+                            "min": 30,
+                            "unit": "ml/Hr"
                         }
-                        ...
-                    ],
+                    },
                     ...
                 }
             }
@@ -147,6 +169,11 @@
                     "daysOfPeriod":  7,             // [number] 週期天數 一個週期幾天
                     "daysPerPeriod": 1,             // [number] 週期內服用天數
                     "timesPerDay":   1,             // [number] 每日次數
+                    "timeOptions": [                // [optional] 如果沒有就不回傳
+                        9,
+                        18,
+                        ...
+                    ],
                 },
                 ...
             ]
