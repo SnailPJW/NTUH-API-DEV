@@ -150,7 +150,7 @@ HOST: http://www.wantoto.com
                     "orderNotReceived" : true,    //醫囑是否有未簽收項目[boolean, optional]
                     "accountIDSE" : "14T05267794",           //帳號 [string, optional]
                     "patClassCode" : "I",                    //門住急別 [string, optional]
-                    "visible": true                          //是否可以瀏覽 [boolean]
+                    "visible": true,                         //是否可以瀏覽 [boolean]
                     "waitBed": true,     //是否可被候床 [boolean, optional]
                     "assignBed": true     //是否可被配床 [boolean, optional]
                 },
@@ -427,9 +427,9 @@ HOST: http://www.wantoto.com
                 "otherReport" : [
                     {
                         "date" : 1406938026,                            //報告時間(顯示於畫面)[nubmer(timestamp)]
-                        "modifiedDate" 1406938026,              //報告更新時間(用於判斷提示) [number(timestamp)]
+                        "modifiedDate": 1406938026,                     //報告更新時間(用於判斷提示) [number(timestamp)]
                         "item" : "Chest PA View (Standing)",            //報告項目[string]
-                        "type" : "影核醫",                              //報告種類[string]
+                        "type" : "影核醫",                               //報告種類[string]
                         "report" : {    //如有報告則回傳 [optional]
                             "reportType" : "HTML",                      //報告型態，HTML或PDF
                             "reportPath" : "/report/{reportID}",        //報告路徑
@@ -491,10 +491,10 @@ HOST: http://www.wantoto.com
                 ],
                 "consult" : [    //會診資訊
                     {
-                        "date" : 1406938026,                    //會診時間(顯示於畫面) [number(timestamp)]
-                        "modifiedDate" 1406938026,              //會診訪視更新時間(用於判斷提示) [number(timestamp)]
-                        "item" : "xxx 會診資訊",                //會診資訊 [string]
-                        "type" : "葉XX醫師",                    //會診醫師 [string]
+                        "date" : 1406938026,                        //會診時間(顯示於畫面) [number(timestamp)]
+                        "modifiedDate": 1406938026,                 //會診訪視更新時間(用於判斷提示) [number(timestamp)]
+                        "item" : "xxx 會診資訊",                      //會診資訊 [string]
+                        "type" : "葉XX醫師",                          //會診醫師 [string]
                         "report" : {    //會診單
                             "reportType" : "HTML",                      //報告型態，HTML或PDF
                             "reportPath" : "/report/{reportID}",        //報告路徑
@@ -3488,6 +3488,7 @@ HOST: http://www.wantoto.com
                 "medicationType":           "N",                      // [string] 處方類別 如一般為 N 注射為 I
                 "doseUnit":                 "mg",                     // [string] 藥品劑量使用單位名稱
                 "packUnit":                 "mg",                     // [string] 藥品包裝劑量使用單位名稱
+                "packConvertRate":          1,                        // [number] 一個包裝內有幾個 dose unit
                 "defaultDose":              "0.13",                   // [string, optional] 藥品預設劑量 若無則不用回傳
                 "defaultRoute":             "IF",                     // [string, optional] 預設途徑代碼 若無則不用回傳
                 "defaultRepeatedPattern":   "QD",                     // [string, optional] 預設頻率代碼 若無則不用回傳
@@ -3497,32 +3498,53 @@ HOST: http://www.wantoto.com
                 "specialDose":              "TEXT_CONTENT ...",       // [string, optional] 特殊劑量 若無則不用回傳
                 "repeatReason":             "TEXT_CONTENT ...",       // [string, optional] 用要原因 若無則不用回傳
                 "isAllergic":               false,                    // [boolean] 過敏 是否需要預設勾選
-                "isADR":                    false                     // [boolean] ADR 是否預設勾選
+                "isADR":                    false,                    // [boolean] ADR 是否預設勾選
                 "supportedRoutes":  [                                 // [optional] 注射處方使用 若沒有對應的途徑則不用回傳
                     "IF",                                             // [string] 途徑代碼
                     "IV",
                     "cIF",
                     ...
                 ],
-                "diluentOptions": {                                   // [optional] 稀釋液指示 注射處方式使用
+                "hiddenRoutes": [                                     // [optional] 注射處方使用 隱藏的途徑清單 若沒有不用回傳
+                    "LL",
+                    ...
+                ],
+                "diluentInstructions": {                              // [optional] 稀釋液指示 注射處方式使用
                     "default": [                                      // [optional] 預設稀釋液選項 若無不用回傳
-                        {
-                            "code": "123123",                         // [string] 稀釋液代碼
-                            "name": "DILUENT_001"                     // [string] 稀釋液名稱
-                        },
+                        "NS",
+                        "D5W",
                         ...
                     ],
-                    "IF": [                                           // [optional] 對應的鍵值為路徑代碼，陣列內容為該路徑所支援的稀釋液
-                        {
-                            "code": "123123",                         // [string] 稀釋液代碼
-                            "name": "DILUENT_001"                     // [string] 稀釋液名稱
+                    "IF": {                                           // [optional] 對應的鍵值為路徑代碼，陣列內容為該路徑所支援的稀釋液
+                        "options": [
+                            "NS",                                     // [string] 稀釋液
+                            "LR",
+                            ...
+                        ],
+                        "default": "NS",                              // [string] 預設選取稀釋液
+                        "othersEnable": false,                        // [boolean] 是否可以輸入其他稀釋液
+                        "displayOptions": "1122",                     // [string] 顯示輸注說明欄位代碼 1: 顯示但不可編輯 2: 可編輯 0: 不顯示
+                        "volumeSug": {                                // [optional] 容量輸注指示
+                            "max": 1000,
+                            "min": 10,
+                            "unit": "ml"
                         },
-                        {
-                            "code": "321321",                         // [string] 稀釋液代碼
-                            "name": "DILUENT_002"                     // [string] 稀釋液名稱
+                        "concentrationSug": {                         // [optional] 濃度輸注指示
+                            "max": 100,
+                            "min": 20,
+                            "unit": "ml/minute"
+                        },
+                        "InfusionTimeSug": {                          // [optional] 輸注時間指示
+                            "max": 20,
+                            "min": 5,
+                            "unit": "min"
+                        },
+                        "VelocitySug": {                              // [optional] 流速指示
+                            "max": 300,
+                            "min": 30,
+                            "unit": "ml/Hr"
                         }
-                        ...
-                    ],
+                    },
                     ...
                 }
             }
@@ -3604,6 +3626,24 @@ HOST: http://www.wantoto.com
         }
 
 
+## 特殊劑量常用選項表 [/medication/specialDoseOptions{?sessionKey}]
+### 取得選項內容 [GET]
++ Parameters
+    + sessionKey        (string) ... SessionKey
+
++ Response 200 (application/json)
+
+        {
+            "content": [
+                "早 __{%f:dose1}__ 微克, 午 __{%f:dose2}__ 微克, 晚 __{%f:dose3}__ 微克, 睡前 __{%f:dose3}__ 微克, __{%p:selection}__ 飯前 __{%p:selection}__ 飯後",
+                "__{%t:time1}__ 微克, __{%t:time2}__ 微克, __{%t:time3}__ 微克, __{%t:time4}__ 微克.",
+                "指定用法: __{%s:content}__",
+                "一日 __{%f:dose1}__ 微克, 隔日 __{%f:dose2}__ 微克交替使用. __{%p:timeSelection}__ 早(9AM) __{%p:timeSelection}__ 午(1PM) __{%p:timeSelection}__ 晚(6PM) __{%p:timeSelection}__ 睡前(9PM)",
+                "周一 __{%f:mon}__ 微克, 周二 __{%f:tue}__ 微克, 周三 __{%f:wed}__ 微克, 周四 __{%f:thu}__ 微克, 周五 __{%f:fri}__ 微克, 周六 __{%f:sat}__ 微克, 周日 __{%f:sun}__ 微克. __{%p:timeSelection}__ 早(9AM) __{%p:timeSelection}__ 午(1PM) __{%p:timeSelection}__ 晚(6PM) __{%p:timeSelection}__ 睡前(9PM)",
+                ...
+            ]
+        }
+
 ## 處方頻率表 [/medication/repeatedPatterns{?sessionKey}]
 ### 取得處方頻率表 [GET]
 + Parameters
@@ -3619,6 +3659,11 @@ HOST: http://www.wantoto.com
                     "daysOfPeriod":  7,             // [number] 週期天數 一個週期幾天
                     "daysPerPeriod": 1,             // [number] 週期內服用天數
                     "timesPerDay":   1,             // [number] 每日次數
+                    "timeOptions": [                // [optional] 如果沒有就不回傳
+                        9,
+                        18,
+                        ...
+                    ],
                 },
                 ...
             ]
@@ -3894,16 +3939,17 @@ HOST: http://www.wantoto.com
         {
             "content" : [   //病患資訊陣列
                 {   //病患資訊
-                    "patName" : "王小明",           //病患姓名[string]
-                    "patSexCode" : "M",             //性別[string]（男性："M";女性："F"）
-                    "patBirthday" : 1406938026,     //出生日期[number(timestamp)]
-                    "chartNo" : "12345678",         //病歷號[string]
-                    "piority" : "Ａ",               //優先順序[string]
-                    "waitDate" : "2015-06-04~2015-07-02" //候床時間[string]
-                    "source" : "轉",                //來源[string]
-                    "hospital" : "總院",            //原院[string]
-                    "department" : "腫瘤",          //原科[string]
-                    "note" : "註記"                 //註[string]
+                    "patName" : "王小明",                    //病患姓名[string]
+                    "patSexCode" : "M",                     //性別[string]（男性："M";女性："F"）
+                    "patBirthday" : 1406938026,             //出生日期[number(timestamp)]
+                    "chartNo" : "12345678",                 //病歷號[string]
+                    "piority" : "Ａ",                        //優先順序[string]
+                    "waitStartDate": 1416938026,              //候床起始時間 [number(timestamp)]
+                    "waitEndDate": 1416938326,                //候床結束時間 [number(timestamp), optional] 若無則不用回傳
+                    "source" : "轉",                         //來源[string]
+                    "hospital" : "總院",                      //原院[string]
+                    "department" : "腫瘤",                    //原科[string]
+                    "note" : "註記"                           //註[string]
                 },
                 ...
             ],
