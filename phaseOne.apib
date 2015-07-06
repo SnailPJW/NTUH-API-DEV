@@ -38,11 +38,12 @@
 
 # Group 病患清單 Patient List
 病患清單相關 Web Service
-## 6/4 -病患清單 [/patients{?chartNo,personID,wardCode,empNo,empNoConsult,empNoStarred,ORCode,ERCode,OPDCode,examRoomCode}]
+## 7/2 -病患清單 [/patients{?chartNo,ptName,personID,wardCode,empNo,empNoConsult,empNoStarred,ORCode,ERCode,OPDCode,examRoomCode,queryDate}]
 ### 查詢病患清單 [GET]
-可傳入病歷號、身分證號、病房、醫師員編、開刀房號、急診科別、門診科別、檢查科室等參數，回傳符合參數條件之病患
+可傳入病歷號、姓名、身分證號、病房、醫師員編、開刀房號、急診科別、門診科別、檢查科室等參數，回傳符合參數條件之病患
 + Parameters
     + chartNo (string, optional) ... 病歷號
+    + ptName (string, optional) ... 病患姓名
     + personID (string, optional) ... 身分證號
     + wardCode (string, optional, `5W3`) ... 病房號
     + empNo (string, optional) ... 醫師員編 (依照醫師員編顯示個人病患)
@@ -52,6 +53,7 @@
     + ERCode (string, optional) ... 急診科別
     + OPDCode (string, optional) ... 門診科別
     + examRoomCode (string, optional) ... 檢查科室
+    + queryDate (string, optional) ... 搜尋日期(格式為YYYYMMDD，無回傳則為當日)
 
 + Response 200 (application/json)
 
@@ -65,6 +67,7 @@
                     "personID" : "A123456789",      //身分證號[string]
                     "bedInfo" : "5W3 01-01",        //病房病床號(住院與急診)，非住院或急診中則不回傳Key[string]
                     "inDate" : 1406938026,          //入院日期(住院或急診檢傷時間)，非住院或在急診則不回傳Key [number(timestamp)]
+                    "bedTransferDate" : 1406938026,          //轉床日期，非住院或在急診則不回傳Key [number(timestamp)]
                     "triageLevels" : "1",           //檢傷分級，非急診則不回傳 Key [string, optional]
                     "_emp_VS" : {                   //主治醫師(如遇回傳資料為醫師者，變數皆為_emp_開頭)[string, optional]
                         "empNo" : "111281",         //醫師員編[string]
@@ -87,10 +90,17 @@
                         ...
                     ],
                     "latestPacsReportDateTime" : 1406938026, //最新影像時間 [number(timestamp)]
-                    "latestLISReportDateTime" : 1406938026,  //最新報告時間 [number(timestamp)]
+                    "latestLISReportDateTime" : 1406938026,  //最新檢驗時間 [number(timestamp)]
+                    "latestExamReportDateTime" : 1406938026,  //最新檢查時間 [number(timestamp)]
+                    "latestConsultDateTime" : 1406938026,  //最新會診更新時間 [number(timestamp)]
+                    "latestBulletinDateTime" : 1406938026,  //最新留言時間 [number(timestamp)]
+                    "orderNotComfirmed" : true,    //醫囑是否有未確認項目[boolean, optional]
+                    "orderNotReceived" : true,    //醫囑是否有未簽收項目[boolean, optional]
                     "accountIDSE" : "14T05267794",           //帳號 [string, optional]
                     "patClassCode" : "I",                    //門住急別 [string, optional]
                     "visible": true                          //是否可以瀏覽 [boolean]
+                    "waitBed": true,     //是否可被候床 [boolean, optional]
+                    "assignBed": true     //是否可被配床 [boolean, optional]
                 },
                 ...
             ],
