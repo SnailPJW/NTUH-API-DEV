@@ -64,3 +64,55 @@
 
             }
         }
+
+## 7/6 - 可配床細分科 [/asignBed/department]
+### 取得此醫師可配床細分科清單[GET]
+
+
++ Response 200 (application/json)
+
+        {
+            "content" : [   //病房資訊陣列
+                {   //病房資訊
+                    "hospCode" : "T0",      //醫院代碼[string]
+                    "deptCode" : "14C",    //科別代碼[string]
+                    "displayName" : "胸腔內科 14C"  //顯示名稱[string]
+                },
+                ...
+            ],
+            "limit" : 50, //最大回傳筆數[number]
+            "offset" : 0, //回傳資料偏移數[number]
+            "total" : 50  //此次Query總筆數[number]
+        }
+
+
+
+## 7/6 - 待配床清單 [/asignBed/department/{deptCode}]
+### 回傳待配床病患清單[GET]
+
++ Parameters
+
+    + deptCode (string)    ... 科別代碼
+
++ Response 200 (application/json)
+
+        {
+            "content" : [   //病患資訊陣列
+                {   //病患資訊
+                    "patName" : "王小明",           //病患姓名[string]
+                    "patSexCode" : "M",             //性別[string]（男性："M";女性："F"）
+                    "patBirthday" : 1406938026,     //出生日期[number(timestamp)]
+                    "chartNo" : "12345678",         //病歷號[string]
+                    "piority" : "Ａ",               //優先順序[string]
+                    "waitDate" : "2015-06-04~2015-07-02" //候床時間[string]
+                    "source" : "轉",                //來源[string]
+                    "hospital" : "總院",            //原院[string]
+                    "department" : "腫瘤",          //原科[string]
+                    "note" : "註記"                 //註[string]
+                },
+                ...
+            ],
+            "limit" : 50, //最大回傳筆數[number]
+            "offset" : 0, //回傳資料偏移數[number]
+            "total" : 50  //此次Query總筆數[number]
+        }
