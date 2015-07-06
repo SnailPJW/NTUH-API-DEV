@@ -98,7 +98,7 @@
                     "orderNotReceived" : true,    //醫囑是否有未簽收項目[boolean, optional]
                     "accountIDSE" : "14T05267794",           //帳號 [string, optional]
                     "patClassCode" : "I",                    //門住急別 [string, optional]
-                    "visible": true                          //是否可以瀏覽 [boolean]
+                    "visible": true,                         //是否可以瀏覽 [boolean]
                     "waitBed": true,     //是否可被候床 [boolean, optional]
                     "assignBed": true     //是否可被配床 [boolean, optional]
                 },
@@ -375,9 +375,9 @@
                 "otherReport" : [
                     {
                         "date" : 1406938026,                            //報告時間(顯示於畫面)[nubmer(timestamp)]
-                        "modifiedDate" 1406938026,              //報告更新時間(用於判斷提示) [number(timestamp)]
+                        "modifiedDate": 1406938026,                     //報告更新時間(用於判斷提示) [number(timestamp)]
                         "item" : "Chest PA View (Standing)",            //報告項目[string]
-                        "type" : "影核醫",                              //報告種類[string]
+                        "type" : "影核醫",                               //報告種類[string]
                         "report" : {    //如有報告則回傳 [optional]
                             "reportType" : "HTML",                      //報告型態，HTML或PDF
                             "reportPath" : "/report/{reportID}",        //報告路徑
@@ -439,10 +439,10 @@
                 ],
                 "consult" : [    //會診資訊
                     {
-                        "date" : 1406938026,                    //會診時間(顯示於畫面) [number(timestamp)]
-                        "modifiedDate" 1406938026,              //會診訪視更新時間(用於判斷提示) [number(timestamp)]
-                        "item" : "xxx 會診資訊",                //會診資訊 [string]
-                        "type" : "葉XX醫師",                    //會診醫師 [string]
+                        "date" : 1406938026,                        //會診時間(顯示於畫面) [number(timestamp)]
+                        "modifiedDate": 1406938026,                 //會診訪視更新時間(用於判斷提示) [number(timestamp)]
+                        "item" : "xxx 會診資訊",                      //會診資訊 [string]
+                        "type" : "葉XX醫師",                          //會診醫師 [string]
                         "report" : {    //會診單
                             "reportType" : "HTML",                      //報告型態，HTML或PDF
                             "reportPath" : "/report/{reportID}",        //報告路徑
