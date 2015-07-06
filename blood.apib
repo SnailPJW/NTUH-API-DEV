@@ -1,0 +1,88 @@
+# Group Blood Order
+
+## 血品資訊 [/bloodOrder/bloodType/{bloodCode}{?sessionKey,limit,offset}]
+### 取得 bloodCode 所對應之血品資訊 [GET]
++ Parameters
+    + sessionKey        (string) ... SessionKey
+    + offset            (number, optional) ... 資料偏移數，需與 limit 一起傳入
+    + limit             (number, optional) ... 最大回傳筆數，需與 offset 一起傳入
+
++ Response 200 (application/json)
+
+        {
+            "content": [
+                {
+                    "test": 123
+                }
+            ],
+            "total": 100,           // [number] 此次請求回傳資料筆數
+            "limit": 10,            // [number] 此次請求最大回傳筆數
+            "offset": 0             // [number] 資料偏移數
+        }
+
+## 血品清單 [/bloodOrder/bloodTypes{?sessionKey,displayAll}]
+### 取得血品清單 [GET]
++ Parameters
+    + sessionKey        (string) ... SessionKey
+
++ Response 200 (application/json)
+
+
+        {
+            "content": {
+                "groups": [
+                    {
+                        "title": "紅血球血品",                          // [string] 血品群組名稱
+                        "items": [                                    // 血品清單
+                            {
+                                "code":     "000PP011",               // [string] 血品代碼
+                                "name":     "Packed RBC",             // [string] 血品名稱
+                                "unit":     "U",                      // [string] 血品單位
+                                "isUsual":  true                      // [boolean] 是否常用
+                            },
+                            {
+                                "code":     "000PP141",               // [string] 血品代碼
+                                "name":     "Leukocyte-Poor RBC",     // [string] 血品名稱
+                                "unit":     "U",                      // [string] 血品單位
+                                "isUsual":  true                      // [boolean] 是否常用
+                            },
+                            ...
+                        ],
+                        "adaptations": {
+                            "title": "紅血球 輸血建議適應症",             // [string] 適應症選單標題
+                            "options": [
+                                {
+                                    "title": "開刀前或侵襲術式前備血",    // [string] 該選項所顯示的標題
+                                    "return_value": "RBC_001"         // [string] 該選項選取時的回傳值
+                                },
+                                {
+                                    "title": "大量輸血",               // [string] 該選項所顯示的標題
+                                    "return_value": "RBC_002"         // [string] 該選項選起時的回傳值
+                                },
+                                ...
+                            ]
+                        },
+                        "notification": {  // [optional] 額外提示，當沒有時不用回傳
+                            "title": "指定血小板血品供應不足時",
+                            "content": "本血品庫存不足時, 相同血型血品不足時, 血庫將電話通知給與優先替代血型, 指定種類不足時, 將電話連繫醫師替代並重開醫令"
+                        }
+                    },
+                    ...
+                ]
+            }
+        }
+
+## 血品醫囑 [/account/{accountNo}/bloodOrders{?sessionKey,code,dose,adaptation}]
+### 開立血品醫囑 [POST]
++ Parameters
+    + sessionKey        (string) ... SessionKey
+    + code              (string) ... 欲開立之血品代碼
+    + dose              (number) ... 開立血品之數量
+    + adaptation        (string) ... 開立血品之適應症
+
++ Response 200 (application/json)
+
+
+        {
+            "success": true
+        }
