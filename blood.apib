@@ -163,7 +163,7 @@
         }
 
 
-## 血品輸血醫囑清單 [/accont/{accountNo}/boodIssueOrders]
+## 血品輸血醫囑清單 [/accont/{accountNo}/boodIssueOrders{?sessionKey,amount,expectedIssueDay,destCode,destDescription}]
 ### 開立輸血醫囑 [POST]
 + Parameters
     + sessionKey        (string) ... SessionKey
@@ -174,12 +174,12 @@
 
 + Response 201 (application/json)
 
-    {
-        "success": true,
-        "content": {
-            "issueNo": "2004681-1"
+        {
+            "success": true,
+            "content": {
+                "issueNo": "2004681-1"
+            }
         }
-    }
 
 ## 血品輸血醫囑 [/account/{accountNo}/bloodIssueOrder/{issueNo}{?sessionKey}]
 ### 取得輸血醫囑內容 [GET]
