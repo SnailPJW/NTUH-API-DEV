@@ -20,10 +20,24 @@
             "offset": 0             // [number] 資料偏移數
         }
 
+## 血品醫囑介面內容 [/interface/bloodOrder{?sessionKey}]
+### 取得醫囑介面內容 [GET]
++ Parameters
+    + sessionKey        (string) ... SessionKey
+
++ Response 200 (application/json)
+
+        {
+            "content": {
+
+            }
+        }
+
 ## 血品清單 [/bloodOrder/bloodTypes{?sessionKey,displayAll}]
 ### 取得血品清單 [GET]
 + Parameters
     + sessionKey        (string) ... SessionKey
+    + displayAll        (string) ... 是否顯示完整清單 (true/false) 若為 false 則回傳常用血品即可
 
 + Response 200 (application/json)
 
@@ -38,30 +52,27 @@
                                 "code":     "000PP011",               // [string] 血品代碼
                                 "name":     "Packed RBC",             // [string] 血品名稱
                                 "unit":     "U",                      // [string] 血品單位
-                                "isUsual":  true                      // [boolean] 是否常用
+                                "frqUsed":  true                      // [boolean] 是否常用
                             },
                             {
                                 "code":     "000PP141",               // [string] 血品代碼
                                 "name":     "Leukocyte-Poor RBC",     // [string] 血品名稱
                                 "unit":     "U",                      // [string] 血品單位
-                                "isUsual":  true                      // [boolean] 是否常用
+                                "frqUsed":  true                      // [boolean] 是否常用
                             },
                             ...
                         ],
-                        "adaptations": {
-                            "title": "紅血球 輸血建議適應症",             // [string] 適應症選單標題
-                            "options": [
-                                {
-                                    "title": "開刀前或侵襲術式前備血",    // [string] 該選項所顯示的標題
-                                    "return_value": "RBC_001"         // [string] 該選項選取時的回傳值
-                                },
-                                {
-                                    "title": "大量輸血",               // [string] 該選項所顯示的標題
-                                    "return_value": "RBC_002"         // [string] 該選項選起時的回傳值
-                                },
-                                ...
-                            ]
-                        },
+                        "adaptations": [    // 輸血適應症清單
+                            {
+                                "title": "開刀前或侵襲術式前備血",        // [string] 該選項所顯示的標題
+                                "return_value": "RBC_001"             // [string] 該選項選取時的回傳值
+                            },
+                            {
+                                "title": "大量輸血",                    // [string] 該選項所顯示的標題
+                                "return_value": "RBC_002"             // [string] 該選項選起時的回傳值
+                            },
+                            ...
+                        ],
                         "notification": {  // [optional] 額外提示，當沒有時不用回傳
                             "title": "指定血小板血品供應不足時",
                             "content": "本血品庫存不足時, 相同血型血品不足時, 血庫將電話通知給與優先替代血型, 指定種類不足時, 將電話連繫醫師替代並重開醫令"
@@ -72,13 +83,35 @@
             }
         }
 
-## 血品醫囑 [/account/{accountNo}/bloodOrders{?sessionKey,code,dose,adaptation}]
+## 血品醫囑 [/account/{accountNo}/bloodOrderRecords]
 ### 開立血品醫囑 [POST]
-+ Parameters
-    + sessionKey        (string) ... SessionKey
-    + code              (string) ... 欲開立之血品代碼
-    + dose              (number) ... 開立血品之數量
-    + adaptation        (string) ... 開立血品之適應症
+
++ Request IssueBloodOrder (application/json)
+
+        {
+            "content": {
+                "dictateBloodType": "type_0",                           // [string] 口述血型代碼
+                "code": "000PP011",                                     // [string] 欲開立之血品代碼
+                "dose": 2,                                              // [number] 開立血品之數量
+                "adaptation": "RBC_001",                                // [string] 開立血品之適應症代碼
+                "destination": {                                        // 送達地點
+                    "code": "T01",                                      // [string] 送達地點代號
+                    "description": "11B-07-01"                          // [string] 送達地點資訊
+                },
+                "transfuseTime": {                                      // 輸血時機
+                    "code": "BeforSurgery",                             // [string] 輸血時機代碼
+                    "Operation": "OPERATION_TYPE",                      // [string, optional] 術式說明 手術/處置前備血用
+                    "date": 1435744800,                                 // [number(timestamp), optional] 日期 手術/處置前備血用
+                    "description": "DESCRIPTION_CONTENT"                // [string] 其他描述
+                },
+                "flowSpeed": {                                          // 輸血流速
+                    "code": "01",                                       // [string] 流速代碼
+                    "description": "DESCRIPTION_CONTENT"                // [string] 其他說明
+                },
+                "notification": "NOTIFICATION_CONTENT"                  // [string] 其他敘述
+            },
+            "sessionKey": "E0B27FAAAE68415BA9E011E569FE4009"            // [string] SessionKey
+        }
 
 + Response 200 (application/json)
 
