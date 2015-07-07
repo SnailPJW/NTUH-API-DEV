@@ -31,11 +31,11 @@
         {
             "content": {
                 "bloodType": "type_unknown",                                    // [string] 檢驗血型
-                "specimenInfo": "檢體：-- 採檢：-- 提血期限：採檢後 3 日內",          // [string] 有效檢體
-                "inspectInfo": "HB 12.0 (20150520-RL)  PLT 472 (20150520-RL)"   // [string] 檢驗資訊
+                "specimenInfo": "檢體: -- 採檢: -- 提血期限: 採檢後 3 日內",          // [string] 有效檢體
+                "inspectInfo": "HB 12.0 (20150520-RL)  PLT 472 (20150520-RL)",  // [string] 檢驗資訊
                 "dictateBloodType": {                                           // 口述血型
                     "type": "type_unknown",                                     // [string] 血型代號
-                    "description": "自過敏史取得口述血型，資料來源為舊病歷資料"         // [string] 口述血型敘述
+                    "description": "自過敏史取得口述血型, 資料來源為舊病歷資料"         // [string] 口述血型敘述
                 },
                 "newbornInfoRequired": false                                    // [boolean] 是否需要額外輸入新生兒資料
             }
@@ -113,7 +113,7 @@
                     "issueOrders": [                                    // 提血醫囑清單 [optional] 若無則不用回傳
                         {
                             "id": "2004681-01",                         // [string] 提血單號
-                            "amount": 3,                                // [string] 提血血量
+                            "amount": 3,                                // [number] 提血血量
                             "status": "(待血庫接單)(醫囑未確認)"            // [string] 提血單狀態描述
                         },
                         ...
