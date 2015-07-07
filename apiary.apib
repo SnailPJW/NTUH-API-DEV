@@ -3672,26 +3672,6 @@ HOST: http://www.wantoto.com
 
 # Group Blood Order
 
-## 血品資訊 [/bloodOrder/bloodType/{bloodCode}{?sessionKey,limit,offset}]
-### 取得 bloodCode 所對應之血品資訊 [GET]
-+ Parameters
-    + sessionKey        (string) ... SessionKey
-    + offset            (number, optional) ... 資料偏移數，需與 limit 一起傳入
-    + limit             (number, optional) ... 最大回傳筆數，需與 offset 一起傳入
-
-+ Response 200 (application/json)
-
-        {
-            "content": [
-                {
-                    "test": 123
-                }
-            ],
-            "total": 100,           // [number] 此次請求回傳資料筆數
-            "limit": 10,            // [number] 此次請求最大回傳筆數
-            "offset": 0             // [number] 資料偏移數
-        }
-
 ## 血品相關病患資訊 [/patients/{chartNo}/bloodInfo{?sessionKey}]
 ### 取得病患血品相關資訊 [GET]
 + Parameters
@@ -3717,7 +3697,7 @@ HOST: http://www.wantoto.com
 ### 取得血品清單 [GET]
 + Parameters
     + sessionKey        (string) ... SessionKey
-    + displayAll        (string) ... 是否顯示完整清單 (true/false) 若為 false 則回傳常用血品即可
+    + displayAll        (string) ... 是否顯示完整清單 true/false 若為 false 則回傳常用血品即可
 
 + Response 200 (application/json)
 
@@ -3766,7 +3746,7 @@ HOST: http://www.wantoto.com
 ## 血品備血醫囑 [/account/{accountNo}/bloodOrderSheets{?sessionKey}]
 ### 取得備血醫囑清單 [GET]
 + Parameters
-    + sessionkey        (string) ... SessionKey
+    + sessionKey        (string) ... SessionKey
 
 + Response 200 (application/json)
 
@@ -3774,33 +3754,43 @@ HOST: http://www.wantoto.com
         {
             "content": [
                 {
-                    "sheetId": "2004681",                               // [string] 備血單號
+                    "sheetNo": "2004681",                               // [string] 備血單號
                     "blood": {                                          // 血品相關資訊
                         "name": "Packed RBC",                           // [string] 血品名稱
                         "unit": "U"                                     // [string] 血品單位
                     },
-                    "transfuseTime": "先行備血, 分批輸血, 由護理師啟動提血",  // [string] 輸血時機描述
                     "totalAmount": 6,                                   // [number] 總備血量
                     "issuedAmount": 3,                                  // [number] 已開血量
-                    "issueOrders": [                                    // 提血醫囑清單 [optional] 若無則不用回傳
+                    "issueOrders": [                                    // 輸血醫囑清單 [optional] 若無則不用回傳
                         {
-                            "id": "2004681-01",                         // [string] 提血單號
+                            "issueNo": "2004681-01",                    // [string] 提血單號
                             "amount": 3,                                // [number] 提血血量
-                            "status": "(待血庫接單)(醫囑未確認)"            // [string] 提血單狀態描述
+                            "status": "(待血庫接單)(醫囑未確認)"           // [string] 提血單狀態描述
                         },
                         ...
                     ],
-                    "status": "待血庫接單(醫囑未確認)",                     // [string] 備血狀態
                     "creatorNo": "111291",                              // [string] 開立醫師員編
                     "creatorName": "王大明",                             // [string] 開立醫師姓名
-                    "createdTime": 1436256491                           // [number(timestamp)] 開立時間
+                    "createdTime": 1436256491,                          // [number(timestamp)] 開立時間
+                    "expectedIssueDay": 1436260091,                     // [number(timestamp)] 預計輸血日期
+                    "verified": false,                                  // [boolean] 醫囑是否被確認
+                    "additionalInfo": [
+                        {
+                            "title": "用血時機",
+                            "content": "先行備血, 分批輸血, 由護理師啟動提血"
+                        },
+                        {
+                            "title": "備血血品狀態",
+                            "content": "待血庫接單(醫囑未確認)"
+                        }
+                    ]
                 }
             ]
         }
 
 ### 開立備血醫囑 [POST]
 
-+ Request IssueBloodOrder (application/json)
++ Request IssueBloodOrderSheets (application/json)
 
         {
             "content": {
@@ -3840,7 +3830,59 @@ HOST: http://www.wantoto.com
         {
             "success": true,
             "content": {
-                "sheetId": "2004681"                                    // [string]  備血醫囑 ID
+                "sheetNo": "2004681"                                    // [string]  備血醫囑單號
+            }
+        }
+
+
+## 血品輸血醫囑清單 [/accont/{accountNo}/boodIssueOrders]
+### 開立輸血醫囑 [POST]
++ Parameters
+    + sessionKey        (string) ... SessionKey
+    + amount            (number) ... 提血數量
+    + expectedIssueDay  (number) ... 預計輸血日期 unix timestamp 格式
+    + destCode          (string) ... 送達地點代碼
+    + destDescription   (string, optional) ... 送達地點敘述
+
++ Response 201 (application/json)
+
+    {
+        "success": true,
+        "content": {
+            "issueNo": "2004681-1"
+        }
+    }
+
+## 血品輸血醫囑 [/account/{accountNo}/bloodIssueOrder/{issueNo}{?sessionKey}]
+### 取得輸血醫囑內容 [GET]
+
++ Parameters
+    + sessionKey        (string) ... SessionKey
+
++ Response 200 (application/json)
+
+
+        {
+            "content": {
+                "issueNo": "2004681-1",                             // [string] 輸血醫囑單號
+                "blood": {                                          // 血品相關資訊
+                    "name": "Packed RBC",                           // [string] 血品名稱
+                    "unit": "U"                                     // [string] 血品單位
+                },
+                "status": "待血庫接單 (醫囑未確認)",                   // [string] 狀態描述
+                "amount": 2,                                        // [number] 數量
+                "verified": false,                                  // [boolean] 是否被確認
+                "additionalInfo": [
+                    {
+                        "title": "送達地",
+                        "content": "病房 0PII-06-03"
+                    },
+                    {
+                        "title": "表單申請",
+                        "content": "XXX (簡碼: 99999) 2015/07/07"
+                    }
+                    ...
+                ]
             }
         }
 
