@@ -235,30 +235,30 @@
             ]
         }
 
-## 4/13 - 取得帳戶清單 [/accountList{?chartNo}]
+## 7/8 - 取得帳戶清單 [/patients/{chartNo}/accounts{?sessionKey}]
 ### 取得帳戶清單 [GET]
 
 + Parameters
-    + chartNo (string)  ...病患編號
+    + sessionKey        (string) ... SessionKey
 
 + Response 200 (application/json)
 
 
         {
             "content": {
-                "default" : "A0B1C2D3",     // 預設 [string]
+                "default" : "I000B1C2D3",     // 預設 [string]
                 "list" : [
                     {
-                        "accountNo" : "A0B1C2D3",            // [string]
-                        "displayName" : "X月XX日 XX:XX住院"  // [string]
+                        "accountNo" : "I000B1C2D3",                 // [string] 第一個字元為帳號的門住急別
+                        "displayName" : "X月XX日 XX:XX 住院"         // [string] 顯示內容
                     },
                     {
-                        "accountNo" : "A4B5C6D7",
-                        "displayName" : "X月XX日 XX:XX急診"
+                        "accountNo" : "E000123DD13",
+                        "displayName" : "X月XX日 XX:XX 急診"
                     },
                     {
-                        "accountNo" : "Z0Y1X2W3",
-                        "displayName" : "X月XX日 XX:XX門診"
+                        "accountNo" : "O1120Y1X2W3",
+                        "displayName" : "X月XX日 XX:XX 門診"
                     }, ...
                 ]
             }
