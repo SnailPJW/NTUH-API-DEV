@@ -406,13 +406,13 @@
         }
 
 
-## 6/3 - 醫令搜尋 [/orderSearch{?name,packageCode,accountNo}]
+## 7/8 - 醫令搜尋 [/orderSearch{?name,packageCode,accountNo}]
 ### 取得藥物清單 [GET]
 
 + Parameters
     + name (string, optional)           ...搜尋字串
     + packageCode (string, optional)    ...套餐
-    + accountNo (string)                ...帳號編號
+    + accountNo (string)                ...帳號編號 第一各字元為病患的門住急別
 
 + Response 200 (application/json)
 
@@ -424,7 +424,7 @@
                         "displayName" : "醫令類別"
                     }
                     {
-                        "fieldCode" : "orderCode",
+                        "fieldCode" : "DisplayCode",
                         "displayName" : "醫令碼",
                     },
                     {
@@ -435,25 +435,25 @@
                 ],
                 "data" : [
                     {
-                        "id" : "000L0114",  // 醫令碼 [string, required]
+                        "orderCode" : "T000L0114",  // 醫令碼 [string, required]
                         "content" : {
-                            "orderCode" : "T000L0114",
+                            "DisplayCode" : "000L0114",
                             "orderType" : "治療",
                             "order"     : "複印全口顎Ｘ光照相"
                         }
                     },
                     {
-                        "id" : "000L0113",
+                        "orderCode" : "T000L0113",
                         "content" : {
-                            "orderCode" : "T000L0113",
+                            "DisplayCode" : "000L0113",
                             "orderType" : "治療",
                             "order"     : "複印咬合片Ｘ光照相"
                         }
                     },
                     {
-                        "id" : "000L0112",
+                        "orderCode" : "T000L0112",
                         "content" : {
-                            "orderCode" : "T000L0112",
+                            "DisplayCode" : "000L0112",
                             "orderType" : "治療",
                             "order"     : "複印根尖周Ｘ光照相"
                         }
@@ -567,7 +567,7 @@
 + Parameters
     + name (string, optional)           ... 搜尋字串(搜尋全部藥名)
     + packageCode (string, optional)    ... 套餐
-    + accountNo                         ... 帳號編號
+    + accountNo                         ... 帳號編號 第一個字元代表病患門住急別
 
 + Response 200 (application/json)
 
@@ -599,8 +599,8 @@
                 ],
                 "data" : [
                     {
-                        "id" : "v1234567",    // 藥品代碼 [string]
-                        "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                        "id" : "v1234567",      // 藥品代碼 [string]
+                        "content" : {           //依據欄位填入資料，無資料則不回傳 [optional]
                             "drugName" : "Dextrose and Electrolyte Solution",
                             "itemName" : "Taita No. 1 500 ml/btl",
                             "dose" : "1",
