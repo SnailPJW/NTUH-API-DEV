@@ -3835,10 +3835,11 @@ HOST: http://www.wantoto.com
         }
 
 
-## 血品輸血醫囑清單 [/accont/{accountNo}/boodIssueOrders{?sessionKey,amount,expectedIssueDay,destCode,destDescription}]
+## 血品輸血醫囑清單 [/account/{accountNo}/bloodIssueOrders{?sessionKey,amount,expectedIssueDay,destCode,destDescription,sheetNo}]
 ### 開立輸血醫囑 [POST]
 + Parameters
     + sessionKey        (string) ... SessionKey
+    + sheetNo           (string) ... 對應的備血單單號
     + amount            (number) ... 提血數量
     + expectedIssueDay  (number) ... 預計輸血日期 unix timestamp 格式
     + destCode          (string) ... 送達地點代碼
