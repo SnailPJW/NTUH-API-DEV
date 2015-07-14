@@ -1,7 +1,7 @@
 FORMAT: 1A
 HOST: http://www.wantoto.com
 
-# DEV台大醫院行動醫療資訊系統 Web Service v1.4.0
+# DEV台大醫院行動醫療資訊系統 Web Service v1.4.1
 採用 RESTful 架構規劃。所有字串編碼皆為UTF-8。
 
 # Group 登入與取得或驗證 SessionKey
@@ -4123,7 +4123,7 @@ HOST: http://www.wantoto.com
             }
         }
 
-## 7/6 - 可配床細分科 [/asignBed/department]
+## 7/6 - 可配床細分科 [/assignBed/department]
 ### 取得此醫師可配床細分科清單[GET]
 
 
@@ -4145,8 +4145,8 @@ HOST: http://www.wantoto.com
 
 
 
-## 7/6 - 待配床清單 [/asignBed/department/{deptCode}]
-### 回傳待配床病患清單[GET]
+## 7/6 - 待配床清單 [/assignBed/department/{deptCode}]
+### 取得待配床病患清單[GET]
 
 + Parameters
 
@@ -4174,4 +4174,69 @@ HOST: http://www.wantoto.com
             "limit" : 50, //最大回傳筆數[number]
             "offset" : 0, //回傳資料偏移數[number]
             "total" : 50  //此次Query總筆數[number]
+        }
+
+## 7/6 - 病患配床資訊 [/assignBed/patients/{chartNo}{?bedCode,date}]
+### 取得病患配床資訊[GET]
+
++ Parameters
+
+   + chartNo (string)    ... 病歷號
+
++ Response 200 (application/json)
+
+        {
+           "content" : {   //病患資訊陣列
+               "patInfo" : {   //病患資訊
+                   "patName" : "王小明",                    //病患姓名[string]
+                   "patSexCode" : "M",                     //性別[string]（男性："M";女性："F"）
+                   "patBirthday" : 1406938026,             //出生日期[number(timestamp)]
+                   "personID" : "A123456789",      //身分證號[string]
+                   "chartNo" : "12345678",                 //病歷號[string]
+                   "TEL" : "02-123456",                //聯絡電話[string]
+                   "mobile" : "0972111222"        //手機[string]
+               },
+               "waitBedInfo" : [ //候床資訊(除診療行為)
+                  {
+                     "title" : "候床單號",
+                     "content" : "1080922"
+                  },
+                  ...
+               ],
+               "treatment" : {   //診療行為
+                  "category" : "一般住院",  //類別[string]
+                  "item" : "一般住院",   //項目[string]
+                  "treatmentCode" : "L000001" //診療代碼[string]
+                  "insurance" : "健保"   //保險別[string]
+               },
+               "wards" : [ //床位
+                  {
+                     wardTitle : "內科部 03A2",
+                     beds:[
+                           "bedNo" : "01-01",
+                           "bedClass" : "雙人",
+                           "outDate" : 1406938026,
+                           "bedCode" : "03A2-01-01",
+                           "bedStatus" : "empty"  //床狀態[string](空床：“empty”;住院中，無人預定:"occupied";住院中，後有預定:"nonAvailable";預定出院:"available")                     ]
+                  },
+                  ...
+               ]
+           },
+           "limit" : 50, //最大回傳筆數[number]
+           "offset" : 0, //回傳資料偏移數[number]
+           "total" : 50  //此次Query總筆數[number]
+        }
+
+### 回傳病患配床資訊[POST]
+
++ Parameters
+
+   + chartNo (string)   ... 病歷號
+   + bedCode (string)   ... 床位代碼
+   + date (string)      ... 預定日期(格式為YYYYMMDD）
+
++ Response 200 (application/json)
+
+        {
+          "success": true
         }
