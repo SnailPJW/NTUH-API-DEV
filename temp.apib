@@ -128,18 +128,18 @@
                                     "options": [    // 選項或是預設文字，如果沒有則不回傳 [optional]
                                         {
                                             "displayName" : "一般",
-                                            "optionCode" : "general",
+                                            "optionCode" : "general"
                                         },
                                         {
                                             "displayName" : "PAT",
-                                            "optionCode" : "pat",
+                                            "optionCode" : "pat"
                                         },
                                         {
                                             "displayName" : "術前",
-                                            "optionCode" : "preopr",
+                                            "optionCode" : "preopr"
                                         }, ...
                                     ],
-                                    "default": "general",   // 預設值(如果是傳醫囑ID，則回傳醫囑裡設定的值)   [string, optional]
+                                    "default": "general"    // 預設值(如果是傳醫囑ID，則回傳醫囑裡設定的值)   [string, optional]
                                 }, ...
                             ],
                             "relativeContent": {    // [optional]
@@ -156,7 +156,7 @@
                                             }, ...
                                         ]
                                     }, ...
-                                ],
+                                ]
                             }
                         },
                         {
@@ -170,7 +170,7 @@
                                     "options":  [ //[optional]
                                         {
                                             "displayName" : "NS",   // [string]
-                                            "optionCode" : "NS",    // [string]
+                                            "optionCode" : "NS"     // [string]
                                         }, ...
                                     ],
                                     "default": "NS" // [optional]
@@ -179,9 +179,9 @@
                                     "title" : "體積",   // 此元件的title [string, optional]
                                     "type": "number",   // [string]
                                     "default": 100,     // [optional]
-                                    "unit" : "ml",      // 單位(或是後面的字) [string, optional]
+                                    "unit" : "ml"       // 單位(或是後面的字) [string, optional]
                                 }, ...
-                            ],
+                            ]
                         },
                         {
                             "title" : "藥品名稱",
@@ -191,7 +191,7 @@
                                     "default": "NS"     // [optional]
                                 },
                                 ...
-                            ],
+                            ]
                         },
                         {
                             "title" : "自費",
@@ -199,10 +199,10 @@
                             "required" : true,          // [optional]
                             "elements": [
                                 {
-                                    "type": "switch",
+                                    "type": "switch"
                                 },
                                 ...
-                            ],
+                            ]
                         },
                         {
                             "title" : "特殊醫囑",
@@ -214,16 +214,16 @@
                                     "options" : [      // [optional]
                                         {
                                             "displayName" : "Syncope",   // [string]
-                                            "optionCode" : "Syncope",    // [string]
+                                            "optionCode" : "Syncope"     // [string]
                                         },
                                         {
                                             "displayName" : "Evaluation of pacemaker function",   // [string]
-                                            "optionCode" : "Evaluation of pacemaker function",    // [string]
+                                            "optionCode" : "Evaluation of pacemaker function"     // [string]
                                         },
                                         {
                                             "displayName" : "Assessment of total ischemic burden",   // [string]
-                                            "optionCode" : "Assessment of total ischemic burden",    // [string]
-                                        },
+                                            "optionCode" : "Assessment of total ischemic burden"     // [string]
+                                        }
                                     ]
                                 }
                             ]
@@ -323,9 +323,9 @@
                                                 }
                                             },
                                             ...
-                                        ],
+                                        ]
                                     }, ...
-                                ],
+                                ]
                             }, ...
                         ]
                     },
@@ -372,7 +372,7 @@
                                         "content" : {
                                             "packageName" : "CBC+BCS_Glu",
                                             "packageCode" : "cbcbcsglu"
-                                        },
+                                        }
                                     },
                                     ...
                                 ]
@@ -393,7 +393,7 @@
                                         "content" : {
                                             "packageName" : "血管檢查",
                                             "packageCode" : "blood"
-                                        },
+                                        }
                                     },
                                     ...
                                 ]
@@ -422,10 +422,10 @@
                     {
                         "fieldCode" : "orderType",
                         "displayName" : "醫令類別"
-                    }
+                    },
                     {
                         "fieldCode" : "DisplayCode",
-                        "displayName" : "醫令碼",
+                        "displayName" : "醫令碼"
                     },
                     {
                         "fieldCode" : "order",
@@ -527,7 +527,7 @@
                                 }
                             ]
                         }, ...
-                    ],
+                    ]
                 },
                 {
                     "content" : {
@@ -578,19 +578,19 @@
                     {
                         "fieldCode" : "drugName",       //欄位代碼[string]
                         "displayName" : "學名",         //欄位顯示名稱[string]
-                        "textAlignment" : "left",       //欄位內容對齊方式ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]
+                        "textAlignment" : "left"        //欄位內容對齊方式ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]
                     },
                     {
                         "fieldCode" : "itemName",  //欄位代碼[string]
-                        "displayName" : "商品名", //欄位顯示名稱[string]
+                        "displayName" : "商品名"  //欄位顯示名稱[string]
                     },
                     {
                         "fieldCode" : "dose",
-                        "displayName" : "常用劑量",
+                        "displayName" : "常用劑量"
                     },
                     {
                         "fieldCode" : "frequency",
-                        "displayName" : "常用頻率",
+                        "displayName" : "常用頻率"
                     },
                     {
                         "fieldCode" : "unit",
@@ -605,152 +605,13 @@
                             "itemName" : "Taita No. 1 500 ml/btl",
                             "dose" : "1",
                             "unit" : "tab",
-                            "frequency" : "TID",
-                        },
-
+                            "frequency" : "TID"
+                        }
                     },
                     ...
-                ],
-            },
+                ]
+            }
         }
-
-## 4/20 - 取得開立/修改醫囑需要資料 [/order{?drugCode%5B%5D,orderCode%5B%5D,orderID%5B%5D}]
-### 醫囑通用格式 [GET]
-
-+ Parameters
-    + drugCode%5B%5D (array[string], optional)    ... 藥碼
-    + orderCode%5B%5D (array[string], optional)   ... 醫令碼
-    + orderID%5B%5D (array[string], optional)     ... 醫囑ID
-
-+ Response 200 (application/json)
-
-
-        {
-            "content": [
-                {
-                    "id": "000L0114",               // [string]
-                    "postURL" :  "url/to/server",   // [string(url)]
-                    "postContent":[
-                        {
-                            "title":"階段", // 欄位名稱 [string]
-                            "key":"stage",  // 開立時需要post至server的key, 如果單純顯示用則不需回傳 [string, optional]
-                            "required": true,   // 此欄位是否必要, 如果單純顯示用則不需回傳  [boolean, optional]
-                            "elements": [
-                                {
-                                    "type":"option",    // element的格式  ex: label, textField, checkbox, switch, option, date, number [string]
-                                    "options": [    // 選項或是預設文字，如果沒有則不回傳 [optional]
-                                        {
-                                            "displayName" : "一般",
-                                            "optionCode" : "general",
-                                        },
-                                        {
-                                            "displayName" : "PAT",
-                                            "optionCode" : "pat",
-                                        },
-                                        {
-                                            "displayName" : "術前",
-                                            "optionCode" : "preopr",
-                                        }, ...
-                                    ],
-                                    "default": "general",   // 預設值(如果是傳醫囑ID，則回傳醫囑裡設定的值)   [string, optional]
-                                }, ...
-                            ],
-                            "relativeContent": [       // [optional]
-                                {
-                                    "optionCode" : "general",
-                                    "postContent": [
-                                        {
-                                            "title":"預計時間",
-                                            "key":  "estimatedTime",
-                                            "required" : true,
-                                            "elements" : [
-                                                {
-                                                    "type" : "date",
-                                                    "default" : 1406938026,
-                                                    "dateformat" : "yyyy-MM-dd HH"  //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string]
-                                                }
-                                            ]
-                                        }, ...
-                                    ],
-                                }, ...
-                            ]
-                        },
-                        {
-                            "title" : "稀釋體積",
-                            "key":  "dilutionVolume",    // [optional]
-                            "required" : true,           // [optional]
-                            "elements": [
-                                {
-                                    "title" : "稀釋液", // [string, optional]
-                                    "type": "option",   // [string]
-                                    "options":  [ // [optional]
-                                        {
-                                            "displayName" : "NS",   // [string]
-                                            "optionCode" : "NS",    // [string]
-                                        }, ...
-                                    ],
-                                    "default": "NS"         // [string, optional]
-                                },
-                                {
-                                    "title" : "體積",       // 此元件的title [string, optional]
-                                    "type": "number",       // [string]
-                                    "default": 100,         // [number, optional]
-                                    "unit" : "ml",          // 單位(或是後面的字) [string, optional]
-                                }, ...
-                            ],
-                        },
-                        {
-                            "title" : "藥品名稱",
-                            "elements": [
-                                {
-                                    "type": "label",
-                                    "default": "Acetaminophen" // [optional]
-                                },
-                                ...
-                            ],
-                        },
-                        {
-                            "title" : "自費",
-                            "key" : "expense",    // [optional]
-                            "required" : true,   // [optional]
-                            "elements": [
-                                {
-                                    "type": "switch",
-                                },
-                                ...
-                            ],
-                        },
-                        {
-                            "title" : "特殊醫囑",
-                            "key" : "specialOrder",     // [optional]
-                            "required" : false,         // [optional]
-                            "elements" : [
-                                {
-                                    "type" : "textField",
-                                    "options" : [ // [optional]
-                                        {
-                                            "displayName" : "Syncope",   // [string]
-                                            "optionCode" : "Syncope",    // [string]
-                                        },
-                                        {
-                                            "displayName" : "Evaluation of pacemaker function",   // [string]
-                                            "optionCode" : "Evaluation of pacemaker function",    // [string]
-                                        },
-                                        {
-                                            "displayName" : "Assessment of total ischemic burden",   // [string]
-                                            "optionCode" : "Assessment of total ischemic burden",    // [string]
-                                        },
-                                    ]
-                                }
-                            ]
-                        }
-                    ],
-                    "notice" : "本藥品可能增加跌倒風險"     // 注意事項 [string, optional]
-                },
-                ...
-            ]
-        }
-
 
 ## 3/20 - 未確認醫令 [/patients/{charNo}/unconfirmOrder{?empNo}]
 ### 取得未確認醫令清單 [GET]
@@ -772,21 +633,21 @@
                         },
                         {
                             "fieldCode" : "period",  //欄位代碼[string]
-                            "displayName" : "期間", //欄位顯示名稱[string]
+                            "displayName" : "期間"  //欄位顯示名稱[string]
                         },
                         {
                             "fieldCode" : "category",
-                            "displayName" : "類別",
+                            "displayName" : "類別"
                         },
                         {
                             "fieldCode" : "drugName",
                             "displayName" : "學名",
-                            "textAlignment" : "left", //欄位內容對齊方式  //ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]
+                            "textAlignment" : "left"  //欄位內容對齊方式  //ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]
                         },
                         {
                             "fieldCode" : "itemName",
                             "displayName" : "商品名",
-                            "textAlignment" : "left", //欄位內容對齊方式  //ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]
+                            "textAlignment" : "left"  //欄位內容對齊方式  //ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]
                         },
                         {
                             "fieldCode" : "status",
@@ -809,11 +670,11 @@
                                     "empNo" : "23454353",
                                     "name" : "葉小菜"
                                 },
-                                "status" : "開立",
-                            },
+                                "status" : "開立"
+                            }
                         },
                         ...
-                    ],
+                    ]
                 },
                 {   // 診療醫令部份
                     "field" : [    //欄位資訊
@@ -824,16 +685,16 @@
                         },
                         {
                             "fieldCode" : "period",  //欄位代碼[string]
-                            "displayName" : "期間", //欄位顯示名稱[string]
+                            "displayName" : "期間"    //欄位顯示名稱[string]
                         },
                         {
                             "fieldCode" : "category",
-                            "displayName" : "類別",
+                            "displayName" : "類別"
                         },
                         {
                             "fieldCode" : "order",
                             "displayName" : "醫令名稱",
-                            "textAlignment" : "left", //欄位內容對齊方式  //ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]
+                            "textAlignment" : "left"   //欄位內容對齊方式  //ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]
                         },
                         {
                             "fieldCode" : "status",
@@ -856,12 +717,12 @@
                                     "empNo" : "23454353",
                                     "name" : "葉小菜"
                                 },
-                                "status" : "新增",
-                            },
+                                "status" : "新增"
+                            }
                         },
                         ...
-                    ],
-                },
+                    ]
+                }
             ]
         }
 
@@ -878,6 +739,6 @@
 
         {
             "content": {
-                "success":  true,
+                "success":  true
             }
         }
