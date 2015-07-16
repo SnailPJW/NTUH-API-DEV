@@ -93,10 +93,11 @@
 
 
 ## 6/25 - 醫令碼所對應的醫令 [/order/{orderCode}{?sessionKey}]
+### 取得醫令資訊 [GET]
+
 + Parameters
     + sessionKey        (string) ... SessionKey
 
-### 取得醫令資訊 [GET]
 + Response 200 (application/json)
 
         {
@@ -335,8 +336,7 @@
                         "2": "K23111222222",
                         ...
                     }
-                }
-
+                },
                 "failed": [     // 未能成功開立的醫令之清單，內容為該醫令所對應之鍵值
                     "1",
                     "3",
@@ -404,7 +404,7 @@
                             },
                             ...
                         ],
-                        "freeSelectionEnable": false,           // [optional, boolean] 是否允許增添選項，當類型為 S, M 時使用
+                        "freeSelectionEnable": false            // [optional, boolean] 是否允許增添選項，當類型為 S, M 時使用
                     },
                     {
                         "displayTitle": "DATE_SELECTION",       // [string] 問題顯示題目
