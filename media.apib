@@ -1,8 +1,10 @@
 # Group 多媒體相關 Media Relative Service
-## 6/5 - ProgressNote 上傳 [/patients/{chartNo}/progressNote{?image%5B%5D,accountNo,uploader,description,reviewer}]
+## 6/5 - ProgressNote 上傳 [/patients/{chartNo}/progressNote{?title,accountNo,uploader,description,reviewer}]
 ### 新增 ProgressNote [POST]
+Content-type: multipart/form-data 影像用 [filename]: [content] 形式上傳
+
 + Parameters
-    + image%5B%5D (array[binary])   ... 上傳之影像byte array(可多張image)
+    + title (string)                ... ProgressNote 標題
     + accountNo (string)            ... 帳號編號
     + uploader (string)             ... 上傳者之員工編號
     + description (string)          ... 上傳之 ProgressNote 之描述
@@ -12,39 +14,18 @@
 
 
         {
-            "success": true,
-            "content": {
-
-            }
+            "success": true
         }
 
-# 6/5 - 暫存空間照片上傳 [/patients/{chartNo}/tempStorage{?image%5B%5D,uploader}]
+## 6/5 - 暫存空間照片上傳 [/patients/{chartNo}/tempStorage{?uploader}]
 ### 新增照片至暫存空間 [POST]
+Content-type: multipart/form-data 影像用 [filename]: [content] 形式上傳
+
 + Parameters
-    + image%5B%5D (array[binary])   ... 上傳影像之byte array(可多張image)
     + uploader (string)             ... 上傳者之員工編號
 
 + Response 200 (application/json)
 
         {
-            "success": true,
-            "content": {
-
-            }
-        }
-
-## 4/08 - 多媒體上傳 [/patients/{chartNo}/media/upload{?image%5B%5D,accountNo}]
-### 上傳 [POST]
-
-+ Parameters
-    + image%5B%5D (array[binary])    ... 上傳之影像byte array(可多張image)
-    + accountNo (string, optional)   ... 帳號編號
-
-+ Response 200 (application/json)
-
-
-        {
-            "success" : true,
-            "content": {
-            }
+            "success": true
         }
