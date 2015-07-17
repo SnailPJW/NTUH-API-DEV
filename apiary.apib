@@ -3802,12 +3802,11 @@ HOST: http://www.wantoto.com
 
 # Group 排程相關
 
-## 6/23 醫令交易檔 ID 所對應之排程 [/account/{accountNo}/orderRecord/{orderRecordId}/schedule{?examRoomCode,date,weekDay,session,selectedOrder,orderSeqNo,sessionKey}]
+## 6/23 醫令交易檔 ID 所對應之排程 [/account/{accountNo}/orderRecord/{orderRecordId}/schedule{?examRoomCode,date,session,selectedOrder,sessionKey}]
 
 ### 取得排程內容 [GET]
 + Parameters
     + sessionKey    (string) ... SessionKey
-    + orderSeqNo    (string) ... 醫令序號
 
 + Response 200 (application/json)
 
@@ -3831,13 +3830,11 @@ HOST: http://www.wantoto.com
 
 ### 登記修改排程時間 [PUT]
 + Parameters
-    + examRoomCode  (string) ... 檢查室代號
-    + orderSeqNo    (string) ... 醫令序號
-    + date          (string) ... 排程日期, 依照格式為 "YYYYmmdd"
-    + weekDay       (number) ... 星期日期
-    + session       (string) ... 排程時段, 上午為 A 下午為 P 晚上為 N
-    + selectedOrder (number) ... 使用者指定的排程順序
-    + sessionKey    (string) ... SessionKey
+    + examRoomCode  (string)            ... 檢查室代號
+    + date          (string)            ... 排程日期, 依照格式為 "YYYYmmdd"
+    + session       (string)            ... 排程時段, 上午為 A 下午為 P 晚上為 N
+    + selectedOrder (number,optional)   ... 使用者指定的排程順序
+    + sessionKey    (string)            ... SessionKey
 
 + Response 200 (application/json)
 
@@ -3852,11 +3849,11 @@ HOST: http://www.wantoto.com
             "error": 400         // [number] error code
         }
 
-## 6/18 醫令碼 orderCode 所對應的排程資訊 [/order/{orderCode}/schedules{?accountNo,startDate,endDate,searchAll,limit,offset,sessionKey}]
+## 6/18 醫令碼 orderCode 所對應的排程資訊 [/order/{orderCode}/schedules{?accountNo,startDate,endDate,orderRecordId,searchAll,limit,offset,sessionKey}]
 ### 取得排成資訊 [GET]
 + Parameters
     + accountNo     (string) ... 記帳帳號
-    + orderCode     (string) ... 醫令碼
+    + orderRecordId (string) ... 對應的醫令交易記錄 ID 第一碼為醫令種類代碼
     + startDate     (number) ... 起始時間 timestamp
     + endDate       (number) ... 結束時間 timestamp
     + searchAll     (boolean) ... 是否要搜尋所有包含目前不可預約之排程，預設為否
@@ -3888,11 +3885,11 @@ HOST: http://www.wantoto.com
             "total": 20         // [number] 搜尋結果總筆數
         }
 
-## 6/18 檢查室之排程資訊 [/examRoom/{examRoomCode}/schedules{?date,weekDay,session,accountNo,selectedOrder,orderRecordId,sessionKey}]
+## 6/18 檢查室之排程資訊 [/examRoom/{examRoomCode}/schedules{?orderRecordId,date,session,sessionKey}]
 ### 取得排程內容 [GET]
 + Parameters
+    + orderRecordId (string) ... 對應的醫令交易記錄 ID 第一碼為醫令種類代碼
     + date          (string) ... 排程日期, 依照格式為 "YYYYmmdd"
-    + weekDay       (number) ... 星期日期
     + session       (string) ... 排程時段
     + sessionKey    (string) ... SessionKey
 
