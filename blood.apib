@@ -74,7 +74,16 @@
                                 "code":     "000PP011",                         // [string] 血品代碼
                                 "title":    "Packed RBC",                       // [string] 血品顯示名稱
                                 "unit":     "U",                                // [string] 血品單位
-                                "frqUsed":  true                                // [boolean] 是否常用
+                                "frqUsed":  true,                               // [boolean] 是否常用
+                                "note": [                                       // [optional] 備註欄位需要元件 若無則不用回傳
+                                    {
+                                        "title": "使用新鮮血",                    // [string] 顯示標題
+                                        "returnKey": "c_use_fresh_blood",       // [string] 回傳結果時該元件所對應的鍵值
+                                        "type": "C",                            // [string] 問題種類，如日期為 D，checkbox 為 C
+                                        "required": true                        // [boolean] 問題是否為必填項目
+                                    },
+                                    ...
+                                ]
                             },
                             {
                                 "code":     "000PP141",                         // [string] 血品代碼
