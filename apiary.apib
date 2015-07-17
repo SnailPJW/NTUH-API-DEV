@@ -3570,15 +3570,29 @@ HOST: http://www.wantoto.com
                     "type": "type_unknown",                                     // [string] 血型代號
                     "description": "自過敏史取得口述血型, 資料來源為舊病歷資料"         // [string] 口述血型敘述
                 },
-                "newbornInfoRequired": false                                    // [boolean] 是否需要額外輸入新生兒資料
+                "newbornInfo": {                                                // [optional] 若無則不用回傳
+                    "motherBloodType": "type_A",                                // [string] 母親口述血型
+                    "fatherBloodType": "type_unknown",                          // [string] 父親口述血型
+                    "hadTransfused": "T",                                       // [string] 使否曾經輸血 T:為是 F:為否 U:不清楚
+                    "transfuseInfo": {                                          // [optional] 只有曾經輸血有記錄才回傳
+                        "blood": "Packed RBC",                                  // [string] 血品
+                        "bloodType": "type_A"                                   // [string] 血型
+                    },
+                    "hadExchanged": "T",                                        // [string] 使否曾經換血 T:為是 F:為否 U:不清楚
+                    "exchangeInfo": {                                           // [optional] 只有曾經換血有記錄才回傳
+                        "blood": "Packed RBC",                                  // [string] 血品
+                        "bloodType": "type_A"                                   // [string] 血型
+                    },
+                    "needPedipack": false                                       // [boolean] 是否需要分裝血品
+                }
             }
         }
 
-## 血品清單 [/bloodOrder/bloodTypes{?sessionKey,displayAll}]
+## 血品清單 [/bloodOrder/bloods{?sessionKey,displayAll}]
 ### 取得血品清單 [GET]
 + Parameters
     + sessionKey        (string) ... SessionKey
-    + displayAll        (string) ... 是否顯示完整清單 true/false 若為 false 則回傳常用血品即可
+    + displayAll        (string) ... 是否顯示完整清單 true/false 若為 false 則回傳常用血品 即 freqUsed=True 之血品即可
 
 + Response 200 (application/json)
 
@@ -3587,19 +3601,19 @@ HOST: http://www.wantoto.com
             "content": {
                 "groups": [
                     {
-                        "title": "紅血球血品",                          // [string] 血品群組名稱
-                        "items": [                                    // 血品清單
+                        "title": "紅血球血品",                                    // [string] 血品群組名稱
+                        "items": [                                              // 血品清單
                             {
-                                "code":     "000PP011",               // [string] 血品代碼
-                                "title":    "Packed RBC",             // [string] 血品顯示名稱
-                                "unit":     "U",                      // [string] 血品單位
-                                "frqUsed":  true                      // [boolean] 是否常用
+                                "code":     "000PP011",                         // [string] 血品代碼
+                                "title":    "Packed RBC",                       // [string] 血品顯示名稱
+                                "unit":     "U",                                // [string] 血品單位
+                                "frqUsed":  true                                // [boolean] 是否常用
                             },
                             {
-                                "code":     "000PP141",               // [string] 血品代碼
-                                "title":    "Leukocyte-Poor RBC",     // [string] 血品顯示名稱
-                                "unit":     "U",                      // [string] 血品單位
-                                "frqUsed":  true                      // [boolean] 是否常用
+                                "code":     "000PP141",                         // [string] 血品代碼
+                                "title":    "Leukocyte-Poor RBC",               // [string] 血品顯示名稱
+                                "unit":     "U",                                // [string] 血品單位
+                                "frqUsed":  true                                // [boolean] 是否常用
                             },
                             ...
                         ],
@@ -3636,7 +3650,7 @@ HOST: http://www.wantoto.com
             "content": [
                 {
                     "orderRecordId": "2004681",                                 // [string] 備血醫囑對應之 unique ID
-                    "bloodTypes": [                                             // 血品相關資訊
+                    "bloods": [                                                 // 血品相關資訊
                         {
                             "name": "Packed RBC",                               // [string] 血品名稱
                             "unit": "U",                                        // [string] 血品單位
@@ -3679,7 +3693,7 @@ HOST: http://www.wantoto.com
         {
             "content": {
                 "dictateBloodType": "type_0",                                   // [string] 口述血型代碼
-                "newBornInfo": {                                                // [optional] 新生兒資料，若不需要填寫不會傳入
+                "newbornInfo": {                                                // [optional] 新生兒資料，若不需要填寫不會傳入
                     "motherBloodType": "type_A",                                // [string] 母親口述血型
                     "fatherBloodType": "type_unknown",                          // [string] 父親口述血型
                     "hadTransfused": "T",                                       // [string] 使否曾經輸血 T:為是 F:為否 U:不清楚
@@ -3724,7 +3738,7 @@ HOST: http://www.wantoto.com
         }
 
 
-## 血品輸血醫囑清單 [/account/{accountNo}/transfusionOrders{?sessionKey,amount,expectedIssueDay,destCode,destDescription,prepareOrderId}]
+## 血品輸血醫囑清單 [/account/{accountNo}/blood/transfusionOrders{?sessionKey,amount,expectedIssueDay,destCode,destDescription,prepareOrderId}]
 ### 開立輸血醫囑 [POST]
 + Parameters
     + sessionKey        (string) ... SessionKey
