@@ -343,6 +343,17 @@
             }
         }
 
+### 刪除醫令 [DELETE]
++ Parameters
+    + sessionKey    (string) ... SessionKey
+    + orderRecordId (string) ... 欲刪除之醫令交易檔 ID
+
++ Response 200 (application/json)
+
+        {
+            "success": true
+        }
+
 ## 7/20 開立影像醫學醫令 [/account/{accountNo}/orderRecords{?orderCode,sessionKey,orderRecordId}]
 ### 開立醫令 [POST]
 
@@ -392,17 +403,6 @@
                 ],
                 "message": "ERROR DESCRIPTION"  // [string] 有關請求錯誤之描述
             }
-        }
-
-### 刪除醫令 [DELETE]
-+ Parameters
-    + sessionKey    (string) ... SessionKey
-    + orderRecordId (string) ... 欲刪除之醫令交易檔 ID
-
-+ Response 200 (application/json)
-
-        {
-            "success": true
         }
 
 
