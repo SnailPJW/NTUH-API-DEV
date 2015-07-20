@@ -3054,10 +3054,6 @@ HOST: http://www.wantoto.com
 ## 6/16 病患醫令記錄 [/account/{accountNo}/orderRecords{?orderCode,orderName,sessionKey,orderRecordId}]
 
 ### 開立醫令 [POST]
-+ Parameters
-    + orderCode     (string) ... the unique id for the specific order
-    + orderName     (string) ... the order name
-    + sessionKey    (string) ... SessionKey
 
 + Request IssueRegularOrders (application/json)
 
@@ -3173,6 +3169,8 @@ HOST: http://www.wantoto.com
                 "message": "ERROR DESCRIPTION"  // [string] 有關請求錯誤之描述
             }
         }
+
+### 開立醫令 [POST]
 
 + Request IssueMedicalImageOrders (application/json)
 
