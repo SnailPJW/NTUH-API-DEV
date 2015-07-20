@@ -110,8 +110,15 @@
 | multiple selection item |   %m   | Define the option for multiple selection.                  |
 | hour picker             |   %h   | The dropdown menu for selecting specific hour in a day.    |
 
+## IV. UI elements:
+---
+### 1. Types:
+...
 
-## IV. API Development Tools
+### 2. Examples
+...
+
+## V. API Development Tools
 ---
 ### 1. Usage:
 - Update the api version (sync with the git tag):
