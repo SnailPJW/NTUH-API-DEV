@@ -3939,32 +3939,21 @@ HOST: http://www.wantoto.com
         }
 
 # Group 多媒體相關 Media Relative Service
-## 6/5 - ProgressNote 上傳 [/patients/{chartNo}/progressNote{?title,accountNo,uploader,description,reviewer}]
-### 新增 ProgressNote [POST]
+## 6/5 - 影像上傳 [/patients/{chartNo}/images{?title,accountNo,uploader,description,reviewer,compression,type}]
+### 新增影像資料 [POST]
 Content-type: multipart/form-data 影像用 [filename]: [content] 形式上傳
 
 + Parameters
-    + title (string)                ... ProgressNote 標題
-    + accountNo (string)            ... 帳號編號
-    + uploader (string)             ... 上傳者之員工編號
-    + description (string)          ... 上傳之 ProgressNote 之描述
-    + reviewer (string, optional)   ... 欲請求簽章之員工編號
+    + accountNo     (string)             ... 帳號編號
+    + uploader      (string)             ... 上傳者之員工編號
+    + compression   (string)             ... 影像壓縮指示 'l' 為低壓縮 'r' 為正常壓縮
+    + type          (string)             ... 上傳影像類別 'p' 為 ProgressNote 't' 為暫存資料庫
+    + title         (string, optional)   ... ProgressNote 標題
+    + description   (string, optional)   ... 上傳之 ProgressNote 之描述
+    + reviewer      (string, optional)   ... 欲請求簽章之員工編號
 
 + Response 200 (application/json)
 
-
-        {
-            "success": true
-        }
-
-## 6/5 - 暫存空間照片上傳 [/patients/{chartNo}/tempStorage{?uploader}]
-### 新增照片至暫存空間 [POST]
-Content-type: multipart/form-data 影像用 [filename]: [content] 形式上傳
-
-+ Parameters
-    + uploader (string)             ... 上傳者之員工編號
-
-+ Response 200 (application/json)
 
         {
             "success": true
