@@ -3050,7 +3050,7 @@ HOST: http://www.wantoto.com
         }
 
 
-## 6/16 病患醫令記錄 [/account/{accountNo}/orderRecords{?orderCode,orderName,quantity,billType,expectedExTime,hospitalCode,sessionKey}]
+## 6/16 病患醫令記錄 [/account/{accountNo}/orderRecords{?orderCode,orderName,quantity,billType,expectedExTime,hospitalCode,sessionKey,orderRecordId}]
 
 ### 開立醫令 [POST]
 + Parameters
@@ -3171,6 +3171,18 @@ HOST: http://www.wantoto.com
                 "message": "ERROR DESCRIPTION"  // [string] 有關請求錯誤之描述
             }
         }
+
+### 刪除醫令 [DELETE]
++ Parameters
+    + sessionKey    (string) ... SessionKey
+    + orderRecordId (string) ... 欲刪除之醫令交易檔 ID
+
++ Response 200 (application/json)
+
+        {
+            "success": true
+        }
+
 
 ## 6/16 醫令交易檔 ID 所對應之病患醫令記錄 [/account/{accountNo}/orderRecord/{orderRecordId}{?quantity,billType,expectedExTime,confirmedTime,stage,status,sessionKey,orderRecordIds,verifier,isEmergency,specialInstruction,bedId}]
 
@@ -3421,7 +3433,7 @@ HOST: http://www.wantoto.com
         }
 
 
-## 處方醫令開令記錄 [/account/{accountNo}/medicationRecords{?sessionKey,stateIndex}]
+## 處方醫令開令記錄 [/account/{accountNo}/medicationRecords{?sessionKey,stateIndex,medicationRecordId}]
 ### 開立處方醫令 [POST]
 
 + Request IssueMedicationOrder (application/json)
@@ -3485,6 +3497,17 @@ HOST: http://www.wantoto.com
                 "stateIndex":  1,                   // [number]
                 "message": "Validation XXX failed"  // [string] error description
             }
+        }
+
+### 刪除醫令處方 [DELETE]
++ Parameters
+    + sessionKey            (string) ... SessionKey
+    + medicationRecordId    (string) ... 欲刪除之醫令交易記錄 ID
+
++ Response 200 (application/json)
+
+        {
+            "success": true
         }
 
 
