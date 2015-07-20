@@ -88,7 +88,7 @@
         }
 
 
-## 處方醫令開令記錄 [/account/{accountNo}/medicationRecords{?sessionKey,stateIndex}]
+## 處方醫令開令記錄 [/account/{accountNo}/medicationRecords{?sessionKey,stateIndex,medicationRecordId}]
 ### 開立處方醫令 [POST]
 
 + Request IssueMedicationOrder (application/json)
@@ -152,6 +152,17 @@
                 "stateIndex":  1,                   // [number]
                 "message": "Validation XXX failed"  // [string] error description
             }
+        }
+
+### 刪除醫令處方 [DELETE]
++ Parameters
+    + sessionKey            (string) ... SessionKey
+    + medicationRecordId    (string) ... 欲刪除之醫令交易記錄 ID
+
++ Response 200 (application/json)
+
+        {
+            "success": true
         }
 
 
