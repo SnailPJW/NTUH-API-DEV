@@ -264,146 +264,98 @@
             }
         }
 
-
-## 6/3 - 醫令套餐 [/orderPackages{?empNo,chartNo,accountNo}]
+## 6/3 - 醫令套餐 [/orderPackages{?empNo,accountNo,type,department}]
 ### 取得醫令套餐清單 [GET]
 
 + Parameters
-    + empNo (string)       ...員工編號
-    + chartNo (string)     ...病人編號
-    + accountNo (string)   ...帳號編號
+    + empNo         (string) ... 員工編號
+    + accountNo     (string) ... 帳號編號 (第一碼為門住級別)
+    + type          (string) ... 請求套餐種類 'general' 為 科部, 病房, 員工, 病人, 路徑 'catagory' 為 category 為 全部, 檢驗, 檢查, 影醫, 核醫, 病理, 治療, 醫囑
+    + department    (string) ... 欲搜尋套餐之科部
 
 + Response 200 (application/json)
 
-
         {
-            "content" : {
-                "general" : [   // Portal的上半部份 (科部, 病房, 員工, 病人, 路徑)
-                    {
-                        "content" : {
-                            "packageName" : "科部",    // [string]
-                            "packageCode" : "the_package_code", // 透過此碼查詢醫令 [string, optional]
-                            "default" : true           // 預設選項，使用者選擇上一層選項之後，要預設選取的項目 [boolean, optional]
-                        },
-                        "children" : [ // [optional]
-                            {
-                                "content" : {
-                                    "packageName" : "內科部",                       // 顯示的title名  [string]
-                                    "default": true
-                                },
-                                "children" : [  // 如果有sublist的話, 則顯示此key  [optional]
-                                    {
-                                        "content" : {
-                                            "packageName" : "骨髓移植 BMT",
-                                            "default" : true                            // [boolean, optional]
+            "content" : [
+                {
+                    "content" : {
+                        "packageName" : "科部",    // [string]
+                        "packageCode" : "the_package_code", // 透過此碼查詢醫令 [string, optional]
+                        "preset" : true           // 預設選項，使用者選擇上一層選項之後，要預設選取的項目 [boolean, optional]
+                    },
+                    "children" : [ // [optional]
+                        {
+                            "content" : {
+                                "packageName" : "內科部",                       // 顯示的title名  [string]
+                                "preset": true
+                            },
+                            "children" : [  // 如果有sublist的話, 則顯示此key  [optional]
+                                {
+                                    "content" : {
+                                        "packageName" : "骨髓移植 BMT",
+                                        "preset" : true                             // [boolean, optional]
+                                    },
+                                    "children" : [  // [duplicate, optional]
+                                        {
+                                            "content" : {
+                                                "packageName" : "Admission Orders", // [string]
+                                                "packageCode" : "admissionorder",   // 透過此碼查詢醫令 [string, optional]
+                                                "preset" : true                     // [boolean, optional]
+                                            }
                                         },
-                                        "children" : [  // [duplicate, optional]
-                                            {
-                                                "content" : {
-                                                    "packageName" : "Admission Orders", // [string]
-                                                    "packageCode" : "admissionorder",   // 透過此碼查詢醫令 [string, optional]
-                                                    "default" : true                    // [boolean, optional]
-                                                }
-                                            },
-                                            {
-                                                "content" : {
-                                                    "packageName" : "Admission Lab",
-                                                    "packageCode" : "admissionlab"      // [string, optional]
-                                                }
-                                            },
-                                            {
-                                                "content" : {
-                                                    "packageName" : "Routine Lab",
-                                                    "packageCode" : "routinelab"        // [string, optional]
-                                                }
-                                            },
-                                            {
-                                                "content" : {
-                                                    "packageName" : "CPCR",
-                                                    "packageCode" : "cpcr"              // [string, optional]
-                                                }
-                                            },
-                                            ...
-                                        ]
-                                    }, ...
-                                ]
-                            }, ...
-                        ]
+                                        {
+                                            "content" : {
+                                                "packageName" : "Admission Lab",
+                                                "packageCode" : "admissionlab"      // [string, optional]
+                                            }
+                                        },
+                                        {
+                                            "content" : {
+                                                "packageName" : "Routine Lab",
+                                                "packageCode" : "routinelab"        // [string, optional]
+                                            }
+                                        },
+                                        {
+                                            "content" : {
+                                                "packageName" : "CPCR",
+                                                "packageCode" : "cpcr"              // [string, optional]
+                                            }
+                                        },
+                                        ...
+                                    ]
+                                }, ...
+                            ]
+                        }, ...
+                    ]
+                },
+                {
+                    "content" : {
+                        "packageName" : "病房"
                     },
-                    {
-                        "content" : {
-                            "packageName" : "病房"
-                        },
-                        "children" : [ // [optional]
-                            {
-                                "content" : {
-                                    "packageName" : "Major Burn"
+                    "children" : [ // [optional]
+                        {
+                            "content" : {
+                                "packageName" : "Major Burn"
+                            },
+                            "children" : [ // [optional]
+                                {
+                                    "content" : {
+                                        "packageName" : "照會",
+                                        "packageCode" : "A1234"
+                                    }
                                 },
-                                "children" : [ // [optional]
-                                    {
-                                        "content" : {
-                                            "packageName" : "照會",
-                                            "packageCode" : "A1234"
-                                        }
-                                    },
-                                    {
-                                        "content" : {
-                                            "packageName" : "醫囑",
-                                            "packageCode" : "A1235"
-                                        }
-                                    }, ...
-                                ]
-                            }, ...
-                        ]
-                    },
-                    ...
-                ],
-                "category" : [  // 醫令開立部份 (檢驗, 檢查, 影醫, 核醫, 病理, 治療, 醫囑)
-                    {
-                        "content" : {
-                            "packageName" : "檢驗"
-                        },
-                        "children" : [
-                            {
-                                "content" : {
-                                    "packageName" : "常用檢驗項目"
-                                },
-                                "children" : [
-                                    {
-                                        "content" : {
-                                            "packageName" : "CBC+BCS_Glu",
-                                            "packageCode" : "cbcbcsglu"
-                                        }
-                                    },
-                                    ...
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        "content" : {
-                            "packageName" : "檢查"
-                        },
-                        "children" : [
-                            {
-                                "content" : {
-                                    "packageName" : "外科檢查"
-                                },
-                                "children" : [
-                                    {
-                                        "content" : {
-                                            "packageName" : "血管檢查",
-                                            "packageCode" : "blood"
-                                        }
-                                    },
-                                    ...
-                                ]
-                            }
-                        ]
-                    },
-                    ...
-                ]
-            }
+                                {
+                                    "content" : {
+                                        "packageName" : "醫囑",
+                                        "packageCode" : "A1235"
+                                    }
+                                }, ...
+                            ]
+                        }, ...
+                    ]
+                },
+                ...
+            ]
         }
 
 
@@ -472,7 +424,6 @@
 
 + Parameters
     + empNo (string)       ...員工編號
-    + chartNo (string)     ...病人編號
     + accountNo (string)   ...帳號編號
 
 + Response 200 (application/json)
