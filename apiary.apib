@@ -2345,7 +2345,7 @@ HOST: http://www.wantoto.com
             }
         }
 
-## 6/3 - 醫令套餐 [/orderPackages{?empNo,accountNo,type,department}]
+## 7/21 - 醫令套餐 [/orderPackages{?empNo,accountNo,type,department}]
 ### 取得醫令套餐清單 [GET]
 
 + Parameters
@@ -2777,6 +2777,138 @@ HOST: http://www.wantoto.com
         }
 
 # Group 開發中 Phase2 Order APIs
+
+## 7/21 - 醫令套餐 [/orderPackages{?empNo,accountNo,type,department}]
+### 取得醫令套餐清單 [GET]
+
++ Parameters
+    + empNo         (string) ... 員工編號
+    + accountNo     (string) ... 帳號編號 (第一碼為門住級別)
+    + type          (string) ... 請求套餐種類 'general' 為 科部, 病房, 員工, 病人, 路徑 'catagory' 為 category 為 全部, 檢驗, 檢查, 影醫, 核醫, 病理, 治療, 醫囑
+    + department    (string) ... 欲搜尋套餐之科部
+
++ Response 200 (application/json)
+
+        {
+            "content" : [
+                {
+                    "packageName": "科部",                                       // [string] 顯示的title名
+                    "packageCode": "the_package_code",                          // [string, optional] 透過此碼查詢醫令
+                    "preset" : true,                                            // [boolean, optional] 預設選項，使用者選擇上一層選項之後，要預設選取的項目 [
+                    "children" : [ // [duplicate, optional]
+                        {
+                            "packageName": "內科部",                             // 顯示的title名  [string]
+                            "preset": true,                                     // [boolean, optional]
+                            "children" : [  // 如果有sublist的話, 則顯示此key  [duplicate, optional]
+                                {
+                                    "packageName": "骨髓移植 BMT",
+                                    "preset": true,                             // [boolean, optional]
+                                    "children": [  // [duplicate, optional]
+                                        {
+                                            "packageName" : "Admission Orders", // [string]
+                                            "packageCode" : "admissionorder",   // 透過此碼查詢醫令 [string, optional]
+                                            "preset" : true                     // [boolean, optional]
+                                        },
+                                        {
+                                            "packageName" : "Admission Lab",    // [string]
+                                            "packageCode" : "admissionlab"      // [string, optional]
+                                        },
+                                        {
+                                            "packageName" : "Routine Lab",      // [string]
+                                            "packageCode" : "routinelab"        // [string, optional]
+                                        },
+                                        {
+                                            "packageName" : "CPCR",             // [string]
+                                            "packageCode" : "cpcr"              // [string, optional]
+                                        },
+                                        ...
+                                    ]
+                                }, ...
+                            ]
+                        }, ...
+                    ]
+                },
+                {
+                    "packageName" : "病房",
+                    "children" : [ // [optional]
+                        {
+                            "packageName" : "Major Burn",
+                            "children" : [ // [optional]
+                                {
+                                    "packageName" : "照會",
+                                    "packageCode" : "A1234"
+                                },
+                                {
+                                    "packageName" : "醫囑",
+                                    "packageCode" : "A1235"
+                                },
+                                ...
+                            ]
+                        },
+                        ...
+                    ]
+                },
+                ...
+            ]
+        }
+
+
+## 7/8 - 醫令搜尋 [/orders{?name,packageCode,accountNo}]
+### 取得藥物清單 [GET]
+
++ Parameters
+    + name (string, optional)           ...搜尋字串
+    + packageCode (string, optional)    ...套餐
+    + accountNo (string)                ...帳號編號 第一各字元為病患的門住急別
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "field" : [
+                    {
+                        "fieldCode" : "orderType",
+                        "displayName" : "醫令類別"
+                    },
+                    {
+                        "fieldCode" : "DisplayCode",
+                        "displayName" : "醫令碼"
+                    },
+                    {
+                        "fieldCode" : "order",
+                        "displayName" : "醫令內容"
+                    },
+                    ...
+                ],
+                "data" : [
+                    {
+                        "orderCode" : "T000L0114",  // 醫令碼 [string, required]
+                        "content" : {
+                            "DisplayCode" : "000L0114",
+                            "orderType" : "治療",
+                            "order"     : "複印全口顎Ｘ光照相"
+                        }
+                    },
+                    {
+                        "orderCode" : "T000L0113",
+                        "content" : {
+                            "DisplayCode" : "000L0113",
+                            "orderType" : "治療",
+                            "order"     : "複印咬合片Ｘ光照相"
+                        }
+                    },
+                    {
+                        "orderCode" : "T000L0112",
+                        "content" : {
+                            "DisplayCode" : "000L0112",
+                            "orderType" : "治療",
+                            "order"     : "複印根尖周Ｘ光照相"
+                        }
+                    },
+                    ...
+                ]
+            }
+        }
 
 ## 6/29 - 病患 cre 值 [/patients/{chartNo}/cre{?sessionKey}]
 ### 取得病患 cre 值報告 [GET]
