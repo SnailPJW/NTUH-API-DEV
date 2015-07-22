@@ -3960,7 +3960,7 @@ Content-type: multipart/form-data 影像用 [filename]: [content] 形式上傳
         }
 
 # Group 候床、配床 waitBed
-## 6/12 - 候床 [/patients/{charNo}/waitBed{?wards,piority,wardClass}]
+## 6/12 - 候床 [/patients/{charNo}/waitBed{?wards,priority,wardClass}]
 ### 取得候床資訊[GET]
 
 + Response 200 (application/json)
@@ -3981,18 +3981,18 @@ Content-type: multipart/form-data 影像用 [filename]: [content] 形式上傳
                     },
                     ...
                 ],
-                "piority" : {
-                    "default" : "piorityA", //預設選項
+                "priority" : {
+                    "preset" : "prioity", //預設選項
                     "option": [
                         {
                             "displayName": "A",
-                            "piorityCode": "piorityA"
+                            "priorityCode": "priorityA"
                         },
                         ...
                     ]
                 },
                 "wardClass": {
-                    "default": [
+                    "preset": [
                         "single",
                         ...
                     ],
@@ -4014,7 +4014,7 @@ Content-type: multipart/form-data 影像用 [filename]: [content] 形式上傳
 + Parameters
 
     + wards (array[string])    ... 病房
-    + piority (string)   ... 候床優先順序
+    + priority (string)   ... 候床優先順序
     + wardClass (array[string], optional) ... 床等
 
 + Response 200 (application/json)
@@ -4064,7 +4064,7 @@ Content-type: multipart/form-data 影像用 [filename]: [content] 形式上傳
                     "patSexCode" : "M",                     //性別[string]（男性："M";女性："F"）
                     "patBirthday" : 1406938026,             //出生日期[number(timestamp)]
                     "chartNo" : "12345678",                 //病歷號[string]
-                    "piority" : "Ａ",                        //優先順序[string]
+                    "priority": "Ａ",                        //優先順序[string]
                     "waitStartDate": 1416938026,              //候床起始時間 [number(timestamp)]
                     "waitEndDate": 1416938326,                //候床結束時間 [number(timestamp), optional] 若無則不用回傳
                     "source" : "轉",                         //來源[string]
