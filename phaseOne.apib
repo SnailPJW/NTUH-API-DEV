@@ -1024,8 +1024,11 @@
             "message": "不可瀏覽指定之病患"
         }
 
-## 6/4 -非處方醫囑 [/patients/{chartNo}/order]
+## 7/27 -非處方醫囑 [/patients/{chartNo}/order{?sessionKey,modifiable}]
 ### 取得病歷資料 [GET]
++ Parameters
+    + sessionKey        (string) ... SessionKey
+    + modifiable        (boolean, optional) ... 如果要抓可編輯得清單 會多傳這個參數並且其值為 True
 
 + Response 200 (application/json)
 
@@ -1068,6 +1071,7 @@
                         "filterCode" : [    //篩選類別
                             "image"
                         ],
+                        "accountNo": "I15T07315840",                            // [string] 開立醫囑時對應的帳號
                         "report" : {    //如有報告則回傳 [optional]
                             "reportType" : "HTML",                              // 報告型態，HTML或PDF
                             "reportPath" : "/ImageReport/{ImageReportID}",      // 報告路徑
