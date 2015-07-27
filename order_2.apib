@@ -360,11 +360,12 @@
             }
         }
 
-## 6/16 - 大型常用字彙集 [/questionDictionary/{dictionaryId}{?offset,limit,sessionKey}]
+## 6/16 - 大型常用字彙集 [/questionDictionary/{dictionaryId}{?offset,limit,hospitalCode,sessionKey}]
 ### 取得 dictionaryId 所對應之大型常用字彙集內容 [GET]
 + Parameters
     + offset        (number) ... 設定回傳資料偏移數
     + limit         (number) ... 設定最大回傳筆數
+    + hospitalCode  (string) ... 醫院院區碼
     + sessionKey    (string) ... SessionKey
 
 + Response 200 (application/json)
