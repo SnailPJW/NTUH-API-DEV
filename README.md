@@ -110,7 +110,27 @@
 | multiple selection item |   %m   | Define the option for multiple selection.                  |
 | hour picker             |   %h   | The dropdown menu for selecting specific hour in a day.    |
 
-## IV. UI elements:
+
+## IV. Parameters (chartNo, accountNo, hospitalCode, and IOEtag)
+---
+### 1. chartNo & accountNo
+- The new accountNo (related to the specified chartNo) will be created when the corresponding patient had been 1) transferred to different branches, 2)  every time he/she send to the hospital, or 3) transferred from ER to weds.
+- Cannot get the date time related info when the latest accountNo had been "attached" to the corresponding chartNo.
+- Getting the accountNo (*when creating new orders*):
+using the edge: [/patients/{chartNo}/accounts{?sessionKey}]()
+- Getting the accountNo (*when modifing the orders*):
+fetching the accountNo which had been used when creating the order(s) from respone of the edge:
+[/patients/{chartNo}/order{?sessionKey,modifiable=true}]()
+
+### 2. IOEtag, hospitalCode, and the accountNo
+- **IOETag**: should be the first chart of the accountNo
+- **hospitalCode**: the combination of the 4th and the 5th characters
+- in short: accountNo = [IOETag]xx[hospitalCode]xxxxx
+- for instance: E15T07315840 ==> IOETag = E and hospitalCode = T0
+---
+
+
+## V. UI elements:
 ---
 ### 1. Types:
 ...
@@ -118,7 +138,7 @@
 ### 2. Examples
 ...
 
-## V. API Development Tools
+## VI. API Development Tools
 ---
 ### 1. Usage:
 - Update the api version (sync with the git tag):
