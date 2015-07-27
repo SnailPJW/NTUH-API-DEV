@@ -1028,7 +1028,7 @@
 ### 取得病歷資料 [GET]
 + Parameters
     + sessionKey        (string) ... SessionKey
-    + modifiable        (boolean, optional) ... 如果要抓可編輯清單 會多傳這個參數並且其值為 True
+    + modifiable        (boolean, optional) ... 如果要抓可編輯刪除清單 會多傳這個參數並且其值為 true
 
 + Response 200 (application/json)
 
@@ -1072,6 +1072,8 @@
                             "image"
                         ],
                         "accountNo": "I15T07315840",                            // [string] 開立醫囑時對應的帳號
+                        "editable": true,                                       // [boolean] 是否可以編輯
+                        "deletable": true,                                      // [boolean] 是否可以刪除
                         "report" : {    //如有報告則回傳 [optional]
                             "reportType" : "HTML",                              // 報告型態，HTML或PDF
                             "reportPath" : "/ImageReport/{ImageReportID}",      // 報告路徑
