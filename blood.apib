@@ -11,7 +11,7 @@
         {
             "content": {
                 "bloodTypeInfo": {                                              // 檢驗血型資料
-                    "description": "此病人無檢驗血型資料",                          // [string] 血型資料內容
+                    "description": "此病人無檢驗血型資料",                         // [string] 血型資料內容
                     "hilight": true                                             // [boolean] 是否要 highlight資訊內容
                 },
                 "specimenInfo": "檢體: -- 採檢: -- 提血期限: 採檢後 3 日內",         // 有效檢體資訊
@@ -55,10 +55,11 @@
             }
         }
 
-## 血品清單 [/bloodOrder/bloods{?sessionKey,displayAll}]
+## 血品清單 [/bloodOrder/bloods{?sessionKey,hospitalCode,displayAll}]
 ### 取得血品清單 [GET]
 + Parameters
     + sessionKey        (string) ... SessionKey
+    + hospitalCode      (string) ... 院區碼
     + displayAll        (string) ... 是否顯示完整清單 true/false 若為 false 則回傳常用血品 即 freqUsed=True 之血品即可
 
 + Response 200 (application/json)
