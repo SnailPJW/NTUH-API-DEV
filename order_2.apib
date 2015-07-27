@@ -1,11 +1,12 @@
 # Group 開發中 Phase2 Order APIs
 
-## 7/21 - 科部清單 [/departments{?sessionKey,hospitalCode}]
+## 7/21 - 科部清單 [/departments{?sessionKey,hospitalCode,patientClass}]
 ### 取得科部清單 [GET]
 
 + Parameters
     + sessionKey    (string) ... SessionKey
     + hospitalCode  (string) ... 院區碼
+    + patientClass  (string) ... 病患門住急別
 
 + Response 200 (application/json)
 
@@ -24,11 +25,11 @@
         }
 
 
-## 7/21 - 醫令套餐 [/orderPackages{?accountNo,type,department,sessionKey}]
+## 7/21 - 醫令套餐 [/orderPackages{?patientClass,type,department,sessionKey}]
 ### 取得醫令套餐清單 [GET]
 
 + Parameters
-    + accountNo     (string, optional) ... 帳號編號 (第一碼為門住級別)
+    + patientClass  (string, optional) ... 病患門住急別 I 為住院 E 為急診
     + department    (string, optional) ... 欲搜尋套餐之科部
     + type          (string) ... 請求套餐種類 'general' 為 科部, 病房, 員工, 病人, 路徑 'catagory' 為 category 為 全部, 檢驗, 檢查, 影醫, 核醫, 病理, 治療, 醫囑
     + sessionKey    (string) ... SessionKey
@@ -99,13 +100,13 @@
         }
 
 
-## 7/8 - 醫令搜尋 [/orders{?name,packageCode,accountNo}]
+## 7/8 - 醫令搜尋 [/orders{?name,packageCode,patientClass}]
 ### 取得藥物清單 [GET]
 
 + Parameters
-    + name (string, optional)           ...搜尋字串
-    + packageCode (string, optional)    ...套餐
-    + accountNo (string)                ...帳號編號 第一各字元為病患的門住急別
+    + name (string, optional)           ... 搜尋字串
+    + packageCode (string, optional)    ... 套餐
+    + patientClass (string)             ... 病患的門住急別
 
 + Response 200 (application/json)
 
@@ -177,11 +178,12 @@
             "message": "找不到病患最近三個月的 cre 數值"         // [string] error message
         }
 
-## 7/07 - 影像醫學介面內容 [/interface/order/MI/{imageType}{?sessionKey}]
+## 7/07 - 影像醫學介面內容 [/interface/order/MI/{imageType}{?sessionKey,hospitalCode}]
 ### 取得介面內容 [GET]
 + Parameters
     + sessionKey        (string) ... SessionKey
-    + imageType         (string) ... 影像種類，例如: CT, MRI, Plain
+    + imageType         (string) ... 影像種類，例如 CT, MRI, Plain
+    + hospitalCode      (string) ... 醫院院區碼
 
 + Response 200 (application/json)
 
