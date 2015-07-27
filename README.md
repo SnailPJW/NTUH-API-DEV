@@ -126,7 +126,7 @@ fetching the accountNo which had been used when creating the order(s) from respo
 - **IOETag**: should be the first chart of the accountNo
 - **hospitalCode**: the combination of the 4th and the 5th characters
 - in short: accountNo = [IOETag]xx[hospitalCode]xxxxx
-- for instance: E15T07315840 ==> IOETag = E and hospitalCode = T0
+- for instance: *E15T07315840*: *IOETag = E* and *hospitalCode = T0*
 ---
 
 
