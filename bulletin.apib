@@ -90,6 +90,18 @@
     + authGroup (string)    ... 設定開放權限, 'A'=私人, 'B'=開放所有人瀏覽, 'C'=開放所有人編輯
     + sessionKey (string)   ... Session Key
 
++ Request AppendTopic (application/json)
+
+        {
+            "content": {
+                "title": "THE_TOPIC_TITLE",
+                "content": "the content of the topic should be here",
+                "authGroup": "B"
+            },
+            "empNo": "111281",
+            "sessionKey": "DD07A0AF4E9F426C838185D8DD19EFE2"
+        }
+
 + Response 200 (application/json)
 
 
@@ -176,6 +188,21 @@
     + chartNo (string)      ... 病例號碼
     + authGroup (string)    ... 設定開放權限, 'A'=私人, 'B'=開放所有人瀏覽, 'C'=開放所有人編輯
 
++ Request ModifyTheTopic (application/json)
+
+        {
+            "content": {
+                "topicId": "topic_001",
+                "title": "NEW_TITLE",           // [optional] 有需要修改才會上傳
+                "content": "new content",       // [optional] 有需要修改才會上傳
+                "authGroup": "A"                // [optional] 有需要修改才會上傳
+            },
+            "empNo": "111281",
+            "chartNo": "E11532111",
+            "empNo":    "111281",
+            "sessionKey": "DD07A0AF4E9F426C838185D8DD19EFE2"
+        }
+
 + Response 200 (application/json)
 
         {
@@ -259,6 +286,17 @@
     + content (string)      ... The message content for the replay.
     + sessionKey (string)   ... Session Key
 
++ Request AppendFeedback (application/json)
+
+        {
+            "content": {
+                "topicId": "topic_001",
+                "content": "put the feedback message here"
+            },
+            "empNo": "111281",
+            "sessionKey": "DD07A0AF4E9F426C838185D8DD19EFE2"
+        }
+
 + Response 200 (application/json)
 
         {
@@ -319,6 +357,17 @@
     + empNo (string)        ... 請求更新之使用者帳號
     + content (string)      ... 更新之訊息內容
     + sessionKey (string)   ... Session Key
+
++ Request ModifyTheFeedback (application/json)
+
+        {
+            "content": {
+                "replyId": "rep_001",
+                "content": "put the updated message here"
+            },
+            "empNo": "111281",
+            "sessionKey": "DD07A0AF4E9F426C838185D8DD19EFE2"
+        }
 
 + Response 200 (application/json)
 
