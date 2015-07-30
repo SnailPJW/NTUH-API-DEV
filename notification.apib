@@ -1,5 +1,5 @@
 # Group 院內訊息通知系統
-## 3/15 - 醫師所屬之通知訊息 [/notifications/doctor/{empNo}{?startDate,endDate,offset,limit}]
+## 7/30 - 醫師所屬之通知訊息 [/notifications/doctor/{empNo}{?startDate,endDate,offset,limit}]
 ### 取得醫師所屬之通知訊息內容 [GET]
 + Parameters
     + offset (number, optional) ... 資料偏移數，需與 limit 一起傳入
@@ -17,6 +17,7 @@
                     "message":    "this is the example notification.",  // The message content of the notification. [string]
                     "datetime":   1406938026,                           // The time when the notification was issues [number(timestamp)]
                     "type":       "TEST_TYPE",                          // The type of the notification [string]
+                    "typeCode":   "critical",                           // The typeCode of the notification (危急: "critical", 異常： "unusual")[string]
                     "confirmed":  false                                 // The flag indicated that the notification had been confirmed [boolean]
                 }, ...
             ],
@@ -38,8 +39,8 @@
                 "title":      "TITLE",                              // The title [string]
                 "message":    "this is the example notification.",  // The message content of the notification. [string]
                 "datetime":   1406938026,                           // The time when the notification was issues. [number(timestamp)]
-                "typeCode":     "consult",                          // The type code of the notification. [string]
-                "displayName":  "會診",                             // The type display name of the notification. [string]
+                "typeCode":     "critical",                          // The type code of the notification. [string]
+                "displayName":  "危急",                             // The type display name of the notification. [string]
                 "confirmed":  false                                 // The flag indicated that the notification had been confirmed. [boolean]
             }
         }
