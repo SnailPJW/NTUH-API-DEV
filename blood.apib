@@ -226,6 +226,21 @@
     + destCode          (string) ... 送達地點代碼
     + destDescription   (string, optional) ... 送達地點敘述
 
+
++ Request IssueTranfusionOrder (application/json)
+
+            {
+                "content": {
+                    "prepareOrderId": "xxx_001",
+                    "amount": 10,
+                    "expectedIssueDay": 1438250400,
+                    "destCode": "12C",
+                    "destDescription": "the additional description"     // [optional] 如果沒有需要填寫就不會上傳
+                },
+                "sessionKey": "DD07A0AF4E9F426C838185D8DD19EFE2"
+            }
+
+
 + Response 201 (application/json)
 
         {
