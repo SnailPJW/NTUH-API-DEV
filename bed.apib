@@ -51,18 +51,32 @@
 ### 回傳候床資訊[POST]
 
 + Parameters
-
     + wards (array[string])    ... 病房
     + priority (string)   ... 候床優先順序
     + wardClass (array[string], optional) ... 床等
 
++ Request WaitBedInfo (application/json)
+
+        {
+            "content": {
+                "wards": [
+                    "MED_ICU",
+                    ...
+                ],
+                "priority": "A",
+                "wardClass": [          // 後床級別排序, 依照優先順序編排
+                    "single",
+                    "double",
+                    ...
+                ]
+            },
+            "sessionKey": "DD07A0AF4E9F426C838185D8DD19EFE2"
+        }
+
 + Response 200 (application/json)
 
         {
-            "success" : true,
-            "content" : {
-
-            }
+            "success" : true
         }
 
 ## 7/6 - 可配床細分科 [/assignBed/department]
@@ -177,6 +191,17 @@
    + chartNo (string)   ... 病歷號
    + bedCode (string)   ... 床位代碼
    + date (string)      ... 預定日期(格式為YYYYMMDD）
+
++ Request RegisterBed (application/json)
+
+        {
+            "content": {
+                "chartNo": "E124111",
+                "bedCode": "03A2-01-01",
+                "date": "20151103"
+            },
+            "sessionKey": "DD07A0AF4E9F426C838185D8DD19EFE2"
+        }
 
 + Response 200 (application/json)
 
