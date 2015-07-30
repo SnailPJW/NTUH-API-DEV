@@ -13,7 +13,7 @@
                 "examRoomCode": "CTS",
                 "date": "20150623",
                 "weekDay": 2,
-                "session": "A",
+                "session": 1,
                 "order": 10
             }
         }
@@ -26,13 +26,26 @@
         }
 
 
-### 登記修改排程時間 [PUT]
+### 登記排程時間 [POST]
 + Parameters
     + examRoomCode  (string)            ... 檢查室代號
     + date          (string)            ... 排程日期, 依照格式為 "YYYYmmdd"
-    + session       (string)            ... 排程時段, 上午為 1 下午為 2 晚上為 3
+    + session       (number)            ... 排程時段, 上午為 1 下午為 2 晚上為 3
     + selectedOrder (number,optional)   ... 使用者指定的排程順序
     + sessionKey    (string)            ... SessionKey
+
+
++ Request RegisterTimeSlot (application/json)
+
+        {
+            "content": {
+                "examRoomCode": "CTR",
+                "date": "20150101",
+                "session": 1,
+                "selectedOrder": 10         // [optional] 沒有指定就不會上傳
+            },
+            "sessionKey": "DD07A0AF4E9F426C838185D8DD19EFE2"
+        }
 
 + Response 200 (application/json)
 
@@ -88,7 +101,7 @@
 + Parameters
     + orderRecordId (string) ... 對應的醫令交易記錄 ID 第一碼為醫令種類代碼
     + date          (string) ... 排程日期, 依照格式為 "YYYYmmdd"
-    + session       (string) ... 排程時段
+    + session       (number) ... 排程時段
     + sessionKey    (string) ... SessionKey
 
 + Response 200 (application/json)
