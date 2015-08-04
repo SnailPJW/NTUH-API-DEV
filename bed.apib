@@ -132,7 +132,7 @@
             "total" : 50  //此次Query總筆數[number]
         }
 
-## 7/6 - 病患配床資訊 [/assignBed/patients/{chartNo}{?bedCode,date}]
+## 8/4 - 病患配床資訊 [/assignBed/patients/{chartNo}{?waitBedNo,bedCode,date,originDept,isolation}]
 ### 取得病患配床資訊[GET]
 
 + Parameters
@@ -152,6 +152,7 @@
                    "TEL" : "02-123456",                //聯絡電話[string]
                    "mobile" : "0972111222"        //手機[string]
                },
+               "waitBedNo" : "1080922",   //候床單號[string]
                "waitBedInfo" : [ //候床資訊(除診療行為)
                   {
                      "title" : "候床單號",
@@ -173,7 +174,8 @@
                            "bedClass" : "雙人",
                            "outDate" : 1406938026,
                            "bedCode" : "03A2-01-01",
-                           "bedStatus" : "empty"  //床狀態[string](空床：“empty”;住院中，無人預定:"occupied";住院中，後有預定:"nonAvailable";預定出院:"available")
+                           "bedStatus" : "empty",  //床狀態[string](空床：“empty”;住院中，無人預定:"occupied";住院中，後有預定:"nonAvailable";預定出院:"available")
+                           "isolation" : false  //是否可選擇隔離[boolean]
                      }
                   },
                   ...
@@ -189,16 +191,22 @@
 + Parameters
 
    + chartNo (string)   ... 病歷號
+   + waitBedNo (string) ... 候床單號
    + bedCode (string)   ... 床位代碼
-   + date (string)      ... 預定日期(格式為YYYYMMDD）
+   + date (string)      ... 預定日期(格式為YYYYMMDD)
+   + isolation (string, optional)   ... 隔離原因，非隔離則不回傳
+   + originDept (string, optional)   ... 借床原始科別，非借床則不回傳
+
 
 + Request RegisterBed (application/json)
 
         {
             "content": {
                 "chartNo": "E124111",
+                "waitBedNo": "123456",
                 "bedCode": "03A2-01-01",
-                "date": "20151103"
+                "date": "20151103",
+                "isolation" : "一般隔離"
             },
             "sessionKey": "DD07A0AF4E9F426C838185D8DD19EFE2"
         }
@@ -207,4 +215,32 @@
 
         {
             "success": true
+        }
+
+## 8/4 - 病患配床原始科別資訊 [/assignBed/originDept]
+### 取得病患配床原始科別資訊[GET]
+
++ Response 200 (application/json)
+
+        {
+             "content" : [   //原始科別資訊
+                {   //原始科別資訊
+                    "displayName" : "內科部",  //顯示名稱[string]
+                    "children" : [   //次分科
+                        {
+                            "deptCode" : "MED",    //科別代碼[string]
+                            "displayName" : "內科"  //顯示名稱[string]
+                        },
+                        {
+                            "deptCode" : "CARD",    //科別代碼[string]
+                            "displayName" : "心臟內科"  //顯示名稱[string]
+                        },
+                        ...
+                    ]
+                },
+                ...
+             ],
+             "limit" : 50, //最大回傳筆數[number]
+             "offset" : 0, //回傳資料偏移數[number]
+             "total" : 50  //此次Query總筆數[number]
         }
