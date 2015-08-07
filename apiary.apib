@@ -4293,3 +4293,288 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
              "offset" : 0, //回傳資料偏移數[number]
              "total" : 50  //此次Query總筆數[number]
         }
+
+# Group 急救紀錄 ERRecrod
+## 5/12 - 急救紀錄 [/ERRecord]
+### 取得急救紀錄 [GET]
+
++ Response 200 (application/json)
+
+
+        {
+            "content": [
+                {
+                    "actions" : [
+                        {
+                            "buttonKey" : "A01",
+                            "displayName" : "評估意識", // 按鈕上要顯示的名字 [string]
+                            "optionName" : "意識評估",  // 記錄的時候要顯示的字 [string, optional]
+                            "orderCode" : "A01",    // [optional]
+                            "orderType" : "abcd",   // [optional]
+                            "relation" : [              // 做了此動作之後，會影響到其他按鈕狀態的話，則顯示 [optional]
+                                {
+                                    "buttonKey" : "A02",  // 會影響的按鈕的displayName [string]
+                                    "action" : "highlight"  // 按鈕的動作 [string]  ex: highlight, unhighlight, disable, enable
+                                }
+                            ],
+                            "defaultNote" : "E1M1V1"   // 預設的備註值  [string, optional]
+                        },
+                        {
+                            "buttonKey" : "A02",
+                            "displayName" : "評估呼吸",
+                            "popup" : {                       // [optional]
+                                "type": "option",
+                                "content": [
+                                    {
+                                        "displayName" : "無呼吸",
+                                        "optionName"  : "無呼吸",
+                                        "relation" : [  // [optional]
+                                            {
+                                                "buttonKey" : "B01",
+                                                "action" : "highlight"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "displayName" : "頻死呼吸",
+                                        "optionName" : "頻死呼吸",
+                                        "orderCode" : "B01",    // [optional]
+                                        "orderType" : "abcd"    // [optional]
+                                    },
+                                    {
+                                        "displayName" : "自發性呼吸",
+                                        "optionName" : "自發性呼吸",
+                                        "orderCode" : "B02",    // [optional]
+                                        "orderType" : "abcd"    // [optional]
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "category" : "Airway+Breathing",    // 分類的名字  [string, optional]
+                    "actions" : [
+                        {
+                            "buttonKey" : "B01",
+                            "displayName" : "打開呼吸道",
+                            "popup" : { // [optional]
+                                "type" : "option",
+                                "content" : [
+                                    {
+                                        "displayName" : "壓額抬下巴",
+                                        "optionName" : "壓額抬下巴",
+                                        "orderCode" : "C01",
+                                        "orderType" : "abcd",
+                                        "relation" : [  // [optional]
+                                            {
+                                                "buttonKey" : "評估呼吸",
+                                                "action" : "unhighlight"
+                                            },
+                                            {
+                                                "buttonKey" : "使用Ambu",
+                                                "action" : "highlight"
+                                            },
+                                            {
+                                                "buttonKey" : "打開呼吸道",
+                                                "action" : "disable"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "displayName" : "下顎推前",
+                                        "optionName" : "下顎推前",
+                                        "orderCode" : "C02",
+                                        "orderType" : "abcd"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "buttonKey" : "B02",
+                            "displayName" : "輔助呼吸道",
+                            "popup" : { // [optional]
+                                "type" : "checkbox",
+                                "content" : [
+                                    {
+                                        "displayName" : "置入口咽呼吸道",
+                                        "optionName" : "置入口咽呼吸道",
+                                        "orderCode" : "D01",
+                                        "orderType" : "abcd"
+                                    },
+                                    {
+                                        "displayName" : "置入鼻咽呼吸道",
+                                        "optionName" : "置入鼻咽呼吸道",
+                                        "orderCode" : "D02",
+                                        "orderType" : "abcd"
+                                    },
+                                    {
+                                        "displayName" : "置入咬口器",
+                                        "optionName" : "置入咬口器",
+                                        "orderCode" : "D03",
+                                        "orderType" : "abcd"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "buttonKey" : "B03",
+                            "displayName" : "使用Ambu",
+                            "optionName" : "進行Ambu-Bagging",    // [optional]
+                            "orderCode" : "E01",    // [optional]
+                            "orderType" : "abcd"    // [optional]
+                        },
+                        {
+                            "buttonKey" : "B04",
+                            "displayName" : "確認插管",
+                            "popup" : { // [optional]
+                                "type" : "checkbox",
+                                "content" : [
+                                    {
+                                        "displayName" : "聽診確認插管正確",
+                                        "optionName" : "聽診確認插管正確",
+                                        "orderCode" : "F01",
+                                        "orderType" : "abcd"
+                                    },
+                                    {
+                                        "displayName" : "使用EtCO2",
+                                        "optionName" : "使用EtCO2",
+                                        "orderCode" : "F02",
+                                        "orderType" : "abcd"
+                                    }
+                                ],
+                                "defaultNote" : "EtCO2: mmHg"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "category" : "Circulation+Medication",  // 分類的名字  [string, optional]
+                    "actions" : [
+                        {
+                            "buttonKey" : "C01",
+                            "displayName" : "檢查脈博",
+                            "popup" : { // [optional]
+                                "type" : "checkbox",
+                                "content" : [
+                                    {
+                                        "displayName" : "無脈博",
+                                        "optionName" : "無脈博",
+                                        "orderCode" : "G01",
+                                        "orderType" : "abcd",
+                                        "relation" : [  // [optional]
+                                            {
+                                                "buttonKey" : "壓胸",
+                                                "action" : "highlight"
+                                            },
+                                            {
+                                                "buttonKey" : "接上心電圖機",
+                                                "action" : "highlight"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "displayName" : "頸動脈",
+                                        "optionName" : "頸動脈",
+                                        "orderCode" : "G02",
+                                        "orderType" : "abcd"
+                                    },
+                                    {
+                                        "displayName" : "股動脈",
+                                        "optionName" : "股動脈",
+                                        "orderCode" : "G03",
+                                        "orderType" : "abcd"
+                                    },
+                                    {
+                                        "displayName" : "肱動脈",
+                                        "optionName" : "肱動脈",
+                                        "orderCode" : "G04",
+                                        "orderType" : "abcd"
+                                    },
+                                    {
+                                        "displayName" : "橈動脈",
+                                        "optionName" : "橈動脈",
+                                        "orderCode" : "D03",
+                                        "orderType" : "abcd"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "buttonKey" : "C02",
+                            "displayName" : "壓胸",
+                            "popup" : { // [optional]
+                                "type" : "option",
+                                "content" : [
+                                    {
+                                        "displayName" : "人工壓胸",
+                                        "optionName" : "人工壓胸",
+                                        "orderCode" : "H01",
+                                        "orderType" : "abcd"
+                                    },
+                                    {
+                                        "displayName" : "機械壓胸",
+                                        "optionName" : "機械壓胸",
+                                        "orderCode" : "H02",
+                                        "orderType" : "abcd"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "buttonKey" : "C03",
+                            "displayName" : "Adrenaline 1mg/amp",
+                            "optionName" : "Adrenaline 1mg/amp iv", // [optional]
+                            "recordKey" : "H03",    // [optional]
+                            "count" : true  // [optional]
+                        }
+                    ]
+                },
+                {
+                    "category" : "Defibrillation",  // 分類的名字  [string, optional]
+                    "actions" : [
+                        {
+                            "buttonKey" : "C03",
+                            "displayName" : "接上心電圖機",
+                            "optionName" : "接上心電圖監視器",  // [optional]
+                            "recordKey" : "I01" // [optional]
+                        },
+                        {
+                            "buttonKey" : "C04",
+                            "displayName" : "檢查心律",
+                            "popup" : { // [optional]
+                                "type" : "option",
+                                "content" : [
+                                    {
+                                        "displayName" : "心室頻脈(VT)",
+                                        "optionName" : "心室頻脈(VT)",
+                                        "recordKey" : "J01"
+                                    },
+                                    {
+                                        "displayName" : "心室顫動(VF)",
+                                        "optionName" : "心室顫動(VF)",
+                                        "recordKey" : "J02"
+                                    },
+                                    {
+                                        "displayName" : "無脈博電器活動(PEA)",
+                                        "optionName" : "無脈博電器活動(PEA)",
+                                        "recordKey" : "J03"
+                                    },
+                                    {
+                                        "displayName" : "無心率(Asystole)",
+                                        "optionName" : "無心率(Asystole)",
+                                        "recordKey" : "J04"
+                                    },
+                                    {
+                                        "displayName" : "有脈博心律",
+                                        "optionName" : "有脈博心律",
+                                        "recordKey" : "J05"
+                                    }
+                                ],
+                                "defaultNote" : "EtCO2:  mmHg"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
