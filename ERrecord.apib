@@ -71,17 +71,29 @@
                                         "orderCode" : "C01",
                                         "orderType" : "abcd",
                                         "relation" : [  // [optional]
-                                            {
-                                                "buttonKey" : "評估呼吸",
+                                            {   //取消顏色提示
+                                                "buttonKey" : "評估呼吸",   // [optional]
                                                 "action" : "unhighlight"
                                             },
-                                            {
-                                                "buttonKey" : "使用Ambu",
+                                            {   //顏色提示
+                                                "buttonKey" : "使用Ambu", // [optional]
                                                 "action" : "highlight"
                                             },
-                                            {
-                                                "buttonKey" : "打開呼吸道",
+                                            {   //使按鈕無法使用
+                                                "buttonKey" : "打開呼吸道",  // [optional]
                                                 "action" : "disable"
+                                            },
+                                            {   //播放音效
+                                                "action" : "playSound",
+                                                "soundKey" : "chest",   // [optional]
+                                                "playSoundDelay" : 120,   //幾秒後播放 [optional]
+                                                "repeat" : 1   //播放次數(0為重複播放) [optional]
+                                            },
+                                            {   //Adaflag 開啟
+                                                "action" : "adaflagOn"
+                                            },
+                                            {   //Adaflag 關閉
+                                                "action" : "adaflagOff"
                                             }
                                         ]
                                     },
@@ -229,8 +241,8 @@
                             "buttonKey" : "C03",
                             "displayName" : "Adrenaline 1mg/amp",
                             "optionName" : "Adrenaline 1mg/amp iv", // [optional]
-                            "recordKey" : "H03",    // [optional]
-                            "count" : true  // [optional]
+                            "recordKey" : "H03 [%d] 次",    // [optional]
+                            "count" : true  // 需計算使用次數[optional]
                         }
                     ]
                 },
