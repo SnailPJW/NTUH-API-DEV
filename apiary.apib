@@ -1,7 +1,7 @@
 FORMAT: 1A
 HOST: http://www.wantoto.com
 
-# DEV台大醫院行動醫療資訊系統 Web Service v1.5.0
+# DEV台大醫院行動醫療資訊系統 Web Service v1.6.0
 採用 RESTful 架構規劃。所有字串編碼皆為UTF-8。
 
 # Group 登入與取得或驗證 SessionKey
@@ -4294,8 +4294,404 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
              "total" : 50  //此次Query總筆數[number]
         }
 
+# Group 病房行事曆、電子看板 ward
+## 8/14 - 病房病床狀態 [/wards/{wardCode}/bedStatus]
+### 取得病房病床狀態資訊[GET]
+
++ Parameters
+    + wardCode    (string) ... 病房代碼
+
++ Response 200 (application/json)
+
+        {
+            "content": [
+                {
+                    "bedNo" : "05D-08-02",    //床號[string]
+                    "bedStatus" : {
+                        "bedStatusCode" : "occupied", //病房狀態代碼[string]
+                        "displayName" : "",   //病房狀態(空床、待轉入、代轉出等)[string]
+                        "date" : 1406938026   //預計出入院、代轉、代入日期[number(timestamp),optional]
+                    },
+                    "patient" : {   //病患資訊，無病患則不回傳[optional]
+                        "patName" : "王小明",           //病患姓名[string]
+                        "patSexCode" : "M",             //性別[string]（男性："M";女性："F"）
+                        "patBirthday" : 1406938026,     //出生日期[number(timestamp)]
+                        "chartNo" : "12345678",         //病歷號[string]
+                        "personID" : "A123456789",      //身分證號[string]
+                        "bedInfo" : "5W3 01-01",        //病房病床號(住院與急診)，非住院或急診中則不回傳Key[string]
+                        "inDate" : 1406938026,          //入院日期(住院或急診檢傷時間)，非住院或在急診則不回傳Key [number(timestamp)]
+                        "bedTransferDate" : 1406938026,          //轉床日期，非住院或在急診則不回傳Key [number(timestamp)]
+                        "triageLevels" : "1",           //檢傷分級，非急診則不回傳 Key [string, optional]
+                        "_emp_VS" : {                   //主治醫師(如遇回傳資料為醫師者，變數皆為_emp_開頭)[string, optional]
+                            "empNo" : "111281",         //醫師員編[string]
+                            "name" : "葉小菜"
+                        },
+                        "_emp_RS" : {           //住院醫師(如遇回傳資料為醫師者，變數皆為_emp_開頭)[string, optional]
+                            "empNo" : "000123", //醫師員編[string]
+                            "name" : "蘇小宇"
+                        },
+                        "_emp_NP" : {           //護理師 [string, optional]
+                            "empNo" : "111111", //員編 [string]
+                            "name" : "謝小穎"
+                        },
+                        "status" : "住院中",    //狀態[string]
+                        "specialTag" : [        //特殊標記[string array] (ex:DNR,...)
+                            {
+                                "tagCode" : "DNR",      // [string]
+                                "displayName" : "DNR"   // [string]
+                            },
+                            ...
+                        ],
+                        "latestPacsReportDateTime" : 1406938026, //最新影像時間 [number(timestamp)]
+                        "latestLISReportDateTime" : 1406938026,  //最新檢驗時間 [number(timestamp)]
+                        "latestExamReportDateTime" : 1406938026,  //最新檢查時間 [number(timestamp)]
+                        "latestConsultDateTime" : 1406938026,  //最新會診更新時間 [number(timestamp)]
+                        "latestBulletinDateTime" : 1406938026,  //最新留言時間 [number(timestamp)]
+                        "orderNotConfirmed" : true,    //醫囑是否有未確認項目[boolean, optional]
+                        "orderNotReceived" : true,    //醫囑是否有未簽收項目[boolean, optional]
+                        "accountIDSE" : "14T05267794",           //帳號 [string, optional]
+                        "patClassCode" : "I",                    //門住急別 [string, optional]
+                        "visible": true,                         //是否可以瀏覽 [boolean]
+                        "waitBed": true,     //是否可被候床 [boolean, optional]
+                        "assignBed": true,     //是否可被配床 [boolean, optional]
+                        "schedule" : [  //未來五天內（包括今日）之排程資料，包含手術排程、檢查治療，照時間近至遠排列[optional]
+                            {
+                                "date" : 1406938026,    //日期[number(timestamp)]
+                                "displayName" : "心導管",    //顯示名稱[string]
+                                "itemCode" : "CC" //項目代碼[string]
+                            },
+                            ...
+                        ]
+                    }
+                },
+                {
+                    "bedNo" : "05D-09-01",    //床號[string]
+                    "bedStatus" : {
+                        "bedStatusCode" : "empty", //病房狀態代碼[string]
+                        "displayName" : "空床",   //病房狀態(空床、待轉入、代轉出等)[string]
+                        "date" : 1406938026   //預計出入院、代轉、代入日期[number(timestamp),optional]
+                    }
+                },
+                ...
+            ],
+            "limit" : 50,   //最大回傳筆數[number]
+            "offset" : 0,   //回傳資料偏移數[number]
+            "total" : 50    //此次Query總筆數[number]
+        }
+
+## 8/14 - 病房開刀病患狀態 [/wards/{wardCode}/OPExam/OPStatus{?queryDate}]
+### 取得病房開刀病患狀態資訊[GET]
+
++ Parameters
+    + wardCode    (string) ... 病房代碼
+    + queryDate (string, optional) ... 搜尋日期(格式為YYYYMMDD，無回傳則為當日)
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "field" : [    //欄位資訊(各API詳細欄位，請依照院方實際欄位回傳)
+                    {
+                        "fieldCode" : "date",
+                        "displayName" : "日期"
+                    },
+                    {
+                        "fieldCode" : "OPRoom",  //欄位代碼[string]
+                        "displayName" : "刀房" //欄位顯示名稱[string]
+                    },
+                    ...
+                ],
+                "data" : [
+                    {
+                        "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                            "date" : "8/13",
+                            "OPRoom" : "1",
+                            ...
+                        }
+                    },
+                    ...
+                ],
+                "limit" : 50, //最大回傳筆數傳[number]
+                "offset" : 0, //回傳資料偏移數[number]
+                "total" : 100 //此次Query總筆數[number]
+            },
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
+## 8/14 - 病房心導管病患狀態 [/wards/{wardCode}/OPExam/cathStatus{?queryDate}]
+### 取得病房心導管病患狀態資訊[GET]
+
++ Parameters
+    + wardCode    (string) ... 病房代碼
+    + queryDate (string, optional) ... 搜尋日期(格式為YYYYMMDD，無回傳則為當日)
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "field" : [    //欄位資訊(各API詳細欄位，請依照院方實際欄位回傳)
+                    {
+                        "fieldCode" : "date",
+                        "displayName" : "日期"
+                    },
+                    {
+                        "fieldCode" : "time",  //欄位代碼[string]
+                        "displayName" : "時間" //欄位顯示名稱[string]
+                    },
+                    ...
+                ],
+                "data" : [
+                    {
+                        "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                            "date" : "8/13",
+                            "time" : "AM",
+                            ...
+                        }
+                    },
+                    ...
+                ],
+                "limit" : 50, //最大回傳筆數傳[number]
+                "offset" : 0, //回傳資料偏移數[number]
+                "total" : 100 //此次Query總筆數[number]
+            },
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
+## 8/14 - 病房檢查治療病患狀態 [/wards/{wardCode}/OPExam/exam{?queryDate}]
+### 取得病房檢查治療病患狀態資訊[GET]
+
++ Parameters
+    + wardCode    (string) ... 病房代碼
+    + queryDate (string, optional) ... 搜尋日期(格式為YYYYMMDD，無回傳則為當日)
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "field" : [    //欄位資訊(各API詳細欄位，請依照院方實際欄位回傳)
+                    {
+                        "fieldCode" : "bed",
+                        "displayName" : "病床"
+                    },
+                    {
+                        "fieldCode" : "ptName",  //欄位代碼[string]
+                        "displayName" : "病患姓名"  //欄位顯示名稱[string]
+                    },
+                    ...
+                ],
+                "data" : [
+                    {
+                        "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                            "bed" : "3A1 01-01",
+                            "ptName" : "王小明",
+                            ...
+                        }
+                    },
+                    ...
+                ],
+                "limit" : 50, //最大回傳筆數傳[number]
+                "offset" : 0, //回傳資料偏移數[number]
+                "total" : 100 //此次Query總筆數[number]
+            },
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
+## 8/14 - 病房入院病患狀態 [/wards/{wardCode}/admDis/admission{?queryDate}]
+### 取得病房入院病患狀態資訊[GET]
+
++ Parameters
+    + wardCode    (string) ... 病房代碼
+    + queryDate (string, optional) ... 搜尋日期(格式為YYYYMMDD，無回傳則為當日)
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "field" : [    //欄位資訊(各API詳細欄位，請依照院方實際欄位回傳)
+                    {
+                        "fieldCode" : "bed",
+                        "displayName" : "病床"
+                    },
+                    {
+                        "fieldCode" : "ptName",  //欄位代碼[string]
+                        "displayName" : "病患姓名"  //欄位顯示名稱[string]
+                    },
+                    ...
+                ],
+                "data" : [
+                    {
+                        "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                            "bed" : "3A1 01-01",
+                            "ptName" : "王小明",
+                            ...
+                        }
+                    },
+                    ...
+                ],
+                "limit" : 50, //最大回傳筆數傳[number]
+                "offset" : 0, //回傳資料偏移數[number]
+                "total" : 100 //此次Query總筆數[number]
+            },
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
+## 8/14 - 病房出院病患狀態 [/wards/{wardCode}/admDis/discharge{?queryDate}]
+### 取得病房出院病患狀態資訊[GET]
+
++ Parameters
+    + wardCode    (string) ... 病房代碼
+    + queryDate (string, optional) ... 搜尋日期(格式為YYYYMMDD，無回傳則為當日)
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "field" : [    //欄位資訊(各API詳細欄位，請依照院方實際欄位回傳)
+                    {
+                        "fieldCode" : "bed",
+                        "displayName" : "病床"
+                    },
+                    {
+                        "fieldCode" : "ptName",  //欄位代碼[string]
+                        "displayName" : "病患姓名"  //欄位顯示名稱[string]
+                    },
+                    ...
+                ],
+                "data" : [
+                    {
+                        "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                            "bed" : "3A1 01-01",
+                            "ptName" : "王小明",
+                            ...
+                        }
+                    },
+                    ...
+                ],
+                "limit" : 50, //最大回傳筆數傳[number]
+                "offset" : 0, //回傳資料偏移數[number]
+                "total" : 100 //此次Query總筆數[number]
+            },
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
+
+## 8/14 - 病房預約轉床病患狀態 [/wards/{wardCode}/admDis/transfer{?queryDate}]
+### 取得病房預約轉床病患狀態資訊[GET]
+
++ Parameters
+    + wardCode    (string) ... 病房代碼
+    + queryDate (string, optional) ... 搜尋日期(格式為YYYYMMDD，無回傳則為當日)
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "field" : [    //欄位資訊(各API詳細欄位，請依照院方實際欄位回傳)
+                    {
+                        "fieldCode" : "date",
+                        "displayName" : "登入日期"
+                    },
+                    {
+                        "fieldCode" : "bed",  //欄位代碼[string]
+                        "displayName" : "病床"    //欄位顯示名稱[string]
+                    },
+                    ...
+                ],
+                "data" : [
+                    {
+                        "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                            "bed" : "3A1 01-01",
+                            "date" : "8/3",
+                            ...
+                        }
+                    },
+                    ...
+                ],
+                "limit" : 50, //最大回傳筆數傳[number]
+                "offset" : 0, //回傳資料偏移數[number]
+                "total" : 100 //此次Query總筆數[number]
+            },
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
+
+## 8/14 - 病房三班病患狀態 [/wards/{wardCode}/shift/{shiftCode}{?queryDate}]
+### 取得病房三班病患狀態資訊[GET]
+
++ Parameters
+    + wardCode    (string) ... 病房代碼
+    + shiftCode (string, `day(白班)、evening(小夜)、night(大夜)`) ... 班別代碼
+    + queryDate (string, optional) ... 搜尋日期(格式為YYYYMMDD，無回傳則為當日)
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "statics" : {
+                        "total" : 10,   //病人總數[number]
+                        "admission" : 1,   //入院病人總數[number]
+                        "discharge" : 1,   //出院病人總數[number]
+                        "transferIn" : 1,   //轉入病人總數[number]
+                        "transferOut" : 1,   //轉出病人總數[number]
+                        "OP" : 1,   //手術病人總數[number]
+                        "delivery" : 1,   //生產病人總數[number]
+                        "NB" : 1,   //初生病人總數[number]
+                        "critical" : 1,   //病危病人總數[number]
+                        "dead" : 1   //死亡病人總數[number]
+                },
+                "table" : {
+                    "field" : [    //欄位資訊(各API詳細欄位，請依照院方實際欄位回傳)
+                        {
+                            "fieldCode" : "ptName",
+                            "displayName" : "病患姓名"
+                        },
+                        {
+                            "fieldCode" : "bedNo",  //欄位代碼[string]
+                            "displayName" : "床號" //欄位顯示名稱[string]
+                        },
+                        {
+                            "fieldCode" : "chartNo",  //欄位代碼[string]
+                            "displayName" : "病歷號" //欄位顯示名稱[string]
+                        },
+                        {
+                            "fieldCode" : "account",  //欄位代碼[string]
+                            "displayName" : "帳號" //欄位顯示名稱[string]
+                        },
+                        {
+                            "fieldCode" : "impression",  //欄位代碼[string]
+                            "displayName" : "診斷" //欄位顯示名稱[string]
+                        },
+                        ...
+                    ],
+                    "data" : [
+                        {
+                            "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                                "ptName" : "王小明",
+                                "bedNo" : "3A1 01-01",
+                                "chartNo" : "123456",
+                                "account" : "2342353452",
+                                "impression" : "xxx"
+                            }
+                        },
+                        ...
+                    ],
+                    "limit" : 50, //最大回傳筆數傳[number]
+                    "offset" : 0, //回傳資料偏移數[number]
+                    "total" : 100 //此次Query總筆數[number]
+                }
+            },
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期)
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期)
+        }
+
 # Group 急救紀錄 ERRecrod
-## 5/12 - 急救紀錄 [/ERRecord]
+## 8/10 - 急救紀錄 [/ERRecord]
 ### 取得急救紀錄 [GET]
 
 + Response 200 (application/json)
@@ -4367,17 +4763,29 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
                                         "orderCode" : "C01",
                                         "orderType" : "abcd",
                                         "relation" : [  // [optional]
-                                            {
-                                                "buttonKey" : "評估呼吸",
+                                            {   //取消顏色提示
+                                                "buttonKey" : "評估呼吸",   // [optional]
                                                 "action" : "unhighlight"
                                             },
-                                            {
-                                                "buttonKey" : "使用Ambu",
+                                            {   //顏色提示
+                                                "buttonKey" : "使用Ambu", // [optional]
                                                 "action" : "highlight"
                                             },
-                                            {
-                                                "buttonKey" : "打開呼吸道",
+                                            {   //使按鈕無法使用
+                                                "buttonKey" : "打開呼吸道",  // [optional]
                                                 "action" : "disable"
+                                            },
+                                            {   //播放音效
+                                                "action" : "playSound",
+                                                "soundKey" : "chest",   // [optional]
+                                                "playSoundDelay" : 120,   //幾秒後播放 [optional]
+                                                "repeat" : 1   //播放次數(0為重複播放) [optional]
+                                            },
+                                            {   //Adaflag 開啟
+                                                "action" : "adaflagOn"
+                                            },
+                                            {   //Adaflag 關閉
+                                                "action" : "adaflagOff"
                                             }
                                         ]
                                     },
@@ -4525,8 +4933,8 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
                             "buttonKey" : "C03",
                             "displayName" : "Adrenaline 1mg/amp",
                             "optionName" : "Adrenaline 1mg/amp iv", // [optional]
-                            "recordKey" : "H03",    // [optional]
-                            "count" : true  // [optional]
+                            "recordKey" : "H03 [%d] 次",    // [optional]
+                            "count" : true  // 需計算使用次數[optional]
                         }
                     ]
                 },
