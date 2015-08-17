@@ -96,7 +96,7 @@
             "total": 20         // [number] 搜尋結果總筆數
         }
 
-## 6/18 檢查室之排程資訊 [/examRoom/{examRoomCode}/schedules{?orderRecordId,date,session,sessionKey}]
+## 6/18 檢查室之排程資訊 [/examRooms/{examRoomCode}/schedules{?orderRecordId,date,session,sessionKey}]
 ### 取得排程內容 [GET]
 + Parameters
     + orderRecordId (string) ... 對應的醫令交易記錄 ID 第一碼為醫令種類代碼
@@ -107,21 +107,23 @@
 + Response 200 (application/json)
 
         {
-            "weekDay":          1,
-            "date":             "20150213",
-            "session":          "A",
-            "examRoomCode":     "CTAB",
-            "examRoomName":     "CTAB_檢查室",
-            "ErOpdBookCount":   10,
-            "PatientBookCount": 12,
-            "ErOpdTotal":       20,
-            "PatientTotal":     20,
-            "availability":     "O",
-            "contacts":         "590012",
-            "selectedOrders": [
-                2,                              // [number] 已被選取之檢查順序
-                4,                              // [number] 已被選取之檢查順序
-                ...
-            ]
-            //#TODO: add aditional content
+            "content": {
+                "weekDay":          1,
+                "date":             "20150213",
+                "session":          "A",
+                "examRoomCode":     "CTAB",
+                "examRoomName":     "CTAB_檢查室",
+                "ErOpdBookCount":   10,
+                "PatientBookCount": 12,
+                "ErOpdTotal":       20,
+                "PatientTotal":     20,
+                "availability":     "O",
+                "contacts":         "590012",
+                "selectedOrders": [
+                    2,                              // [number] 已被選取之檢查順序
+                    4,                              // [number] 已被選取之檢查順序
+                    ...
+                ]
+                //#TODO: add aditional content
+            }
         }
