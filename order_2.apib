@@ -24,14 +24,40 @@
             ]
         }
 
+## 8/20 - 路徑清單 [/paths{?sessionKey,hospitalCode,patientClass}]
+### 取得路徑清單 [GET]
 
-## 7/21 - 醫令套餐 [/orderPackages{?patientClass,type,department,sessionKey}]
++ Parameters
+    + sessionKey    (string) ... SessionKey
+    + hospitalCode  (string) ... 院區碼
+    + patientClass  (string) ... 病患門住急別
+
++ Response 200 (application/json)
+
+        {
+            "content": [
+                {
+                    "title": "內科",                  // [string] 顯示的 title 名稱
+                    "code": "DEPT_001"               // [string] 科部對應的代碼
+                },
+                {
+                    "title": "外科",
+                    "code": "DEPT_002"
+                },
+                ...
+            ]
+        }
+
+## 7/21 - 醫令套餐 [/orderPackages{?patientClass,type,department,wardCode,pathCode,accountNo,sessionKey}]
 ### 取得醫令套餐清單 [GET]
 
 + Parameters
     + patientClass  (string, optional) ... 病患門住急別 I 為住院 E 為急診
     + department    (string, optional) ... 欲搜尋套餐之科部
-    + type          (string) ... 請求套餐種類 'general' 為 科部, 病房, 員工, 病人, 路徑 'catagory' 為 category 為 全部, 檢驗, 檢查, 影醫, 核醫, 病理, 治療, 醫囑
+    + wardCode      (string, optional) ... 欲搜尋套餐之病房
+    + pathCode      (string, optional) ... 欲搜尋套餐之路徑
+    + accountNo     (string, optional) ... 欲搜尋病患之帳號
+    + type          (string) ... 'catagory' 為 全部, 檢驗, 檢查, 影醫, 核醫, 病理, 治療, 醫囑 'ward' 為病房 'department' 為科部 'employment' 為員工 'patient' 為病患 'path' 為路徑
     + sessionKey    (string) ... SessionKey
 
 + Response 200 (application/json)
@@ -100,12 +126,13 @@
         }
 
 
-## 7/8 - 醫令搜尋 [/orders{?name,packageCode,patientClass}]
+## 7/8 - 醫令搜尋 [/orders{?name,packageCode,patientClass,orderType}]
 ### 取得藥物清單 [GET]
 
 + Parameters
     + name (string, optional)           ... 搜尋字串
     + packageCode (string, optional)    ... 套餐
+    + orderType (string, optional)      ... 指定要搜尋醫令的醫令種類
     + patientClass (string)             ... 病患的門住急別
 
 + Response 200 (application/json)
