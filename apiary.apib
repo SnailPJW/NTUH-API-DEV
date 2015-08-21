@@ -1,7 +1,7 @@
 FORMAT: 1A
 HOST: http://www.wantoto.com
 
-# DEV台大醫院行動醫療資訊系統 Web Service v1.6.0
+# DEV台大醫院行動醫療資訊系統 Web Service v1.6.1
 採用 RESTful 架構規劃。所有字串編碼皆為UTF-8。
 
 # Group 登入與取得或驗證 SessionKey
@@ -1716,6 +1716,48 @@ HOST: http://www.wantoto.com
             "message": "無存取權限"
         }
 
+## 8/21 - 多重通知訊息 Batch Request [/batch{?sessionKey}]
+### 確認多重通知訊息 [POST]
+
++ Request CheckMultipleNotifications (application/json)
+
+        {
+            "request_001": {
+                "path": "/notification/notification_id_001",
+                "method": "PUT",
+                "content-type": "application/json",
+                "body": {
+                    "content": {
+                        "confirmed": true
+                    }
+                }
+            },
+            "request_002": {
+                "path": "/notification/notification_id_002",
+                "method": "PUT",
+                "content-type": "application/json",
+                "body": {
+                    "content": {
+                        "confirmed": true
+                    }
+                }
+            },
+            ...
+        }
+
+
++ Response 200 (application/json)
+
+        {
+            "request_001": {
+                "success": true
+            },
+            "request_002": {
+                "success": true
+            },
+            ...
+        }
+
 # Group 病患留言板系統
 ## 4/5 - 病患對應之布告欄主題標題 [/bulletin/{chartNo}/topicTitles{?startDate,endDate,offset,limit}]
 ### 取得病患對應之布告欄主題標題[GET]
@@ -2703,14 +2745,15 @@ HOST: http://www.wantoto.com
             ]
         }
 
-
-## 7/21 - 醫令套餐 [/orderPackages{?patientClass,type,department,sessionKey}]
+## 7/21 - 醫令套餐 [/orderPackages{?patientClass,type,department,wardCode,pathCode,accountNo,sessionKey}]
 ### 取得醫令套餐清單 [GET]
 
 + Parameters
     + patientClass  (string, optional) ... 病患門住急別 I 為住院 E 為急診
     + department    (string, optional) ... 欲搜尋套餐之科部
-    + type          (string) ... 請求套餐種類 'general' 為 科部, 病房, 員工, 病人, 路徑 'catagory' 為 category 為 全部, 檢驗, 檢查, 影醫, 核醫, 病理, 治療, 醫囑
+    + wardCode      (string, optional) ... 欲搜尋套餐之病房
+    + accountNo     (string, optional) ... 欲搜尋病患之帳號
+    + type          (string) ... 'catagory' 為 全部, 檢驗, 檢查, 影醫, 核醫, 病理, 治療, 醫囑 'ward' 為病房 'department' 為科部 'employment' 為員工 'patient' 為病患 'path' 為路徑
     + sessionKey    (string) ... SessionKey
 
 + Response 200 (application/json)
@@ -2779,12 +2822,13 @@ HOST: http://www.wantoto.com
         }
 
 
-## 7/8 - 醫令搜尋 [/orders{?name,packageCode,patientClass}]
+## 7/8 - 醫令搜尋 [/orders{?name,packageCode,patientClass,orderType}]
 ### 取得藥物清單 [GET]
 
 + Parameters
     + name (string, optional)           ... 搜尋字串
     + packageCode (string, optional)    ... 套餐
+    + orderType (string, optional)      ... 指定要搜尋醫令的醫令種類
     + patientClass (string)             ... 病患的門住急別
 
 + Response 200 (application/json)
@@ -3927,7 +3971,7 @@ HOST: http://www.wantoto.com
         }
 
 
-### 登記排程時間 [POST]
+### 登記排程時間 [PUT]
 + Parameters
     + examRoomCode  (string)            ... 檢查室代號
     + date          (string)            ... 排程日期, 依照格式為 "YYYYmmdd"
