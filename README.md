@@ -143,7 +143,13 @@ fetching the accountNo which had been used when creating the order(s) from respo
 ### 1. Usage:
 - Update the api version (sync with the git tag):
 
-		python main.py version_update	// updated the version if necessary
+	- step 1: adding the corresponding git tag:
+
+		``git tag -a v1.x.x -m 'the tag for the version number 1.x.x``
+
+	- step 2: updated the latest number (with tag) to the source code
+
+		``python main.py version_update	// updated the version if necessary``
 
 - Generate the apipary.apib from latest apib files:
 
