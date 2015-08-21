@@ -77,3 +77,45 @@
             "error": 103,
             "message": "無存取權限"
         }
+
+## 8/21 - 多重通知訊息 Batch Request [/batch{?sessionKey}]
+### 確認多重通知訊息 [POST]
+
++ Request CheckMultipleNotifications (application/json)
+
+        {
+            "request_001": {
+                "path": "/notification/notification_id_001",
+                "method": "PUT",
+                "content-type": "application/json",
+                "body": {
+                    "content": {
+                        "confirmed": true
+                    }
+                }
+            },
+            "request_002": {
+                "path": "/notification/notification_id_002",
+                "method": "PUT",
+                "content-type": "application/json",
+                "body": {
+                    "content": {
+                        "confirmed": true
+                    }
+                }
+            },
+            ...
+        }
+
+
++ Response 200 (application/json)
+
+        {
+            "request_001": {
+                "success": true
+            },
+            "request_002": {
+                "success": true
+            },
+            ...
+        }
