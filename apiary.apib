@@ -2745,11 +2745,12 @@ HOST: http://www.wantoto.com
             ]
         }
 
-## 7/21 - 醫令套餐 [/orderPackages{?patientClass,type,department,wardCode,pathCode,accountNo,sessionKey}]
+## 7/21 - 醫令套餐 [/orderPackages{?patientClass,type,department,wardCode,pathCode,accountNo,hospitalCode,sessionKey}]
 ### 取得醫令套餐清單 [GET]
 
 + Parameters
-    + patientClass  (string, optional) ... 病患門住急別 I 為住院 E 為急診
+    + patientClass  (string) ... 病患門住急別 I 為住院 E 為急診
+    + hospitalCode  (string) ... 院區別 如 台大本院為 T0
     + department    (string, optional) ... 欲搜尋套餐之科部
     + wardCode      (string, optional) ... 欲搜尋套餐之病房
     + accountNo     (string, optional) ... 欲搜尋病患之帳號
