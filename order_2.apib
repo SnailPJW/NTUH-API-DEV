@@ -33,7 +33,7 @@
     + department    (string, optional) ... 欲搜尋套餐之科部
     + wardCode      (string, optional) ... 欲搜尋套餐之病房
     + accountNo     (string, optional) ... 欲搜尋病患之帳號
-    + type          (string) ... 'catagory' 為 全部, 檢驗, 檢查, 影醫, 核醫, 病理, 治療, 醫囑 'ward' 為病房 'department' 為科部 'employment' 為員工 'patient' 為病患 'path' 為路徑
+    + type          (string) ... 'catagory' 為 全部, 檢驗, 檢查, 影醫, 核醫, 病理, 治療, 醫囑 'ward' 為病房 'department' 為科部 'employment' 為員工 'path' 為路徑
     + sessionKey    (string) ... SessionKey
 
 + Response 200 (application/json)
@@ -102,7 +102,7 @@
         }
 
 
-## 7/8 - 醫令搜尋 [/orders{?name,packageCode,patientClass,orderType,hospitalCode}]
+## 7/8 - 醫令搜尋 [/orders{?name,packageCode,patientClass,orderType,hospitalCode,accountNo}]
 ### 取得藥物清單 [GET]
 
 + Parameters
@@ -111,6 +111,7 @@
     + orderType (string, optional)      ... 指定要搜尋醫令的醫令種類
     + patientClass (string, optional)   ... 病患的門住急別
     + hospitalCode (string, optional)   ... 院區碼 如台大本院為 T0
+    + accountNo (string, optional)      ... 病患帳號
 
 + Response 200 (application/json)
 
