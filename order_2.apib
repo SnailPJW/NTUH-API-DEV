@@ -102,14 +102,15 @@
         }
 
 
-## 7/8 - 醫令搜尋 [/orders{?name,packageCode,patientClass,orderType}]
+## 7/8 - 醫令搜尋 [/orders{?name,packageCode,patientClass,orderType,hospitalCode}]
 ### 取得藥物清單 [GET]
 
 + Parameters
     + name (string, optional)           ... 搜尋字串
     + packageCode (string, optional)    ... 套餐
     + orderType (string, optional)      ... 指定要搜尋醫令的醫令種類
-    + patientClass (string)             ... 病患的門住急別
+    + patientClass (string, optional)   ... 病患的門住急別
+    + hospitalCode (string, optional)   ... 院區碼 如台大本院為 T0
 
 + Response 200 (application/json)
 
