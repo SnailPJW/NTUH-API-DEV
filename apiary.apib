@@ -1,7 +1,7 @@
 FORMAT: 1A
 HOST: http://www.wantoto.com
 
-# DEV台大醫院行動醫療資訊系統 Web Service v1.6.1
+# DEV台大醫院行動醫療資訊系統 Web Service v1.6.2
 採用 RESTful 架構規劃。所有字串編碼皆為UTF-8。
 
 # Group 登入與取得或驗證 SessionKey
@@ -2754,7 +2754,7 @@ HOST: http://www.wantoto.com
     + department    (string, optional) ... 欲搜尋套餐之科部
     + wardCode      (string, optional) ... 欲搜尋套餐之病房
     + accountNo     (string, optional) ... 欲搜尋病患之帳號
-    + type          (string) ... 'catagory' 為 全部, 檢驗, 檢查, 影醫, 核醫, 病理, 治療, 醫囑 'ward' 為病房 'department' 為科部 'employment' 為員工 'patient' 為病患 'path' 為路徑
+    + type          (string) ... 'category' 為 全部, 檢驗, 檢查, 影醫, 核醫, 病理, 治療, 醫囑 'ward' 為病房 'department' 為科部 'employment' 為員工 'path' 為路徑
     + sessionKey    (string) ... SessionKey
 
 + Response 200 (application/json)
@@ -2823,14 +2823,16 @@ HOST: http://www.wantoto.com
         }
 
 
-## 7/8 - 醫令搜尋 [/orders{?name,packageCode,patientClass,orderType}]
+## 7/8 - 醫令搜尋 [/orders{?name,packageCode,patientClass,orderType,hospitalCode,accountNo}]
 ### 取得藥物清單 [GET]
 
 + Parameters
     + name (string, optional)           ... 搜尋字串
     + packageCode (string, optional)    ... 套餐
     + orderType (string, optional)      ... 指定要搜尋醫令的醫令種類
-    + patientClass (string)             ... 病患的門住急別
+    + patientClass (string, optional)   ... 病患的門住急別
+    + hospitalCode (string, optional)   ... 院區碼 如台大本院為 T0
+    + accountNo (string, optional)      ... 病患帳號
 
 + Response 200 (application/json)
 
@@ -4118,7 +4120,7 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
                     ...
                 ],
                 "priority" : {
-                    "preset" : "prioity", //預設選項
+                    "preset" : "priorityA", //預設選項
                     "option": [
                         {
                             "displayName": "A",
@@ -4269,10 +4271,10 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
                      "beds": {
                            "bedNo" : "01-01",
                            "bedClass" : "雙人",
-                           "outDate" : 1406938026,
+                           "outDate" : 1406938026,      // [optional] 如果沒有指定時間就不用回傳
                            "bedCode" : "03A2-01-01",
-                           "bedStatus" : "empty",  //床狀態[string](空床：“empty”;住院中，無人預定:"occupied";住院中，後有預定:"nonAvailable";預定出院:"available")
-                           "isolation" : false  //是否可選擇隔離[boolean]
+                           "bedStatus" : "empty",       //床狀態[string](空床：“empty”;住院中，無人預定:"occupied";住院中，後有預定:"nonAvailable";預定出院:"available")
+                           "isolation" : false          //是否可選擇隔離[boolean]
                      }
                   },
                   ...
