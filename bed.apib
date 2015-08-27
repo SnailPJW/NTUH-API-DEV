@@ -21,7 +21,7 @@
                     ...
                 ],
                 "priority" : {
-                    "preset" : "prioity", //預設選項
+                    "preset" : "priorityA", //預設選項
                     "option": [
                         {
                             "displayName": "A",
@@ -172,10 +172,10 @@
                      "beds": {
                            "bedNo" : "01-01",
                            "bedClass" : "雙人",
-                           "outDate" : 1406938026,
+                           "outDate" : 1406938026,      // [optional] 如果沒有指定時間就不用回傳
                            "bedCode" : "03A2-01-01",
-                           "bedStatus" : "empty",  //床狀態[string](空床：“empty”;住院中，無人預定:"occupied";住院中，後有預定:"nonAvailable";預定出院:"available")
-                           "isolation" : false  //是否可選擇隔離[boolean]
+                           "bedStatus" : "empty",       //床狀態[string](空床：“empty”;住院中，無人預定:"occupied";住院中，後有預定:"nonAvailable";預定出院:"available")
+                           "isolation" : false          //是否可選擇隔離[boolean]
                      }
                   },
                   ...
