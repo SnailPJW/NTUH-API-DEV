@@ -63,7 +63,7 @@
                     "MED_ICU",
                     ...
                 ],
-                "priority": "A",
+                "priority": "priorityA",
                 "wardClass": [          // 後床級別排序, 依照優先順序編排
                     "single",
                     "double",
@@ -101,12 +101,11 @@
 
 
 
-## 7/6 - 待配床清單 [/assignBed/department/{deptCode}]
+## 7/6 - 待配床清單 [/assignBed/department/{departmentCode}]
 ### 取得待配床病患清單[GET]
 
 + Parameters
-
-    + deptCode (string)    ... 科別代碼
+    + departmentCode (string)    ... 科別代碼
 
 + Response 200 (application/json)
 
@@ -205,7 +204,8 @@
                 "waitBedNo": "123456",
                 "bedCode": "03A2-01-01",
                 "date": "20151103",
-                "isolation" : "一般隔離"
+                "isolation" : "一般隔離",
+                "originDept": "MED_ICU"         // [optional] 借床原始科別，非借床則不回傳
             },
             "sessionKey": "DD07A0AF4E9F426C838185D8DD19EFE2"
         }
@@ -216,8 +216,8 @@
             "success": true
         }
 
-## 8/4 - 病患配床原始科別資訊 [/assignBed/originDept]
-### 取得病患配床原始科別資訊[GET]
+## 8/4 - 醫師可指定之病患配床原始科別資訊 [/assignBed/originDept]
+### 取得醫師可指定之病患配床原始科別資訊[GET]
 
 + Response 200 (application/json)
 
