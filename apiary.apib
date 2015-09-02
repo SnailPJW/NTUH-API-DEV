@@ -1578,6 +1578,29 @@ HOST: http://www.wantoto.com
 
 
 # Group 其他 Other Web Service
+
+## 9/03-SMS [/SMS/{empNo}/{status}{?sessionKey}]
+## 發送簡訊 [POST]
+
++ Parameters
+    + empNo (string) ... 使用者帳號
+    + status (string) ... 發送狀態 N:立即發送 T:待早上8點發送 W:待上班8點發送
+
++ Request SendSMSRequest (application/json)
+
+        {
+            "content": {
+                "message": "MESSAGE_TO_SEND"        // [string] 需要傳送的訊息
+            },
+            "sessionKey": "1112131321aqwdqwd"       // [string] SessionKey
+        }
+
++ Response 200 (application/json)
+
+        {
+            "success": true
+        }
+
 ## 9/24-通訊錄 [/contacts{?offset,limit}]
 ### 取得資料 [GET]
 
@@ -3246,7 +3269,7 @@ HOST: http://www.wantoto.com
 
 
         {
-            "cointent": {
+            "content": {
                 "payment": "PAYMENT_SELECTION_SELF",            // [optional] 以下為表格填寫的資料
                 "indication": "",                               // [optional]
                 "whole_brain_flag": true                        // [optional]
