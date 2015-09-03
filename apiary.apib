@@ -117,9 +117,9 @@ HOST: http://www.wantoto.com
                     "patBirthday" : 1406938026,     //出生日期[number(timestamp)]
                     "chartNo" : "12345678",         //病歷號[string]
                     "personID" : "A123456789",      //身分證號[string]
-                    "bedInfo" : "5W3 01-01",        //病房病床號(住院與急診)，非住院或急診中則不回傳Key[string]
-                    "inDate" : 1406938026,          //入院日期(住院或急診檢傷時間)，非住院或在急診則不回傳Key [number(timestamp)]
-                    "bedTransferDate" : 1406938026,          //轉床日期，非住院或在急診則不回傳Key [number(timestamp)]
+                    "bedInfo" : "5W3 01-01",        //病房病床號(住院與急診)，非住院或急診中則不回傳 [string, optional]
+                    "inDate" : 1406938026,          //入院日期(住院或急診檢傷時間)，非住院或在急診則不回傳 [number(timestamp), optional]
+                    "bedTransferDate" : 1406938026,          //轉床日期，非住院或在急診則不回傳 [number(timestamp), optional]
                     "triageLevels" : "1",           //檢傷分級，非急診則不回傳 Key [string, optional]
                     "_emp_VS" : {                   //主治醫師(如遇回傳資料為醫師者，變數皆為_emp_開頭)[string, optional]
                         "empNo" : "111281",         //醫師員編[string]
@@ -3475,11 +3475,12 @@ HOST: http://www.wantoto.com
 
 # Group MedicationOrder
 
-## 處方醫令資訊 [/medicationOrder/{medicationCode}{?sessionKey,stateIndex}]
+## 處方醫令資訊 [/medicationOrder/{medicationCode}{?sessionKey,stateIndex,accountNo}]
 ### 取得處方醫令屬性資料 [GET]
 + Parameters
     + sessionKey    (string) ... SessionKey
     + stateIndex    (number) ... 請求階段 index 開始為 0
+    + accountNo     (string) ... 病患的 account number
 
 + Response 200 (application/json)
 
@@ -3562,6 +3563,16 @@ HOST: http://www.wantoto.com
             }
         }
 
+
++ Response 400 (application/json)
+
+        {
+            "error": 805,                                       // [number] error code
+            "content": {
+                "message": "THE MESSAGE TO DISPLAY",            // [string] error message to display
+                "link": "EXTERNAL LINK"                         // [string] the redirect link for the Safari
+            }
+        }
 
 ## 處方醫令開令記錄 [/account/{accountNo}/medicationRecords{?sessionKey,stateIndex,medicationRecordId}]
 ### 開立處方醫令 [POST]
@@ -3682,6 +3693,22 @@ HOST: http://www.wantoto.com
                 },
                 ...
             ]
+        }
+
+## 平板無法開立藥品品項之外部連結 [/medicationOrder/externalLink/{linkType}{?sessionKey,hospitalCode}]
+### 取得連結 [GET]
+
++ Parameters
+    + sessionKey (string)   ... SessionKey
+    + hospitalCode (string) ... 院區碼
+    + linkType  (string) ... 取得連結種類：如 TPN
+
++ Response 200 (application/json)
+
+        {
+            "content": {
+                
+            }
         }
 
 # Group Blood Order
@@ -4390,9 +4417,9 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
                         "patBirthday" : 1406938026,     //出生日期[number(timestamp)]
                         "chartNo" : "12345678",         //病歷號[string]
                         "personID" : "A123456789",      //身分證號[string]
-                        "bedInfo" : "5W3 01-01",        //病房病床號(住院與急診)，非住院或急診中則不回傳Key[string]
-                        "inDate" : 1406938026,          //入院日期(住院或急診檢傷時間)，非住院或在急診則不回傳Key [number(timestamp)]
-                        "bedTransferDate" : 1406938026,          //轉床日期，非住院或在急診則不回傳Key [number(timestamp)]
+                        "bedInfo" : "5W3 01-01",        //病房病床號(住院與急診)，非住院或急診中則不回傳 [string, optional]
+                        "inDate" : 1406938026,          //入院日期(住院或急診檢傷時間)，非住院或在急診則不回傳 [number(timestamp), optional]
+                        "bedTransferDate" : 1406938026,          //轉床日期，非住院或在急診則不回傳 [number(timestamp), optional]
                         "triageLevels" : "1",           //檢傷分級，非急診則不回傳 Key [string, optional]
                         "_emp_VS" : {                   //主治醫師(如遇回傳資料為醫師者，變數皆為_emp_開頭)[string, optional]
                             "empNo" : "111281",         //醫師員編[string]
