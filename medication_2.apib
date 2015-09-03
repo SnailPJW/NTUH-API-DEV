@@ -1,10 +1,11 @@
 # Group MedicationOrder
 
-## 處方醫令資訊 [/medicationOrder/{medicationCode}{?sessionKey,stateIndex}]
+## 處方醫令資訊 [/medicationOrder/{medicationCode}{?sessionKey,stateIndex,accountNo}]
 ### 取得處方醫令屬性資料 [GET]
 + Parameters
     + sessionKey    (string) ... SessionKey
     + stateIndex    (number) ... 請求階段 index 開始為 0
+    + accountNo     (string) ... 病患的 account number
 
 + Response 200 (application/json)
 
@@ -87,6 +88,16 @@
             }
         }
 
+
++ Response 400 (application/json)
+
+        {
+            "error": 805,                                       // [number] error code
+            "content": {
+                "message": "THE MESSAGE TO DISPLAY",            // [string] error message to display
+                "link": "EXTERNAL LINK"                         // [string] the redirect link for the Safari
+            }
+        }
 
 ## 處方醫令開令記錄 [/account/{accountNo}/medicationRecords{?sessionKey,stateIndex,medicationRecordId}]
 ### 開立處方醫令 [POST]
@@ -208,3 +219,11 @@
                 ...
             ]
         }
+
+## 平板無法開立藥品品項之外部連結 [/medicationOrder/externalLink/{linkType}{?sessionKey,hospitalCode}]
+### 取得連結 [GET]
+
++ Parameters
+    + sessionKey (string)   ... SessionKey
+    + hospitalCode (string) ... 院區碼
+    + linkType  (string) ... 取得連結種類：TPN, ...
