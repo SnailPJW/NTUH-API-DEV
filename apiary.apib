@@ -4077,7 +4077,7 @@ HOST: http://www.wantoto.com
                 "examRoomCode": "CTS",
                 "date": "20150623",
                 "weekDay": 2,
-                "session": 1,
+                "session": "1",
                 "order": 10
             }
         }
@@ -4105,7 +4105,7 @@ HOST: http://www.wantoto.com
             "content": {
                 "examRoomCode": "CTR",
                 "date": "20150101",
-                "session": 1,
+                "session": "1",
                 "selectedOrder": 10         // [optional] 沒有指定就不會上傳
             },
             "sessionKey": "DD07A0AF4E9F426C838185D8DD19EFE2"
@@ -4143,7 +4143,7 @@ HOST: http://www.wantoto.com
                 {
                     "weekDay":          1,              // [number] 星期日期, 如星期一為 1
                     "date":             "20150213",     // [string] 排程日期, 依照格式 "YYYYmmdd"
-                    "session":          1,              // [number] 排程時段, 上午為 1 下午為 2 晚上為 3
+                    "session":          "1",            // [string] 排程時段, 上午為 1 下午為 2 晚上為 3
                     "examRoomCode":     "CTAB",         // [string] 檢查室代碼
                     "examRoomName":     "CTAB_檢查室",   // [string] 檢查室名稱
                     "ErOpdBookCount":   10,             // [number] 門診/急診 登記個數
@@ -4165,7 +4165,7 @@ HOST: http://www.wantoto.com
 + Parameters
     + orderRecordId (string) ... 對應的醫令交易記錄 ID 第一碼為醫令種類代碼
     + date          (string) ... 排程日期, 依照格式為 "YYYYmmdd"
-    + session       (number) ... 排程時段
+    + session       (string) ... 排程時段
     + sessionKey    (string) ... SessionKey
 
 + Response 200 (application/json)
@@ -4174,7 +4174,7 @@ HOST: http://www.wantoto.com
             "content": {
                 "weekDay":          1,
                 "date":             "20150213",
-                "session":          "A",
+                "session":          "1",
                 "examRoomCode":     "CTAB",
                 "examRoomName":     "CTAB_檢查室",
                 "ErOpdBookCount":   10,
