@@ -1,7 +1,7 @@
 FORMAT: 1A
 HOST: http://www.wantoto.com
 
-# DEV台大醫院行動醫療資訊系統 Web Service v1.6.2
+# DEV台大醫院行動醫療資訊系統 Web Service v1.6.3
 採用 RESTful 架構規劃。所有字串編碼皆為UTF-8。
 
 # Group 登入與取得或驗證 SessionKey
@@ -1124,14 +1124,17 @@ HOST: http://www.wantoto.com
                             "image"
                         ],
                         "accountNo": "I15T07315840",                            // [string] 開立醫囑時對應的帳號
-                        "editable": true,                                       // [boolean] 是否可以編輯
-                        "deletable": true,                                      // [boolean] 是否可以刪除
                         "report" : {    //如有報告則回傳 [optional]
                             "reportType" : "HTML",                              // 報告型態，HTML或PDF
                             "reportPath" : "/ImageReport/{ImageReportID}",      // 報告路徑
                             "encoding" : "utf-16",                              // 編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
                             "baseURL" : "http://baseUrl.ntuh.gov.tw"            // 報告基礎連結(報告中如有相對連結時回傳)[string, optional]
                         },
+                        "recordId": "D11232000112",                             // [string] 本筆記錄所對應的交易檔 ID (orderRecordId/medicationRecordId)
+                        "editable": true,                                       // [boolean] 是否可被編輯
+                        "deletable": true,                                      // [boolean] 是否可被刪除
+                        "holdable": true,                                       // [boolean] 是否可被暫停 (是為暫停藥囑用 醫囑一律為 false)
+                        "recordType": "medication",                             // [string] 本筆記錄所對應的是醫囑 (order) 或是藥囑 (medication)
                         "bgColor" : "FFFFFF" //如需調整此列背景顏色則回傳16進位色碼[string,optional]
                     },
                     ...
@@ -3695,19 +3698,82 @@ HOST: http://www.wantoto.com
             ]
         }
 
-## 平板無法開立藥品品項之外部連結 [/medicationOrder/externalLink/{linkType}{?sessionKey,hospitalCode}]
+## 平板無法開立藥品品項之外部連結 [/medicationOrder/externalLinks{?sessionKey,hospitalCode}]
 ### 取得連結 [GET]
 
 + Parameters
     + sessionKey (string)   ... SessionKey
     + hospitalCode (string) ... 院區碼
-    + linkType  (string) ... 取得連結種類：如 TPN
 
 + Response 200 (application/json)
 
         {
             "content": {
-                
+                "TPN": "THE EXTERNAL LINK FOR TPN",         // [string] TPN 藥品外部連結的 base url
+                ...
+            }
+        }
+
+## 藥囑交易記錄之暫停醫囑相關資訊 [/account/{accountNo}/medicationRecord/{medicationRecordId}/holdInfo{?sessionKey}]
+### 取得藥囑暫停功能相關資訊 [GET]
+
++ Parameters
+    + sessionKey (string) ...   SessionKey
+
++ Response 200 (application/json)
+
+        {
+            "content": {
+                "description": "Alparazalam ((管4)) 安博寧",         // [string] 暫停
+                "unit": "Dose",                                     // [string] 暫停醫囑使用單位
+                "optionas": [
+                    1,                                              // [number] 暫停醫囑選項清單
+                    2,
+                    ...
+                ],
+                "executionTimes": [
+                    1406938026,                                     // [number(timestamp)] 開始時間選項
+                    1406948026,                                     // [number(timestamp)]
+                    1406958026,                                     // [number(timestamp)]
+                    ...
+                ],
+                "canRestart": false,                                // [boolean] 此藥囑交易記錄是否可以開立重啟醫囑
+                "holdRecords": [
+                    {
+                        "creator": "111271",            // [string] 開立人之員工編號
+                        "createdTime": 1406938026,      // [number(timestamp)] 醫囑開立時間
+                        "executionTime": 1406938026,    // [number(timestamp), optional] 執行開始時間 暫停醫囑使用
+                        "type": "hold",                 // [string] 暫停醫囑: hold 重啟醫囑: restart
+                        "verifier": "111281",           // [string,optional] 確認者, 若無不用回傳
+                        "option": 1,                    // [number, optional] 暫停醫囑選項 重啟醫囑不用回傳
+                        "recordId": "13-01"             // [string] 暫停/重啟 醫囑交易記錄 ID
+                    },
+                    ...
+                ]
+            }
+        }
+
+## 藥囑交易記錄之暫停和重啟醫囑清單 [/account/{accountNo}/medicationRecord/{medicationRecordId}/holdOrders{?sessionKey}]
+### 開立暫停/重啟醫囑 [POST]
+
++ Request IssueHoldOrder (application/json)
+
+        {
+            "content": {
+                "creator": "111287",                // [string] 開立人
+                "executionTime": 1406948026,        // [number(timestamp), optional] 執行開始時間 暫停醫囑使用
+                "option": 10,                       // [number, optional] 暫停醫囑選項(值)
+                "type": "hold"                      // [string] 醫囑種類 暫停醫囑為 hold 重啟醫囑為 restart 
+            },
+            "sessionKey": "1112131321aqwdqwd"       // [string] SessionKey
+        }
+
++ Response 200 (application/json)
+
+        {
+            "success": true,
+            "content": {
+                "recordId": "13-8"     // 本次編輯後的 暫停/重啟 醫囑記錄 ID
             }
         }
 
