@@ -132,6 +132,11 @@ fetching the accountNo which had been used when creating the order(s) from respo
 - **hospitalCode**: the combination of the 4th and the 5th characters
 - in short: accountNo = [IOETag]xx[hospitalCode]xxxxx
 - for instance: *E15T07315840*: *IOETag = E* and *hospitalCode = T0*
+
+### 3. OrderCode, hospitalCode, typeCode
+- OrderCode = [hospitalCode]_[RealOrderCode]_[typeCode]
+
+
 ---
 
 
