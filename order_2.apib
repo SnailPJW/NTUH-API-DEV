@@ -24,7 +24,7 @@
             ]
         }
 
-## 7/21 - 醫令套餐 [/orderPackages{?patientClass,type,department,wardCode,pathCode,accountNo,hospitalCode,sessionKey}]
+## 7/21 - 醫令套餐 [/orderPackage{?patientClass,type,department,wardCode,pathCode,accountNo,hospitalCode,sessionKey}]
 ### 取得醫令套餐清單 [GET]
 
 + Parameters
@@ -102,7 +102,7 @@
         }
 
 
-## 7/8 - 醫令搜尋 [/orders{?name,packageCode,patientClass,orderType,hospitalCode,accountNo}]
+## 7/8 - 醫令搜尋 [/orders{?name,packageCode,orderType,patientClass,hospitalCode,accountNo,searchType,sessionKey}]
 ### 取得藥物清單 [GET]
 
 + Parameters
@@ -112,6 +112,7 @@
     + patientClass (string, optional)   ... 病患的門住急別
     + hospitalCode (string, optional)   ... 院區碼 如台大本院為 T0
     + accountNo (string, optional)      ... 病患帳號
+    + searchType (string)               ... 搜尋來源種類 P 為來自醫令套餐 A 為來自病患帳號 N 為來自字串搜尋
 
 + Response 200 (application/json)
 
@@ -134,7 +135,9 @@
                 ],
                 "data" : [
                     {
-                        "orderCode" : "T000L0114",  // 醫令碼 [string, required]
+                        "orderCode" : "T0_00L0114_T",   // [string, required] 醫令碼
+                        "searchType": "P",              // [string] 搜尋來源類別
+                        "orderIdse": "128351",          // [string, optional] 醫囑預設參數識別碼如果沒有例如 searchType == N 不回傳
                         "content" : {
                             "DisplayCode" : "000L0114",
                             "orderType" : "治療",
@@ -142,7 +145,9 @@
                         }
                     },
                     {
-                        "orderCode" : "T000L0113",
+                        "orderCode" : "T000L0113",      // [string, required] 醫令碼
+                        "searchType": "P",              // [string] 搜尋來源類別
+                        "orderIdse": "321110123",       // [string, optional] 醫囑預設參數識別碼如果沒有例如 searchType == N 不回傳
                         "content" : {
                             "DisplayCode" : "000L0113",
                             "orderType" : "治療",
@@ -150,7 +155,9 @@
                         }
                     },
                     {
-                        "orderCode" : "T000L0112",
+                        "orderCode" : "T000L0112",      // [string, required] 醫令碼
+                        "searchType": "P",              // [string] 搜尋來源類別
+                        "orderIdse": "11023",           // [string, optional] 醫囑預設參數識別碼如果沒有例如 searchType == N 不回傳
                         "content" : {
                             "DisplayCode" : "000L0112",
                             "orderType" : "治療",
@@ -255,11 +262,15 @@
         }
 
 
-## 6/25 - 醫令碼所對應的醫令 [/order/{orderCode}{?sessionKey}]
+## 6/25 - 醫令碼所對應的醫令 [/order/{orderCode}{?sessionKey,searchType,patientClass,orderIdse,accountNo}]
 ### 取得醫令資訊 [GET]
 
 + Parameters
     + sessionKey        (string) ... SessionKey
+    + searchType        (string) ... 搜尋來源類別
+    + patientClass      (string) ... 門急住別
+    + orderIdse         (string, optional) ... 醫囑預設參數識別碼
+    + accountNo         (string, optional) ... 病患帳號
 
 + Response 200 (application/json)
 
