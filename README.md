@@ -20,6 +20,7 @@
 
 - **HTTP403** 302: 不可瀏覽指定之病患
 
+
 ###3. Bulletin api related
 
 - **HTTP400** 701: 缺少參數 xxx
@@ -136,11 +137,47 @@ fetching the accountNo which had been used when creating the order(s) from respo
 ### 3. OrderCode, hospitalCode, typeCode
 - OrderCode = [hospitalCode]_[RealOrderCode]_[typeCode]
 
-
+## V: Report Links
 ---
+### 取得url頁面 (html)
+GET reportLink/RemoveSession?sessionKey={sessionKey}&url={url}
+
+### 病程記錄
+GET reportLink/progressNote/{noteType}/{accountIDSE}/{version}/{seqNo}?sessionKey={sessionKey}
+
+### 急診病程
+GET reportLink/emgProgressNote/{noteType}/{accountIDSE}/{version}/{seqNo}?sessionKey={sessionKey}
+
+### 入院記錄
+GET reportLink/admissionNote/{accountIDSE}/{version}/{seqNo}/{completeFlag}?sessionKey={sessionKey}
+
+### 照會
+GET reportLink/notifyRecord/{notifyIDSE}?sessionKey={sessionKey}
+
+### 手術記錄
+GET reportLink/opNote/{OPIDSE}?sessionKey={sessionKey}
+
+### 藥師記錄
+GET reportLink/pharmacyNote/{accountidse}?sessionKey={sessionKey}
+
+### 抓簽章的PDF
+GET reportLink/signaturePDF/{emrIndexIDSE}/{emrDocCode}?sessionKey={sessionKey}
+
+### 急診檢傷記錄
+GET reportLink/triageNote/{accountidse}/{accountSeqNo}?sessionKey={sessionKey}
+
+### 急診來診記錄
+GET reportLink/emgAdmissionNote/{accountidse}/{accountSeqNo}?sessionKey={sessionKey}
+
+### 藥敏試驗
+GET reportLink/antiBiotics/{deptCode}/{logDateTime}/{loginNo}/{specimenNo}?sessionKey={sessionKey}
+
+### 取得url頁面 (html)
+GET reportLink?sessionKey={sessionKey}&url={url}
 
 
-## V. UI elements:
+
+## VI. UI elements:
 ---
 ### 1. Types:
 ...
