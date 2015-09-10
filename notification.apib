@@ -50,6 +50,15 @@
     + confirmed  (boolean)  ... 設定指定之通知訊息為確認(true)/未確認(false)
     + sessionKey (string)   ... Session Key
 
++ Request ConfirmSingleNotification (application/json)
+
+        {
+            "content": {
+                "confirmed": true
+            },
+            "sessionKey": "B06CAB943EE0456EBFDAE0F3C4600327"
+        }
+
 + Response 200 (application/json)
 
         {
