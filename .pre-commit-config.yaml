@@ -1,8 +1,8 @@
 -   repo: git://github.com/pre-commit/pre-commit-hooks
-    sha: 003e43251aea1da33f2072f2365ec8b9ceaae070
+    sha: 616c1ebd1898c91de9a0548866a59cbd9f4547f6
     hooks:
     -   id: trailing-whitespace
 -   repo: https://github.com/benjamin99Tsai/pre-commit-apiary.git
-    sha: 44ff7dcf43b37bc4931843624e72cc1b0efbae68
+    sha: d4b8d048732a312bede4a2a225dfec3aa2f6bc1c
     hooks:
     -   id: apiary-validation
