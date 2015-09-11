@@ -1714,6 +1714,15 @@ HOST: http://www.wantoto.com
     + confirmed  (boolean)  ... 設定指定之通知訊息為確認(true)/未確認(false)
     + sessionKey (string)   ... Session Key
 
++ Request ConfirmSingleNotification (application/json)
+
+        {
+            "content": {
+                "confirmed": true
+            },
+            "sessionKey": "B06CAB943EE0456EBFDAE0F3C4600327"
+        }
+
 + Response 200 (application/json)
 
         {
@@ -3775,7 +3784,7 @@ HOST: http://www.wantoto.com
                 "creator": "111287",                // [string] 開立人
                 "executionTime": 1406948026,        // [number(timestamp), optional] 執行開始時間 暫停醫囑使用
                 "option": 10,                       // [number, optional] 暫停醫囑選項(值)
-                "type": "hold"                      // [string] 醫囑種類 暫停醫囑為 hold 重啟醫囑為 restart 
+                "type": "hold"                      // [string] 醫囑種類 暫停醫囑為 hold 重啟醫囑為 restart
             },
             "sessionKey": "1112131321aqwdqwd"       // [string] SessionKey
         }
