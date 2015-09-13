@@ -4893,7 +4893,8 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
                             "buttonCode": "SCON",   //按鈕代碼  [string]
                             "displayName": "Consciousness", //按鈕顯示名稱 [string]
                             "displayNameTC": "意識評估",    //按鈕顯示名稱(中文) [string]
-                            "default": {    //點擊預設紀錄事件    [optional]
+                            "count" : true, //此按鈕需要被計數 [boolean, optional]
+                            "default": {    //點擊預設紀錄事件，無此Key表示無預設紀錄，有Key無內容表示依第一次使用者所選紀錄為預設記錄   [optional]
                                 "itemCode": "SCON1U",
                                 "displayName": "U",
                                 "displayNameTC": "U",
