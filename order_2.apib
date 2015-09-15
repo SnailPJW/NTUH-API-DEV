@@ -24,6 +24,37 @@
             ]
         }
 
+## 9/15 - 醫令介面常用清單 [/order/statics/dictionary/{sessionKey,dictionaryId,hospitalCode,patientClass,offset,limit}]
+### 取得 dictionaryId 所對應之常用清單 [GET]
+
++ Parameters
+    + sessionKey    (string) ... SessionKey
+    + hospitalCode  (string) ... 院區別 如 台大本院為 T0
+    + dictionaryId  (string) ... 常用清單所對應的 ID
+    + offset        (number) ... 設定回傳資料偏移數
+    + limit         (number) ... 設定最大回傳筆數
+    + patientClass  (string,optional) ... 病患門急住別 （如科部清單需要）
+
++ Response 200 (application/json)
+
+        {
+            "content": [
+                {
+                    "title": "with contrast",               // [string] 要顯示在介面上的內容
+                    "code":  "mri_dic001_001",              // [string, optional] 譬如需回傳的項目時回傳的值, 或是譬如科部清單所對應科部 code
+                    "note": "無法開立MRI 請洽MRI部門"          // [string, optional] 如果選取時需要顯示的額外提示 (如影像醫學的介面)
+                },
+                {
+                    "title": "without contrast",            // [string] 要顯示在介面上的內容
+                    "code": "mri_dic001_002"                // [string, optional] 如果是需回傳的項目時回傳的值
+                },
+                ...
+            ],
+            "total": 10,                // [number] 此次Query總筆數
+            "offset": 0,                // [number] 回傳資料偏移數
+            "limit": 100                // [number] 最大回傳筆數
+        }
+
 ## 7/21 - 醫令套餐 [/orderPackage{?patientClass,type,department,wardCode,pathCode,accountNo,hospitalCode,sessionKey}]
 ### 取得醫令套餐清單 [GET]
 
@@ -178,7 +209,8 @@
 
         {
             "content": {
-                "cre": 31.2
+                "cre": 31.2,
+                "note": "Cre值 > 2.2 除洗腎患者外需要..."     // [string,optional] 提示訊息 醫學影像介面使用
             }
         }
 
