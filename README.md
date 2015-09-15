@@ -48,11 +48,69 @@
 ### 1. OrderCode, OrderRecordId
 
 - Since the original TREORDERCODE and ORDERIDSE is not unique
-- OrderCode = **{OrderType}{TREORDERCODE}** (etc. T12345678)
+- OrderCode = **{hospitalCode}_{TREORDERCODE}_{orderType}** (etc. T0_12345678_T)
 - OrderRecordId = **{OrderType}{ORDERIDSE}** (etc. T00010012001)
 
+### 2. MedicationCode
+- Since the original TREORDERCODE and ORDERIDSE is not unique
+- MedicationCode = **{hospitalCode}_{TREORDERCODE}_{medicationType}** (etc. T0_12345678_T)
+- MedicationRecordId = **{OrderType}{ORDERIDSE}** (etc. T00010012001)
 
-### 2. 更新醫療記錄之問題清單答案
+### 3. 醫令介面常用清單 (static dictionaries)
+- API: */order/statics/dictionary/{dictionaryId}*
+- 用來取得 1) 大型常用字彙 2) 介面上下拉式選單的內容 3) 頻率表或是階段等 id 與 title 之對照表
+- Example: 影像醫學介面上所需的選項
+``
+{
+	"content": [
+		{
+			"title": "with contrast",               // [string] 要顯示在介面上的內容
+			"code": "mri_dic001_001",          		// [string, optional] 如果是需回傳的項目時回傳的值
+			"note": "無法開立此MRI"          		 // [string, optional] 如果選取時需要顯示的額外提示 (如影像醫學的介面)
+		},
+		{
+			"title": "without contrast",            // [string] 要顯示在介面上的內容
+			"returnKey": "mri_dic001_002"           // [string, optional] 如果是需回傳的項目時回傳的值
+		},
+		...
+	]
+}
+``
+- Example: 問答題常用字彙
+``
+{
+	"content": [
+		{
+			"title": "台大醫院本院"
+		},
+		{
+			"title": "台大醫院竹東分院"
+		},
+		{
+			"title": "台大醫院雲林分院"
+		},
+		...
+	]
+}
+``
+- Example: 階段對照表
+``
+{
+	"content": [
+		{
+			"title": "STAT",
+			"code": "order_stage_stat"
+		},
+		{
+			"title": "一般",
+			"code": "order_sage_normal"
+		},
+		...
+	]
+}
+``
+
+### 4. 更新醫療記錄之問題清單答案
 
 - API: */account/{accountNo}/orderRecord/{orderRecordId}/questionary{?limit,offset,sessionKey}*
 
@@ -65,7 +123,7 @@
 	- for type D: timestamp (number)
 	- for type T, P: string
 
-### 3. 開立醫囑或修改醫囑的 Error Response
+### 5. 開立醫囑或修改醫囑的 Error Response
 
 		+ Response XXX (application/json)
 		{
