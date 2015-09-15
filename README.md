@@ -60,55 +60,55 @@
 - API: */order/statics/dictionary/{dictionaryId}*
 - 用來取得 1) 大型常用字彙 2) 介面上下拉式選單的內容 3) 頻率表或是階段等 id 與 title 之對照表
 - Example: 影像醫學介面上所需的選項
-``
-{
-	"content": [
+
 		{
-			"title": "with contrast",               // [string] 要顯示在介面上的內容
-			"code": "mri_dic001_001",          		// [string, optional] 如果是需回傳的項目時回傳的值
-			"note": "無法開立此MRI"          		 // [string, optional] 如果選取時需要顯示的額外提示 (如影像醫學的介面)
-		},
-		{
-			"title": "without contrast",            // [string] 要顯示在介面上的內容
-			"returnKey": "mri_dic001_002"           // [string, optional] 如果是需回傳的項目時回傳的值
-		},
-		...
-	]
-}
-``
+			"content": [
+				{
+					"title": "with contrast",               // [string] 要顯示在介面上的內容
+					"code": "mri_dic001_001",          		// [string, optional] 如果是需回傳的項目時回傳的值
+					"note": "無法開立此MRI"          		 // [string, optional] 如果選取時需要顯示的額外提示 (如影像醫學的介面)
+				},
+				{
+					"title": "without contrast",            // [string] 要顯示在介面上的內容
+					"returnKey": "mri_dic001_002"           // [string, optional] 如果是需回傳的項目時回傳的值
+				},
+				...
+			]
+		}
+
 - Example: 問答題常用字彙
-``
-{
-	"content": [
+
 		{
-			"title": "台大醫院本院"
-		},
-		{
-			"title": "台大醫院竹東分院"
-		},
-		{
-			"title": "台大醫院雲林分院"
-		},
-		...
-	]
-}
-``
+			"content": [
+				{
+					"title": "台大醫院本院"
+				},
+				{
+					"title": "台大醫院竹東分院"
+				},
+				{
+					"title": "台大醫院雲林分院"
+				},
+				...
+			]
+		}
+
 - Example: 階段對照表
-``
-{
-	"content": [
+
 		{
-			"title": "STAT",
-			"code": "order_stage_stat"
-		},
-		{
-			"title": "一般",
-			"code": "order_sage_normal"
-		},
-		...
-	]
-}
-``
+			"content": [
+				{
+					"title": "STAT",
+					"code": "order_stage_stat"
+				},
+				{
+					"title": "一般",
+					"code": "order_sage_normal"
+				},
+				...
+			]
+		}
+
 
 ### 4. 更新醫療記錄之問題清單答案
 
