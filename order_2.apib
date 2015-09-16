@@ -321,6 +321,12 @@
                 "isEmergency":      true,               // [boolean] 是否支援急做
                 "subType":          "N",                // [string, optional] orderType = T 時使用 一般為 N, 手術為 O, 麻醉為 A, 齒位為 D, 技工所為 E, 復健為 P
                 "selectable":       true,               // [boolean] 是否可以選取
+                "planExecutionTime": {                  // 預計執行時間相關資訊
+                    "format": "YYYYMMDD",               // [string] 預計執行時間 datemtime format, YMDH:年月日時
+                    "value": 130032013,                 // [number(timestamp), optional] 預計執行時間預設值之 unix timestamp 如果沒有不用回傳
+                    "editable": true,                   // [boolean] 是否可以修改
+                    "message": "不需排程"                 // [string, optional] 如果有回傳的話 不會顯示時間額是改顯示 message 的文字內容
+                },
                 "specimenList":     [                   // [optional] orderType = L 時使用
                     {
                         "code": "ts1",                  // [string] 檢體代號
