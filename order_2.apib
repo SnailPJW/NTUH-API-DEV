@@ -777,3 +777,34 @@
             "error": 802,                                   // [number] Error Code
             "message": "THE LOCAL ERROR DESCRIPTION"        // [string] 錯誤訊息
         }
+
+
+## 9/16 刪除多筆病患醫令記錄 [/order/batch]
+### 刪除多筆病患醫令記錄[POST]
++ Reqeust Delete orderRecord(s)
+
+        {
+            "sessionKey": "DE44A33624064BFCB0BBAFDB9A509C16",
+            "content": {
+                "request_001": {
+                    "path": "/account/{accountNo}/orderRecords?orderRecordId=T32132012",
+                    "method": "DELETE"
+                },
+                "request_002": {
+                    "path": "/account/{accountNo}/orderRecords?orderRecordId=T32132013",
+                    "method": "DELETE"
+                },
+                ...
+            }
+        }
+
++ Response 200 (application/json)
+
+        {
+            "request_001": {
+                "success": true
+            },
+            "request_002": {
+                "success": true
+            }
+        }
