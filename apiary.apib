@@ -2781,6 +2781,37 @@ HOST: http://www.wantoto.com
             ]
         }
 
+## 9/15 - 醫令介面常用清單 [/order/statics/dictionary/{sessionKey,dictionaryId,hospitalCode,patientClass,offset,limit}]
+### 取得 dictionaryId 所對應之常用清單 [GET]
+
++ Parameters
+    + sessionKey    (string) ... SessionKey
+    + hospitalCode  (string) ... 院區別 如 台大本院為 T0
+    + dictionaryId  (string) ... 常用清單所對應的 ID
+    + offset        (number) ... 設定回傳資料偏移數
+    + limit         (number) ... 設定最大回傳筆數
+    + patientClass  (string,optional) ... 病患門急住別 （如科部清單需要）
+
++ Response 200 (application/json)
+
+        {
+            "content": [
+                {
+                    "title": "with contrast",               // [string] 要顯示在介面上的內容
+                    "code":  "mri_dic001_001",              // [string, optional] 譬如需回傳的項目時回傳的值, 或是譬如科部清單所對應科部 code
+                    "note": "無法開立MRI 請洽MRI部門"          // [string, optional] 如果選取時需要顯示的額外提示 (如影像醫學的介面)
+                },
+                {
+                    "title": "without contrast",            // [string] 要顯示在介面上的內容
+                    "code": "mri_dic001_002"                // [string, optional] 如果是需回傳的項目時回傳的值
+                },
+                ...
+            ],
+            "total": 10,                // [number] 此次Query總筆數
+            "offset": 0,                // [number] 回傳資料偏移數
+            "limit": 100                // [number] 最大回傳筆數
+        }
+
 ## 7/21 - 醫令套餐 [/orderPackage{?patientClass,type,department,wardCode,pathCode,accountNo,hospitalCode,sessionKey}]
 ### 取得醫令套餐清單 [GET]
 
@@ -2935,7 +2966,8 @@ HOST: http://www.wantoto.com
 
         {
             "content": {
-                "cre": 31.2
+                "cre": 31.2,
+                "note": "Cre值 > 2.2 除洗腎患者外需要..."     // [string,optional] 提示訊息 醫學影像介面使用
             }
         }
 
@@ -3046,6 +3078,12 @@ HOST: http://www.wantoto.com
                 "isEmergency":      true,               // [boolean] 是否支援急做
                 "subType":          "N",                // [string, optional] orderType = T 時使用 一般為 N, 手術為 O, 麻醉為 A, 齒位為 D, 技工所為 E, 復健為 P
                 "selectable":       true,               // [boolean] 是否可以選取
+                "planExecutionTime": {                  // 預計執行時間相關資訊
+                    "format": "YYYYMMDD",               // [string] 預計執行時間 datemtime format, YMDH:年月日時
+                    "value": 130032013,                 // [number(timestamp), optional] 預計執行時間預設值之 unix timestamp 如果沒有不用回傳
+                    "editable": true,                   // [boolean] 是否可以修改
+                    "message": "不需排程"                 // [string, optional] 如果有回傳的話 不會顯示時間額是改顯示 message 的文字內容
+                },
                 "specimenList":     [                   // [optional] orderType = L 時使用
                     {
                         "code": "ts1",                  // [string] 檢體代號
@@ -3495,6 +3533,37 @@ HOST: http://www.wantoto.com
         {
             "error": 802,                                   // [number] Error Code
             "message": "THE LOCAL ERROR DESCRIPTION"        // [string] 錯誤訊息
+        }
+
+
+## 9/16 刪除多筆病患醫令記錄 [/order/batch]
+### 刪除多筆病患醫令記錄[POST]
++ Reqeust Delete orderRecord(s)
+
+        {
+            "sessionKey": "DE44A33624064BFCB0BBAFDB9A509C16",
+            "content": {
+                "request_001": {
+                    "path": "/account/{accountNo}/orderRecords?orderRecordId=T32132012",
+                    "method": "DELETE"
+                },
+                "request_002": {
+                    "path": "/account/{accountNo}/orderRecords?orderRecordId=T32132013",
+                    "method": "DELETE"
+                },
+                ...
+            }
+        }
+
++ Response 200 (application/json)
+
+        {
+            "request_001": {
+                "success": true
+            },
+            "request_002": {
+                "success": true
+            }
         }
 
 # Group MedicationOrder
@@ -4877,7 +4946,7 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
         }
 
 # Group 急救紀錄 ERRecrod
-## 8/10 - 急救紀錄事件按鈕 [/ERRecord/Layout]
+## 9/21 - 急救紀錄事件按鈕 [/ERRecord/layout]
 ### 取得急救紀錄事件按鈕 [GET]
 
 + Response 200 (application/json)
@@ -4888,133 +4957,28 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
                     "category": "S",    //類別代碼 [string]
                     "displayName": "STATUS",    //類別顯示名稱 [string]
                     "displayNameTC": "狀態評估",    //類別顯示名稱(中文) [string]
-                    "buttons": [    //類別含有的按鈕
-                        {   //button
-                            "buttonCode": "SCON",   //按鈕代碼  [string]
-                            "displayName": "Consciousness", //按鈕顯示名稱 [string]
-                            "displayNameTC": "意識評估",    //按鈕顯示名稱(中文) [string]
-                            "count" : true, //此按鈕需要被計數 [boolean, optional]
-                            "default": {    //點擊預設紀錄事件，無此Key表示無預設紀錄，有Key無內容表示依第一次使用者所選紀錄為預設記錄   [optional]
-                                "itemCode": "SCON1U",
-                                "displayName": "U",
-                                "displayNameTC": "U",
-                                "recordNote": "意識評估:否"
-                            },
-                            "child": {  //下層選項  [optional]
-                                "type": "records",  //可以是 records 或 buttons
-                                "content": [
-                                    {   //每一個record Object，皆會產生一筆紀錄，紀錄欄位為time[timestamp]、itemCode、recordNote、text(使用者輸入值)，當無參數 require = false 時，所有選項與欄位皆為必填。
-                                        "type": "option",
-                                        "content": [
-                                            {
-                                                "itemCode": "SCON1A",
-                                                "displayName": "A",
-                                                "displayNameTC": "A",
-                                                "recordNote": "意識評估:清"
-                                            },
-                                            {
-                                                "itemCode": "SCON1V",
-                                                "displayName": "V",
-                                                "displayNameTC": "V",
-                                                "recordNote": "意識評估:聲"
-                                            },
-                                            {
-                                                "itemCode": "SCON1O",
-                                                "displayName": "Other",
-                                                "displayNameTC": "其他",
-                                                "textInput": true,  //當此參數為 true 時，表示有textfield可讓使用者填入值。[boolean, optional]
-                                                "number" : true,    //當此參數為 true 時，表示此欄位只能填入數值 [boolean, optional]
-                                                "recordNote": "意識評估:[\1]"   //如使用者填入值為 2 ，recordNote 將紀錄為 意識評估：2
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
+                    "items": [    //類別含有的按紐
+                        {
+                            "itemCode": "SCON",   //步驟(元件)代碼  [string]
+                            "items": [  //下層選項  [optional]
+                                {
+                                    "itemCode" : "SCON1OP"
+                                }
+                            ]
                         },
                         {
-                            "buttonCode": "SCON2",
-                            "displayName": "COMA SCALE",
-                            "displayNameTC": "昏迷指數",
-                            "child": {  //下層選項  [optional]
-                                "type": "records",
-                                "content": [
-                                    {
-                                        "type": "textfield",
-                                        "itemCode": "SCON2E",
-                                        "displayName": "E:",
-                                        "displayNameTC": "E:",
-                                        "default": "1", //預設數值 [string. optional]
-                                        "number": true, //值是否只能填入數值 [string. optional]
-                                        "recordNote": "昏迷指數:E [\1]"
-                                    },
-                                    {
-                                        "type": "textfield",
-                                        "itemCode": "SCON2M",
-                                        "displayName": "M:",
-                                        "displayNameTC": "M:",
-                                        "default": "1", //預設數值 [string. optional]
-                                        "number": true, //值是否只能填入數值 [string. optional]
-                                        "recordNote": "昏迷指數:M [\1]"
-                                    },
-                                    {
-                                        "type": "textfield",
-                                        "itemCode": "SCON2V",
-                                        "displayName": "V:",
-                                        "displayNameTC": "V:",
-                                        "default": "1", //預設數值 [string. optional]
-                                        "number": true, //值是否只能填入數值 [string. optional]
-                                        "require" : false, //當require為 false 時，使用者可選擇不填入此數值，當使用者不填入數值時，不用紀錄此項 [boolean, optional]
-                                        "recordNote": "昏迷指數:V [\1]"
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            "buttonCode": "SCPR",
-                            "displayName": "CPR QUALITY",
-                            "displayNameTC": "急救品質",
-                            "default": {    //點擊預設紀錄事件    [string,  optional]
-                                "itemCode": "SCPRET",
-                                "displayName": "EtCO2",
-                                "displayNameTC": "EtCO2",
-                                "textInput": true,
-                                "number": true,
-                                "recordNote": "ETCO2:[\1]"
-                            },
-                            "child": {  //下層選項  [optional]
-                                "type": "records",
-                                "content": [
-                                    {   //每一個record Object，皆會產生一筆紀錄，紀錄欄位為time[timestamp]、itemCode、recordNote、text(使用者輸入值)
-                                        "type": "option",
-                                        "content": [
-                                            {
-                                                "itemCode": "SCPRET",
-                                                "displayName": "EtCO2",
-                                                "displayNameTC": "EtCO2",
-                                                "textInput": true,  //當此參數為 true 時，表示有textfield可讓使用者填入值。[boolean, optional]
-                                                "number" : true,    //當此參數為 true 時，表示此欄位只能填入數值 [boolean, optional]
-                                                "recordNote": "ETCO2:[\1]"
-                                            },
-                                            {
-                                                "itemCode": "SCPRPC",
-                                                "displayName": "PCO2",
-                                                "displayNameTC": "PCO2",
-                                                "textInput": true,  //當此參數為 true 時，表示有textfield可讓使用者填入值。[boolean, optional]
-                                                "number" : true,    //當此參數為 true 時，表示此欄位只能填入數值 [boolean, optional]
-                                                "recordNote": "PCO2:[\1]"
-                                            },
-                                            {
-                                                "itemCode": "SCPRPO",
-                                                "displayName": "PO2",
-                                                "displayNameTC": "PO2",
-                                                "textInput": true,  //當此參數為 true 時，表示有textfield可讓使用者填入值。[boolean, optional]
-                                                "number" : true,    //當此參數為 true 時，表示此欄位只能填入數值 [boolean, optional]
-                                                "recordNote": "PO2:[\1]"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
+                            "itemCode": "SCON2",
+                            "items": [  //下層選項  [optional]
+                                {
+                                    "itemCode" : "SCON2E"
+                                },
+                                {
+                                    "itemCode" : "SCON2M"
+                                },
+                                {
+                                    "itemCode" : "SCON2V"
+                                }
+                            ]
                         }
                     ]
                 }
@@ -5023,7 +4987,73 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
             ]
         }
 
-## 9/10 - 急救紀錄邏輯 [/ERRecord/Logic]
+
+## 9/21 - 急救紀錄步驟(item) [/ERRecord/items]
+### 取得急救紀錄步驟 (item) [GET]
+
++ Response 200 (application/json)
+
+        {
+            "example": {
+                "SCON" : {  //example for button
+                    "type": "button",   //元件類別 (button, option, textfield, optionItem) [string]
+                    "displayName": "Consciousness", //元件顯示名稱 [string]
+                    "displayNameTC": "意識評估",    //元件顯示名稱(中文) [string]
+                    "count" : true, //此元件(按鈕)需要被計數，未回傳此參數時，預設為 false [boolean, optional]
+                    "isNeededSetDefault" : true,  //是否需要將使用者於此急救過程中第一次選擇的選項作為預設值，未回傳此參數時，預設為 false [boolean, optional]
+                    "default" : "SCON1U"   //此按鈕有預設值時回傳 itemCode，[string, optional]
+                },
+                "SCON2E" : {    //example for textfield
+                    "type": "textfield",   //元件類別 (button, option, textfield, optionItem) [string]
+                    "displayName": "E:",    //元件顯示名稱 [string]
+                    "displayNameTC": "E:",  //元件顯示名稱(中文) [string]
+                    "default": "1", //預設數值，未回傳此參數時，預設為空值 [string. optional]
+                    "number": true, //值是否只能填入數值，未回傳此參數時，預設為 false [string. optional]
+                    "require" : false //當require為 false 時，使用者可選擇不填入此數值，當使用者不填入數值時，不用紀錄此項，未回傳此參數時，預設為 true [boolean, optional]
+                },
+                "SCON1OP" : {   //example for option
+                    "type": "option",   //元件類別 (button, option, textfield, optionItem) [string]
+                    "options" : [   //選項 (optionItem)
+                        "SCON1A",
+                        "SCON1V",
+                        "SCON1P",
+                        "SCON1U"
+                    ]
+                },
+                "SCON1A" :{ //example for optionItem
+                    "type": "optionItem",
+                    "displayName": "A",
+                    "displayNameTC": "A",
+                    "textInput": true,  //當此選項有附帶欄位可讓使用者填入值，未回傳此參數時，預設為 false[boolean, optional]
+                    "default": "1",  //預設數值 [string. optional]
+                    "number" : true    //當此參數為 true 時，表示此欄位只能填入數值，未回傳此參數時，預設為 false [boolean, optional]
+                }
+            },
+            "content": {
+
+            }
+
+        }
+
+
+## 9/21 - 急救紀錄元件紀錄內容 [/ERRecord/record]
+### 急救紀錄元件紀錄內容 (recordNote) [GET]
+
++ Response 200 (application/json)
+
+        {
+            "example": {    //每一個record Object，皆會產生一筆紀錄，紀錄欄位為time[timestamp]、itemCode、recordNote、text(使用者輸入值)，當無參數 require = false 時，所有選項與欄位皆為必填。
+                "SCON2E" : "昏迷指數:E [\1]",    //當此 item 有使用者填入欄位時，使用者填入值已[\1]表示，如使用者填入值為 2 ，recordNote 將紀錄為 "昏迷指數:E 2"
+                "SCON1A" : "意識評估:清"
+            },
+            "content": {
+
+            }
+
+        }
+
+
+## 9/10 - 急救紀錄邏輯 [/ERRecord/logic]
 ### 取得急救紀錄邏輯 [GET]
 
 + Response 200 (application/json)
