@@ -131,7 +131,7 @@
             "total" : 50  //此次Query總筆數[number]
         }
 
-## 9/22 - 病患配床資訊 [/assignBed/patients/{chartNo}{?waitBedNo,bedCode,date,originDept,isolationCode,isolationReason}]
+## 9/22 - 病患配床資訊 [/assignBed/patients/{chartNo}{?waitBedNo,bedCode,date,originDept,isolationCode,isolationReasonCode,isolationReasonFreeText}]
 ### 取得病患配床資訊[GET]
 
 + Parameters
@@ -204,7 +204,8 @@
    + bedCode (string)   ... 床位代碼
    + date (string)      ... 預定日期(格式為YYYYMMDD)
    + isolationCode  (string, optional)  ... 隔離床等，非選擇隔離床等則不回傳
-   + isolationReason (string, optional) ... 隔離原因，非隔離則不回傳
+   + isolationReasonCode (string, optional) ... 隔離原因代碼，非隔離則不回傳
+   + isolationReasonFreeText (string, optional) ... 使用者選填隔離原因，隔離原因非選其他則不回傳
    + originDept (string, optional)   ... 借床原始科別，非借床則不回傳
 
 
@@ -216,7 +217,8 @@
                 "bedCode": "03A2-01-01",
                 "date": "20151103",
                 "isolationCode" : "general",
-                "isolationReason" : "隔離原因",
+                "isolationReasonCode" : "R1",
+                "isolationReasonFreeText" : "我不想隔離",
                 "originDept": "MED_ICU"         // [optional] 借床原始科別，非借床則不回傳
             },
             "sessionKey": "DD07A0AF4E9F426C838185D8DD19EFE2"
@@ -239,9 +241,20 @@
 
         {
             "content" : [
-                "隔離原因一",
-                "隔離原因二",
-                "隔離原因三"
+                {
+                    "displayName" : "隔離原因一",
+                    "isolationReasonCode" : "r1"
+                },
+                {
+                    "displayName" : "隔離原因一",
+                    "isolationReasonCode" : "e2"
+                },
+                {
+                    "displayName" : "其他",
+                    "isolationReasonCode" : "other",
+                    "textInput": true  //當此選項有附帶欄位可讓使用者填入值時回傳 true，未回傳此參數時，預設為 false[boolean, optional]
+                }
+                ...
             ],
             "limit" : 50, //最大回傳筆數[number]
             "offset" : 0, //回傳資料偏移數[number]
