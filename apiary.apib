@@ -4436,7 +4436,7 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
             "total" : 50  //此次Query總筆數[number]
         }
 
-## 8/4 - 病患配床資訊 [/assignBed/patients/{chartNo}{?waitBedNo,bedCode,date,originDept,isolation}]
+## 9/22 - 病患配床資訊 [/assignBed/patients/{chartNo}{?waitBedNo,bedCode,date,originDept,isolationCode,isolationReason}]
 ### 取得病患配床資訊[GET]
 
 + Parameters
@@ -4479,7 +4479,17 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
                            "outDate" : 1406938026,      // [optional] 如果沒有指定時間就不用回傳
                            "bedCode" : "03A2-01-01",
                            "bedStatus" : "empty",       //床狀態[string](空床：“empty”;住院中，無人預定:"occupied";住院中，後有預定:"nonAvailable";預定出院:"available")
-                           "isolation" : false          //是否可選擇隔離[boolean]
+                           "isolation" : [  //是否可轉換為隔離床，UI上需另外顯示一個選單讓使用者選擇[array]
+                                {
+                                    "displayName" : "一般隔離",
+                                    "isolationCode" : "general"
+                                },
+                                {
+                                    "displayName" : "負壓隔離",
+                                    "isolationCode" : "neg"
+                                },
+                                ...
+                           ]
                      }
                   },
                   ...
@@ -4498,7 +4508,8 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
    + waitBedNo (string) ... 候床單號
    + bedCode (string)   ... 床位代碼
    + date (string)      ... 預定日期(格式為YYYYMMDD)
-   + isolation (string, optional)   ... 隔離原因，非隔離則不回傳
+   + isolationCode  (string, optional)  ... 隔離床等，非選擇隔離床等則不回傳
+   + isolationReason (string, optional) ... 隔離原因，非隔離則不回傳
    + originDept (string, optional)   ... 借床原始科別，非借床則不回傳
 
 
@@ -4509,7 +4520,8 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
                 "waitBedNo": "123456",
                 "bedCode": "03A2-01-01",
                 "date": "20151103",
-                "isolation" : "一般隔離",
+                "isolationCode" : "general",
+                "isolationReason" : "隔離原因",
                 "originDept": "MED_ICU"         // [optional] 借床原始科別，非借床則不回傳
             },
             "sessionKey": "DD07A0AF4E9F426C838185D8DD19EFE2"
@@ -4519,6 +4531,27 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
 
         {
             "success": true
+        }
+
+## 9/22 - 隔離床等所搭配的隔離原因 [/assignBed/isolationReason/{isolationCode}]
+### 取得隔離床等所搭配的隔離原因[GET]
+
++ Parameters
+
+   + isolationCode (string)   ... 隔離床等代碼
+
++ Response 200 (application/json)
+
+        {
+            "content" : [
+                "隔離原因一",
+                "隔離原因二",
+                "隔離原因三"
+            ],
+            "limit" : 50, //最大回傳筆數[number]
+            "offset" : 0, //回傳資料偏移數[number]
+            "total" : 50  //此次Query總筆數[number]
+
         }
 
 ## 8/4 - 醫師可指定之病患配床原始科別資訊 [/assignBed/originDept]
