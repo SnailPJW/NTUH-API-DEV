@@ -94,27 +94,31 @@
 
         {
             "sessionKey": "B06CAB943EE0456EBFDAE0F3C4600327",
-            "request_001": {
-                "path": "/notification/notification_id_001",
-                "method": "PUT",
-                "contentType": "application/json",
-                "body": {
-                    "content": {
-                        "confirmed": true
+            "requests": [
+                {
+                    "requestId": "request001",
+                    "path": "/notification/notification_id_001",
+                    "method": "PUT",
+                    "contentType": "application/json",
+                    "body": {
+                        "content": {
+                            "confirmed": true
+                        }
                     }
-                }
-            },
-            "request_002": {
-                "path": "/notification/notification_id_002",
-                "method": "PUT",
-                "contenType": "application/json",
-                "body": {
-                    "content": {
-                        "confirmed": true
+                },
+                {
+                    "requestId": "request002",
+                    "path": "/notification/notification_id_002",
+                    "method": "PUT",
+                    "contentType": "application/json",
+                    "body": {
+                        "content": {
+                            "confirmed": true
+                        }
                     }
-                }
-            },
-            ...
+                },
+                ...
+            ]
         }
 
 
