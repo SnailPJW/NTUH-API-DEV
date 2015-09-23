@@ -277,6 +277,10 @@ GET reportLink?sessionKey={sessionKey}&url={url}
 
 - Parameters for each command can be found with the **-h** option
 
+- Using CLI to generate the html template for the specific apiary file:
+
+	``aglio -i bulletin.apib -o ~/Desktop/bulletin.html``
+
 ### 2. Procedure:
 - Modify the corresponding apiary file(s)
 - Change the git tag & run version_update if necessary
