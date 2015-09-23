@@ -97,7 +97,7 @@
             "request_001": {
                 "path": "/notification/notification_id_001",
                 "method": "PUT",
-                "content-type": "application/json",
+                "contentType": "application/json",
                 "body": {
                     "content": {
                         "confirmed": true
@@ -107,7 +107,7 @@
             "request_002": {
                 "path": "/notification/notification_id_002",
                 "method": "PUT",
-                "content-type": "application/json",
+                "contenType": "application/json",
                 "body": {
                     "content": {
                         "confirmed": true
@@ -121,11 +121,15 @@
 + Response 200 (application/json)
 
         {
-            "request_001": {
-                "success": true
-            },
-            "request_002": {
-                "success": true
-            },
-            ...
+            "requests": [
+                {
+                    "requestId": "request001",
+                    "success": true
+                },
+                {
+                    "requestId": "request002",
+                    "success": true
+                }
+                ...
+            ]
         }
