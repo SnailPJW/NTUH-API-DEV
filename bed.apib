@@ -218,8 +218,8 @@
                 "date": "20151103",
                 "isolationCode" : "general",
                 "isolationReasonCode" : "R1",
-                "isolationReasonFreeText" : "我不想隔離",
-                "originDept": "MED_ICU"         // [optional] 借床原始科別，非借床則不回傳
+                "isolationReasonFreeText" : "我不想隔離",        // [string, optional] 當回傳的 isolationReasonCode 所對應的選項 textInput=true 時，就會回傳使用者輸入的文字內容
+                "originDept": "MED_ICU"                         // [optional] 借床原始科別，非借床則不回傳
             },
             "sessionKey": "DD07A0AF4E9F426C838185D8DD19EFE2"
         }
@@ -252,7 +252,7 @@
                 {
                     "displayName" : "其他",
                     "isolationReasonCode" : "other",
-                    "textInput": true  //當此選項有附帶欄位可讓使用者填入值時回傳 true，未回傳此參數時，預設為 false[boolean, optional]
+                    "textInput": true                       //當此選項有附帶欄位可讓使用者填入值時回傳 true，未回傳此參數時，預設為 false[boolean, optional]
                 }
                 ...
             ],
