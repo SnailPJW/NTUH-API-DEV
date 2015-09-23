@@ -1,12 +1,14 @@
 # Group 開發中 Phase2 Order APIs
 
-## 7/21 - 科部清單 [/departments{?sessionKey,hospitalCode,patientClass}]
+## 7/21 - 科部清單 [/departments{?sessionKey,hospitalCode,patientClass,offset,limit}]
 ### 取得科部清單 [GET]
 
 + Parameters
     + sessionKey    (string) ... SessionKey
     + hospitalCode  (string) ... 院區碼
     + patientClass  (string) ... 病患門住急別
+    + offset        (number, optional) ... 設定回傳資料偏移數
+    + limit         (number, optional) ... 設定最大回傳筆數
 
 + Response 200 (application/json)
 
@@ -21,10 +23,13 @@
                     "code": "DEPT_002"
                 },
                 ...
-            ]
+            ],
+            "total": 10,                // [number] 此次Query總筆數
+            "offset": 0,                // [number] 回傳資料偏移數
+            "limit": 100                // [number] 最大回傳筆數
         }
 
-## 9/15 - 醫令介面常用清單 [/interface/order/dictionary/{sessionKey,dictionaryId,hospitalCode,patientClass,offset,limit}]
+## 9/15 - 醫令介面常用清單 [/interface/order/dictionary/{dictionaryId}{?sessionKey,hospitalCode,patientClass,offset,limit}]
 ### 取得 dictionaryId 所對應之常用清單 [GET]
 
 + Parameters
@@ -247,6 +252,29 @@
                     "Staging",
                     ...
                 ],
+                "questionaries": [
+                    {
+                        "title": "是否需打顯影劑",
+                        "returnKey": "MRI_question_001",
+                        "options": [
+                            {
+                                "title": "with contrast",
+                                "returnValue": "optional_a",    // [string] 回傳時該選項所對應的值
+                                "note": "無法開立 MRI 請洽65641"  // [optional] 如果本選項被選取時，要顯示在介面上的警告提示
+                            },
+                            {
+                                "title": "without contrast",
+                                "returnValue": "optional_b"     // [string] 回傳時該選項所對應的值
+                            },
+                            {
+                                "title": "wiht/without contrast",
+                                "returnValue": "optional_c",    // [string] 回傳時該選項所對應的值
+                                "note": "無法開立 MRI 請洽65641"  // [optional] 如果本選項被選取時，要顯示在介面上的警告提示
+                            }
+                        ]
+                    },
+                    ...
+                ],
                 "groups": [
                     {
                         "title": "四肢與脊椎常用醫令",                                           // [string, optional] Group 標題 若無則不用回傳
@@ -316,14 +344,15 @@
         {
             "content": [
                 {
-                    "orderCode":        "T0_123123_T",      // [string] 醫令碼包含 院區碼_ID_醫令類別
-                    "hospitalCode":     "HQ",               // [string] 院區碼
-                    "orderName":        "測試醫令",           // [string] 醫令名稱
-                    "screenNote":       "重要提示",           // [string, optional] 重要提示 顯示於介面中
-                    "isEmergency":      true,               // [boolean] 是否支援急做
-                    "subType":          "N",                // [string, optional] orderType = T 時使用 一般為 N, 手術為 O, 麻醉為 A, 齒位為 D, 技工所為 E, 復健為 P
-                    "frequency":        "STAT",             // [string, optional] 預設執行頻率 orderType = K 時使用， 頻率 (輸入時要用 autocomplete)
-                    "specimenList":     [                   // [optional] orderType = L 時使用
+                    "orderCode":        "T0_123123_T",              // [string] 醫令碼包含 院區碼_ID_醫令類別
+                    "hospitalCode":     "HQ",                       // [string] 院區碼
+                    "orderName":        "測試醫令",                  // [string] 醫令名稱
+                    "screenNote":       "重要提示",                  // [string, optional] 重要提示 顯示於介面中
+                    "isEmergency":      true,                       // [boolean] 是否支援急做
+                    "subType":          "N",                        // [string, optional] orderType = T 時使用 一般為 N, 手術為 O, 麻醉為 A, 齒位為 D, 技工所為 E, 復健為 P
+                    "requireCreInfo":   false,                      // [boolean] 是否需要顯示 cre 介面,
+                    "planExecutionTimeFormat": "yyyy/mmdd HH",      // [string] 預計執行時間的 format
+                    "specimenList":     [                           // [optional] orderType = L 時使用
                         {
                             "code": "ts1",                  // [string] 檢體代號
                             "title": "TEST_SPECIMEN_1",     // [string] 檢體名稱
@@ -471,6 +500,10 @@
                     	"timestamp": 13001321,          // [number(timestamp)] 執行時間的 timestamp 數值
                     	"format": "YYYY/MM/DD"          // [string] 有關執行時間要如何顯示的 datetime format
                     },
+                    "creInfo": {                        // [optional] 當醫令 requireCreInfo=true 需要顯示 cre 介面時會回傳
+                        "cre": 22.3,                    // [number, optional] 如果有需要填入 cre 值時所填入的數值 且有填入數值時會回傳
+                        "emergency": false              // [boolean] 生命危及之緊急狀況項目是否被勾選
+                    },
                     "specialInstruction": "Test 1",     // [string] 特殊醫囑
                     "questionaries": [                  // [optional] 問答題答案，若無則不會傳入
                         {
@@ -558,22 +591,23 @@
         }
 
 ## 7/20 開立影像醫學醫令 [/account/{accountNo}/orderRecords{?orderCode,sessionKey,orderRecordId}]
-### 開立醫令 [POST]
+### 從快速開立介面開立影像醫學醫令 [POST]
 
 + Request IssueMedicalImageOrders (application/json)
 
 
         {
             "content": {
-                "payment": "PAYMENT_SELECTION_SELF",            // [optional] 以下為表格填寫的資料
-                "patientInfo": [
+                "billType": "E",                                // [string] 記帳類別
+                "isEmergency": false,                           // [boolean] 是否急做
+                "questionaries": [
                     {
-                        "dictionaryId": "plain_film_dictionary_001",        // [string] patientInfo 所對應的問題的 dictionaryId
-                        "selection": "plain_film_dictionary_001_item_001"   // [string] 對於這個問題使用者所選取項目的代碼
+                        "returnKey": "MRI_question_001",                    // [string] 選單介面所對應的 returnKey
+                        "selected": "optional_a"                            // [string] 對於這個問題使用者所選取項目的 returnValue
                     },
                     {
-                        "dictionaryId": "plain_film_dictionary_002",        // [string] patientInfo 所對應的問題的 dictionaryId
-                        "selection": "plain_film_dictionary_002_item_004"   // [string] 對於這個問題使用者所選取項目的代碼
+                        "returnKey": "MRI_question_002",                    // [string] patientInfo 所對應的問題的 dictionaryId
+                        "selected": "optiona_b"                             // [string] 對於這個問題使用者所選取項目的 returnValue
                     },
                     ...
                 ],
@@ -585,8 +619,8 @@
                 ],
                 "specialInstruction": "xxx",                    // [string] 特殊醫囑之輸入內容
                 "creInfo": {
-                    "cre": 22.3,                                // [number, optional] 如果有需要填入 cre 值時所填入的數值
-                    "emergency": true,                          // [boolean] 生命危及之緊急狀況項目是否被勾選
+                    "cre": 22.3,                                // [number, optional] 如果有需要填入 cre 值時所填入的數值 只有在系統查佈道病患 cre 值且使用者有填值時才會回傳
+                    "emergency": true,                          // [boolean, optional] 生命危及之緊急狀況項目是否被勾選 只有在系統查不到病患 cre 值才要回傳
                     "creatinine": false                         // [boolean] 加開 creatinine 是否被勾選
                 }
             },
@@ -805,17 +839,19 @@
 
         {
             "sessionKey": "DE44A33624064BFCB0BBAFDB9A509C16",
-            "content": {
-                "request_001": {
+            "requests": [
+                {
+                    "requestId": "request001",
                     "path": "/account/{accountNo}/orderRecords?orderRecordId=T32132012",
                     "method": "DELETE"
                 },
-                "request_002": {
+                {
+                    "requestId": "request002"
                     "path": "/account/{accountNo}/orderRecords?orderRecordId=T32132013",
                     "method": "DELETE"
                 },
                 ...
-            }
+            ]
         }
 
 + Response 200 (application/json)
