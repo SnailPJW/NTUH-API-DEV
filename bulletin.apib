@@ -30,7 +30,7 @@
         }
 
 
-## 6/4 - 病患留言板系統 [/bulletin/{chartNo}/topics{?startDate,endDate,offset,limit,empNo,title,content,sessionKey,authGroup}]
+## 9/18 - 病患留言板系統 [/bulletin/{chartNo}/topics{?startDate,endDate,offset,limit,empNo,title,content,sessionKey,authGroup,notificationIndex}]
 ### 取得病患所對應之布告欄內容[GET]
 + Parameters
     + offset (number, optional) ... 資料偏移數，需與 limit 一起傳入
@@ -51,6 +51,12 @@
                     },
                     "created":    1406938026,    // the timestamp for the created time. [number(timestamp)]
                     "updated":    1406940112,    // the timestamp for the last updated time [number(timestamp)]
+                    "notificationIndex": 0,      // [number] 在前次編輯或建立時是否設定要傳送簡訊給 主治-住院-護理師
+                    "notificationTargets": [     // [optional] 在前次編輯或建立時設定要另外傳送通知簡訊的清單 若無則回傳空 list
+                        "111281",
+                        "111231",
+                        ...
+                    ],
                     "title":      "HELLO",       // the title [string]
                     "message":    "hello world", // the message content [string]
                     "id":         "A12-40321",   // the identifier for the topic [string]
@@ -64,6 +70,12 @@
                                 },
                                 "created": 1406939126,                  // the timestamp for the created time. [number(timestamp)]
                                 "updated": 1407000112,                  // the timestamp for last updated time. [number(timestamp)]
+                                "notificationIndex": 0,                 // [number] 在前次編輯或建立時是否設定要傳送簡訊給 主治-住院-護理師
+                                "notificationTargets": [                // [optional] 在前次編輯或建立時設定要另外傳送通知簡訊的清單 若無則回傳空 list
+                                    "111281",
+                                    "111231",
+                                    ...
+                                ],
                                 "message": "This is the test reply.",   // the message content [string]
                                 "id": "R12-3012",                       // the identifier for the reply [string]
                                 "editable": false                       // the flag that indicated weather the user could edit reply. [boolean]
@@ -88,6 +100,7 @@
     + title (string)        ... 主題標題
     + content (string)      ... 主題訊息內容
     + authGroup (string)    ... 設定開放權限, 'A'=私人, 'B'=開放所有人瀏覽, 'C'=開放所有人編輯
+    + notificationIndex (number) ... 設定是否要傳送簡訊給 主治-住院-護理師  0 都不傳 1 護理師 2 住院 3 住院與護理師 4 主治 5 主治與護理師 6 主治與住院 7 所有人
     + sessionKey (string)   ... Session Key
 
 + Request AppendTopic (application/json)
@@ -96,7 +109,13 @@
             "content": {
                 "title": "THE_TOPIC_TITLE",
                 "content": "the content of the topic should be here",
-                "authGroup": "B"
+                "authGroup": "B",
+                "notificationIndex": 0,     // 設定是否要傳送簡訊給 主治-住院-護理師  0 都不傳 1 護理師 2 住院 3 住院與護理師 4 主治 5 主治與護理師 6 主治與住院 7 所有人
+                "notificationTargets": [    // 設定要另外傳送通知簡訊的清單 若無則回傳空的 list
+                    "111281",
+                    "111231",
+                    ...
+                ]
             },
             "empNo": "111281",
             "sessionKey": "DD07A0AF4E9F426C838185D8DD19EFE2"
@@ -136,7 +155,7 @@
         }
 
 
-## 6/4 - 留言板系統之主題 [/bulletin/topic/{topicId}{?empNo,title,content,sessionKey,chartNo,authGroup}]
+## 9/18 - 留言板系統之主題 [/bulletin/topic/{topicId}{?empNo,title,content,sessionKey,chartNo,authGroup,notificationIndex}]
 ### 取得留言板某個主題[GET]
 + Parameters
     + topicId (string)      ... The identifier for the specified topic.
@@ -153,6 +172,12 @@
                 },
                 "created":     1406938026,      // [number(timestamp)]
                 "updated":     1406940012,      // [number(timestamp)]
+                "notificationIndex": 0,         // [number] 在前次編輯或建立時是否設定要傳送簡訊給 主治-住院-護理師
+                "notificationTargets": [        // [optional] 在前次編輯或建立時設定要另外傳送通知簡訊的清單 若無則回傳空 list
+                    "111281",
+                    "111231",
+                    ...
+                ],
                 "title":       "HELLO",         // [string]
                 "message":     "hello world",   // [string]
                 "id":          "A13-3321",      // [string]
@@ -166,6 +191,12 @@
                             },
                             "created":  1406939126,                 // the timestamp for the created time. [number(timestamp)]
                             "updated":  1407000123,                 // the timestamp for the updated time. [number(timestamp)]
+                            "notificationIndex": 0,                 // [number] 在前次編輯或建立時是否設定要傳送簡訊給 主治-住院-護理師
+                            "notificationTargets": [                // [optional] 在前次編輯或建立時設定要另外傳送通知簡訊的清單 若無則回傳空 list
+                                "111281",
+                                "111231",
+                                ...
+                            ],
                             "message": "This is the test reply.",   // the message content [string]
                             "id": "R12-3012",                       // the identifier for the reply [string]
                             "editable": false                       // the flag that indicated weather the user could edit reply. [boolean]
@@ -195,11 +226,16 @@
                 "topicId": "topic_001",
                 "title": "NEW_TITLE",           // [optional] 有需要修改才會上傳
                 "content": "new content",       // [optional] 有需要修改才會上傳
-                "authGroup": "A"                // [optional] 有需要修改才會上傳
+                "authGroup": "B",               // [optional] 有需要修改才會上傳
+                "notificationIndex": 0,         // 設定是否要傳送簡訊給 主治-住院-護理師  0 都不傳 1 護理師 2 住院 3 住院與護理師 4 主治 5 主治與護理師 6 主治與住院 7 所有人
+                "notificationTargets": [        // 設定要另外傳送通知簡訊的清單 若無則回傳空的 list
+                    "111281",
+                    "111231",
+                    ...
+                ]
             },
             "empNo": "111281",
             "chartNo": "E11532111",
-            "empNo":    "111281",
             "sessionKey": "DD07A0AF4E9F426C838185D8DD19EFE2"
         }
 
@@ -249,7 +285,7 @@
             "message": "無存取權限"
         }
 
-## 6/4 - 留言板系統指定主題之回應 [/bulletin/topic/{topicId}/replies{?empNo,content,offset,limit,sessionKey}]
+## 9/18 - 留言板系統指定主題之回應 [/bulletin/topic/{topicId}/replies{?empNo,content,offset,limit,sessionKey}]
 ### 取得指定主題之所有回應 [GET]
 + Parameters
     + topicId (string)          ... the identifier for the specified topic.
@@ -268,6 +304,12 @@
                     },
                     "created": 1406939126,                  // the timestamp for the created time. [number(timestamp)]
                     "updated": 1407000123,                  // the timestamp for the updated time. [number(timestamp)]
+                    "notificationIndex": 0,                 // [number] 在前次編輯或建立時是否設定要傳送簡訊給 主治-住院-護理師
+                    "notificationTargets": [                // [optional] 在前次編輯或建立時設定要另外傳送通知簡訊的清單 若無則回傳空 list
+                        "111281",
+                        "111231",
+                        ...
+                    ],
                     "message": "This is the test reply.",   // the message content [string]
                     "id": "R12-3012",                       // the identifier for the reply [string]
                     "editable": false                       // the flag that indicated weather the user could edit reply. [boolean]
@@ -291,7 +333,14 @@
         {
             "content": {
                 "topicId": "topic_001",
-                "content": "put the feedback message here"
+                "content": "put the feedback message here",
+                "authGroup": "B",
+                "notificationIndex": 0,                 // [number] 在前次編輯或建立時是否設定要傳送簡訊給 主治-住院-護理師
+                "notificationTargets": [                // [optional] 在前次編輯或建立時設定要另外傳送通知簡訊的清單 若無則回傳空 list
+                    "111281",
+                    "111231",
+                    ...
+                ]
             },
             "empNo": "111281",
             "sessionKey": "DD07A0AF4E9F426C838185D8DD19EFE2"
@@ -328,7 +377,7 @@
         }
 
 
-## 6/4 - 留言板系統之回應 [/bulletin/reply/{replyId}{?empNo,content,sessionKey,chartNo}]
+## 9/18 - 留言板系統之回應 [/bulletin/reply/{replyId}{?empNo,content,sessionKey,chartNo}]
 ### 取得留言板某個回應[GET]
 + Parameters
     + replyId (string)      ... The identifier for the specified reply.
@@ -345,6 +394,12 @@
                 },
                 "created":     1406938026,      // created time. [number(timestamp)]
                 "updated":     1407000123,      // the last updated time. [number(timestamp)]
+                "notificationIndex": 0,         // [number] 在前次編輯或建立時是否設定要傳送簡訊給 主治-住院-護理師
+                "notificationTargets": [        // [optional] 在前次編輯或建立時設定要另外傳送通知簡訊的清單 若無則回傳空 list
+                    "111281",
+                    "111231",
+                    ...
+                ],
                 "message":     "hello world",   // [string]
                 "id":          "A13-3321",      // [string]
                 "editable":    false
@@ -363,7 +418,14 @@
         {
             "content": {
                 "replyId": "rep_001",
-                "content": "put the updated message here"
+                "content": "put the updated message here",
+                "authGroup": "B",
+                "notificationIndex": 0,                 // [number] 在前次編輯或建立時是否設定要傳送簡訊給 主治-住院-護理師
+                "notificationTargets": [                // [optional] 在前次編輯或建立時設定要另外傳送通知簡訊的清單 若無則回傳空 list
+                    "111281",
+                    "111231",
+                    ...
+                ]
             },
             "empNo": "111281",
             "sessionKey": "DD07A0AF4E9F426C838185D8DD19EFE2"
