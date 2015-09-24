@@ -1,9 +1,7 @@
 FORMAT: 1A
 HOST: http://www.wantoto.com
 
-
-# DEV台大醫院行動醫療資訊系統 Web Service v1.7.0
-
+# DEV台大醫院行動醫療資訊系統 Web Service v1.6.4
 採用 RESTful 架構規劃。所有字串編碼皆為UTF-8。
 
 # Group 登入與取得或驗證 SessionKey
@@ -3326,8 +3324,8 @@ HOST: http://www.wantoto.com
                     "billType": "E",                    // [string] 記帳類別
                     "isEmergency": false,               // [boolean] 是否急做
                     "planExecutiontime": {              // [optional] 預計執行時間相關資訊
-                    	"timestamp": 13001321,          // [number(timestamp)] 執行時間的 timestamp 數值
-                    	"format": "YYYY/MM/DD"          // [string] 有關執行時間要如何顯示的 datetime format
+                        "timestamp": 13001321,          // [number(timestamp)] 執行時間的 timestamp 數值
+                        "format": "YYYY/MM/DD"          // [string] 有關執行時間要如何顯示的 datetime format
                     },
                     "creInfo": {                        // [optional] 當醫令 requireCreInfo=true 需要顯示 cre 介面時會回傳
                         "cre": 22.3,                    // [number, optional] 如果有需要填入 cre 值時所填入的數值 且有填入數值時會回傳
@@ -3607,8 +3605,8 @@ HOST: http://www.wantoto.com
                     "verifier": "111283",                // [string]  確認醫師員工編號
                     "isEmergency": false,                // [boolean] 是否急做
                     "planExecutiontime": {              // [optional] 預計執行時間相關資訊
-                    	"timestamp": 13001321,     // [number(timestamp)] 執行時間的 timestamp 數值
-                    	"format": "YYYY/MM/DD"     // [string] 有關執行時間要如何顯示的 datetime format
+                        "timestamp": 13001321,     // [number(timestamp)] 執行時間的 timestamp 數值
+                        "format": "YYYY/MM/DD"     // [string] 有關執行時間要如何顯示的 datetime format
                     },
                     "specialInstruction": "Test 1",      // [string] 特殊醫囑
                     "bedId": "b3dID",                    // [string] 床號
@@ -4564,7 +4562,7 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
             "total" : 50  //此次Query總筆數[number]
         }
 
-## 9/22 - 病患配床資訊 [/assignBed/patients/{chartNo}{?waitBedNo,bedCode,date,originDept,bedClassCode,isolationReasonCode,isolationReasonFreeText}]
+## 9/22 - 病患配床資訊 [/assignBed/patients/{chartNo}{?waitBedNo,bedCode,date,originDept,isolationCode,isolationReasonCode,isolationReasonFreeText}]
 ### 取得病患配床資訊[GET]
 
 + Parameters
@@ -4610,11 +4608,11 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
                            "isolation" : [  //是否可轉換為隔離床，UI上需另外顯示一個選單讓使用者選擇[array]
                                 {
                                     "displayName" : "一般隔離",
-                                    "bedClassCode" : "general"
+                                    "isolationCode" : "general"
                                 },
                                 {
                                     "displayName" : "負壓隔離",
-                                    "bedClassCode" : "neg"
+                                    "isolationCode" : "neg"
                                 },
                                 ...
                            ]
@@ -4636,7 +4634,7 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
    + waitBedNo (string) ... 候床單號
    + bedCode (string)   ... 床位代碼
    + date (string)      ... 預定日期(格式為YYYYMMDD)
-   + bedClassCode   (string, optional)  ... 床等，非選擇床等則不回傳
+   + isolationCode  (string, optional)  ... 隔離床等，非選擇隔離床等則不回傳
    + isolationReasonCode (string, optional) ... 隔離原因代碼，非隔離則不回傳
    + isolationReasonFreeText (string, optional) ... 使用者選填隔離原因，隔離原因非選其他則不回傳
    + originDept (string, optional)   ... 借床原始科別，非借床則不回傳
@@ -4649,7 +4647,7 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
                 "waitBedNo": "123456",
                 "bedCode": "03A2-01-01",
                 "date": "20151103",
-                "bedClassCode" : "general",
+                "isolationCode" : "general",
                 "isolationReasonCode" : "R1",
                 "isolationReasonFreeText" : "我不想隔離",        // [string, optional] 當回傳的 isolationReasonCode 所對應的選項 textInput=true 時，就會回傳使用者輸入的文字內容
                 "originDept": "MED_ICU"                         // [optional] 借床原始科別，非借床則不回傳
