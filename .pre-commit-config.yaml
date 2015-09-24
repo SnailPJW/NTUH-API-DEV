@@ -3,6 +3,6 @@
     hooks:
     -   id: trailing-whitespace
 -   repo: https://github.com/benjamin99Tsai/pre-commit-apiary.git
-    sha: 8017187b997f9754293062e8104d7249b5a3e10a
+    sha: f9c0c625d0b1048ef538078e6e1b7a7efa33e755
     hooks:
     -   id: apiary-validation
