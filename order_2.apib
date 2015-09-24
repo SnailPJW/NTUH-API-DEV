@@ -175,6 +175,7 @@
                         "searchType": "P",              // [string] 搜尋來源類別
                         "orderIdse": "128351",          // [string, optional] 醫囑預設參數識別碼如果沒有例如 searchType == N 不回傳
                         "isVirtualOrder":   false,      // [boolean] 是否為虛擬醫令 如果是的話不能做 cache
+                        "display": "order",             // [string] a reference key to the data in the content; the data will be used as the display title
                         "content" : {
                             "DisplayCode" : "000L0114",
                             "orderType" : "治療",
@@ -186,10 +187,11 @@
                         "searchType": "P",              // [string] 搜尋來源類別
                         "orderIdse": "321110123",       // [string, optional] 醫囑預設參數識別碼如果沒有例如 searchType == N 不回傳
                         "isVirtualOrder":   false,      // [boolean] 是否為虛擬醫令
+                        "display": "order",             // [string] a reference key to the data in the content; the data will be used as the display title
                         "content" : {
                             "DisplayCode" : "000L0113",
                             "orderType" : "治療",
-                            "order"     : "複印咬合片Ｘ光照相"
+                            "order"     : "複印咬合片Ｘ光照相 劑量: 20um"
                         }
                     },
                     {
@@ -197,6 +199,7 @@
                         "searchType": "P",              // [string] 搜尋來源類別
                         "orderIdse": "11023",           // [string, optional] 醫囑預設參數識別碼如果沒有例如 searchType == N 不回傳
                         "isVirtualOrder":   false,      // [boolean] 是否為虛擬醫令
+                        "display": "order",             // [string] a reference key to the data in the content; the data will be used as the display title
                         "content" : {
                             "DisplayCode" : "000L0112",
                             "orderType" : "治療",
@@ -497,7 +500,7 @@
                     "billType": "E",                    // [string] 記帳類別
                     "isEmergency": false,               // [boolean] 是否急做
                     "planExecutiontime": {              // [optional] 預計執行時間相關資訊
-                    	"timestamp": 13001321,          // [number(timestamp)] 執行時間的 timestamp 數值
+                        "timestamp": 13001321,          // [number(timestamp)] 執行時間的 timestamp 數值
                     	"format": "YYYY/MM/DD"          // [string] 有關執行時間要如何顯示的 datetime format
                     },
                     "creInfo": {                        // [optional] 當醫令 requireCreInfo=true 需要顯示 cre 介面時會回傳
@@ -664,7 +667,7 @@
         }
 
 
-## 6/16 醫令交易檔 ID 所對應之病患醫令記錄 [/account/{accountNo}/orderRecord/{orderRecordId}{?quantity,billType,expectedExTime,confirmedTime,stage,status,sessionKey,orderRecordIds,verifier,isEmergency,specialInstruction,bedId}]
+## 6/16 醫令交易檔 ID 所對應之病患醫令記錄 [/account/{accountNo}/orderRecord/{orderRecordId}{?quantity,billType,expectedExTime,confirmedTime,stage,status,sessionKey,orderRecordIds,verifier,isEmergency,specialInstruction}]
 
 ### 取得醫令記錄內容 [GET]
 + Parameters
@@ -679,25 +682,26 @@
                 "orderSeqNo": "P0002",              // [string] 醫令序號 (登記排程使用)
                 "hospitalCode": "HQ",               // [string] 院區碼
                 "accountNo": "8ccoun7n0",           // [string] 記帳帳號
-                "bedId": "b3dID",                   // [string] 床號
                 "orderName": "Testing Order",       // [string] 醫令名稱
                 "patientClass": "E",                // [string] 病患門住急別
                 "quantity": 10,                     // [number] 數量
                 "billType": "Z",                    // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
-                "expectedExTime": 1406938026,       // [number(timestamp)] 預計執行時間
+                "planExecutiontime": {              // [optional] 預計執行時間相關資訊
+                    "timestamp": 13001321,          // [number(timestamp)] 執行時間的 timestamp 數值
+                    "format": "YYYY/MM/DD"          // [string] 有關執行時間要如何顯示的 datetime format
+                },
                 "confirmedTime": 1407038026,        // [number(timestamp)] 確認時間
                 "creator": "111281",                // [string] 開立醫囑者員工編號
                 "verifier": "111281",               // [string] 確認醫師員工編號
                 "isEmergency": false,               // [boolean] 是否急做
-                "stage": "一般",                     // [string] 階段
+                "stage": 0,                         // [number] 階段代碼 詳細對應資料從 dictionary 抓
                 "status": "開立",                    // [string] 狀態
-                "scheduled": false,                 // [boolean] 是否已經排程
                 "specialInstruction": "特殊醫囑內容",  // [string] 特殊醫囑
                 "startActivateDatetime": 1435744800, // [number(timestamp), optional] 醫令有效起日 K類醫囑使用
                 "endActivateDatetime": 1438423200,   // [number(timestamp), optional] 醫令有效迄日 K類醫囑使用
                 "frequency": "QD",                   // [string] 頻率碼 K類醫囑使用
                 "isBedside": false,                  // [boolean, optional] 是否為床邊攝影 R類醫囑使用
-                "specimenCode": "sp1",               // [string] 檢體代碼 L類醫囑使用
+                "specimenValue": "sp1",               // [string] 檢體代碼 L類醫囑使用
                 "questionaries": [                     // [optional] 問題清單答案
                     {
                         "displayTitle": "SINGLE_SELECTION",     // [string] 問題顯示題目
@@ -763,7 +767,6 @@
     + status             (string) ... 階段
     + stage              (string) ... 狀態
     + specialInstruction (string) ... 特殊醫囑內容
-    + bedId              (string) ... 床號
 
 + Request ModifyOrder (application/json)
 
@@ -782,12 +785,11 @@
                     	"format": "YYYY/MM/DD"     // [string] 有關執行時間要如何顯示的 datetime format
                     },
                     "specialInstruction": "Test 1",      // [string] 特殊醫囑
-                    "bedId": "b3dID",                    // [string] 床號
                     "startActivateDatetime": 1435744800, // [number(timestamp), optional] 醫令有效起日 K類醫囑使用
                     "endActivateDatetime": 1438423200,   // [number(timestamp), optional] 醫令有效迄日 K類醫囑使用
                     "frequency": "QD",                   // [string] 頻率碼 K類醫囑使用
                     "isBedside": false,                  // [boolean, optional] 是否為床邊攝影 R類醫囑使用
-                    "specimenCode": "sp1",               // [string] 檢體代碼 L類醫囑使用
+                    "specimenValue": "sp1",               // [string] 檢體代碼 L類醫囑使用
                     "questionaries": [                   // [optional] 問答題答案，若無則不會傳入
                         {
                             "returnKey": "d_selection_example",     // [string] 問答題對應鍵值
