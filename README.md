@@ -156,11 +156,11 @@
 ###1. The string format for SpecialDoseOptions [/medication/specialDoseOptions]
 - For example:
 
-		"take __{%f:dose1}__mg in the morning, take __{%f:dose2}__mg in the afternoon"
+		"take __{%f:dose1}__ __{%u}__ in the morning, take __{%f:dose2}__ __{%u}__ in the afternoon"
 
-  will generate following element on the user interface:
+  will generate following element on the user interface (while the dose unit is mg):
 
-  ** take `(  )`mg in the morning, take `(  )`mg in the afternoon **
+  ** take `(  )` mg in the morning, take `(  )` mg in the afternoon **
 
 - If the user fill the input box like this:
 
@@ -187,8 +187,8 @@
 | text                    |   %s   | The input box for plain text content.                      |
 | single selection item   |   %p   | Define the option for single selection.                    |
 | multiple selection item |   %m   | Define the option for multiple selection.                  |
-| hour picker             |   %h   | The dropdown menu for selecting specific hour in a day.    |
-
+| time picker             |   %t   | The dropdown menu for selecting specific hour in a day.    |
+| unit             		  |   %u   | Indicate the place where to put the "dose unit"            |
 
 ## IV. Parameters (chartNo, accountNo, hospitalCode, and IOEtag)
 ---
