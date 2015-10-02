@@ -18,10 +18,6 @@
                 "doseUnit":                 "mg",                     // [string] 藥品劑量使用單位名稱
                 "packUnit":                 "mg",                     // [string] 藥品包裝劑量使用單位名稱
                 "packConvertRate":          1,                        // [number] 一個包裝內有幾個 dose unit
-                "defaultDose":              "0.13",                   // [string, optional] 藥品預設劑量 若無則不用回傳
-                "defaultRoute":             "IF",                     // [string, optional] 預設途徑代碼 若無則不用回傳
-                "defaultRepeatedPattern":   "QD",                     // [string, optional] 預設頻率代碼 若無則不用回傳
-                "defaultUseDays":           0,                        // [number] 預設使用天數 若無則不用回傳
                 "billType":                 "Z",                      // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
                 "createdTime":              1435744800,               // [number(timestamp)] 此項處方醫令編輯起始時間 (UI 介面顯示用)
                 "specialDose":              "TEXT_CONTENT ...",       // [string, optional] 特殊劑量 若無則不用回傳
@@ -98,6 +94,38 @@
                 "link": "EXTERNAL LINK"                         // [string] the redirect link for the Safari
             }
         }
+
+## 6/25 - 醫令碼所對應的醫令 [/medicationOrder/{medicationCode}/defaultValues{?sessionKey,accountNo,searchType,patientClass,orderIdse,planDate,orderStage,planExecutionTime}]
+### 取得醫令範本的預設值 [GET]
++ Parameters
+    + sessionKey        (string) ... SessionKey
+    + accountNo         (string) ... 帳號
+    + searchType        (string) ... 搜尋類別來源 P,  A
+    + patientClass      (string) ... 門住急別
+    + orderIdse         (string, optional) ... 搜尋藥囑額外識別碼
+
++ Response 200 (application/json)
+
+        {
+            "content": [
+                {
+                    "medicationCode": "T0_3211234_L",                 // [string] 對應的 orderCode 以供處理虛擬醫囑時使用
+                    "diluentAbbreviation": "稀釋液簡稱",               // [string, optional] 預設稀釋液簡稱 ???
+                    "diluentVolume": 10,                             // [number, optional] 預設稀釋液體積
+                    "dose": 10,                                      // [number, optional] 預設劑量
+                    "specialInstruction": "xxx",                     // [string, optional] 預設特殊醫囑
+                    "infusionTime": 10,                              // [number, optional] 預設輸注時間
+                    "mlPerHour":  1,                                 // [number, optional] 預設流速
+                    "OrderStage": "階段",                            // [string, optional] ???
+                    "repeatedPattern": "QD",                        // [string, optional] 預設頻率
+                    "route": "IF",                                  // [string, optional] 預設途徑
+                    "useDays": 1,                                   // [number, optional] 預設􏲟開藥天數
+                    "orderReason":  "xxx"                           // [string, optional] 用藥原因 (例如事前檢核帶入的結果)
+                },
+                ...
+            ]
+        }
+
 
 ## 處方醫令開令記錄 [/account/{accountNo}/medicationRecords{?sessionKey,stateIndex,medicationRecordId}]
 ### 開立處方醫令 [POST]
@@ -186,11 +214,11 @@
 
         {
             "content": [
-                "早 __{%f:dose1}__ 微克, 午 __{%f:dose2}__ 微克, 晚 __{%f:dose3}__ 微克, 睡前 __{%f:dose3}__ 微克, __{%p:selection}__ 飯前 __{%p:selection}__ 飯後",
-                "__{%t:time1}__ 微克, __{%t:time2}__ 微克, __{%t:time3}__ 微克, __{%t:time4}__ 微克.",
+                "早__{%f:dose1}__ __{%u}__, 午__{%f:dose2}__ __{%u}__, 晚__{%f:dose3}__ __{%u}__, 睡前__{%f:dose3}__ __{%u}__, __{%p:selection}__ 飯前 __{%p:selection}__ 飯後",
+                "__{%t:time1}__ __{%u}__, __{%t:time2}__ __{%u}__, __{%t:time3}__ __{%u}__, __{%t:time4}__ __{%u}__.",
                 "指定用法: __{%s:content}__",
-                "一日 __{%f:dose1}__ 微克, 隔日 __{%f:dose2}__ 微克交替使用. __{%p:timeSelection}__ 早(9AM) __{%p:timeSelection}__ 午(1PM) __{%p:timeSelection}__ 晚(6PM) __{%p:timeSelection}__ 睡前(9PM)",
-                "周一 __{%f:mon}__ 微克, 周二 __{%f:tue}__ 微克, 周三 __{%f:wed}__ 微克, 周四 __{%f:thu}__ 微克, 周五 __{%f:fri}__ 微克, 周六 __{%f:sat}__ 微克, 周日 __{%f:sun}__ 微克. __{%p:timeSelection}__ 早(9AM) __{%p:timeSelection}__ 午(1PM) __{%p:timeSelection}__ 晚(6PM) __{%p:timeSelection}__ 睡前(9PM)",
+                "一日 __{%f:dose1}__ __{%u}__, 隔日 __{%f:dose2}__ __{%u}__交替使用. __{%p:timeSelection}__ 早(9AM) __{%p:timeSelection}__ 午(1PM) __{%p:timeSelection}__ 晚(6PM) __{%p:timeSelection}__ 睡前(9PM)",
+                "周一 __{%f:mon}__ __{%u}__, 周二 __{%f:tue}__ __{%u}__, 周三 __{%f:wed}__ __{%u}__, 周四 __{%f:thu}__ __{%u}__, 周五 __{%f:fri}__ __{%u}__, 周六 __{%f:sat}__ __{%u}__, 周日 __{%f:sun}__ __{%u}__. __{%p:timeSelection}__ 早(9AM) __{%p:timeSelection}__ 午(1PM) __{%p:timeSelection}__ 晚(6PM) __{%p:timeSelection}__ 睡前(9PM)",
                 ...
             ]
         }
@@ -246,7 +274,7 @@
 
         {
             "content": {
-                "description": "Alparazalam ((管4)) 安博寧",         // [string] 暫停
+                "description": "Alparazalam ((管4)) 安博寧",         // [string] 暫停醫囑相關資訊
                 "unit": "Dose",                                     // [string] 暫停醫囑使用單位
                 "optionas": [
                     1,                                              // [number] 暫停醫囑選項清單
@@ -260,12 +288,12 @@
                     ...
                 ],
                 "canRestart": false,                                // [boolean] 此藥囑交易記錄是否可以開立重啟醫囑
-                "holdRecords": [
+                "holdRecords": [                                    // 已經開立的 暫停/重啟 醫囑清單，沒有則回傳空陣列
                     {
                         "creator": "111271",            // [string] 開立人之員工編號
                         "createdTime": 1406938026,      // [number(timestamp)] 醫囑開立時間
                         "executionTime": 1406938026,    // [number(timestamp), optional] 執行開始時間 暫停醫囑使用
-                        "type": "hold",                 // [string] 暫停醫囑: hold 重啟醫囑: restart
+                        "type": 0,                      // [number] 暫停醫囑: 0 重啟醫囑: 1
                         "verifier": "111281",           // [string,optional] 確認者, 若無不用回傳
                         "option": 1,                    // [number, optional] 暫停醫囑選項 重啟醫囑不用回傳
                         "recordId": "13-01"             // [string] 暫停/重啟 醫囑交易記錄 ID
@@ -285,7 +313,7 @@
                 "creator": "111287",                // [string] 開立人
                 "executionTime": 1406948026,        // [number(timestamp), optional] 執行開始時間 暫停醫囑使用
                 "option": 10,                       // [number, optional] 暫停醫囑選項(值)
-                "type": "hold"                      // [string] 醫囑種類 暫停醫囑為 hold 重啟醫囑為 restart
+                "type": 0                           // [number] 醫囑種類 暫停醫囑為 0 重啟醫囑為 1
             },
             "sessionKey": "1112131321aqwdqwd"       // [string] SessionKey
         }
