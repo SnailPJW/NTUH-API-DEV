@@ -1132,11 +1132,11 @@ HOST: http://www.wantoto.com
                             "encoding" : "utf-16",                              // 編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
                             "baseURL" : "http://baseUrl.ntuh.gov.tw"            // 報告基礎連結(報告中如有相對連結時回傳)[string, optional]
                         },
-                        "recordId": "D11232000112",                             // [string] 本筆記錄所對應的交易檔 ID (orderRecordId/medicationRecordId)
+                        "recordId": "T0_11232000112_D",                         // [string] 本筆記錄所對應的交易檔 ID (orderRecordId/medicationRecordId)
                         "editable": true,                                       // [boolean] 是否可被編輯
                         "deletable": true,                                      // [boolean] 是否可被刪除
                         "holdable": true,                                       // [boolean] 是否可被暫停 (是為暫停藥囑用 醫囑一律為 false)
-                        "recordType": "medication",                             // [string] 本筆記錄所對應的是醫囑 (order) 或是藥囑 (medication)
+                        "orderType": "K",                                       // [string] 本筆記錄所對應的是醫囑或藥囑 type 醫囑: T, P, X, N, K, L, E, M 藥囑: R
                         "bgColor" : "FFFFFF" //如需調整此列背景顏色則回傳16進位色碼[string,optional]
                     },
                     ...
@@ -3074,11 +3074,6 @@ HOST: http://www.wantoto.com
         {
             "content": {
                 "note": "檢查範圍與內容影像 ...",                            // [string, optional] 注意事項，若無（Plain Film）則不用回傳
-                "patientInfoDictionaries": [
-                    "plain_film_dictionary_001",                          // [string] selection ID 用來在 dictionary 的 edge 搜尋對應的 content 以顯示
-                    "plain_film_dictionary_002",
-                    "plain_film_dictionary_003"
-                ],
                 "indicationOptions": [                                    // [optional] indication 所對應的選項，若無（Plain Film）則不用回傳
                     "Follow Up",
                     "Staging",
@@ -3180,7 +3175,7 @@ HOST: http://www.wantoto.com
                     "hospitalCode":     "HQ",                       // [string] 院區碼
                     "orderName":        "測試醫令",                  // [string] 醫令名稱
                     "screenNote":       "重要提示",                  // [string, optional] 重要提示 顯示於介面中
-                    "isEmergency":      true,                       // [boolean] 是否支援急做
+                    "allowEmergency":   true,                       // [boolean] 是否支援急做
                     "subType":          "N",                        // [string, optional] orderType = T 時使用 一般為 N, 手術為 O, 麻醉為 A, 齒位為 D, 技工所為 E, 復健為 P
                     "requireCreInfo":   false,                      // [boolean] 是否需要顯示 cre 介面,
                     "planExecutionTimeFormat": "yyyy/mmdd HH",      // [string] 預計執行時間的 format
@@ -3296,9 +3291,9 @@ HOST: http://www.wantoto.com
                     "billType": "U",                        // [string, optional] 預設的計價別 (U內含的話顯示內含不可打勾、Z自費打勾、E則不勾) 如果沒有預設不用會傳
                     "orderStage": 1,                        // [number, optional] 預設執行階段的代號 如果沒有預設不用會傳
                     "specialInstruction": "特殊醫囑敘述",     // [string, optional] 預設特殊醫囑的帶入值 如果沒有預設不用會傳
-                    "frequency": "STAT",                    // [string, optional] orderType = K 時使用 如果沒有預設不用會傳
-                    "endActiveDatetime": "20151301",        // [string, optional] orderType = K 時使用 如果沒有預設不用會傳
-                    "specimenValue": "BLO",
+                    "frequency": "STAT",                    // [string, optional] orderType = K 時使用 如果沒有預設不用回傳
+                    "endActiveDatetime": "20151301",        // [string, optional] orderType = K 時使用 如果沒有預設不用回傳
+                    "specimenValue": "BLO",                 // [string, optional] orderType = L 時使用 如果沒有預設不用回傳
                     "planExecutionTime": {                  // 預計執行時間相關資訊
                         "value": 130032013,                 // [number(timestamp), optional] 預計執行時間預設值之 unix timestamp 如果沒有不用回傳
                         "editable": true,                   // [boolean] 是否可以修改
@@ -3328,7 +3323,7 @@ HOST: http://www.wantoto.com
                     "quantity": 3,                      // [number] 數量
                     "billType": "E",                    // [string] 記帳類別
                     "isEmergency": false,               // [boolean] 是否急做
-                    "planExecutiontime": {              // [optional] 預計執行時間相關資訊
+                    "planExecutionTime": {              // [optional] 預計執行時間相關資訊
                         "timestamp": 13001321,          // [number(timestamp)] 執行時間的 timestamp 數值
                         "format": "YYYY/MM/DD"          // [string] 有關執行時間要如何顯示的 datetime format
                     },
@@ -3337,7 +3332,7 @@ HOST: http://www.wantoto.com
                         "emergency": false              // [boolean] 生命危及之緊急狀況項目是否被勾選
                     },
                     "specialInstruction": "Test 1",     // [string] 特殊醫囑
-                    "questionaries": [                  // [optional] 問答題答案，若無則不會傳入
+                    "questionaries": [                  // [optional] 問答題答案，若無則回傳空陣列
                         {
                             "returnKey": "d_selection_example",     // [string] 問答題對應鍵值
                             "type": "S",                            // [string] 問答題類型
@@ -3357,7 +3352,7 @@ HOST: http://www.wantoto.com
                         },
                         ...
                     ],
-                    "appendOrders": [ // [optional] 附帶醫令，若無則不會傳入
+                    "appendOrders": [ // [optional] 附帶醫令，若無則回傳空陣列
                         "TSA123001",  // [string] appendOrder 的 returnKey, 指到某個醫令和預設值的 entity
                         "K00123110",
                         ...
@@ -3515,7 +3510,7 @@ HOST: http://www.wantoto.com
                 "patientClass": "E",                // [string] 病患門住急別
                 "quantity": 10,                     // [number] 數量
                 "billType": "Z",                    // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
-                "planExecutiontime": {              // [optional] 預計執行時間相關資訊
+                "planExecutionTime": {              // [optional] 預計執行時間相關資訊
                     "timestamp": 13001321,          // [number(timestamp)] 執行時間的 timestamp 數值
                     "format": "YYYY/MM/DD"          // [string] 有關執行時間要如何顯示的 datetime format
                 },
@@ -3609,7 +3604,7 @@ HOST: http://www.wantoto.com
                     "confirmedTime": 1438423200,         // [number(timestamp)] 確認時間
                     "verifier": "111283",                // [string]  確認醫師員工編號
                     "isEmergency": false,                // [boolean] 是否急做
-                    "planExecutiontime": {              // [optional] 預計執行時間相關資訊
+                    "planExecutionTime": {              // [optional] 預計執行時間相關資訊
                         "timestamp": 13001322,     // [number(timestamp)] 執行時間的 timestamp 數值
                         "format": "YYYY/MM/DD"     // [string] 有關執行時間要如何顯示的 datetime format
                     },
@@ -3710,16 +3705,12 @@ HOST: http://www.wantoto.com
 
         {
             "content": {
-                "medicationCode":           "P1110023",               // [string] 處方代碼
+                "medicationCode":           "T0_P1110023",            // [string] 處方代碼 院區碼_ID
                 "medicationName":           "TEST_ORDER_NAME",        // [string] 處方名稱
                 "medicationType":           "N",                      // [string] 處方類別 如一般為 N 注射為 I
                 "doseUnit":                 "mg",                     // [string] 藥品劑量使用單位名稱
                 "packUnit":                 "mg",                     // [string] 藥品包裝劑量使用單位名稱
                 "packConvertRate":          1,                        // [number] 一個包裝內有幾個 dose unit
-                "defaultDose":              "0.13",                   // [string, optional] 藥品預設劑量 若無則不用回傳
-                "defaultRoute":             "IF",                     // [string, optional] 預設途徑代碼 若無則不用回傳
-                "defaultRepeatedPattern":   "QD",                     // [string, optional] 預設頻率代碼 若無則不用回傳
-                "defaultUseDays":           0,                        // [number] 預設使用天數 若無則不用回傳
                 "billType":                 "Z",                      // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
                 "createdTime":              1435744800,               // [number(timestamp)] 此項處方醫令編輯起始時間 (UI 介面顯示用)
                 "specialDose":              "TEXT_CONTENT ...",       // [string, optional] 特殊劑量 若無則不用回傳
@@ -3796,6 +3787,38 @@ HOST: http://www.wantoto.com
                 "link": "EXTERNAL LINK"                         // [string] the redirect link for the Safari
             }
         }
+
+## 6/25 - 醫令碼所對應的醫令 [/medicationOrder/{medicationCode}/defaultValues{?sessionKey,accountNo,searchType,patientClass,orderIdse,planDate,orderStage,planExecutionTime}]
+### 取得醫令範本的預設值 [GET]
++ Parameters
+    + sessionKey        (string) ... SessionKey
+    + accountNo         (string) ... 帳號
+    + searchType        (string) ... 搜尋類別來源 P,  A
+    + patientClass      (string) ... 門住急別
+    + orderIdse         (string, optional) ... 搜尋藥囑額外識別碼
+
++ Response 200 (application/json)
+
+        {
+            "content": [
+                {
+                    "medicationCode": "T0_3211234_L",                 // [string] 對應的 orderCode 以供處理虛擬醫囑時使用
+                    "diluentAbbreviation": "稀釋液簡稱",               // [string, optional] 預設稀釋液簡稱 ???
+                    "diluentVolume": 10,                             // [number, optional] 預設稀釋液體積
+                    "dose": 10,                                      // [number, optional] 預設劑量
+                    "specialInstruction": "xxx",                     // [string, optional] 預設特殊醫囑
+                    "infusionTime": 10,                              // [number, optional] 預設輸注時間
+                    "mlPerHour":  1,                                 // [number, optional] 預設流速
+                    "OrderStage": "階段",                            // [string, optional] ???
+                    "repeatedPattern": "QD",                        // [string, optional] 預設頻率
+                    "route": "IF",                                  // [string, optional] 預設途徑
+                    "useDays": 1,                                   // [number, optional] 預設􏲟開藥天數
+                    "orderReason":  "xxx"                           // [string, optional] 用藥原因 (例如事前檢核帶入的結果)
+                },
+                ...
+            ]
+        }
+
 
 ## 處方醫令開令記錄 [/account/{accountNo}/medicationRecords{?sessionKey,stateIndex,medicationRecordId}]
 ### 開立處方醫令 [POST]
@@ -3884,11 +3907,11 @@ HOST: http://www.wantoto.com
 
         {
             "content": [
-                "早 __{%f:dose1}__ 微克, 午 __{%f:dose2}__ 微克, 晚 __{%f:dose3}__ 微克, 睡前 __{%f:dose3}__ 微克, __{%p:selection}__ 飯前 __{%p:selection}__ 飯後",
-                "__{%t:time1}__ 微克, __{%t:time2}__ 微克, __{%t:time3}__ 微克, __{%t:time4}__ 微克.",
+                "早__{%f:dose1}__ __{%u}__, 午__{%f:dose2}__ __{%u}__, 晚__{%f:dose3}__ __{%u}__, 睡前__{%f:dose3}__ __{%u}__, __{%p:selection}__ 飯前 __{%p:selection}__ 飯後",
+                "__{%t:time1}__ __{%u}__, __{%t:time2}__ __{%u}__, __{%t:time3}__ __{%u}__, __{%t:time4}__ __{%u}__.",
                 "指定用法: __{%s:content}__",
-                "一日 __{%f:dose1}__ 微克, 隔日 __{%f:dose2}__ 微克交替使用. __{%p:timeSelection}__ 早(9AM) __{%p:timeSelection}__ 午(1PM) __{%p:timeSelection}__ 晚(6PM) __{%p:timeSelection}__ 睡前(9PM)",
-                "周一 __{%f:mon}__ 微克, 周二 __{%f:tue}__ 微克, 周三 __{%f:wed}__ 微克, 周四 __{%f:thu}__ 微克, 周五 __{%f:fri}__ 微克, 周六 __{%f:sat}__ 微克, 周日 __{%f:sun}__ 微克. __{%p:timeSelection}__ 早(9AM) __{%p:timeSelection}__ 午(1PM) __{%p:timeSelection}__ 晚(6PM) __{%p:timeSelection}__ 睡前(9PM)",
+                "一日 __{%f:dose1}__ __{%u}__, 隔日 __{%f:dose2}__ __{%u}__交替使用. __{%p:timeSelection}__ 早(9AM) __{%p:timeSelection}__ 午(1PM) __{%p:timeSelection}__ 晚(6PM) __{%p:timeSelection}__ 睡前(9PM)",
+                "周一 __{%f:mon}__ __{%u}__, 周二 __{%f:tue}__ __{%u}__, 周三 __{%f:wed}__ __{%u}__, 周四 __{%f:thu}__ __{%u}__, 周五 __{%f:fri}__ __{%u}__, 周六 __{%f:sat}__ __{%u}__, 周日 __{%f:sun}__ __{%u}__. __{%p:timeSelection}__ 早(9AM) __{%p:timeSelection}__ 午(1PM) __{%p:timeSelection}__ 晚(6PM) __{%p:timeSelection}__ 睡前(9PM)",
                 ...
             ]
         }
@@ -3944,7 +3967,7 @@ HOST: http://www.wantoto.com
 
         {
             "content": {
-                "description": "Alparazalam ((管4)) 安博寧",         // [string] 暫停
+                "description": "Alparazalam ((管4)) 安博寧",         // [string] 暫停醫囑相關資訊
                 "unit": "Dose",                                     // [string] 暫停醫囑使用單位
                 "optionas": [
                     1,                                              // [number] 暫停醫囑選項清單
@@ -3958,12 +3981,12 @@ HOST: http://www.wantoto.com
                     ...
                 ],
                 "canRestart": false,                                // [boolean] 此藥囑交易記錄是否可以開立重啟醫囑
-                "holdRecords": [
+                "holdRecords": [                                    // 已經開立的 暫停/重啟 醫囑清單，沒有則回傳空陣列
                     {
                         "creator": "111271",            // [string] 開立人之員工編號
                         "createdTime": 1406938026,      // [number(timestamp)] 醫囑開立時間
                         "executionTime": 1406938026,    // [number(timestamp), optional] 執行開始時間 暫停醫囑使用
-                        "type": "hold",                 // [string] 暫停醫囑: hold 重啟醫囑: restart
+                        "type": 0,                      // [number] 暫停醫囑: 0 重啟醫囑: 1
                         "verifier": "111281",           // [string,optional] 確認者, 若無不用回傳
                         "option": 1,                    // [number, optional] 暫停醫囑選項 重啟醫囑不用回傳
                         "recordId": "13-01"             // [string] 暫停/重啟 醫囑交易記錄 ID
@@ -3983,7 +4006,7 @@ HOST: http://www.wantoto.com
                 "creator": "111287",                // [string] 開立人
                 "executionTime": 1406948026,        // [number(timestamp), optional] 執行開始時間 暫停醫囑使用
                 "option": 10,                       // [number, optional] 暫停醫囑選項(值)
-                "type": "hold"                      // [string] 醫囑種類 暫停醫囑為 hold 重啟醫囑為 restart
+                "type": 0                           // [number] 醫囑種類 暫停醫囑為 0 重啟醫囑為 1
             },
             "sessionKey": "1112131321aqwdqwd"       // [string] SessionKey
         }
@@ -4824,7 +4847,8 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
                 "field" : [    //欄位資訊(各API詳細欄位，請依照院方實際欄位回傳)
                     {
                         "fieldCode" : "date",
-                        "displayName" : "日期"
+                        "displayName" : "日期",
+                        "dateFormat" : "yyyy-MM-dd HH:mm"   //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
                     },
                     {
                         "fieldCode" : "OPRoom",  //欄位代碼[string]
@@ -4864,7 +4888,8 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
                 "field" : [    //欄位資訊(各API詳細欄位，請依照院方實際欄位回傳)
                     {
                         "fieldCode" : "date",
-                        "displayName" : "日期"
+                        "displayName" : "日期",
+                        "dateFormat" : "yyyy-MM-dd HH:mm"   //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
                     },
                     {
                         "fieldCode" : "time",  //欄位代碼[string]
@@ -4875,7 +4900,7 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
                 "data" : [
                     {
                         "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
-                            "date" : "8/13",
+                            "date" : 14003123,
                             "time" : "AM",
                             ...
                         }
@@ -4904,7 +4929,8 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
                 "field" : [    //欄位資訊(各API詳細欄位，請依照院方實際欄位回傳)
                     {
                         "fieldCode" : "bed",
-                        "displayName" : "病床"
+                        "displayName" : "病床",
+                        "textAlignment" : "left"        // 欄位內容對齊方式  ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]"
                     },
                     {
                         "fieldCode" : "ptName",  //欄位代碼[string]
@@ -5025,7 +5051,8 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
                 "field" : [    //欄位資訊(各API詳細欄位，請依照院方實際欄位回傳)
                     {
                         "fieldCode" : "date",
-                        "displayName" : "登入日期"
+                        "displayName" : "登入日期",
+                        "dateFormat" : "yyyy-MM-dd HH:mm"   //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
                     },
                     {
                         "fieldCode" : "bed",  //欄位代碼[string]
