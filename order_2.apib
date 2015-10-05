@@ -245,11 +245,6 @@
         {
             "content": {
                 "note": "檢查範圍與內容影像 ...",                            // [string, optional] 注意事項，若無（Plain Film）則不用回傳
-                "patientInfoDictionaries": [
-                    "plain_film_dictionary_001",                          // [string] selection ID 用來在 dictionary 的 edge 搜尋對應的 content 以顯示
-                    "plain_film_dictionary_002",
-                    "plain_film_dictionary_003"
-                ],
                 "indicationOptions": [                                    // [optional] indication 所對應的選項，若無（Plain Film）則不用回傳
                     "Follow Up",
                     "Staging",
@@ -351,7 +346,7 @@
                     "hospitalCode":     "HQ",                       // [string] 院區碼
                     "orderName":        "測試醫令",                  // [string] 醫令名稱
                     "screenNote":       "重要提示",                  // [string, optional] 重要提示 顯示於介面中
-                    "isEmergency":      true,                       // [boolean] 是否支援急做
+                    "allowEmergency":   true,                       // [boolean] 是否支援急做
                     "subType":          "N",                        // [string, optional] orderType = T 時使用 一般為 N, 手術為 O, 麻醉為 A, 齒位為 D, 技工所為 E, 復健為 P
                     "requireCreInfo":   false,                      // [boolean] 是否需要顯示 cre 介面,
                     "planExecutionTimeFormat": "yyyy/mmdd HH",      // [string] 預計執行時間的 format
@@ -467,9 +462,9 @@
                     "billType": "U",                        // [string, optional] 預設的計價別 (U內含的話顯示內含不可打勾、Z自費打勾、E則不勾) 如果沒有預設不用會傳
                     "orderStage": 1,                        // [number, optional] 預設執行階段的代號 如果沒有預設不用會傳
                     "specialInstruction": "特殊醫囑敘述",     // [string, optional] 預設特殊醫囑的帶入值 如果沒有預設不用會傳
-                    "frequency": "STAT",                    // [string, optional] orderType = K 時使用 如果沒有預設不用會傳
-                    "endActiveDatetime": "20151301",        // [string, optional] orderType = K 時使用 如果沒有預設不用會傳
-                    "specimenValue": "BLO",
+                    "frequency": "STAT",                    // [string, optional] orderType = K 時使用 如果沒有預設不用回傳
+                    "endActiveDatetime": "20151301",        // [string, optional] orderType = K 時使用 如果沒有預設不用回傳
+                    "specimenValue": "BLO",                 // [string, optional] orderType = L 時使用 如果沒有預設不用回傳
                     "planExecutionTime": {                  // 預計執行時間相關資訊
                         "value": 130032013,                 // [number(timestamp), optional] 預計執行時間預設值之 unix timestamp 如果沒有不用回傳
                         "editable": true,                   // [boolean] 是否可以修改
@@ -499,7 +494,7 @@
                     "quantity": 3,                      // [number] 數量
                     "billType": "E",                    // [string] 記帳類別
                     "isEmergency": false,               // [boolean] 是否急做
-                    "planExecutiontime": {              // [optional] 預計執行時間相關資訊
+                    "planExecutionTime": {              // [optional] 預計執行時間相關資訊
                         "timestamp": 13001321,          // [number(timestamp)] 執行時間的 timestamp 數值
                         "format": "YYYY/MM/DD"          // [string] 有關執行時間要如何顯示的 datetime format
                     },
@@ -508,7 +503,7 @@
                         "emergency": false              // [boolean] 生命危及之緊急狀況項目是否被勾選
                     },
                     "specialInstruction": "Test 1",     // [string] 特殊醫囑
-                    "questionaries": [                  // [optional] 問答題答案，若無則不會傳入
+                    "questionaries": [                  // [optional] 問答題答案，若無則回傳空陣列
                         {
                             "returnKey": "d_selection_example",     // [string] 問答題對應鍵值
                             "type": "S",                            // [string] 問答題類型
@@ -528,7 +523,7 @@
                         },
                         ...
                     ],
-                    "appendOrders": [ // [optional] 附帶醫令，若無則不會傳入
+                    "appendOrders": [ // [optional] 附帶醫令，若無則回傳空陣列
                         "TSA123001",  // [string] appendOrder 的 returnKey, 指到某個醫令和預設值的 entity
                         "K00123110",
                         ...
@@ -686,7 +681,7 @@
                 "patientClass": "E",                // [string] 病患門住急別
                 "quantity": 10,                     // [number] 數量
                 "billType": "Z",                    // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
-                "planExecutiontime": {              // [optional] 預計執行時間相關資訊
+                "planExecutionTime": {              // [optional] 預計執行時間相關資訊
                     "timestamp": 13001321,          // [number(timestamp)] 執行時間的 timestamp 數值
                     "format": "YYYY/MM/DD"          // [string] 有關執行時間要如何顯示的 datetime format
                 },
@@ -780,7 +775,7 @@
                     "confirmedTime": 1438423200,         // [number(timestamp)] 確認時間
                     "verifier": "111283",                // [string]  確認醫師員工編號
                     "isEmergency": false,                // [boolean] 是否急做
-                    "planExecutiontime": {              // [optional] 預計執行時間相關資訊
+                    "planExecutionTime": {              // [optional] 預計執行時間相關資訊
                         "timestamp": 13001322,     // [number(timestamp)] 執行時間的 timestamp 數值
                         "format": "YYYY/MM/DD"     // [string] 有關執行時間要如何顯示的 datetime format
                     },
