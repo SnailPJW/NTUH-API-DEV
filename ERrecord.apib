@@ -222,3 +222,93 @@
                 ]
             }
         }
+
+## 10/12 - 急救記錄 [/ERRecord?{?chartNo,recordNo,startTime,endTime,commandDoctor,NS,ERReason,ERRecords,empNo,sessionKey,IP}]
+### 回傳急救記錄[POST]
+
++ Parameters
+    + empNo (string)        ... 使用者帳號
+    + sessionKey (string)   ... Session Key
+    + chartNo (string)        ... 病歷號
+    + recordNo (string,optional) ... 急救記錄編號
+    + startTime (number)    ... 急救開始時間(timestamp)
+    + endTime (number)    ... 急救結束時間(timestamp)
+    + commandDoctor (string)    ... 現場指揮醫師
+    + NS (string)    ... 護理人員
+    + ERReason (object)  ... 急救原因
+    + ERRecords (array)  ... 急救記錄歷程
+    + IP (string)    ... IP address of iPad
+
++ Request (application/json)
+
+        {
+            "content": {
+                "chartNo": "123456",
+                "startTime": 1444638128,
+                "endTime" : 1444639128,
+                "commandDoctor" : "111281",
+                "NS" : "123456",
+                "ERReason" : {
+
+                },
+                "ERRecord" : [
+                    {
+                        "recordTime" : 1444638128,  //記錄時間[number(timestamp)]
+                        "itemCode" : "SCON1A",   //記錄項目代碼(須參照急救項目文件)[string]
+                        "value" : ""    //記錄項目使用者輸入數值，當使用者有填數值時回傳[string, optional]
+                    },
+                    {
+                        "recordTime" : 1444638130,  //記錄時間[number(timestamp)]
+                        "itemCode" : "SCPRET",
+                        "value" : "10.2"    //記錄項目使用者輸入數值，當使用者有填數值時回傳[string, optional]
+                    },
+                    {
+                        "recordTime" : 1444638135,  //記錄時間[number(timestamp)]
+                        "itemCode" : "ASUFO"
+                    },
+                    {
+                        "recordTime" : 1444638140,  //記錄時間[number(timestamp)]
+                        "itemCode" : "ROSC",
+                        "appendData" : {    //附屬欄位(ROSC,terminate使用)[object, optional]
+
+                        }
+                    }
+                ]
+            },
+            "IP" : "10.1.1.1",
+            "empNo": "111281",
+            "sessionKey": "DD07A0AF4E9F426C838185D8DD19EFE2"
+        }
+
++ Response 200 (application/json)
+
+
+        {
+            "success": true,
+            "content": {
+                "recordNo": "A12-40322"      // The identifier for the newly created ER record [string]
+            }
+        }
+
++ Response 400 (application/json)
+
+        {
+            "error": 701,
+            "message": "缺少參數xxx"
+        }
+
++ Response 400 (application/json)
+
+
+        {
+            "error": 702,
+            "message": "參數xxx 型態錯誤"
+        }
+
++ Response 403 (application/json)
+
+
+        {
+            "error": 103,
+            "message": "無存取權限"
+        }
