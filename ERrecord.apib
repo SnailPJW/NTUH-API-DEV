@@ -223,33 +223,35 @@
             }
         }
 
-## 10/12 - 急救記錄 [/ERRecord?{?chartNo,recordNo,startTime,endTime,commandDoctor,NS,ERReason,ERRecords,empNo,sessionKey,IP}]
+## 10/12 - 急救記錄 [/ERRecord/record]
 ### 回傳急救記錄[POST]
+Content-type: multipart/form-data
 
-+ Parameters
-    + empNo (string)        ... 使用者帳號
-    + sessionKey (string)   ... Session Key
-    + chartNo (string)        ... 病歷號
-    + recordNo (string,optional) ... 急救記錄編號
-    + startTime (number)    ... 急救開始時間(timestamp)
-    + endTime (number)    ... 急救結束時間(timestamp)
-    + commandDoctor (string)    ... 現場指揮醫師
-    + NS (string)    ... 護理人員
-    + ERReason (object)  ... 急救原因
-    + ERRecords (array)  ... 急救記錄歷程
-    + IP (string)    ... IP address of iPad
 
-+ Request (application/json)
++ Request UploadRecord
 
         {
             "content": {
                 "chartNo": "123456",
-                "startTime": 1444638128,
-                "endTime" : 1444639128,
-                "commandDoctor" : "111281",
-                "NS" : "123456",
+                "start": 1444638128,
+                "end" : 1444639128,
                 "ERReason" : {
-
+                    "commandDoctor" : "111281",
+                    "NS" : "123456",
+                    "cardicOrigin": [
+                        "option_101",
+                        "SOME_OTHER_REASON_FROM_TEXT_INPUT"
+                    ],
+                    "respiratoryOrigin": [
+                        "option_201",
+                        ...
+                    ],
+                    ...
+                },
+                "patientInfo": {
+                    "type": 0,          // 0 for newborn, 1 for child, 2 for adult
+                    "weight": 200,      // [number, optional] weight (if type=1 in g; else in Kg)
+                    "age": "3_200"      // [string, optional] pattern: "y_d"
                 },
                 "ERRecord" : [
                     {
@@ -274,8 +276,9 @@
                     }
                 ]
             },
-            "IP" : "10.1.1.1",
+            "device" : "10.1.1.1",
             "empNo": "111281",
+            "recordNo": "THE_ID_FOR_THE_RECORD",                // [string, optional] 修改的時候使用
             "sessionKey": "DD07A0AF4E9F426C838185D8DD19EFE2"
         }
 
