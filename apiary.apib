@@ -1132,11 +1132,11 @@ HOST: http://www.wantoto.com
                             "encoding" : "utf-16",                              // 編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
                             "baseURL" : "http://baseUrl.ntuh.gov.tw"            // 報告基礎連結(報告中如有相對連結時回傳)[string, optional]
                         },
-                        "recordId": "T0_11232000112_D",                         // [string] 本筆記錄所對應的交易檔 ID (orderRecordId/medicationRecordId)
+                        "recordId": "D11232000112",                             // [string] 本筆記錄所對應的交易檔 ID (orderRecordId/medicationRecordId)
                         "editable": true,                                       // [boolean] 是否可被編輯
                         "deletable": true,                                      // [boolean] 是否可被刪除
                         "holdable": true,                                       // [boolean] 是否可被暫停 (是為暫停藥囑用 醫囑一律為 false)
-                        "orderType": "K",                                       // [string] 本筆記錄所對應的是醫囑或藥囑 type 醫囑: T, P, X, N, K, L, E, M 藥囑: R
+                        "recordType": "medication",                             // [string] 本筆記錄所對應的是醫囑 (order) 或是藥囑 (medication)
                         "bgColor" : "FFFFFF" //如需調整此列背景顏色則回傳16進位色碼[string,optional]
                     },
                     ...
@@ -3705,7 +3705,7 @@ HOST: http://www.wantoto.com
 
         {
             "content": {
-                "medicationCode":           "T0_P1110023",            // [string] 處方代碼 院區碼_ID
+                "medicationCode":           "P1110023",               // [string] 處方代碼
                 "medicationName":           "TEST_ORDER_NAME",        // [string] 處方名稱
                 "medicationType":           "N",                      // [string] 處方類別 如一般為 N 注射為 I
                 "doseUnit":                 "mg",                     // [string] 藥品劑量使用單位名稱
@@ -4847,8 +4847,7 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
                 "field" : [    //欄位資訊(各API詳細欄位，請依照院方實際欄位回傳)
                     {
                         "fieldCode" : "date",
-                        "displayName" : "日期",
-                        "dateFormat" : "yyyy-MM-dd HH:mm"   //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                        "displayName" : "日期"
                     },
                     {
                         "fieldCode" : "OPRoom",  //欄位代碼[string]
@@ -4888,8 +4887,7 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
                 "field" : [    //欄位資訊(各API詳細欄位，請依照院方實際欄位回傳)
                     {
                         "fieldCode" : "date",
-                        "displayName" : "日期",
-                        "dateFormat" : "yyyy-MM-dd HH:mm"   //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                        "displayName" : "日期"
                     },
                     {
                         "fieldCode" : "time",  //欄位代碼[string]
@@ -4900,7 +4898,7 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
                 "data" : [
                     {
                         "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
-                            "date" : 14003123,
+                            "date" : "8/13",
                             "time" : "AM",
                             ...
                         }
@@ -4929,8 +4927,7 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
                 "field" : [    //欄位資訊(各API詳細欄位，請依照院方實際欄位回傳)
                     {
                         "fieldCode" : "bed",
-                        "displayName" : "病床",
-                        "textAlignment" : "left"        // 欄位內容對齊方式  ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]"
+                        "displayName" : "病床"
                     },
                     {
                         "fieldCode" : "ptName",  //欄位代碼[string]
@@ -5051,8 +5048,7 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
                 "field" : [    //欄位資訊(各API詳細欄位，請依照院方實際欄位回傳)
                     {
                         "fieldCode" : "date",
-                        "displayName" : "登入日期",
-                        "dateFormat" : "yyyy-MM-dd HH:mm"   //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                        "displayName" : "登入日期"
                     },
                     {
                         "fieldCode" : "bed",  //欄位代碼[string]
@@ -5149,6 +5145,26 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
         }
 
 # Group 急救紀錄 ERRecrod
+
+## 10/15 - 急救元件內容版本更新 [/ERRecord/versions]
+### 取得最新的版本號 [GET]
+
++ Response 200 (application/json)
+
+        {
+            "content": [
+                {
+                    "path": "/ERRecord/elements",       // [string] the path for the corresponding interface
+                    "version": "0.0.2"                  // [string] the version tag
+                },
+                {
+                    "path": "/ERRecord/actions",
+                    "version": "0.1.0a"
+                },
+                ...
+            ]
+        }
+
 ## 9/21 - 急救紀錄事件按鈕 [/ERRecord/layout]
 ### 取得急救紀錄事件按鈕 [GET]
 
@@ -5371,4 +5387,201 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
                     }
                 ]
             }
+        }
+
+## 10/15 - 急救記錄 [/ERRecord/record]
+### 回傳急救記錄[POST]
+Content-type: multipart/form-data
+<br> - The first part will contain the follwing JSON content for the record info
+<br> - The JSON content will be encoede with UTF-8 and than converted into binary with base64 encoded
+<br> - 急救前影像: name = before
+<br> - 急救後影像: name = after
+<br> - 急救中影像: name = progress_%03d, 例如第三張為 progress_003
+
+
++ Request UploadRecord
+
+        {
+            "content": {
+                "chartNo": "123456",    //病歷號
+                "start": 1444638128,    //急救開始時間(timestamp)[number]
+                "end" : 1444639128, //急救結束時間(timestamp)[number]
+                "ERReason" : {
+                    "commandDoctor" : "111281", //現場指揮醫師
+                    "NS" : "123456",    //護理人員
+                    "cardicOrigin": [   //心臟因素
+                        "心律不整", //使用者有選擇或填寫時回傳
+                        "心肌梗塞",
+                        "使用者填入的其他原因"
+                    ],
+                    "respiratoryOrigin": [  //呼吸因素
+                        "呼吸",
+                        "使用者填入的其他原因"
+                    ],
+                    "neurologicalOrigin": [  //神經學因素
+                        "腦中風",
+                        "使用者填入的其他原因"
+                    ],
+                    "infectionOrigin": [  //感染因素
+                        "敗血症",
+                        "使用者填入的其他原因"
+                    ],
+                    "trauma": [  //創傷
+                        "外傷",
+                        "使用者填入的其他原因"
+                    ],
+                    "others": [  //其他
+                        "低血壓",
+                        "新陳代謝",
+                        "使用者填入的其他原因"
+                    ]
+                },
+                "patientInfo": {
+                    "type": 0,          // 急救記錄類別 0 for newborn, 1 for child, 2 for adult
+                    "weight": 200,      // [number, optional] weight (if type=1 in g; else in Kg)
+                    "age": "3_200"      // [string, optional] pattern: "y_d"
+                },
+                "ERRecord" : [
+                    {
+                        "recordTime" : 1444638128,  //記錄時間[number(timestamp)]
+                        "itemCode" : "SCON1A"   //記錄項目代碼(須參照急救項目文件)[string]
+                    },
+                    {
+                        "recordTime" : 1444638130,  //記錄時間[number(timestamp)]
+                        "itemCode" : "SCPRET",
+                        "value" : "10.2"    //記錄項目使用者輸入數值，當使用者有填數值時回傳[string, optional]
+                    },
+                    {
+                        "recordTime" : 1444638135,  //記錄時間[number(timestamp)]
+                        "itemCode" : "ASUFO"
+                    },
+                    {
+                        "recordTime" : 1444638140,  //記錄時間[number(timestamp)]
+                        "itemCode" : "ROSC",
+                        "appendData" : {    //附屬欄位(ROSC,terminate使用)[object, optional]
+                            "vitalSignSPB": [       //收縮壓
+                                "100"
+                            ],
+                            "vitalSignDPB":[    //舒張壓
+                                "70"
+                            ],
+                            "vitalSignHR":[    //心跳
+                                "40"
+                            ],
+                            "vitalSignSpO2":[    //SpO2
+                                "10"
+                            ],
+                            "vitalSignEtCO2":[    //EtCO2
+                                "10"
+                            ],
+                            "vitalSignRR":[    //呼吸
+                                "20"
+                            ],
+                            "rhytm" : [
+                                "Sinus Rhythm",
+                                "Sinus tachycardia",
+                                "Sinus bradycardia",
+                                "AIVR",
+                                "Af/AF",
+                                "MAT",
+                                "Juntional",
+                                "使用者填入的其他原因"
+                            ],
+                            "management" : [
+                                "ECMO",
+                                "IABP",
+                                "Hypothermia",
+                                "Tracheostomy",
+                                "TCP",
+                                "Pericardiocentesis",
+                                "Nil",
+                                "使用者填入的其他原因"
+                            ],
+                            "neurologicalOutcomeGCSE" : [
+                                "1"
+                            ],
+                            "neurologicalOutcomeGCSV" : [
+                                "1"
+                            ],
+                            "neurologicalOutcomeGCSM" : [
+                                "1"
+                            ],
+                            "neurologicalOutcomePupilRight" : [
+                                "1"
+                            ],
+                            "neurologicalOutcomePupilLeft" : [
+                                "1"
+                            ],
+                            "neurologicalOutcomeLightRight" : [ //光反射左
+                                "1"
+                            ],
+                            "neurologicalOutcomeLightLeft" : [  //光反射右
+                                "1"
+                            ],
+                            "diposition" : [
+                                "加護病房",
+                                "留原單位",
+                                "重症區"
+                            ]
+                        }
+                    },
+                    {
+                        "recordTime" : 1444638150,  //記錄時間[number(timestamp)]
+                        "itemCode" : "terminate",
+                        "appendData" : {    //附屬欄位(ROSC,terminate使用)[object, optional]
+                            "reason" : [
+                                "Futile",   //使用者有選擇或填寫時回傳
+                                "DNR"
+                            ],
+                            "EtCO2" : [
+                                "10.2"
+                            ],
+                            "rhytm" : [
+                                "PEA",
+                                "VT",
+                                "VF",
+                                "Asytole",
+                                "使用者填入的其他原因"
+                            ]
+                        }
+                    }
+                ]
+            },
+            "device" : "10.1.1.1",  //裝置IP
+            "empNo": "111281",  //員工編號
+            "recordNo": "THE_ID_FOR_THE_RECORD",                // [string, optional] 修改的時候使用
+            "sessionKey": "DD07A0AF4E9F426C838185D8DD19EFE2"
+        }
+
++ Response 200 (application/json)
+
+
+        {
+            "success": true,
+            "content": {
+                "recordNo": "A12-40322"      // The identifier for the newly created ER record [string]
+            }
+        }
+
++ Response 400 (application/json)
+
+        {
+            "error": 701,
+            "message": "缺少參數xxx"
+        }
+
++ Response 400 (application/json)
+
+
+        {
+            "error": 702,
+            "message": "參數xxx 型態錯誤"
+        }
+
++ Response 403 (application/json)
+
+
+        {
+            "error": 103,
+            "message": "無存取權限"
         }
