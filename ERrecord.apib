@@ -1,4 +1,24 @@
 # Group 急救紀錄 ERRecrod
+
+## 10/15 - 急救元件內容版本更新 [/ERRecord/versions]
+### 取得最新的版本號 [GET]
+
++ Response 200 (application/json)
+
+        {
+            "content": [
+                {
+                    "path": "/ERRecord/elements",       // [string] the path for the corresponding interface
+                    "version": "0.0.2"                  // [string] the version tag
+                },
+                {
+                    "path": "/ERRecord/actions",
+                    "version": "0.1.0a"
+                },
+                ...
+            ]
+        }
+
 ## 9/21 - 急救紀錄事件按鈕 [/ERRecord/layout]
 ### 取得急救紀錄事件按鈕 [GET]
 
