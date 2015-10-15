@@ -246,6 +246,11 @@
 ## 10/15 - 急救記錄 [/ERRecord/record]
 ### 回傳急救記錄[POST]
 Content-type: multipart/form-data
+<br> - The first part will contain the follwing JSON content for the record info
+<br> - The JSON content will be encoede with UTF-8 and than converted into binary with base64 encoded
+<br> - 急救前影像: name = before
+<br> - 急救後影像: name = after
+<br> - 急救中影像: name = progress_%03d, 例如第三張為 progress_003
 
 
 + Request UploadRecord
