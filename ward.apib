@@ -97,7 +97,8 @@
                 "field" : [    //欄位資訊(各API詳細欄位，請依照院方實際欄位回傳)
                     {
                         "fieldCode" : "date",
-                        "displayName" : "日期"
+                        "displayName" : "日期",
+                        "dateFormat" : "yyyy-MM-dd HH:mm"   //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
                     },
                     {
                         "fieldCode" : "OPRoom",  //欄位代碼[string]
@@ -137,7 +138,8 @@
                 "field" : [    //欄位資訊(各API詳細欄位，請依照院方實際欄位回傳)
                     {
                         "fieldCode" : "date",
-                        "displayName" : "日期"
+                        "displayName" : "日期",
+                        "dateFormat" : "yyyy-MM-dd HH:mm"   //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
                     },
                     {
                         "fieldCode" : "time",  //欄位代碼[string]
@@ -148,7 +150,7 @@
                 "data" : [
                     {
                         "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
-                            "date" : "8/13",
+                            "date" : 14003123,
                             "time" : "AM",
                             ...
                         }
@@ -177,7 +179,8 @@
                 "field" : [    //欄位資訊(各API詳細欄位，請依照院方實際欄位回傳)
                     {
                         "fieldCode" : "bed",
-                        "displayName" : "病床"
+                        "displayName" : "病床",
+                        "textAlignment" : "left"        // 欄位內容對齊方式  ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]"
                     },
                     {
                         "fieldCode" : "ptName",  //欄位代碼[string]
@@ -298,7 +301,8 @@
                 "field" : [    //欄位資訊(各API詳細欄位，請依照院方實際欄位回傳)
                     {
                         "fieldCode" : "date",
-                        "displayName" : "登入日期"
+                        "displayName" : "登入日期",
+                        "dateFormat" : "yyyy-MM-dd HH:mm"   //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
                     },
                     {
                         "fieldCode" : "bed",  //欄位代碼[string]
