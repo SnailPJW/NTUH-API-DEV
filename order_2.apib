@@ -75,8 +75,7 @@
 + Response 200 (application/json)
 
         {
-            "content" : [
-                {
+            "content" : {
                     "packageName": "科部",                                       // [string] 顯示的title名
                     "packageCode": "the_package_code",                          // [string, optional] 透過此碼查詢醫令
                     "preset" : true,                                            // [boolean, optional] 預設選項，使用者選擇上一層選項之後，要預設選取的項目 [
@@ -112,29 +111,8 @@
                             ]
                         }, ...
                     ]
-                },
-                {
-                    "packageName" : "病房",
-                    "children" : [ // [optional]
-                        {
-                            "packageName" : "Major Burn",
-                            "children" : [ // [optional]
-                                {
-                                    "packageName" : "照會",
-                                    "packageCode" : "A1234"
-                                },
-                                {
-                                    "packageName" : "醫囑",
-                                    "packageCode" : "A1235"
-                                },
-                                ...
-                            ]
-                        },
-                        ...
-                    ]
-                },
-                ...
-            ]
+            }
+
         }
 
 
@@ -330,12 +308,13 @@
             }
         }
 
-## 6/25 - 醫令碼所對應的醫令 [/order/{orderCode}{?sessionKey,patientClass}]
+## 6/25 - 醫令碼所對應的醫令 [/order/{orderCode}{?sessionKey,patientClass,hospitalCode}]
 ### 取得醫令資訊 [GET]
 
 + Parameters
     + sessionKey        (string) ... SessionKey
     + patientClass      (string) ... 病患門急住別
+    + hospitalCode      (string) ... 院區碼
 
 + Response 200 (application/json)
 
@@ -388,17 +367,17 @@
                             "returnKey": "s_selection_example",     // [string] 回傳結果時該問題所對應的鍵值
                             "type": "S",                            // [string] 問題種類，如日期為 D，單選為 S
                             "required": true,                       // [boolean] 問題是否為必填項目
-                            "defaultPriority": 0,                   // [number, optional] 預設選取項目之順序代號，當類型為 S 或 M 時使用
+                            "defaultSelections": [                  // [optional] 預設選取項目之順序代號，當類型為 S 或 M 時使用，若沒有不用回傳
+                                0
+                            ],
                             "options": [                            // [optional] 選擇項目列表，當類型為 S, M 時使用
                                 {
                                     "title": "OPTIONA: A",          // [string] 選項顯示內容
-                                    "returnValue": "optional_a",    // [string] 回傳時該選項所對應的值
-                                    "priority": 0                   // [number] 選項顯示順序
+                                    "returnValue": "optional_a"     // [string] 回傳時該選項所對應的值
                                 },
                                 {
                                     "title": "OPTIONAL: B",         // [string] 項目顯示內容
-                                    "returnValue": "optiona_b",     // [string] 回傳時該選項所對應的值
-                                    "priority": 1                   // [number] 項目顯示順序
+                                    "returnValue": "optiona_b"      // [string] 回傳時該選項所對應的值
                                 },
                                 ...
                             ],
@@ -440,13 +419,14 @@
         }
 
 
-## 6/25 - 醫令碼所對應的醫令 [/order/{orderCode}/defaultValues{?sessionKey,accountNo,searchType,patientClass,orderIdse,planDate,orderStage,planExecutionTime}]
+## 6/25 - 醫令碼所對應的醫令 [/order/{orderCode}/defaultValues{?sessionKey,accountNo,searchType,patientClass,orderIdse,planDate,orderStage,planExecutionTime,hospitalCode}]
 ### 取得醫令範本的預設值 [GET]
 + Parameters
     + sessionKey        (string) ... SessionKey
     + accountNo         (string) ... 帳號
     + searchType        (string) ... 搜尋類別來源 P,  A
     + patientClass      (string) ... 門住急別
+    + hospitalCode      (string) ... 院區碼
     + orderIdse         (string, optional) ... 搜尋藥囑而外識別碼
     + planExecutionTime (string, optional) ... 預設預計執行時間
     + orderStage        (string, optional) ... 預設預計執行階段
@@ -618,7 +598,7 @@
                 "specialInstruction": "xxx",                    // [string] 特殊醫囑之輸入內容
                 "creInfo": {
                     "cre": 22.3,                                // [number, optional] 如果有需要填入 cre 值時所填入的數值 只有在系統查佈道病患 cre 值且使用者有填值時才會回傳
-                    "emergency": true,                          // [boolean, optional] 生命危及之緊急狀況項目是否被勾選 只有在系統查不到病患 cre 值才要回傳
+                        "emergency": true,                          // [boolean, optional] 生命危及之緊急狀況項目是否被勾選 只有在系統查不到病患 cre 值才要回傳
                     "creatinine": false                         // [boolean] 加開 creatinine 是否被勾選
                 }
             },
@@ -673,6 +653,7 @@
 
         {
             "content": {
+                "orderCode": "T0_SA123001_P",       // [string] 醫令碼
                 "orderType": "P",                   // [string] 醫令主類別
                 "orderSeqNo": "P0002",              // [string] 醫令序號 (登記排程使用)
                 "hospitalCode": "HQ",               // [string] 院區碼
@@ -701,7 +682,7 @@
                     {
                         "displayTitle": "SINGLE_SELECTION",     // [string] 問題顯示題目
                         "returnKey": "s_selection_example",     // [string] 回傳結果時該問題所對應的鍵值
-                        "type": "S",                            // [string] 問題種類，如日期為 D，單選為 S
+                        "type": "M",                            // [string] 問題種類，如日期為 D，單選為 S，多選為 M
                         "required": true,                       // [boolean] 問題是否為必填項目
                         "defaultSelections": [                  // [optional] 預設或已選取項目之順序代號，當類型為 S 或 M 時使用
                             0,                                  // [number] 預設或已選取項目對應之順序代號
@@ -711,17 +692,15 @@
                         "options": [                            // [optional] 選擇項目列表，當類型為 S, M 時使用
                             {
                                 "displayValue": "OPTIONA: A",   // [string] 選項顯示內容
-                                "returnValue": "optional_a",    // [string] 回傳時該選項所對應的值
-                                "priority": 0                   // [number] 選項顯示順序
+                                "returnValue": "optional_a"     // [string] 回傳時該選項所對應的值
                             },
                             {
                                 "displayValue": "OPTIONAL: B",  // [string] 項目顯示內容
-                                "returnValue": "optiona_b",     // [string] 回傳時該選項所對應的值
-                                "priority": 1                   // [number] 項目顯示順序
+                                "returnValue": "optiona_b"      // [string] 回傳時該選項所對應的值
                             },
                             ...
                         ],
-                        "freeSelectionEnable": false            // [optional, boolean] 是否允許增添選項，當類型為 S, M 時使用
+                        "freeSelectionEnable": true            // [optional, boolean] 是否允許增添選項，當類型為 S, M 時使用
                     },
                     {
                         "displayTitle": "DATE_SELECTION",       // [string] 問題顯示題目
