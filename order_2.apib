@@ -467,7 +467,7 @@
                     "requestID": "20150907_111281_001", // [string] 開立請求ID 於回傳開立結果時使用
                     "orderCode": "T0_0001234_T",        // [string] 醫令碼
                     "orderName": "TEST_ORDER_001",      // [string] 醫令名稱
-                    "orderStage": "PAT",                // [string] 醫令階段
+                    "orderStage": 0,                    // [number] 醫令階段代碼
                     "frequency": "STAT",                // [string, optional] K 類醫囑使用, 頻率
                     "endActiveDatetime": "20160201",    // [string, optional] K 類醫囑使用, 結束日期 YYYYMMDD(:HH)
                     "specimenValue": "BLO",             // [string, optional] L 類醫囑使用
@@ -642,7 +642,7 @@
         }
 
 
-## 6/16 醫令交易檔 ID 所對應之病患醫令記錄 [/account/{accountNo}/orderRecord/{orderRecordId}{?quantity,billType,expectedExTime,confirmedTime,stage,status,sessionKey,orderRecordIds,verifier,isEmergency,specialInstruction}]
+## 6/16 醫令交易檔 ID 所對應之病患醫令記錄 [/account/{accountNo}/orderRecord/{orderRecordId}{?quantity,billType,expectedExTime,confirmedTime,orderStage,status,sessionKey,orderRecordIds,verifier,isEmergency,specialInstruction}]
 
 ### 取得醫令記錄內容 [GET]
 + Parameters
@@ -670,7 +670,7 @@
                 "creator": "111281",                // [string] 開立醫囑者員工編號
                 "verifier": "111281",               // [string] 確認醫師員工編號
                 "isEmergency": false,               // [boolean] 是否急做
-                "stage": 0,                         // [number] 階段代碼 詳細對應資料從 dictionary 抓
+                "orderStage": 0,                    // [number] 階段代碼 詳細對應資料從 dictionary 抓
                 "status": "開立",                    // [string] 狀態
                 "specialInstruction": "特殊醫囑內容",  // [string] 特殊醫囑
                 "startActivateDatetime": 1435744800, // [number(timestamp), optional] 醫令有效起日 K類醫囑使用
@@ -738,8 +738,8 @@
     + confirmedTime      (number) ... 確認時間
     + verifier           (string) ... 確認醫師員工編號
     + isEmergency        (boolean) ... 是否急做
-    + status             (string) ... 階段
-    + stage              (string) ... 狀態
+    + status             (string) ... 狀態
+    + orderStage         (number) ... 醫令階段代碼
     + specialInstruction (string) ... 特殊醫囑內容
 
 + Request ModifyOrder (application/json)
@@ -763,7 +763,8 @@
                     "endActivateDatetime": 1438423200,   // [number(timestamp), optional] 醫令有效迄日 K類醫囑使用
                     "frequency": "QD",                   // [string] 頻率碼 K類醫囑使用
                     "isBedside": false,                  // [boolean, optional] 是否為床邊攝影 R類醫囑使用
-                    "specimenValue": "sp1",               // [string] 檢體代碼 L類醫囑使用
+                    "orderStage": 0,                     // [number] 階段
+                    "specimenValue": "sp1",              // [string] 檢體代碼 L類醫囑使用
                     "questionaries": [                   // [optional] 問答題答案，若無則不會傳入
                         {
                             "returnKey": "d_selection_example",     // [string] 問答題對應鍵值
