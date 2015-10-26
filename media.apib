@@ -1,7 +1,10 @@
 # Group 多媒體相關 Media Relative Service
 ## 6/5 - 影像上傳 [/patients/{chartNo}/images{?title,accountNo,uploader,description,reviewer,compression,type}]
 ### 新增影像資料 [POST]
-Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上傳
+Content-type: multipart/form-data
+<br> - The first part will contain the follwing JSON content for the record info (name = parameters)
+<br> - The JSON content will be encoede with UTF-8 and than converted into binary with base64 encoded
+<br> - 其餘影像分別用 name = filename 的方式上傳
 
 + Parameters
     + accountNo     (string)             ... 帳號編號
@@ -11,6 +14,21 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
     + title         (string, optional)   ... ProgressNote 標題
     + description   (string, optional)   ... 上傳之 ProgressNote 之描述
     + reviewer      (string, optional)   ... 欲請求簽章之員工編號
+
++ Request UploadMediaRequest
+
+        {
+            "content": {
+                "compression": "l",
+                "type": "p",
+                "title": "TEST TITLE",
+                "description": "TEST DESCRIPTION"
+            },
+            "sessionKey": "DD07A0AF4E9F426C838185D8DD19EFE2",
+            "accountNo": "E123512",
+            "uploader": "111271",
+            "reviewer": "111281"
+        }
 
 + Response 200 (application/json)
 
