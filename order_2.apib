@@ -680,7 +680,7 @@
                 "specimenValue": "sp1",               // [string] 檢體代碼 L類醫囑使用
                 "questionaries": [                     // [optional] 問題清單答案
                     {
-                        "displayTitle": "SINGLE_SELECTION",     // [string] 問題顯示題目
+                        "title": "SINGLE_SELECTION",            // [string] 問題顯示題目
                         "returnKey": "s_selection_example",     // [string] 回傳結果時該問題所對應的鍵值
                         "type": "M",                            // [string] 問題種類，如日期為 D，單選為 S，多選為 M
                         "required": true,                       // [boolean] 問題是否為必填項目
@@ -703,7 +703,7 @@
                         "freeSelectionEnable": true            // [optional, boolean] 是否允許增添選項，當類型為 S, M 時使用
                     },
                     {
-                        "displayTitle": "DATE_SELECTION",       // [string] 問題顯示題目
+                        "title": "DATE_SELECTION",              // [string] 問題顯示題目
                         "returnKey": "d_selection_example",     // [string] 回傳結果時該問題所對應的鍵值
                         "type": "D",                            // [string] 問題種類，如日期為 D，單選為 S
                         "required": true,                       // [boolean] 問題是否為必填項目
@@ -711,7 +711,7 @@
                         "defaultDate": 1406938026               // [optional, number(timestamp)] 預設或已經填入之答案，當類型為 D 時使用
                     },
                     {
-                        "displayTitle": "INPUT_BOX",            // [string] 問題顯示題目
+                        "title": "INPUT_BOX",                   // [string] 問題顯示題目
                         "returnKey": "input_box_example",       // [string] 回傳結果時該問題所對應的鍵值
                         "type": "T",                            // [string] 問題種類，如單行文字框為 T 多行文字框為 P
                         "required": false,                      // [boolean] 問題是否為必填項目
