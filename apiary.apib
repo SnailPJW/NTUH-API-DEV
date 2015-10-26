@@ -2,7 +2,7 @@ FORMAT: 1A
 HOST: http://www.wantoto.com
 
 
-# DEV台大醫院行動醫療資訊系統 Web Service v1.7.0
+# DEV台大醫院行動醫療資訊系統 Web Service v1.7.1
 
 採用 RESTful 架構規劃。所有字串編碼皆為UTF-8。
 
@@ -1132,11 +1132,11 @@ HOST: http://www.wantoto.com
                             "encoding" : "utf-16",                              // 編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
                             "baseURL" : "http://baseUrl.ntuh.gov.tw"            // 報告基礎連結(報告中如有相對連結時回傳)[string, optional]
                         },
-                        "recordId": "D11232000112",                             // [string] 本筆記錄所對應的交易檔 ID (orderRecordId/medicationRecordId)
+                        "recordId": "T0_11232000112_D",                         // [string] 本筆記錄所對應的交易檔 ID (orderRecordId/medicationRecordId)
                         "editable": true,                                       // [boolean] 是否可被編輯
                         "deletable": true,                                      // [boolean] 是否可被刪除
                         "holdable": true,                                       // [boolean] 是否可被暫停 (是為暫停藥囑用 醫囑一律為 false)
-                        "recordType": "medication",                             // [string] 本筆記錄所對應的是醫囑 (order) 或是藥囑 (medication)
+                        "orderType": "K",                                       // [string] 本筆記錄所對應的是醫囑或藥囑 type 醫囑: T, P, X, N, K, L, E, M 藥囑: R
                         "bgColor" : "FFFFFF" //如需調整此列背景顏色則回傳16進位色碼[string,optional]
                     },
                     ...
@@ -3258,7 +3258,7 @@ HOST: http://www.wantoto.com
     + hospitalCode      (string) ... 院區碼
     + orderIdse         (string, optional) ... 搜尋藥囑而外識別碼
     + planExecutionTime (string, optional) ... 預設預計執行時間
-    + orderStage        (string, optional) ... 預設預計執行階段
+    + orderStage        (number, optional) ... 預設預計執行階段代碼
 
 + Response 200 (application/json)
 
@@ -3296,7 +3296,7 @@ HOST: http://www.wantoto.com
                     "requestID": "20150907_111281_001", // [string] 開立請求ID 於回傳開立結果時使用
                     "orderCode": "T0_0001234_T",        // [string] 醫令碼
                     "orderName": "TEST_ORDER_001",      // [string] 醫令名稱
-                    "orderStage": "PAT",                // [string] 醫令階段
+                    "orderStage": 0,                    // [number] 醫令階段代碼
                     "frequency": "STAT",                // [string, optional] K 類醫囑使用, 頻率
                     "endActiveDatetime": "20160201",    // [string, optional] K 類醫囑使用, 結束日期 YYYYMMDD(:HH)
                     "specimenValue": "BLO",             // [string, optional] L 類醫囑使用
@@ -3471,7 +3471,7 @@ HOST: http://www.wantoto.com
         }
 
 
-## 6/16 醫令交易檔 ID 所對應之病患醫令記錄 [/account/{accountNo}/orderRecord/{orderRecordId}{?quantity,billType,expectedExTime,confirmedTime,stage,status,sessionKey,orderRecordIds,verifier,isEmergency,specialInstruction}]
+## 6/16 醫令交易檔 ID 所對應之病患醫令記錄 [/account/{accountNo}/orderRecord/{orderRecordId}{?quantity,billType,expectedExTime,confirmedTime,orderStage,status,sessionKey,orderRecordIds,verifier,isEmergency,specialInstruction}]
 
 ### 取得醫令記錄內容 [GET]
 + Parameters
@@ -3499,7 +3499,7 @@ HOST: http://www.wantoto.com
                 "creator": "111281",                // [string] 開立醫囑者員工編號
                 "verifier": "111281",               // [string] 確認醫師員工編號
                 "isEmergency": false,               // [boolean] 是否急做
-                "stage": 0,                         // [number] 階段代碼 詳細對應資料從 dictionary 抓
+                "orderStage": 0,                    // [number] 階段代碼 詳細對應資料從 dictionary 抓
                 "status": "開立",                    // [string] 狀態
                 "specialInstruction": "特殊醫囑內容",  // [string] 特殊醫囑
                 "startActivateDatetime": 1435744800, // [number(timestamp), optional] 醫令有效起日 K類醫囑使用
@@ -3509,7 +3509,7 @@ HOST: http://www.wantoto.com
                 "specimenValue": "sp1",               // [string] 檢體代碼 L類醫囑使用
                 "questionaries": [                     // [optional] 問題清單答案
                     {
-                        "displayTitle": "SINGLE_SELECTION",     // [string] 問題顯示題目
+                        "title": "SINGLE_SELECTION",            // [string] 問題顯示題目
                         "returnKey": "s_selection_example",     // [string] 回傳結果時該問題所對應的鍵值
                         "type": "M",                            // [string] 問題種類，如日期為 D，單選為 S，多選為 M
                         "required": true,                       // [boolean] 問題是否為必填項目
@@ -3532,7 +3532,7 @@ HOST: http://www.wantoto.com
                         "freeSelectionEnable": true            // [optional, boolean] 是否允許增添選項，當類型為 S, M 時使用
                     },
                     {
-                        "displayTitle": "DATE_SELECTION",       // [string] 問題顯示題目
+                        "title": "DATE_SELECTION",              // [string] 問題顯示題目
                         "returnKey": "d_selection_example",     // [string] 回傳結果時該問題所對應的鍵值
                         "type": "D",                            // [string] 問題種類，如日期為 D，單選為 S
                         "required": true,                       // [boolean] 問題是否為必填項目
@@ -3540,7 +3540,7 @@ HOST: http://www.wantoto.com
                         "defaultDate": 1406938026               // [optional, number(timestamp)] 預設或已經填入之答案，當類型為 D 時使用
                     },
                     {
-                        "displayTitle": "INPUT_BOX",            // [string] 問題顯示題目
+                        "title": "INPUT_BOX",                   // [string] 問題顯示題目
                         "returnKey": "input_box_example",       // [string] 回傳結果時該問題所對應的鍵值
                         "type": "T",                            // [string] 問題種類，如單行文字框為 T 多行文字框為 P
                         "required": false,                      // [boolean] 問題是否為必填項目
@@ -3567,8 +3567,8 @@ HOST: http://www.wantoto.com
     + confirmedTime      (number) ... 確認時間
     + verifier           (string) ... 確認醫師員工編號
     + isEmergency        (boolean) ... 是否急做
-    + status             (string) ... 階段
-    + stage              (string) ... 狀態
+    + status             (string) ... 狀態
+    + orderStage         (number) ... 醫令階段代碼
     + specialInstruction (string) ... 特殊醫囑內容
 
 + Request ModifyOrder (application/json)
@@ -3592,7 +3592,8 @@ HOST: http://www.wantoto.com
                     "endActivateDatetime": 1438423200,   // [number(timestamp), optional] 醫令有效迄日 K類醫囑使用
                     "frequency": "QD",                   // [string] 頻率碼 K類醫囑使用
                     "isBedside": false,                  // [boolean, optional] 是否為床邊攝影 R類醫囑使用
-                    "specimenValue": "sp1",               // [string] 檢體代碼 L類醫囑使用
+                    "orderStage": 0,                     // [number] 階段
+                    "specimenValue": "sp1",              // [string] 檢體代碼 L類醫囑使用
                     "questionaries": [                   // [optional] 問答題答案，若無則不會傳入
                         {
                             "returnKey": "d_selection_example",     // [string] 問答題對應鍵值
@@ -4417,7 +4418,10 @@ HOST: http://www.wantoto.com
 # Group 多媒體相關 Media Relative Service
 ## 6/5 - 影像上傳 [/patients/{chartNo}/images{?title,accountNo,uploader,description,reviewer,compression,type}]
 ### 新增影像資料 [POST]
-Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上傳
+Content-type: multipart/form-data
+<br> - The first part will contain the follwing JSON content for the record info (name = parameters)
+<br> - The JSON content will be encoede with UTF-8 and than converted into binary with base64 encoded
+<br> - 其餘影像分別用 name = filename 的方式上傳
 
 + Parameters
     + accountNo     (string)             ... 帳號編號
@@ -4427,6 +4431,21 @@ Content-type: multipart/form-data 影像用 [filename]: [content_file] 形式上
     + title         (string, optional)   ... ProgressNote 標題
     + description   (string, optional)   ... 上傳之 ProgressNote 之描述
     + reviewer      (string, optional)   ... 欲請求簽章之員工編號
+
++ Request UploadMediaRequest
+
+        {
+            "content": {
+                "compression": "l",
+                "type": "p",
+                "title": "TEST TITLE",
+                "description": "TEST DESCRIPTION"
+            },
+            "sessionKey": "DD07A0AF4E9F426C838185D8DD19EFE2",
+            "accountNo": "E123512",
+            "uploader": "111271",
+            "reviewer": "111281"
+        }
 
 + Response 200 (application/json)
 
