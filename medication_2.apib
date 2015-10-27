@@ -137,7 +137,7 @@
                 "medicationCode":   "P1110023",                     // [string] 欲開立之處方代碼
                 "hospitalCode":     "HQ",                           // [string] 院區代碼
                 "stage":            "regular",                      // [string] 階段
-                "dose":             "1",                            // [string] 劑量
+                "dose":             1,                              // [number] 劑量
                 "route":            "IF",                           // [string] 路徑代碼
                 "repeatedPattern":  "QD",                           // [string] 頻率代碼
                 "useDays":          0,                              // [number] 使用天數
@@ -264,48 +264,57 @@
             }
         }
 
-## 藥囑交易記錄之暫停醫囑相關資訊 [/account/{accountNo}/medicationRecord/{medicationRecordId}/holdInfo{?sessionKey}]
-### 取得藥囑暫停功能相關資訊 [GET]
+## 藥囑交易記錄之暫停醫囑相關資訊 [/account/{accountNo}/medicationRecord/{medicationRecordId}{?sessionKey}]
+
+### 取得對應醫囑內容 [GET]
 
 + Parameters
-    + sessionKey (string) ...   SessionKey
+    + sessionKey (string) ... SessionKey
 
 + Response 200 (application/json)
 
         {
             "content": {
-                "description": "Alparazalam ((管4)) 安博寧",         // [string] 暫停醫囑相關資訊
-                "unit": "Dose",                                     // [string] 暫停醫囑使用單位
-                "optionas": [
-                    1,                                              // [number] 暫停醫囑選項清單
-                    2,
+                "medicationCode":   "T0_P1110023",            // [string] 處方代碼 院區碼_ID
+                "medicationName":   "TEST_ORDER_NAME",        // [string] 處方名稱
+                "hospitalCode":     "HQ",                           // [string] 院區代碼
+                "stage":            "regular",                      // [string] 階段
+                "dose":             1,                              // [number] 劑量
+                "route":            "IF",                           // [string] 路徑代碼
+                "repeatedPattern":  "QD",                           // [string] 頻率代碼
+                "useDays":          0,                              // [number] 使用天數
+                "billType":         "Z",                            // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
+                "state":            false,                          // [boolean] STATE 選項是否被勾選
+                "startDate":        "20150702",                     // [string] 起始日期，依照格式 yyyymmDD
+                "startTime":        9,                              // [number] 起始時間 (小時, 24 時制)
+                "endDate":          "20150709",                     // [string, optional] 結束日期，依照格式 yyyymmDD 若使用者沒輸入不會傳入
+                "endTime":          9,                              // [number, optional] 結束時間 (小時, 24 時制) 若使用者沒輸入不會傳入
+                "specialDose":      "TEXT CONTENT ...",             // [string, optional] 特殊劑量 若使用者沒輸入不會傳入
+                "repeatReason":     "TEXT CONTENT ...",             // [string, optional] 使用原因 若使用者沒輸入不會傳入
+                "isAllergic":       false,                          // [boolean] 過敏
+                "isADR":            false,                          // [boolean] ADR
+                "diluent":          {  // [optional] 稀釋液 注射處方使用
+                    "code":     "12332123",                         // [string] 稀釋液代碼
+                    "volume":   100                                 // [number] 稀釋液體積
+                },
+                "injection": {  // [optional] 注射處方指示
+                    "concentration":    100,                        // [number] 濃度 注射處方使用
+                    "flowVelocity":     100,                        // [number] 速度 注射處方使用
+                    "infusionTime":     10,                         // [number] 輸注時間 注射處方使用
+                    "mlPerHour":        1                           // [number] 流速 注射處方使用
+                },
+                "dispenseWay":  1,                                  // [number, optional] 調劑方式
+                "dispenseDayList": [                                // [optional] 調劑指定日期
+                    "20150707",                                     // [string] 調劑日期 依照格式 yyyymmDD
+                    "20150714",
+                    "20150721",
                     ...
                 ],
-                "executionTimes": [
-                    1406938026,                                     // [number(timestamp)] 開始時間選項
-                    1406948026,                                     // [number(timestamp)]
-                    1406958026,                                     // [number(timestamp)]
-                    ...
-                ],
-                "canRestart": false,                                // [boolean] 此藥囑交易記錄是否可以開立重啟醫囑
-                "holdRecords": [                                    // 已經開立的 暫停/重啟 醫囑清單，沒有則回傳空陣列
-                    {
-                        "creator": "111271",            // [string] 開立人之員工編號
-                        "createdTime": 1406938026,      // [number(timestamp)] 醫囑開立時間
-                        "executionTime": 1406938026,    // [number(timestamp), optional] 執行開始時間 暫停醫囑使用
-                        "type": 0,                      // [number] 暫停醫囑: 0 重啟醫囑: 1
-                        "verifier": "111281",           // [string,optional] 確認者, 若無不用回傳
-                        "option": 1,                    // [number, optional] 暫停醫囑選項 重啟醫囑不用回傳
-                        "recordId": "13-01"             // [string] 暫停/重啟 醫囑交易記錄 ID
-                    },
-                    ...
-                ]
+                "dailyAmmount": 5                                   // [number, optional] 每日劑量, 若無則不會傳入
             }
         }
 
-
-## 修改醫囑 [PUT]
-
+### 修改醫囑 [PUT]
 + Request IssueMedicationOrder (application/json)
 
         {
@@ -313,7 +322,7 @@
                 "medicationCode":   "P1110023",                     // [string] 欲開立之處方代碼
                 "hospitalCode":     "HQ",                           // [string] 院區代碼
                 "stage":            "regular",                      // [string] 階段
-                "dose":             "1",                            // [string] 劑量
+                "dose":             1,                              // [number] 劑量
                 "route":            "IF",                           // [string] 路徑代碼
                 "repeatedPattern":  "QD",                           // [string] 頻率代碼
                 "useDays":          0,                              // [number] 使用天數
@@ -354,6 +363,46 @@
 
         {
             "success": true
+        }
+
+
+## 藥囑交易記錄之暫停醫囑相關資訊 [/account/{accountNo}/medicationRecord/{medicationRecordId}/holdInfo{?sessionKey}]
+### 取得藥囑暫停功能相關資訊 [GET]
+
++ Parameters
+    + sessionKey (string) ...   SessionKey
+
++ Response 200 (application/json)
+
+        {
+            "content": {
+                "description": "Alparazalam ((管4)) 安博寧",         // [string] 暫停醫囑相關資訊
+                "unit": "Dose",                                     // [string] 暫停醫囑使用單位
+                "optionas": [
+                    1,                                              // [number] 暫停醫囑選項清單
+                    2,
+                    ...
+                ],
+                "executionTimes": [
+                    1406938026,                                     // [number(timestamp)] 開始時間選項
+                    1406948026,                                     // [number(timestamp)]
+                    1406958026,                                     // [number(timestamp)]
+                    ...
+                ],
+                "canRestart": false,                                // [boolean] 此藥囑交易記錄是否可以開立重啟醫囑
+                "holdRecords": [                                    // 已經開立的 暫停/重啟 醫囑清單，沒有則回傳空陣列
+                    {
+                        "creator": "111271",            // [string] 開立人之員工編號
+                        "createdTime": 1406938026,      // [number(timestamp)] 醫囑開立時間
+                        "executionTime": 1406938026,    // [number(timestamp), optional] 執行開始時間 暫停醫囑使用
+                        "type": 0,                      // [number] 暫停醫囑: 0 重啟醫囑: 1
+                        "verifier": "111281",           // [string,optional] 確認者, 若無不用回傳
+                        "option": 1,                    // [number, optional] 暫停醫囑選項 重啟醫囑不用回傳
+                        "recordId": "13-01"             // [string] 暫停/重啟 醫囑交易記錄 ID
+                    },
+                    ...
+                ]
+            }
         }
 
 
