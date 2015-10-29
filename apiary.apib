@@ -3154,7 +3154,7 @@ HOST: http://www.wantoto.com
                     "hospitalCode":     "HQ",                       // [string] 院區碼
                     "orderName":        "測試醫令",                  // [string] 醫令名稱
                     "screenNote":       "重要提示",                  // [string, optional] 重要提示 顯示於介面中
-                    "allowEmergency":   true,                       // [boolean] 是否支援急做
+                    "isEmergency":   true,                       // [boolean] 是否支援急做
                     "subType":          "N",                        // [string, optional] orderType = T 時使用 一般為 N, 手術為 O, 麻醉為 A, 齒位為 D, 技工所為 E, 復健為 P
                     "requireCreInfo":   false,                      // [boolean] 是否需要顯示 cre 介面,
                     "planExecutionTimeFormat": "yyyy/mmdd HH",      // [string] 預計執行時間的 format
@@ -3309,7 +3309,8 @@ HOST: http://www.wantoto.com
                     },
                     "creInfo": {                        // [optional] 當醫令 requireCreInfo=true 需要顯示 cre 介面時會回傳
                         "cre": 22.3,                    // [number, optional] 如果有需要填入 cre 值時所填入的數值 且有填入數值時會回傳
-                        "emergency": false              // [boolean] 生命危及之緊急狀況項目是否被勾選
+                        "emergency": false,             // [boolean] 生命危及之緊急狀況項目是否被勾選
+                        "creatinine": false             // [boolean] 加開 creatinine 是否被勾選
                     },
                     "specialInstruction": "Test 1",     // [string] 特殊醫囑
                     "questionaries": [                  // [optional] 問答題答案，若無則回傳空陣列
@@ -3520,11 +3521,11 @@ HOST: http://www.wantoto.com
                         ],
                         "options": [                            // [optional] 選擇項目列表，當類型為 S, M 時使用
                             {
-                                "displayValue": "OPTIONA: A",   // [string] 選項顯示內容
+                                "title": "OPTIONA: A",          // [string] 選項顯示內容
                                 "returnValue": "optional_a"     // [string] 回傳時該選項所對應的值
                             },
                             {
-                                "displayValue": "OPTIONAL: B",  // [string] 項目顯示內容
+                                "title": "OPTIONAL: B",         // [string] 項目顯示內容
                                 "returnValue": "optiona_b"      // [string] 回傳時該選項所對應的值
                             },
                             ...
@@ -3639,9 +3640,42 @@ HOST: http://www.wantoto.com
         }
 
 
-## 9/16 刪除多筆病患醫令記錄 [/order/batch]
-### 刪除多筆病患醫令記錄[POST]
-+ Reqeust Delete orderRecord(s)
+## 10/27 確認多筆病患醫令記錄 [/order/batch]
+### 確認或刪除多筆病患醫令記錄 [POST]
+
++ Request Confirm orderRecord(s)
+
+        {
+            "sessionKey": "DE44A33624064BFCB0BBAFDB9A509C16",
+            "requests": [
+                {
+                    "requestId": "request_001",
+                    "path": "/account/{accountNo}/orderRecord/T32132012",
+                    "method": "PATCH",
+                    "body": {
+                        "content": {
+                            "confirmedTime": 1438423200,         // [number(timestamp)] 確認時間
+                            "verifier": "111283"                 // [string]  確認醫師員工編號
+                        }
+                    }
+                },
+                {
+                    "requestId": "request_001",
+                    "path": "/account/{accountNo}/orderRecord/T32132013",
+                    "method": "PATCH",
+                    "body": {
+                        "content": {
+                            "confirmedTime": 1438423200,         // [number(timestamp)] 確認時間
+                            "verifier": "111283"                 // [string]  確認醫師員工編號
+                        }
+                    }
+                },
+                ...
+            ]
+        }
+
+
++ Request Delete orderRecord(s)
 
         {
             "sessionKey": "DE44A33624064BFCB0BBAFDB9A509C16",
@@ -3652,7 +3686,7 @@ HOST: http://www.wantoto.com
                     "method": "DELETE"
                 },
                 {
-                    "requestId": "request002"
+                    "requestId": "request002",
                     "path": "/account/{accountNo}/orderRecords?orderRecordId=T32132013",
                     "method": "DELETE"
                 },
@@ -3662,13 +3696,19 @@ HOST: http://www.wantoto.com
 
 + Response 200 (application/json)
 
+
         {
-            "request_001": {
-                "success": true
-            },
-            "request_002": {
-                "success": true
-            }
+            "requests": [
+                {
+                    "requestId": "request001",
+                    "success": true
+                },
+                {
+                    "requestId": "request002",
+                    "success": true
+                }
+                ...
+            ]
         }
 
 # Group MedicationOrder
@@ -3810,12 +3850,12 @@ HOST: http://www.wantoto.com
                 "medicationCode":   "P1110023",                     // [string] 欲開立之處方代碼
                 "hospitalCode":     "HQ",                           // [string] 院區代碼
                 "stage":            "regular",                      // [string] 階段
-                "dose":             "1",                            // [string] 劑量
+                "dose":             1,                              // [number] 劑量
                 "route":            "IF",                           // [string] 路徑代碼
                 "repeatedPattern":  "QD",                           // [string] 頻率代碼
                 "useDays":          0,                              // [number] 使用天數
                 "billType":         "Z",                            // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
-                "state":            false,                          // [boolean] STATE 選項是否被勾選
+                "stat":            false,                           // [boolean] STAT 選項是否被勾選
                 "startDate":        "20150702",                     // [string] 起始日期，依照格式 yyyymmDD
                 "startTime":        9,                              // [number] 起始時間 (小時, 24 時制)
                 "endDate":          "20150709",                     // [string, optional] 結束日期，依照格式 yyyymmDD 若使用者沒輸入不會傳入
@@ -3887,11 +3927,11 @@ HOST: http://www.wantoto.com
 
         {
             "content": [
-                "早__{%f:dose1}__ __{%u}__, 午__{%f:dose2}__ __{%u}__, 晚__{%f:dose3}__ __{%u}__, 睡前__{%f:dose3}__ __{%u}__, __{%p:selection}__ 飯前 __{%p:selection}__ 飯後",
-                "__{%t:time1}__ __{%u}__, __{%t:time2}__ __{%u}__, __{%t:time3}__ __{%u}__, __{%t:time4}__ __{%u}__.",
+                "早__{%f:dose1}__ __{%u}__, 午__{%f:dose2}__ __{%u}__, 晚__{%f:dose3}__ __{%u}__, 睡前__{%f:dose3}__ __{%u}__, __{%p:selection:飯前:飯後}__ ",
+                "__{%t:time1}__ __{%u}__, __{%t:time2}__ __{%u}__, __{%t:time3}__ __{%u}__, __{%t:time4}__ __{%u}__",
                 "指定用法: __{%s:content}__",
-                "一日 __{%f:dose1}__ __{%u}__, 隔日 __{%f:dose2}__ __{%u}__交替使用. __{%p:timeSelection}__ 早(9AM) __{%p:timeSelection}__ 午(1PM) __{%p:timeSelection}__ 晚(6PM) __{%p:timeSelection}__ 睡前(9PM)",
-                "周一 __{%f:mon}__ __{%u}__, 周二 __{%f:tue}__ __{%u}__, 周三 __{%f:wed}__ __{%u}__, 周四 __{%f:thu}__ __{%u}__, 周五 __{%f:fri}__ __{%u}__, 周六 __{%f:sat}__ __{%u}__, 周日 __{%f:sun}__ __{%u}__. __{%p:timeSelection}__ 早(9AM) __{%p:timeSelection}__ 午(1PM) __{%p:timeSelection}__ 晚(6PM) __{%p:timeSelection}__ 睡前(9PM)",
+                "一日 __{%f:dose1}__ __{%u}__, 隔日 __{%f:dose2}__ __{%u}__交替使用, __{%p:timeSelection:早(9AM):午(1PM):晚(6PM):睡前(9PM)}__",
+                "周一 __{%f:mon}__ __{%u}__, 周二 __{%f:tue}__ __{%u}__, 周三 __{%f:wed}__ __{%u}__, 周四 __{%f:thu}__ __{%u}__, 周五 __{%f:fri}__ __{%u}__, 周六 __{%f:sat}__ __{%u}__, 周日 __{%f:sun}__ __{%u}__, __{%p:timeSelection:早(9AM):午(1PM):晚(6PM):睡前(9PM)}__",
                 ...
             ]
         }
@@ -3937,6 +3977,108 @@ HOST: http://www.wantoto.com
             }
         }
 
+## 藥囑交易記錄之資訊 [/account/{accountNo}/medicationRecord/{medicationRecordId}{?sessionKey}]
+
+### 取得對應醫囑交易記錄內容 [GET]
+
++ Parameters
+    + sessionKey (string) ... SessionKey
+
++ Response 200 (application/json)
+
+        {
+            "content": {
+                "medicationCode":   "T0_P1110023",            // [string] 處方代碼 院區碼_ID
+                "medicationName":   "TEST_ORDER_NAME",        // [string] 處方名稱
+                "hospitalCode":     "HQ",                           // [string] 院區代碼
+                "stage":            "regular",                      // [string] 階段
+                "dose":             1,                              // [number] 劑量
+                "route":            "IF",                           // [string] 路徑代碼
+                "repeatedPattern":  "QD",                           // [string] 頻率代碼
+                "useDays":          0,                              // [number] 使用天數
+                "billType":         "Z",                            // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
+                "stat":            false,                           // [boolean] STAT 選項是否被勾選
+                "startDate":        "20150702",                     // [string] 起始日期，依照格式 yyyymmDD
+                "startTime":        9,                              // [number] 起始時間 (小時, 24 時制)
+                "endDate":          "20150709",                     // [string, optional] 結束日期，依照格式 yyyymmDD 若使用者沒輸入不會傳入
+                "endTime":          9,                              // [number, optional] 結束時間 (小時, 24 時制) 若使用者沒輸入不會傳入
+                "specialDose":      "TEXT CONTENT ...",             // [string, optional] 特殊劑量 若使用者沒輸入不會傳入
+                "repeatReason":     "TEXT CONTENT ...",             // [string, optional] 使用原因 若使用者沒輸入不會傳入
+                "isAllergic":       false,                          // [boolean] 過敏
+                "isADR":            false,                          // [boolean] ADR
+                "diluent":          {  // [optional] 稀釋液 注射處方使用
+                    "code":     "12332123",                         // [string] 稀釋液代碼
+                    "volume":   100                                 // [number] 稀釋液體積
+                },
+                "injection": {  // [optional] 注射處方指示
+                    "concentration":    100,                        // [number] 濃度 注射處方使用
+                    "flowVelocity":     100,                        // [number] 速度 注射處方使用
+                    "infusionTime":     10,                         // [number] 輸注時間 注射處方使用
+                    "mlPerHour":        1                           // [number] 流速 注射處方使用
+                },
+                "dispenseWay":  1,                                  // [number, optional] 調劑方式
+                "dispenseDayList": [                                // [optional] 調劑指定日期
+                    "20150707",                                     // [string] 調劑日期 依照格式 yyyymmDD
+                    "20150714",
+                    "20150721",
+                    ...
+                ],
+                "dailyAmmount": 5                                   // [number, optional] 每日劑量, 若無則不會傳入
+            }
+        }
+
+### 修改醫囑 [PUT]
++ Request IssueMedicationOrder (application/json)
+
+        {
+            "content": {
+                "medicationCode":   "P1110023",                     // [string] 欲開立之處方代碼
+                "hospitalCode":     "HQ",                           // [string] 院區代碼
+                "stage":            "regular",                      // [string] 階段
+                "dose":             1,                              // [number] 劑量
+                "route":            "IF",                           // [string] 路徑代碼
+                "repeatedPattern":  "QD",                           // [string] 頻率代碼
+                "useDays":          0,                              // [number] 使用天數
+                "billType":         "Z",                            // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
+                "stat":            false,                           // [boolean] STAT 選項是否被勾選
+                "startDate":        "20150702",                     // [string] 起始日期，依照格式 yyyymmDD
+                "startTime":        9,                              // [number] 起始時間 (小時, 24 時制)
+                "endDate":          "20150709",                     // [string, optional] 結束日期，依照格式 yyyymmDD 若使用者沒輸入不會傳入
+                "endTime":          9,                              // [number, optional] 結束時間 (小時, 24 時制) 若使用者沒輸入不會傳入
+                "specialDose":      "TEXT CONTENT ...",             // [string, optional] 特殊劑量 若使用者沒輸入不會傳入
+                "repeatReason":     "TEXT CONTENT ...",             // [string, optional] 使用原因 若使用者沒輸入不會傳入
+                "isAllergic":       false,                          // [boolean] 過敏
+                "isADR":            false,                          // [boolean] ADR
+                "diluent":          {  // [optional] 稀釋液 注射處方使用
+                    "code":     "12332123",                         // [string] 稀釋液代碼
+                    "volume":   100                                 // [number] 稀釋液體積
+                },
+                "injection": {  // [optional] 注射處方指示
+                    "concentration":    100,                        // [number] 濃度 注射處方使用
+                    "flowVelocity":     100,                        // [number] 速度 注射處方使用
+                    "infusionTime":     10,                         // [number] 輸注時間 注射處方使用
+                    "mlPerHour":        1                           // [number] 流速 注射處方使用
+                },
+                "dispenseWay":  1,                                  // [number, optional] 調劑方式
+                "dispenseDayList": [                                // [optional] 調劑指定日期
+                    "20150707",                                     // [string] 調劑日期 依照格式 yyyymmDD
+                    "20150714",
+                    "20150721",
+                    ...
+                ],
+                "dailyAmmount": 5                                   // [number, optional] 每日劑量, 若無則不會傳入
+            },
+            "stateIndex": 0,                                        // [number] 交易狀態的 state 從 0 開始
+            "sessionKey": "E0B27FAAAE68415BA9E011E569FE4009"        // [string] SessionKey
+        }
+
++ Response 200 (application/json)
+
+        {
+            "success": true
+        }
+
+
 ## 藥囑交易記錄之暫停醫囑相關資訊 [/account/{accountNo}/medicationRecord/{medicationRecordId}/holdInfo{?sessionKey}]
 ### 取得藥囑暫停功能相關資訊 [GET]
 
@@ -3976,6 +4118,7 @@ HOST: http://www.wantoto.com
             }
         }
 
+
 ## 藥囑交易記錄之暫停和重啟醫囑清單 [/account/{accountNo}/medicationRecord/{medicationRecordId}/holdOrders{?sessionKey}]
 ### 開立暫停/重啟醫囑 [POST]
 
@@ -3998,6 +4141,58 @@ HOST: http://www.wantoto.com
             "content": {
                 "recordId": "13-8"     // 本次編輯後的 暫停/重啟 醫囑記錄 ID
             }
+        }
+
+
+
+## 10/27 確認多筆病患醫令記錄 [/medication/confirmation/batch]
+### 確認多比病患醫令記錄 [POST]
++ Request Confirm orderRecord(s)
+
+        {
+            "sessionKey": "DE44A33624064BFCB0BBAFDB9A509C16",
+            "requests": [
+                {
+                    "requestId": "request_001",
+                    "path": "/account/{accountNo}/orderRecord/T32132012",
+                    "method": "PATCH",
+                    "body": {
+                        "content": {
+                            "confirmedTime": 1438423200,         // [number(timestamp)] 確認時間
+                            "verifier": "111283"                 // [string]  確認醫師員工編號
+                        }
+                    }
+                },
+                {
+                    "requestId": "request_001",
+                    "path": "/account/{accountNo}/orderRecord/T32132013",
+                    "method": "PATCH",
+                    "body": {
+                        "content": {
+                            "confirmedTime": 1438423200,         // [number(timestamp)] 確認時間
+                            "verifier": "111283"                 // [string]  確認醫師員工編號
+                        }
+                    }
+                },
+                ...
+            ]
+        }
+
++ Response 200 (application/json)
+
+
+        {
+            "requests": [
+                {
+                    "requestId": "request001",
+                    "success": true
+                },
+                {
+                    "requestId": "request002",
+                    "success": true
+                }
+                ...
+            ]
         }
 
 # Group Blood Order
@@ -5440,8 +5635,8 @@ Content-type: multipart/form-data
                 },
                 "patientInfo": {
                     "type": 0,          // 急救記錄類別 0 for newborn, 1 for child, 2 for adult
-                    "weight": 200,      // [number, optional] weight (if type=1 in g; else in Kg)
-                    "age": "3_200"      // [string, optional] pattern: "y_d"
+                    "weight": 200,      // [number, optional] weight (if type=0 in g; else in Kg)
+                    "age": 3            // [number, optional] age
                 },
                 "ERRecord" : [
                     {
