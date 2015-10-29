@@ -480,7 +480,8 @@
                     },
                     "creInfo": {                        // [optional] 當醫令 requireCreInfo=true 需要顯示 cre 介面時會回傳
                         "cre": 22.3,                    // [number, optional] 如果有需要填入 cre 值時所填入的數值 且有填入數值時會回傳
-                        "emergency": false              // [boolean] 生命危及之緊急狀況項目是否被勾選
+                        "emergency": false,             // [boolean] 生命危及之緊急狀況項目是否被勾選
+                        "creatinine": false             // [boolean] 加開 creatinine 是否被勾選
                     },
                     "specialInstruction": "Test 1",     // [string] 特殊醫囑
                     "questionaries": [                  // [optional] 問答題答案，若無則回傳空陣列
@@ -691,11 +692,11 @@
                         ],
                         "options": [                            // [optional] 選擇項目列表，當類型為 S, M 時使用
                             {
-                                "displayValue": "OPTIONA: A",   // [string] 選項顯示內容
+                                "title": "OPTIONA: A",          // [string] 選項顯示內容
                                 "returnValue": "optional_a"     // [string] 回傳時該選項所對應的值
                             },
                             {
-                                "displayValue": "OPTIONAL: B",  // [string] 項目顯示內容
+                                "title": "OPTIONAL: B",         // [string] 項目顯示內容
                                 "returnValue": "optiona_b"      // [string] 回傳時該選項所對應的值
                             },
                             ...
@@ -810,46 +811,9 @@
         }
 
 
-## 10/27 刪除多筆病患醫令記錄 [/order/delete/batch]
-### 刪除多筆病患醫令記錄[POST]
-+ Reqeust Delete orderRecord(s)
+## 10/27 確認多筆病患醫令記錄 [/order/batch]
+### 確認或刪除多筆病患醫令記錄 [POST]
 
-        {
-            "sessionKey": "DE44A33624064BFCB0BBAFDB9A509C16",
-            "requests": [
-                {
-                    "requestId": "request001",
-                    "path": "/account/{accountNo}/orderRecords?orderRecordId=T32132012",
-                    "method": "DELETE"
-                },
-                {
-                    "requestId": "request002"
-                    "path": "/account/{accountNo}/orderRecords?orderRecordId=T32132013",
-                    "method": "DELETE"
-                },
-                ...
-            ]
-        }
-
-+ Response 200 (application/json)
-
-
-        {
-            "requests": [
-                {
-                    "requestId": "request001",
-                    "success": true
-                },
-                {
-                    "requestId": "request002",
-                    "success": true
-                }
-                ...
-            ]
-        }
-
-## 10/27 確認多筆病患醫令記錄 [/order/confirmation/batch]
-### 確認多比病患醫令記錄 [POST]
 + Request Confirm orderRecord(s)
 
         {
@@ -876,6 +840,26 @@
                             "verifier": "111283"                 // [string]  確認醫師員工編號
                         }
                     }
+                },
+                ...
+            ]
+        }
+
+
++ Request Delete orderRecord(s)
+
+        {
+            "sessionKey": "DE44A33624064BFCB0BBAFDB9A509C16",
+            "requests": [
+                {
+                    "requestId": "request001",
+                    "path": "/account/{accountNo}/orderRecords?orderRecordId=T32132012",
+                    "method": "DELETE"
+                },
+                {
+                    "requestId": "request002",
+                    "path": "/account/{accountNo}/orderRecords?orderRecordId=T32132013",
+                    "method": "DELETE"
                 },
                 ...
             ]
