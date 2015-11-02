@@ -3154,9 +3154,9 @@ HOST: http://www.wantoto.com
                     "hospitalCode":     "HQ",                       // [string] 院區碼
                     "orderName":        "測試醫令",                  // [string] 醫令名稱
                     "screenNote":       "重要提示",                  // [string, optional] 重要提示 顯示於介面中
-                    "isEmergency":   true,                       // [boolean] 是否支援急做
+                    "isEmergency":      true,                       // [boolean] 是否支援急做
                     "subType":          "N",                        // [string, optional] orderType = T 時使用 一般為 N, 手術為 O, 麻醉為 A, 齒位為 D, 技工所為 E, 復健為 P
-                    "requireCreInfo":   false,                      // [boolean] 是否需要顯示 cre 介面,
+                    "requireCreInfo":   0,                          // [number] 是否需要顯示 cre 介面以及顯示介面的種類, 0. 為不需要顯示 1. 為只需要顯示目前取得之 cre 值 2. 為還需要顯示生命危急和加開 creatimine 的選項
                     "planExecutionTimeFormat": "yyyy/mmdd HH",      // [string] 預計執行時間的 format
                     "specimenList":     [                           // [optional] orderType = L 時使用
                         {
@@ -3712,6 +3712,77 @@ HOST: http://www.wantoto.com
         }
 
 # Group MedicationOrder
+
+## 7/8 - 醫令搜尋 [/medications{?name,packageCode,orderType,patientClass,hospitalCode,accountNo,searchType,sessionKey}]
+### 取得藥物清單 [GET]
+
++ Parameters
+    + name (string, optional)           ... 搜尋字串
+    + packageCode (string, optional)    ... 套餐代碼
+    + orderType (string, optional)      ... 指定要搜尋醫令的醫令種類
+    + patientClass (string, optional)   ... 病患的門住急別
+    + hospitalCode (string, optional)   ... 院區碼 如台大本院為 T0
+    + accountNo (string, optional)      ... 病患帳號
+    + searchType (string)               ... 搜尋來源種類 P 為來自醫令套餐 A 為來自病患帳號 N 為來自字串搜尋
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "field" : [
+                    {
+                        "fieldCode" : "orderType",
+                        "displayName" : "醫令類別"
+                    },
+                    {
+                        "fieldCode" : "DisplayCode",
+                        "displayName" : "醫令碼"
+                    },
+                    {
+                        "fieldCode" : "order",
+                        "displayName" : "醫令內容"
+                    },
+                    ...
+                ],
+                "data" : [
+                    {
+                        "orderCode" : "T0_00L0114_T",   // [string, required] 藥囑碼
+                        "searchType": "P",              // [string] 搜尋來源類別
+                        "orderIdse": "128351",          // [string, optional] 藥囑預設參數識別碼如果沒有例如 searchType == N 不回傳
+                        "display": "order",             // [string] a reference key to the data in the content; the data will be used as the display title
+                        "content" : {
+                            "DisplayCode" : "000L0114",
+                            "orderType" : "治療",
+                            "order"     : "複印全口顎Ｘ光照相"
+                        }
+                    },
+                    {
+                        "orderCode" : "T0_00L0224_T",   // [string, required] 藥囑碼
+                        "searchType": "P",              // [string] 搜尋來源類別
+                        "orderIdse": "321110123",       // [string, optional] 藥囑預設參數識別碼如果沒有例如 searchType == N 不回傳
+                        "display": "order",             // [string] a reference key to the data in the content; the data will be used as the display title
+                        "content" : {
+                            "DisplayCode" : "000L0113",
+                            "orderType" : "治療",
+                            "order"     : "複印咬合片Ｘ光照相 劑量: 20um"
+                        }
+                    },
+                    {
+                        "orderCode" : "T0_0033140_T",   // [string, required] 藥囑碼
+                        "searchType": "P",              // [string] 搜尋來源類別
+                        "orderIdse": "11023",           // [string, optional] 藥囑預設參數識別碼如果沒有例如 searchType == N 不回傳
+                        "display": "order",             // [string] a reference key to the data in the content; the data will be used as the display title
+                        "content" : {
+                            "DisplayCode" : "000L0112",
+                            "orderType" : "治療",
+                            "order"     : "複印根尖周Ｘ光照相"
+                        }
+                    },
+                    ...
+                ]
+            }
+        }
+
 
 ## 處方醫令資訊 [/medicationOrder/{medicationCode}{?sessionKey,stateIndex,accountNo}]
 ### 取得處方醫令屬性資料 [GET]
