@@ -1,5 +1,79 @@
 # Group MedicationOrder
 
+## 7/8 - 醫令搜尋 [/medications{?name,packageCode,orderType,patientClass,hospitalCode,accountNo,searchType,sessionKey}]
+### 取得藥物清單 [GET]
+
++ Parameters
+    + name (string, optional)           ... 搜尋字串
+    + packageCode (string, optional)    ... 套餐代碼
+    + orderType (string, optional)      ... 指定要搜尋醫令的醫令種類
+    + patientClass (string, optional)   ... 病患的門住急別
+    + hospitalCode (string, optional)   ... 院區碼 如台大本院為 T0
+    + accountNo (string, optional)      ... 病患帳號
+    + searchType (string)               ... 搜尋來源種類 P 為來自醫令套餐 A 為來自病患帳號 N 為來自字串搜尋
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "field" : [
+                    {
+                        "fieldCode" : "orderType",
+                        "displayName" : "醫令類別"
+                    },
+                    {
+                        "fieldCode" : "DisplayCode",
+                        "displayName" : "醫令碼"
+                    },
+                    {
+                        "fieldCode" : "order",
+                        "displayName" : "醫令內容"
+                    },
+                    ...
+                ],
+                "data" : [
+                    {
+                        "orderCode" : "T0_00L0114_T",   // [string, required] 藥囑碼
+                        "searchType": "P",              // [string] 搜尋來源類別
+                        "orderIdse": "128351",          // [string, optional] 藥囑預設參數識別碼如果沒有例如 searchType == N 不回傳
+                        "isVirtualOrder":   false,      // [boolean] 是否為虛擬醫令 如果是的話不能做 cache
+                        "display": "order",             // [string] a reference key to the data in the content; the data will be used as the display title
+                        "content" : {
+                            "DisplayCode" : "000L0114",
+                            "orderType" : "治療",
+                            "order"     : "複印全口顎Ｘ光照相"
+                        }
+                    },
+                    {
+                        "orderCode" : "T0_00L0224_T",   // [string, required] 藥囑碼
+                        "searchType": "P",              // [string] 搜尋來源類別
+                        "orderIdse": "321110123",       // [string, optional] 藥囑預設參數識別碼如果沒有例如 searchType == N 不回傳
+                        "isVirtualOrder":   false,      // [boolean] 是否為虛擬醫令
+                        "display": "order",             // [string] a reference key to the data in the content; the data will be used as the display title
+                        "content" : {
+                            "DisplayCode" : "000L0113",
+                            "orderType" : "治療",
+                            "order"     : "複印咬合片Ｘ光照相 劑量: 20um"
+                        }
+                    },
+                    {
+                        "orderCode" : "T0_0033140_T",   // [string, required] 藥囑碼
+                        "searchType": "P",              // [string] 搜尋來源類別
+                        "orderIdse": "11023",           // [string, optional] 藥囑預設參數識別碼如果沒有例如 searchType == N 不回傳
+                        "isVirtualOrder":   false,      // [boolean] 是否為虛擬醫令
+                        "display": "order",             // [string] a reference key to the data in the content; the data will be used as the display title
+                        "content" : {
+                            "DisplayCode" : "000L0112",
+                            "orderType" : "治療",
+                            "order"     : "複印根尖周Ｘ光照相"
+                        }
+                    },
+                    ...
+                ]
+            }
+        }
+
+
 ## 處方醫令資訊 [/medicationOrder/{medicationCode}{?sessionKey,stateIndex,accountNo}]
 ### 取得處方醫令屬性資料 [GET]
 + Parameters
