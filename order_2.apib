@@ -325,9 +325,9 @@
                     "hospitalCode":     "HQ",                       // [string] 院區碼
                     "orderName":        "測試醫令",                  // [string] 醫令名稱
                     "screenNote":       "重要提示",                  // [string, optional] 重要提示 顯示於介面中
-                    "isEmergency":   true,                       // [boolean] 是否支援急做
+                    "isEmergency":      true,                       // [boolean] 是否支援急做
                     "subType":          "N",                        // [string, optional] orderType = T 時使用 一般為 N, 手術為 O, 麻醉為 A, 齒位為 D, 技工所為 E, 復健為 P
-                    "requireCreInfo":   false,                      // [boolean] 是否需要顯示 cre 介面,
+                    "requireCreInfo":   0,                          // [number] 是否需要顯示 cre 介面以及顯示介面的種類, 0. 為不需要顯示 1. 為只需要顯示目前取得之 cre 值 2. 為還需要顯示生命危急和加開 creatimine 的選項
                     "planExecutionTimeFormat": "yyyy/mmdd HH",      // [string] 預計執行時間的 format
                     "specimenList":     [                           // [optional] orderType = L 時使用
                         {
