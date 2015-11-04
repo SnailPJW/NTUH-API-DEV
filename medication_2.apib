@@ -477,7 +477,7 @@
         }
 
 
-## 藥囑交易記錄之暫停和重啟醫囑清單 [/account/{accountNo}/medicationRecord/{medicationRecordId}/holdOrders{?sessionKey}]
+## 藥囑交易記錄之暫停和重啟醫囑清單 [/account/{accountNo}/medicationRecord/{medicationRecordId}/holdOrders{?sessionKey,recordId}]
 ### 開立暫停/重啟醫囑 [POST]
 
 + Request IssueHoldOrder (application/json)
@@ -499,6 +499,17 @@
             "content": {
                 "recordId": "13-8"     // 本次編輯後的 暫停/重啟 醫囑記錄 ID
             }
+        }
+
+### 刪除暫停重起醫囑 [DELETE]
+
++ Parameters
+    + recordId (string) ... 待刪除之 id
+
++ Response 200 (application/json)
+
+        {
+            "success": true
         }
 
 
