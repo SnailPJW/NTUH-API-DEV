@@ -153,6 +153,8 @@
                         "searchType": "P",              // [string] 搜尋來源類別
                         "orderIdse": "128351",          // [string, optional] 醫囑預設參數識別碼如果沒有例如 searchType == N 不回傳
                         "isVirtualOrder":   false,      // [boolean] 是否為虛擬醫令 如果是的話不能做 cache
+                        "canProcess": true,                     // [boolean] 是否可以在 iPortal 上處理
+                        "externalLinks": "/link/to/the/order",  // [string, optional] 如果不可在 iPortal 上開立時要再 Safari 開啟的 link
                         "display": "order",             // [string] a reference key to the data in the content; the data will be used as the display title
                         "content" : {
                             "DisplayCode" : "000L0114",
@@ -161,11 +163,13 @@
                         }
                     },
                     {
-                        "orderCode" : "T0_00L0224_T",   // [string, required] 醫令碼
-                        "searchType": "P",              // [string] 搜尋來源類別
-                        "orderIdse": "321110123",       // [string, optional] 醫囑預設參數識別碼如果沒有例如 searchType == N 不回傳
-                        "isVirtualOrder":   false,      // [boolean] 是否為虛擬醫令
-                        "display": "order",             // [string] a reference key to the data in the content; the data will be used as the display title
+                        "orderCode" : "T0_00L0224_T",           // [string, required] 醫令碼
+                        "searchType": "P",                      // [string] 搜尋來源類別
+                        "orderIdse": "321110123",               // [string, optional] 醫囑預設參數識別碼如果沒有例如 searchType == N 不回傳
+                        "isVirtualOrder": false,                // [boolean] 是否為虛擬醫令
+                        "canProcess": true,                     // [boolean] 是否可以在 iPortal 上處理
+                        "externalLinks": "/link/to/the/order",  // [string, optional] 如果不可在 iPortal 上開立時要再 Safari 開啟的 link
+                        "display": "order",                     // [string] a reference key to the data in the content; the data will be used as the display title
                         "content" : {
                             "DisplayCode" : "000L0113",
                             "orderType" : "治療",
@@ -177,6 +181,8 @@
                         "searchType": "P",              // [string] 搜尋來源類別
                         "orderIdse": "11023",           // [string, optional] 醫囑預設參數識別碼如果沒有例如 searchType == N 不回傳
                         "isVirtualOrder":   false,      // [boolean] 是否為虛擬醫令
+                        "canProcess": true,                     // [boolean] 是否可以在 iPortal 上處理
+                        "externalLinks": "/link/to/the/order",  // [string, optional] 如果不可在 iPortal 上開立時要再 Safari 開啟的 link
                         "display": "order",             // [string] a reference key to the data in the content; the data will be used as the display title
                         "content" : {
                             "DisplayCode" : "000L0112",
@@ -342,6 +348,11 @@
                         },
                         ...
                     ],
+                    "frequencyList": [                 // [optional] K類醫囑常用頻率
+                        "QD",
+                        "Q2H",
+                        ...
+                    ],
                     "appendOrders":     [                   // [optional] 附帶醫令，若無則不用回傳
                         {
                             "orderCode":    "T0_00123110_K",        // [string] 醫令碼
@@ -429,7 +440,7 @@
     + hospitalCode      (string) ... 院區碼
     + orderIdse         (string, optional) ... 搜尋藥囑而外識別碼
     + planExecutionTime (string, optional) ... 預設預計執行時間
-    + orderStage        (number, optional) ... 預設預計執行階段代碼
+    + orderStage        (string, optional) ... 預設預計執行階段代碼
 
 + Response 200 (application/json)
 
@@ -440,7 +451,7 @@
                     "isPAT": true,                          // [boolean] 是否需要預設 (入院檢查) 到 orderName 之中顯示（以及開立時上傳）
                     "quantity": 3,                          // [number, optional] 預設的 quantity 如果沒有預設不用會傳
                     "billType": "U",                        // [string, optional] 預設的計價別 (U內含的話顯示內含不可打勾、Z自費打勾、E則不勾) 如果沒有預設不用會傳
-                    "orderStage": 1,                        // [number, optional] 預設執行階段的代號 如果沒有預設不用會傳
+                    "orderStage": "1",                      // [string, optional] 預設執行階段的代號 如果沒有預設不用會傳
                     "specialInstruction": "特殊醫囑敘述",     // [string, optional] 預設特殊醫囑的帶入值 如果沒有預設不用會傳
                     "frequency": "STAT",                    // [string, optional] orderType = K 時使用 如果沒有預設不用回傳
                     "endActiveDatetime": "20151301",        // [string, optional] orderType = K 時使用 如果沒有預設不用回傳
@@ -467,7 +478,7 @@
                     "requestID": "20150907_111281_001", // [string] 開立請求ID 於回傳開立結果時使用
                     "orderCode": "T0_0001234_T",        // [string] 醫令碼
                     "orderName": "TEST_ORDER_001",      // [string] 醫令名稱
-                    "orderStage": 0,                    // [number] 醫令階段代碼
+                    "orderStage": "0",                  // [string] 醫令階段代碼
                     "frequency": "STAT",                // [string, optional] K 類醫囑使用, 頻率
                     "endActiveDatetime": "20160201",    // [string, optional] K 類醫囑使用, 結束日期 YYYYMMDD(:HH)
                     "specimenValue": "BLO",             // [string, optional] L 類醫囑使用
@@ -596,6 +607,8 @@
                     "pherrior_fassa",
                     ...
                 ],
+                "orderStage": "0",                              // [string] 階段
+                "planExecutionTimeString": "2015/03/12",        // [string] 預計執行時間日期
                 "specialInstruction": "xxx",                    // [string] 特殊醫囑之輸入內容
                 "creInfo": {
                     "cre": 22.3,                                // [number, optional] 如果有需要填入 cre 值時所填入的數值 只有在系統查佈道病患 cre 值且使用者有填值時才會回傳
@@ -671,7 +684,7 @@
                 "creator": "111281",                // [string] 開立醫囑者員工編號
                 "verifier": "111281",               // [string] 確認醫師員工編號
                 "isEmergency": false,               // [boolean] 是否急做
-                "orderStage": 0,                    // [number] 階段代碼 詳細對應資料從 dictionary 抓
+                "orderStage": "0",                  // [string] 階段代碼 詳細對應資料從 dictionary 抓
                 "status": "開立",                    // [string] 狀態
                 "specialInstruction": "特殊醫囑內容",  // [string] 特殊醫囑
                 "startActivateDatetime": 1435744800, // [number(timestamp), optional] 醫令有效起日 K類醫囑使用
@@ -740,7 +753,7 @@
     + verifier           (string) ... 確認醫師員工編號
     + isEmergency        (boolean) ... 是否急做
     + status             (string) ... 狀態
-    + orderStage         (number) ... 醫令階段代碼
+    + orderStage         (string) ... 醫令階段代碼
     + specialInstruction (string) ... 特殊醫囑內容
 
 + Request ModifyOrder (application/json)
@@ -764,7 +777,7 @@
                     "endActivateDatetime": 1438423200,   // [number(timestamp), optional] 醫令有效迄日 K類醫囑使用
                     "frequency": "QD",                   // [string] 頻率碼 K類醫囑使用
                     "isBedside": false,                  // [boolean, optional] 是否為床邊攝影 R類醫囑使用
-                    "orderStage": 0,                     // [number] 階段
+                    "orderStage": "0",                   // [string] 階段
                     "specimenValue": "sp1",              // [string] 檢體代碼 L類醫囑使用
                     "questionaries": [                   // [optional] 問答題答案，若無則不會傳入
                         {
