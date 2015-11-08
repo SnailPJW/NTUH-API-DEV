@@ -263,19 +263,18 @@ Content-type: multipart/form-data
                 "ERReason" : {
                     "commandDoctor" : "111281", //現場指揮醫師
                     "NS" : "123456",    //護理人員
-                    "cardicOrigin": [   //心臟因素
-                        "心律不整", //使用者有選擇或填寫時回傳
-                        "心肌梗塞",
-                        "使用者填入的其他原因"
-                    ],
-                    "respiratoryOrigin": [  //呼吸因素
-                        "呼吸",
-                        "使用者填入的其他原因"
-                    ],
-                    "neurologicalOrigin": [  //神經學因素
-                        "腦中風",
-                        "使用者填入的其他原因"
-                    ],
+                    "cardicOrigin": {   //心臟因素
+                        "code": "A01,A00",              // [string]
+                        "note": "xxxxx"             // [string, optional]
+                    },
+                    "respiratoryOrigin": {  //呼吸因素
+                        "code": "B01,B00",              // [string]
+                        "note": "xxxxx"             // [string, optional]
+                    },
+                    "neurologicalOrigin": {  //神經學因素
+                        "code": "C00",              // [string]
+                        "note": "xxxxx"             // [string, optional]
+                    },
                     "infectionOrigin": {
                         "code": "D01"               // [string]
                     },
