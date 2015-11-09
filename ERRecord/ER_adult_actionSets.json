@@ -1,0 +1,108 @@
+{
+    "content": [
+        {
+            "id": "set_pauseCPR",
+            "actions": [
+                {
+                    "id": "action_stopRepeat_playCPR"
+                },
+                {
+                    "id": "action_playSound_respiration"
+                },
+                {
+                    "id": "action_playSound_respiration",
+                    "delay": 2
+                },
+                {
+                    "id": "action_playSound_CPR",
+                    "delay": 4
+                }
+            ],
+            "flag": {
+                "value": "FALSE",
+                "key": "ACO"
+            },
+            "delay": "15",
+            "repeat": "-1",
+            "interval": "19.0"
+        },
+        {
+            "id": "set_ACOY",
+            "actions": [
+                {
+                    "id": "action_addflag_ACO"
+                },
+                {
+                    "id": "action_addflag_ADA"
+                },
+                {
+                    "id": "action_unhighlight_setACOY"
+                }
+            ]
+        },
+        {
+            "id": "set_ACON",
+            "actions": [
+                {
+                    "id": "action_highlight_ADA"
+                },
+                {
+                    "id": "action_unhighlight_setACON"
+                },
+                {
+                    "id": "action_rmflag_ADA"
+                }
+            ]
+        },
+        {
+            "id": "set_ADA",
+            "actions": [
+                {
+                    "id": "action_highlight_setADA"
+                },
+                {
+                    "id": "action_rmflag_setADA"
+                }
+            ]
+        },
+        {
+            "id": "set_DDE",
+            "actions": [
+                {
+                    "id": "action_addflag_DDE3"
+                },
+                {
+                    "id": "action_addflag_DDE2"
+                },
+                {
+                    "id": "action_addflag_DDE"
+                },
+                {
+                    "id": "action_rmflag_setDDE"
+                }
+            ]
+        },
+        {
+            "id": "set_DMO",
+            "actions": [
+                {
+                    "id": "action_highlight_DCR"
+                },
+                {
+                    "id": "action_addflag_DMO"
+                }
+            ]
+        },
+        {
+            "id": "set_DCR",
+            "actions": [
+                {
+                    "id": "action_highlight_DDE"
+                },
+                {
+                    "id": "action_highlight_PAM"
+                }
+            ]
+        }
+    ]
+}

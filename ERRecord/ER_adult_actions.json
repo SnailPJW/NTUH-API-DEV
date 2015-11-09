@@ -1,0 +1,458 @@
+{
+    "content": [
+        {
+            "id": "action_start",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "BCB",
+                "SCON"
+            ]
+        },
+        {
+            "id": "action_addflag_EtCO2",
+            "selector": "setFlag:",
+            "values": [
+                true,
+                "EtCO2"
+            ]
+        },
+        {
+            "id": "action_rmflag_CCC",
+            "selector": "setFlag:",
+            "values": [
+                false,
+                "CCC"
+            ]
+        },
+        {
+            "id": "action_unhighlight",
+            "selector": "setHighlighted:",
+            "values": [
+                false,
+                "*"
+            ]
+        },
+        {
+            "id": "action_stopRepeat",
+            "selector": "stopRepeat:",
+            "values": [
+                "*"
+            ]
+        },
+        {
+            "id": "action_terminate",
+            "selector": "terminate"
+        },
+        {
+            "id": "action_ROSC",
+            "selector": "ROSC"
+        },
+        {
+            "id": "action_highlight_ACH",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "ACH"
+            ]
+        },
+        {
+            "id": "action_highlight_CCP",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "CCP"
+            ]
+        },
+        {
+            "id": "action_highlight_setCCPNO",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "CCC",
+                "DMO",
+                "ADA",
+                "NLI",
+                "AOP"
+            ]
+        },
+        {
+            "id": "action_highlight_NVS",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "NVS"
+            ]
+        },
+        {
+            "id": "action_playSound_CPR",
+            "selector": "playSound:",
+            "repeat": -1,
+            "interval": 0.5,
+            "values": [
+                "CPR"
+            ]
+        },
+        {
+            "id": "action_playSound_respiration_repeat",
+            "selector": "playSound:",
+            "repeat": -1,
+            "interval": 6,
+            "values": [
+                "respiration"
+            ]
+        },
+        {
+            "id": "action_highlight_CCP_repeat",
+            "selector": "setHighlighted:",
+            "repeat": -1,
+            "interval": 120,
+            "values": [
+                true,
+                "CCP"
+            ]
+        },
+        {
+            "id": "action_highlight_DCR_repeat",
+            "selector": "setHighlighted:",
+            "repeat": -1,
+            "interval": 120,
+            "values": [
+                true,
+                "DCR"
+            ]
+        },
+        {
+            "id": "action_highlight_SCPRET_repeat",
+            "selector": "setHighlighted:",
+            "repeat": -1,
+            "interval": 120,
+            "values": [
+                true,
+                "SCPRET"
+            ]
+        },
+        {
+            "id": "action_highlight_PAD",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PAD"
+            ]
+        },
+        {
+            "id": "action_addflag_CCC",
+            "selector": "setFlag:",
+            "values": [
+                true,
+                "CCC"
+            ]
+        },
+        {
+            "id": "action_stopRepeat_PAD",
+            "selector": "stopRepeat:",
+            "values": [
+                "action_highlight_PAD_repeat"
+            ]
+        },
+        {
+            "id": "action_highlight_PAD_repeat",
+            "selector": "setHighlighted:",
+            "repeat": -1,
+            "interval": 240,
+            "values": [
+                true,
+                "PAD"
+            ]
+        },
+        {
+            "id": "action_stopRepeat_playCPR",
+            "selector": "stopRepeat:",
+            "values": [
+                "action_playSound_CPR"
+            ]
+        },
+        {
+            "id": "action_playSound_respiration",
+            "selector": "playSound:",
+            "values": [
+                "respiration"
+            ]
+        },
+        {
+            "id": "action_addflag_ACO",
+            "selector": "setFlag:",
+            "values": [
+                true,
+                "ACO"
+            ]
+        },
+        {
+            "id": "action_addflag_ADA",
+            "selector": "setFlag:",
+            "values": [
+                true,
+                "ADA"
+            ]
+        },
+        {
+            "id": "action_unhighlight_setACOY",
+            "selector": "setHighlighted:",
+            "values": [
+                false,
+                "ACOSC",
+                "ACOBS",
+                "ACOET",
+                "ACOTR"
+            ]
+        },
+        {
+            "id": "action_highlight_ADA",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "ADA"
+            ]
+        },
+        {
+            "id": "action_unhighlight_setACON",
+            "selector": "setHighlighted:",
+            "values": [
+                false,
+                "ACOSC",
+                "ACOBS",
+                "ACOET",
+                "ACOTR"
+            ]
+        },
+        {
+            "id": "action_rmflag_ADA",
+            "selector": "setFlag:",
+            "values": [
+                false,
+                "ADA"
+            ]
+        },
+        {
+            "id": "action_highlight_setADA",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "ACOSC",
+                "ACOBS",
+                "ACOET",
+                "ACOTR"
+            ]
+        },
+        {
+            "id": "action_rmflag_setADA",
+            "selector": "setFlag:",
+            "values": [
+                false,
+                "ACO",
+                "ADA"
+            ]
+        },
+        {
+            "id": "action_addflag_DDE3",
+            "selector": "setFlag:",
+            "values": [
+                true,
+                "DDE3"
+            ]
+        },
+        {
+            "id": "action_addflag_DDE2",
+            "selector": "setFlag:",
+            "values": [
+                true,
+                "DDE2"
+            ]
+        },
+        {
+            "id": "action_addflag_DDE",
+            "selector": "setFlag:",
+            "values": [
+                true,
+                "DDE"
+            ]
+        },
+        {
+            "id": "action_rmflag_setDDE",
+            "selector": "setFlag:",
+            "values": [
+                false,
+                "DDE2",
+                "DDE"
+            ]
+        },
+        {
+            "id": "action_highlight_DCR",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "DCR"
+            ]
+        },
+        {
+            "id": "action_addflag_DMO",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "DMO"
+            ]
+        },
+        {
+            "id": "action_highlight_DDE",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "DDE"
+            ]
+        },
+        {
+            "id": "action_highlight_PAM",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PAM"
+            ]
+        },
+        {
+            "id": "action_addCount_PAD",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PAD"
+            ]
+        },
+        {
+            "id": "action_addCount_PBI",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PBI"
+            ]
+        },
+        {
+            "id": "action_addCount_PCA",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PCA"
+            ]
+        },
+        {
+            "id": "action_addCount_PAT",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PAT"
+            ]
+        },
+        {
+            "id": "action_addCount_PAM",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PAM"
+            ]
+        },
+        {
+            "id": "action_addCount_PMG",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PMG"
+            ]
+        },
+        {
+            "id": "action_addCount_PLI",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PLI"
+            ]
+        },
+        {
+            "id": "action_addCount_PGL",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PGL"
+            ]
+        },
+        {
+            "id": "action_addCount_PRE",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PRE"
+            ]
+        },
+        {
+            "id": "action_addCount_PD4",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PD4"
+            ]
+        },
+        {
+            "id": "action_addCount_PD8",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PD8"
+            ]
+        },
+        {
+            "id": "action_addCount_PN8",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PN8"
+            ]
+        },
+        {
+            "id": "action_addCount_PNO",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PNO"
+            ]
+        },
+        {
+            "id": "action_addCount_PAT",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PAT"
+            ]
+        },
+        {
+            "id": "action_addCount_PKE",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PKE"
+            ]
+        },
+        {
+            "id": "action_addCount_PSU",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PSU"
+            ]
+        },
+        {
+            "id": "action_addCount_PMI",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PMI"
+            ]
+        }
+    ]
+}

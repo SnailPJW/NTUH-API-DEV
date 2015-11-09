@@ -126,122 +126,63 @@
         }
 
 
-## 9/10 - 急救紀錄邏輯 [/ERRecord/logic]
-### 取得急救紀錄邏輯 [GET]
+## 11/06 - 急救紀錄動作邏輯 [/ERRecord/logic/action]
+### 取得急救紀錄動作邏輯 [GET]
 
 + Response 200 (application/json)
 
         {
-            "example": {
-                "提示": [
-                    {
-                        "flag": "ABC",  //當flag存在時，執行 action [string, optional]
-                        "delay": 120,   //幾秒後執行 action [number, optional]
-                        "repeat": 0,    //重複執行次數，0為無限次 [number, optional]
-                        "interval": 200,    //重複時間間隔，以秒為單位 [number, optional]
-                        "repeatCode": "ABC",    //重複事件代碼，用於停止此重複事件與判別此重複事件是否存在，當重複事件以存在時，不再次產生重複事件[string, optional]
-                        "action": "highlight",
-                        "buttonCode": ""    //欲提示之按鈕
-                    }
-                ],
-                "關閉提示": [
-                    {
-                        "noFlag": "ABC",    //當flag不存在時，執行 action [string, optional]
-                        "action": "unhighlight",
-                        "buttonCode": ""
-                    }
-                ],
-                "關閉點擊": [
-                    {
-                        "action": "disable",
-                        "buttonCode": ""
-                    }
-                ],
-                "count++": [    //計數事件執行次數。
-                    {
-                        "action": "count",
-                        "itemCode": ""
-                    }
-                ],
-                "resetCount": [ //重置事件執行次數
-                    {
-                        "action": "resetCount",
-                        "itemCode": ""
-                    }
-                ],
-                "播放聲音": [
-                    {
-                        "action": "playSound",
-                        "soundCode": "chest",
-                        "delay": 120
-                    }
-                ],
-                "stopRepeat": [
-                    {
-                        "action": "stopRepeat",
-                        "repeatCode": "ABC"
-                    }
-                ],
-                "addFlag": [
-                    {
-                        "action": "addFlag",
-                        "flagCode": "ABC"
-                    }
-                ],
-                "removeFlag": [
-                    {
-                        "action": "removeFlag",
-                        "flagCode": "ABC"
-                    }
-                ],
-                "執行": [ //執行事件組合
-                    {
-                        "action": "execute",
-                        "excuteCode": "_PLAYCPR"
-                    }
-                ],
-                "ROSC": [
-                    {
-                        "action": "ROSC"
-                    }
-                ],
-                "terminate": [
-                    {
-                        "action": "terminate"
-                    }
-                ]
-            },
-            "content": {
-                "start": [  //當一開始時，需要執行的事件，事件依序執行。
-                    {
-                        "action": "highlight",
-                        "buttonKey": ""
-                    },
-                    {
-                        "action": "highlight",
-                        "buttonKey": ""
-                    },
-                    {
-                        "action": "highlight",
-                        "buttonKey": ""
-                    },
-                    {
-                        "action": "highlight",
-                        "buttonKey": ""
-                    }
-                ],
-                "評估呼吸": [   //當評估呼吸事件觸發時，需要執行的事件。
-                    {
-                        "action": "highlight",
-                        "buttonKey": ""
-                    },
-                    {
-                        "action": "highlight",
-                        "buttonKey": ""
-                    }
-                ]
-            }
+            "content": [
+                {
+                    "id": "action_start",
+                    "selector": "setHighlighted:",
+                    "values": [
+                        true,
+                        "BCB",
+                        "SCON"
+                    ]
+                },
+                ...
+            ]
         }
+
+## 11/06 - 急救紀錄動作組合邏輯 [/ERRecord/logic/actionSet]
+### 取得急救紀錄動作組合邏輯 [GET]
+
++ Response 200 (application/json)
+
+        {
+            "content": [
+                {
+                    "id": "set_pauseCPR",
+                    "actions": [
+                        {
+                            "id": "action_stopRepeat_playCPR"
+                        },
+                        {
+                            "id": "action_playSound_respiration"
+                        },
+                        {
+                            "id": "action_playSound_respiration",
+                            "delay": 2  //[optional]
+                        },
+                        {
+                            "id": "action_playSound_CPR",
+                            "delay": 4  //[optional]
+                        }
+                    ],
+                    "flag": {
+                        "value": "FALSE",
+                        "key": "ACO"
+                    },
+                    "delay": "15",
+                    "repeat": "-1",
+                    "interval": "19.0"
+                },
+                ...
+            ]
+        }
+
 
 ## 10/15 - 急救記錄 [/ERRecord/record]
 ### 回傳急救記錄[POST]
