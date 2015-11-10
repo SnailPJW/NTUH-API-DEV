@@ -210,11 +210,11 @@ Content-type: multipart/form-data
                     },
                     "respiratoryOrigin": {  //呼吸因素
                         "code": "B01,B00",              // [string]
-                        "note": "xxxxx"             // [string, optional]
+                        "note": "測試資料"             // [string, optional]
                     },
                     "neurologicalOrigin": {  //神經學因素
                         "code": "C00",              // [string]
-                        "note": "xxxxx"             // [string, optional]
+                        "note": "測試資料"             // [string, optional]
                     },
                     "infectionOrigin": {
                         "code": "D01"               // [string]
@@ -224,7 +224,7 @@ Content-type: multipart/form-data
                     },
                     "others": {
                         "code": "F00",              // [string]
-                        "note": "xxxxx"             // [string, optional]
+                        "note": "測試資料"             // [string, optional]
                     }
                 },
                 "patientInfo": {
@@ -250,90 +250,45 @@ Content-type: multipart/form-data
                         "recordTime" : 1444638140,  //記錄時間[number(timestamp)]
                         "itemCode" : "ROSC",
                         "appendData" : {    //附屬欄位(ROSC,terminate使用)[object, optional]
-                            "vitalSignSPB": [       //收縮壓
-                                "100"
-                            ],
-                            "vitalSignDPB":[    //舒張壓
-                                "70"
-                            ],
-                            "vitalSignHR":[    //心跳
-                                "40"
-                            ],
-                            "vitalSignSpO2":[    //SpO2
-                                "10"
-                            ],
-                            "vitalSignEtCO2":[    //EtCO2
-                                "10"
-                            ],
-                            "vitalSignRR":[    //呼吸
-                                "20"
-                            ],
-                            "rhytm" : [
-                                "Sinus Rhythm",
-                                "Sinus tachycardia",
-                                "Sinus bradycardia",
-                                "AIVR",
-                                "Af/AF",
-                                "MAT",
-                                "Juntional",
-                                "使用者填入的其他原因"
-                            ],
-                            "management" : [
-                                "ECMO",
-                                "IABP",
-                                "Hypothermia",
-                                "Tracheostomy",
-                                "TCP",
-                                "Pericardiocentesis",
-                                "Nil",
-                                "使用者填入的其他原因"
-                            ],
-                            "neurologicalOutcomeGCSE" : [
-                                "1"
-                            ],
-                            "neurologicalOutcomeGCSV" : [
-                                "1"
-                            ],
-                            "neurologicalOutcomeGCSM" : [
-                                "1"
-                            ],
-                            "neurologicalOutcomePupilRight" : [
-                                "1"
-                            ],
-                            "neurologicalOutcomePupilLeft" : [
-                                "1"
-                            ],
-                            "neurologicalOutcomeLightRight" : [ //光反射左
-                                "1"
-                            ],
-                            "neurologicalOutcomeLightLeft" : [  //光反射右
-                                "1"
-                            ],
-                            "diposition" : [
-                                "加護病房",
-                                "留原單位",
-                                "重症區"
-                            ]
+                            "SPB": "100",       //收縮壓
+                            "DPB": "70",   //舒張壓
+                            "HR": "40",    //心跳
+                            "SpO2": "10",    //SpO2
+                            "EtCO2": "10",    //EtCO2
+                            "RR": "20",    //呼吸
+                            "rhytm" : {
+                                "code": "G01,G00",              // [string]
+                                "note": "測試資料"             // [string, optional]
+                            },
+                            "management" : {
+                                "code": "H01,H00",              // [string]
+                                "note": "測試資料"             // [string, optional]
+                            },
+                            "GCSE" : "1",
+                            "GCSV" : "1",
+                            "GCSM" : "1",
+                            "pupilRight" : "1",
+                            "pupilLeft" : "1",
+                            "lightRight" : "1", //光反射左
+                            "lightLeft" : "1",  //光反射右
+                            "diposition" : {
+                                "code": "I01,I00",              // [string]
+                                "note": "測試資料"             // [string, optional]
+                            }
                         }
                     },
                     {
                         "recordTime" : 1444638150,  //記錄時間[number(timestamp)]
                         "itemCode" : "terminate",
                         "appendData" : {    //附屬欄位(ROSC,terminate使用)[object, optional]
-                            "reason" : [
-                                "Futile",   //使用者有選擇或填寫時回傳
-                                "DNR"
-                            ],
-                            "EtCO2" : [
-                                "10.2"
-                            ],
-                            "rhytm" : [
-                                "PEA",
-                                "VT",
-                                "VF",
-                                "Asytole",
-                                "使用者填入的其他原因"
-                            ]
+                            "appendReason" : {
+                                "code": "J01,J02"              // [string]
+                            },
+                            "EtCO2" : "10.2",
+                            "appendRhytm" : {
+                                "code": "K01,K00",              // [string]
+                                "note": "測試資料"             // [string, optional]
+                            }
                         }
                     }
                 ]
