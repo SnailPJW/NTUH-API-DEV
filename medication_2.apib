@@ -326,9 +326,25 @@
 
         {
             "content": {
-                "TPN": "THE EXTERNAL LINK FOR TPN",         // [string] TPN 藥品外部連結的 base url
-                ...
+                "TPN": "THE EXTERNAL LINK FOR TPN"          // [string] TPN 藥品外部連結的 base url
             }
+        }
+
+
+## 藥囑途徑表 [/medicationOrder/supportedRoutes{?sessionKey,hospitalCode}]
+### 取得藥囑頻率表 [GET]
+
++ Parameters
+    + sessionKey (string) ... SessionKey
+    + hospitalCode (string) ... 院區碼
+
++ Response 200 (application/json)
+
+        {
+            "content": [
+                "IF",           // [string] 途徑代號
+                ...
+            ]
         }
 
 ## 藥囑交易記錄之資訊 [/account/{accountNo}/medicationRecord/{medicationRecordId}{?sessionKey}]
