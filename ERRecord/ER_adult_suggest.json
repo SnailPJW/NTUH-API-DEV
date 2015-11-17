@@ -1,0 +1,14 @@
+{
+    "content": [
+        {
+            "id": "suggest_DDECH",
+            "var1": "0",
+            "var2": "0",
+            "var3": "2",
+            "max": "2",
+            "min": "4",
+            "unit": "-4 J/KG"
+        }
+    ],
+    "version": "0.0.1"
+}
