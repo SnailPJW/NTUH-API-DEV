@@ -101,12 +101,12 @@
 
 
 
-## 7/6 - 待配床清單 [/assignBed/list{?sessionkey,departmentCode,chartNo}]
+## 11/17 - 待配床清單 [/assignBed/list{?sessionkey,departmentCode,chartNo}]
 ### 取得待配床病患清單[GET]
 
 + Parameters
-    + departmentCode (string) ... 科別代碼
-    + chartNo (string)  ... 病患病例號
+    + departmentCode (string, optional) ... 科別代碼
+    + chartNo (string, optional)  ... 病患病例號
 
 + Response 200 (application/json)
 
@@ -124,8 +124,8 @@
                     "originalHospital" : "總院",                //原院[string]
                     "originalDepartmentName" : "腫瘤",          //原科[string]
                     "note" : "註記",                             //註[string]
-                    "departmentName": "內科",                    //[string, optional] 科別名稱
-                    "waitBedNo": "1408992"                      //[string, optional] 候床代號
+                    "departmentName": "內科",                    //[string, optional] 候床科別名稱(直接配床則回傳直接配床)
+                    "waitBedNo": "1408992"                      //[string, optional] 候床代號(直接配床則不回傳)
                 },
                 ...
             ],
@@ -134,12 +134,12 @@
             "total" : 50  //此次Query總筆數[number]
         }
 
-## 9/22 - 病患配床資訊 [/assignBed/patients/{chartNo}{?waitBedNo,bedCode,date,originDept,bedClassCode,isolationReasonCode,isolationReasonFreeText}]
+## 11/17 - 病患配床資訊 [/assignBed/patients/{chartNo}{?waitBedNo,bedCode,date,originDept,bedClassCode,isolationReasonCode,isolationReasonFreeText}]
 ### 取得病患配床資訊[GET]
 
 + Parameters
     + chartNo (string)    ... 病歷號
-    + waitBedNo (string)  ... 候床代號
+    + waitBedNo (string, optional)  ... 候床代號 (未回傳候床代號為直接配床)
 
 + Response 200 (application/json)
 
