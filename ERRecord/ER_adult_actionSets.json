@@ -22,9 +22,9 @@
                 "value": "FALSE",
                 "key": "ACO"
             },
-            "delay": "15",
-            "repeat": "-1",
-            "interval": "19.0"
+            "delay": 15,
+            "repeat": -1,
+            "interval": 19.0
         },
         {
             "id": "set_ACOY",

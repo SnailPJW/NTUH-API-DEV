@@ -2,9 +2,6 @@
     "content": [
         {
             "id": "_start",
-            "type": null,
-            "displayName": null,
-            "displayNameTC": null,
             "elements": [
                 "S",
                 "A",
@@ -14,23 +11,12 @@
                 "N",
                 "P"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
             "actions": [
                 "action_start"
-            ],
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            ]
         },
         {
             "id": "S",
-            "type": null,
             "displayName": "STATUS",
             "displayNameTC": "狀態評估",
             "elements": [
@@ -39,18 +25,7 @@
                 "SCPR",
                 "SROSC",
                 "STERM"
-            ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            ]
         },
         {
             "id": "SCON",
@@ -63,89 +38,44 @@
                 "SCON1P",
                 "SCON1U"
             ],
-            "remark": null,
-            "shouldSubmit": null,
             "referenceElement": "SCON1U",
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "SCON1A",
             "type": 0,
             "displayName": "A",
             "displayNameTC": "A",
-            "elements": null,
             "remark": "意識評估：清",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "SCON1V",
             "type": 0,
             "displayName": "V",
             "displayNameTC": "V",
-            "elements": null,
             "remark": "意識評估：聲",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "SCON1P",
             "type": 0,
             "displayName": "P",
             "displayNameTC": "P",
-            "elements": null,
             "remark": "意識評估：痛",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "SCON1U",
             "type": 0,
             "displayName": "U",
             "displayNameTC": "U",
-            "elements": null,
             "remark": "意識評估：否",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "SCON2",
@@ -157,71 +87,37 @@
                 "SCON2M",
                 "SCON2V"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "SCON2E",
             "type": 1,
             "displayName": "E:",
             "displayNameTC": "E:",
-            "elements": null,
             "remark": "昏迷指數：E: __text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
             "defaultText": 1,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "SCON2M",
             "type": 1,
             "displayName": "M:",
             "displayNameTC": "M:",
-            "elements": null,
             "remark": "昏迷指數：M: __text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
             "defaultText": 1,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "SCON2V",
             "type": 1,
             "displayName": "V:",
             "displayNameTC": "V:",
-            "elements": null,
             "remark": "昏迷指數：V: __text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
             "defaultText": 1,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "SCPR",
@@ -233,17 +129,8 @@
                 "SCPRPC",
                 "SCPRPO"
             ],
-            "remark": null,
-            "shouldSubmit": null,
             "referenceElement": "SCPRET",
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "SCPRET",
@@ -253,37 +140,19 @@
             "elements": [
                 "SCPRETT"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "SCPRETT",
             "type": 1,
             "displayName": "EtCO2:",
             "displayNameTC": "EtCO2:",
-            "elements": null,
             "remark": "EtCO2: __text__",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_addflag_EtCO2"
             ],
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "SCPRPC",
@@ -293,35 +162,16 @@
             "elements": [
                 "SCPRPCT"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "SCPRPCT",
             "type": 1,
             "displayName": "PCO2:",
             "displayNameTC": "PCO2:",
-            "elements": null,
             "remark": "PCO2: __text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "SCPRPO",
@@ -331,58 +181,31 @@
             "elements": [
                 "SCPRPOT"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "SCPRPOT",
             "type": 1,
             "displayName": "PO2:",
             "displayNameTC": "PO2:",
-            "elements": null,
             "remark": "PO2: __text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "SROSC",
             "type": 0,
             "displayName": "ROSC",
             "displayNameTC": "回復自主循環",
-            "elements": null,
             "remark": "回覆自發心律",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_rmflag_CCC",
                 "action_unhighlight",
                 "action_stopRepeat",
                 "action_ROSC"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "STERM",
@@ -393,67 +216,40 @@
                 "STERMD",
                 "STERMF"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "STERMD",
             "type": 0,
             "displayName": "DNR",
             "displayNameTC": "簽署不急救同意書",
-            "elements": null,
             "remark": "簽署不急救同意書",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_rmflag_CCC",
                 "action_unhighlight",
                 "action_stopRepeat",
                 "action_terminate"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "STERMF",
             "type": 0,
             "displayName": "FUTILE",
             "displayNameTC": "急救無效",
-            "elements": null,
             "remark": "急救無效",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_rmflag_CCC",
                 "action_unhighlight",
                 "action_stopRepeat",
                 "action_terminate"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "A",
-            "type": null,
             "displayName": "AIRWAY",
             "displayNameTC": "呼吸道",
             "elements": [
@@ -467,18 +263,7 @@
                 "ACOBS",
                 "ACOET",
                 "ACOTR"
-            ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            ]
         },
         {
             "id": "AOP",
@@ -489,57 +274,32 @@
                 "AOPHC",
                 "AOPJT"
             ],
-            "remark": null,
-            "shouldSubmit": null,
             "referenceElement": "AOPHC",
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "AOPHC",
             "type": 0,
             "displayName": "Head tilt, Chin lift",
             "displayNameTC": "壓額抬下巴",
-            "elements": null,
             "remark": "打開呼吸道：壓額抬下巴",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_highlight_ACH"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "AOPJT",
             "type": 0,
             "displayName": "Jaw thrust",
             "displayNameTC": "下顎推前",
-            "elements": null,
             "remark": "打開呼吸道：下顎推前",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_highlight_ACH"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ACH",
@@ -551,71 +311,35 @@
                 "ACHF",
                 "ACHO"
             ],
-            "remark": null,
-            "shouldSubmit": null,
             "referenceElement": "ACHP",
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ACHP",
             "type": 0,
             "displayName": "Pattern",
             "displayNameTC": "通暢",
-            "elements": null,
             "remark": "呼吸道評估：通暢",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ACHF",
             "type": 0,
             "displayName": "Foreign body",
             "displayNameTC": "異物",
-            "elements": null,
             "remark": "呼吸道評估：異物",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ACHO",
             "type": 0,
             "displayName": "Obstruction",
             "displayNameTC": "阻塞",
-            "elements": null,
             "remark": "呼吸道評估：阻塞",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "AAD",
@@ -627,71 +351,34 @@
                 "AADNA",
                 "AADNA"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "AADOA",
             "type": 0,
             "displayName": "Oral airway",
             "displayNameTC": "口咽呼吸道",
-            "elements": null,
             "remark": "置入口咽呼吸道",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "AADNA",
             "type": 0,
             "displayName": "Nasal airway",
             "displayNameTC": "鼻咽呼吸道",
-            "elements": null,
             "remark": "置入鼻咽呼吸道",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "AADOB",
             "type": 0,
             "displayName": "Oral bite",
             "displayNameTC": "咬口器",
-            "elements": null,
             "remark": "置入咬口器",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ASU",
@@ -704,89 +391,43 @@
                 "ASUFO",
                 "ASUMI"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ASUSP",
             "type": 0,
             "displayName": "Sputum",
             "displayNameTC": "痰液",
-            "elements": null,
             "remark": "抽吸：痰液",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ASUBL",
             "type": 0,
             "displayName": "Blood",
             "displayNameTC": "血水",
-            "elements": null,
             "remark": "抽吸：血水",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ASUFO",
             "type": 0,
             "displayName": "Food",
             "displayNameTC": "食物",
-            "elements": null,
             "remark": "抽吸：食物",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ASUMI",
             "type": 0,
             "displayName": "Milk",
             "displayNameTC": "牛奶",
-            "elements": null,
             "remark": "抽吸：牛奶",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ARF",
@@ -799,71 +440,34 @@
                 "ARFFO",
                 "ARFOT"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ARFDE",
             "type": 0,
             "displayName": "Denture",
             "displayNameTC": "假牙",
-            "elements": null,
             "remark": "移除異物：假牙",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ARFBL",
             "type": 0,
             "displayName": "Blood",
             "displayNameTC": "血塊",
-            "elements": null,
             "remark": "移除異物：血塊",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ARFFO",
             "type": 0,
             "displayName": "Food",
             "displayNameTC": "食物",
-            "elements": null,
             "remark": "移除異物：食物",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ARFOT",
@@ -873,35 +477,16 @@
             "elements": [
                 "ARFOTT"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ARFOTT",
             "type": 1,
             "displayName": "Other:",
             "displayNameTC": "其他:",
-            "elements": null,
             "remark": "移除異物：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 0,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 0
         },
         {
             "id": "ADA",
@@ -913,17 +498,7 @@
                 "ADAET",
                 "ADASU"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ADALM",
@@ -933,37 +508,19 @@
             "elements": [
                 "ADALMT"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ADALMT",
             "type": 1,
             "displayName": "LMA:",
             "displayNameTC": "喉頭罩呼吸道管徑大小：",
-            "elements": null,
             "remark": "插入喉頭罩呼吸道：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "set_ADA"
             ],
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "ADAET",
@@ -974,55 +531,28 @@
                 "ADAETF",
                 "ADAETC"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ADAETF",
             "type": 1,
             "displayName": "Fr",
             "displayNameTC": "管徑:",
-            "elements": null,
             "remark": "氣管內管插管管徑大小：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
             "actions": [
                 "set_ADA"
             ],
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "ADAETC",
             "type": 1,
             "displayName": "cm",
             "displayNameTC": "深度:",
-            "elements": null,
             "remark": "氣管內管插管深度：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "ADASU",
@@ -1032,37 +562,19 @@
             "elements": [
                 "ADASUT"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ADASUT",
             "type": 1,
             "displayName": "Surgical:",
             "displayNameTC": "置入氣切管管徑大小：",
-            "elements": null,
             "remark": "置入氣切管：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "set_ADA"
             ],
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "ACOSC",
@@ -1073,57 +585,31 @@
                 "ACOSCY",
                 "ACOSCN"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ACOSCY",
             "type": 0,
             "displayName": "Y",
             "displayNameTC": "是",
-            "elements": null,
             "remark": "確認呼吸道胃氣泡音：是",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "set_ACOY"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ACOSCN",
             "type": 0,
             "displayName": "N",
             "displayNameTC": "否",
-            "elements": null,
             "remark": "確認呼吸道胃氣泡音：否",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "set_ACON"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ACOBS",
@@ -1136,97 +622,55 @@
                 "ACOBSL",
                 "ACOBSN"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ACOBBO",
             "type": 0,
             "displayName": "Both",
             "displayNameTC": "兩邊皆有",
-            "elements": null,
             "remark": "確認呼吸道呼吸音：兩邊皆有",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "set_ACOY"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ACOBSR",
             "type": 0,
             "displayName": "R",
             "displayNameTC": "右",
-            "elements": null,
             "remark": "確認呼吸道呼吸音：右",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "set_ACOY"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ACOBSL",
             "type": 0,
             "displayName": "L",
             "displayNameTC": "左",
-            "elements": null,
             "remark": "確認呼吸道呼吸音：左",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "set_ACOY"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ACOBSN",
             "type": 0,
             "displayName": "N",
             "displayNameTC": "兩邊皆無",
-            "elements": null,
             "remark": "確認呼吸道呼吸音：兩邊皆無",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "set_ACON"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ACOET",
@@ -1237,59 +681,33 @@
                 "ACOETY",
                 "ACOETN"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ACOETY",
             "type": 0,
             "displayName": ">?",
             "displayNameTC": "大於__",
-            "elements": null,
             "remark": "確認呼吸道EtCO2：大於＿",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "set_ACOY",
                 "action_addflag_EtCO2"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ACOETN",
             "type": 0,
             "displayName": "<?",
             "displayNameTC": "小於__",
-            "elements": null,
             "remark": "確認呼吸道EtCO2：小於＿",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "set_ACON",
                 "action_addflag_EtCO2"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ACOTR",
@@ -1300,61 +718,34 @@
                 "ACOTRY",
                 "ACOTRN"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ACOTRY",
             "type": 0,
             "displayName": "Y",
             "displayNameTC": "是",
-            "elements": null,
             "remark": "確認呼吸道超音波：是",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "set_ACOY"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "ACOTRN",
             "type": 0,
             "displayName": "N",
             "displayNameTC": "否",
-            "elements": null,
             "remark": "確認呼吸道超音波：否",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "set_ACON"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "B",
-            "type": null,
             "displayName": "BREATH",
             "displayNameTC": "呼吸",
             "elements": [
@@ -1362,18 +753,7 @@
                 "BOX",
                 "BVE",
                 "BME"
-            ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            ]
         },
         {
             "id": "BCB",
@@ -1386,93 +766,50 @@
                 "BCBSM",
                 "BCBDY"
             ],
-            "remark": null,
-            "shouldSubmit": null,
             "referenceElement": "BCBAP",
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "BCBAP",
             "type": 0,
             "displayName": "Apnea",
             "displayNameTC": "無呼吸",
-            "elements": null,
             "remark": "評估呼吸：無呼吸",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_highlight_CCP"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "BCBAG",
             "type": 0,
             "displayName": "Agonal",
             "displayNameTC": "瀕死呼吸",
-            "elements": null,
             "remark": "評估呼吸：瀕死呼吸",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_highlight_CCP"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "BCBSM",
             "type": 0,
             "displayName": "Smooth",
             "displayNameTC": "正常呼吸",
-            "elements": null,
             "remark": "評估呼吸：正常呼吸",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "BCBDY",
             "type": 0,
             "displayName": "Dyspnea",
             "displayNameTC": "呼吸困難",
-            "elements": null,
             "remark": "評估呼吸：呼吸困難",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "BOX",
@@ -1485,35 +822,16 @@
                 "BOXMA",
                 "BOXNR"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "BOXRA",
             "type": 0,
             "displayName": "Room air",
             "displayNameTC": "空氣",
-            "elements": null,
             "remark": "氧氣治療：空氣",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "BOXNC",
@@ -1523,35 +841,16 @@
             "elements": [
                 "BOXNCT"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "BOXNCT",
             "type": 1,
             "displayName": "N/C (L/min):",
             "displayNameTC": "鼻管(L/min)：",
-            "elements": null,
             "remark": "氧氣治療：鼻管(L/min)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "BOXMA",
@@ -1561,125 +860,56 @@
             "elements": [
                 "BOXMAT"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "BOXMAT",
             "type": 1,
             "displayName": "Mask(L/min): ",
             "displayNameTC": "面罩(L/min)：",
-            "elements": null,
             "remark": "氧氣治療：面罩(L/min)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "BOXNR",
             "type": 0,
             "displayName": "NRM",
             "displayNameTC": "非再吸入型面罩",
-            "elements": null,
             "remark": "氧氣治療：非再吸入型面罩",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "BVE",
             "type": 0,
             "displayName": "Ventilation",
             "displayNameTC": "正壓呼吸",
-            "elements": null,
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "BVEAB",
             "type": 0,
             "displayName": "Ambu bag",
             "displayNameTC": "Ambu bag",
-            "elements": null,
             "remark": "正壓呼吸：Ambu bag",
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "BVECP",
             "type": 0,
             "displayName": "CPAP",
             "displayNameTC": "CPAP",
-            "elements": null,
             "remark": "正壓呼吸：CPAP",
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "BEVBI",
             "type": 0,
             "displayName": "BiPAP",
             "displayNameTC": "BiPAP",
-            "elements": null,
             "remark": "正壓呼吸：BiPAP",
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "BME",
@@ -1693,57 +923,25 @@
                 "BMEPE",
                 "BMEPS",
                 "BMEVT"
-            ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            ]
         },
         {
             "id": "BMED",
             "type": 3,
-            "displayName": null,
-            "displayNameTC": null,
             "elements": [
                 "BMEDVC",
                 "BMEDAC",
                 "BMEDSI"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": false,
-            "selected,": null
+            "multiSelection": false
         },
         {
             "id": "BMEDVC",
             "type": 4,
             "displayName": "VC ",
             "displayNameTC": "VC ",
-            "elements": null,
             "remark": "呼吸器：VC",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
             "selected,": false
         },
         {
@@ -1751,17 +949,8 @@
             "type": 4,
             "displayName": "AC",
             "displayNameTC": "AC",
-            "elements": null,
             "remark": "呼吸器：AC",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
             "selected,": false
         },
         {
@@ -1769,17 +958,8 @@
             "type": 4,
             "displayName": "SIMV",
             "displayNameTC": "SIMV",
-            "elements": null,
             "remark": "呼吸器：SIMV",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
             "selected,": false
         },
         {
@@ -1787,111 +967,54 @@
             "type": 1,
             "displayName": "RR:",
             "displayNameTC": "RR:",
-            "elements": null,
             "remark": "呼吸器：RR：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "BMEFI",
             "type": 1,
             "displayName": "FiO2:",
             "displayNameTC": "FiO2:",
-            "elements": null,
             "remark": "呼吸器：FiO2：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "BMEPE",
             "type": 1,
             "displayName": "PEEP:",
             "displayNameTC": "PEEP:",
-            "elements": null,
             "remark": "呼吸器：PEEP：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "BMEPS",
             "type": 1,
             "displayName": "PS:",
             "displayNameTC": "PS:",
-            "elements": null,
             "remark": "呼吸器：PS：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "BMEVT",
             "type": 1,
             "displayName": "VT:",
             "displayNameTC": "VT:",
-            "elements": null,
             "remark": "呼吸器：VT：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "C",
-            "type": null,
             "displayName": "CIRCULATION",
             "displayNameTC": "循環",
             "elements": [
                 "CCP",
                 "CCC"
-            ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            ]
         },
         {
             "id": "CCP",
@@ -1905,117 +1028,67 @@
                 "CCPBR",
                 "CCPRA"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "CCPNO",
             "type": 0,
             "displayName": "No",
             "displayNameTC": "無脈搏",
-            "elements": null,
             "remark": "檢查脈搏：無脈搏",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_highlight_setCCPNO"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "CCPCA",
             "type": 0,
             "displayName": "Carotid Yes",
             "displayNameTC": "頸動脈",
-            "elements": null,
             "remark": "檢查脈搏：頸動脈",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_highlight_NVS"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "CCPFE",
             "type": 0,
             "displayName": "Femoral Yes",
             "displayNameTC": "股動脈",
-            "elements": null,
             "remark": "檢查脈搏：股動脈",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_highlight_NVS"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "CCPBR",
             "type": 0,
             "displayName": "Brachial Yes",
             "displayNameTC": "肱動脈",
-            "elements": null,
             "remark": "檢查脈搏：肱動脈",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_highlight_NVS"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "CCPRA",
             "type": 0,
             "displayName": "Radial Yes",
             "displayNameTC": "撓動脈",
-            "elements": null,
             "remark": "檢查脈搏：撓動脈",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_highlight_NVS"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "CCC",
@@ -2026,27 +1099,15 @@
                 "CCCMA",
                 "CCCME"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "CCCMA",
             "type": 0,
             "displayName": "Manual ",
             "displayNameTC": "人工壓胸",
-            "elements": null,
             "remark": "壓胸：人工壓胸",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_playSound_CPR",
                 "action_playSound_respiration_repeat",
@@ -2054,52 +1115,25 @@
                 "action_addflag_CCC",
                 "set_pauseCPR"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "CCCME",
             "type": 0,
             "displayName": "Mechanical",
             "displayNameTC": "機械壓胸",
-            "elements": null,
             "remark": "壓胸：機械壓胸",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "D",
-            "type": null,
             "displayName": "DEFIBRILLATION",
             "displayNameTC": "電擊",
             "elements": [
                 "DMO",
                 "DCR"
-            ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            ]
         },
         {
             "id": "DMO",
@@ -2110,151 +1144,81 @@
                 "DMOEC",
                 "DMOAE"
             ],
-            "remark": null,
-            "shouldSubmit": null,
             "referenceElement": "DMOEC",
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "DMOEC",
             "type": 0,
             "displayName": "ECG",
             "displayNameTC": "ECG",
-            "elements": null,
             "remark": "接上心率監視器：ECG",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "set_DMO"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "DMOAE",
             "type": 0,
             "displayName": "AED",
             "displayNameTC": "AED",
-            "elements": null,
             "remark": "接上心率監視器：AED",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "set_DMO"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "DCR",
             "type": 0,
             "displayName": "Check Rythem",
             "displayNameTC": "檢查心率",
-            "elements": null,
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "DCRAS",
             "type": 0,
             "displayName": "Asytole",
             "displayNameTC": "無心率",
-            "elements": null,
             "remark": "檢查心率：無心率",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "DCRPE",
             "type": 0,
             "displayName": "PEA",
             "displayNameTC": "無脈搏電氣活動",
-            "elements": null,
             "remark": "檢查心率：無脈搏電氣活動",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "DCRVT",
             "type": 0,
             "displayName": "VT",
             "displayNameTC": "心室頻脈",
-            "elements": null,
             "remark": "檢查心率：心室頻脈",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "set_DCR"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "DCRVF",
             "type": 0,
             "displayName": "VF",
             "displayNameTC": "心室顫動",
-            "elements": null,
             "remark": "檢查心率：心室顫動",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "set_DCR"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "DCROT",
@@ -2264,35 +1228,16 @@
             "elements": [
                 "DCROTT"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "DCROTT",
             "type": 1,
             "displayName": "Other:",
             "displayNameTC": "其他：",
-            "elements": null,
             "remark": "檢查心率：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 0,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 0
         },
         {
             "id": "DDE",
@@ -2309,157 +1254,92 @@
                 "DDE36",
                 "DDECH"
             ],
-            "remark": null,
-            "shouldSubmit": null,
             "referenceElement": "DDE20",
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "DDE05",
             "type": 0,
             "displayName": "50J",
             "displayNameTC": "50焦耳",
-            "elements": null,
             "remark": "去顫電擊：50焦耳",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "set_DDE"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "DDE10",
             "type": 0,
             "displayName": "100J",
             "displayNameTC": "100焦耳",
-            "elements": null,
             "remark": "去顫電擊：100焦耳",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "set_DDE"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "DDE12",
             "type": 0,
             "displayName": "120J",
             "displayNameTC": "120焦耳",
-            "elements": null,
             "remark": "去顫電擊：120焦耳",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "set_DDE"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "DDE15",
             "type": 0,
             "displayName": "150J",
             "displayNameTC": "150焦耳",
-            "elements": null,
             "remark": "去顫電擊：150焦耳",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "set_DDE"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "DDE20",
             "type": 0,
             "displayName": "200J",
             "displayNameTC": "200焦耳",
-            "elements": null,
             "remark": "去顫電擊：200焦耳",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "set_DDE"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "DDE30",
             "type": 0,
             "displayName": "300J",
             "displayNameTC": "300焦耳",
-            "elements": null,
             "remark": "去顫電擊：300焦耳",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "set_DDE"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "DDE36",
             "type": 0,
             "displayName": "360J",
             "displayNameTC": "360焦耳",
-            "elements": null,
             "remark": "去顫電擊：360焦耳",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "set_DDE"
             ],
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "DDECH",
@@ -2469,37 +1349,20 @@
             "elements": [
                 "DDECHT"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
             "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": "suggest_DDECH",
-            "multiSelection": null,
-            "selected,": null
+            "suggestionId": "suggest_DDECH"
         },
         {
             "id": "DDECHT",
             "type": 1,
             "displayName": "J:",
             "displayNameTC": "焦耳：",
-            "elements": null,
             "remark": "去顫電擊(焦耳)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "set_DDE"
             ],
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "DCA",
@@ -2516,143 +1379,70 @@
                 "DCA36",
                 "DCACH"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "DCA05",
             "type": 0,
             "displayName": "50J",
             "displayNameTC": "50焦耳",
-            "elements": null,
             "remark": "去顫電擊：50焦耳",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "DCA10",
             "type": 0,
             "displayName": "100J",
             "displayNameTC": "100焦耳",
-            "elements": null,
             "remark": "去顫電擊：100焦耳",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "DCA12",
             "type": 0,
             "displayName": "120J",
             "displayNameTC": "120焦耳",
-            "elements": null,
             "remark": "去顫電擊：120焦耳",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "DCA15",
             "type": 0,
             "displayName": "150J",
             "displayNameTC": "150焦耳",
-            "elements": null,
             "remark": "去顫電擊：150焦耳",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "DCA20",
             "type": 0,
             "displayName": "200J",
             "displayNameTC": "200焦耳",
-            "elements": null,
             "remark": "去顫電擊：200焦耳",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "DCA30",
             "type": 0,
             "displayName": "300J",
             "displayNameTC": "300焦耳",
-            "elements": null,
             "remark": "去顫電擊：300焦耳",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "DCA36",
             "type": 0,
             "displayName": "360J",
             "displayNameTC": "360焦耳",
-            "elements": null,
             "remark": "去顫電擊：360焦耳",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "DCACH",
@@ -2662,108 +1452,46 @@
             "elements": [
                 "DCACHT"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
             "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": "suggest_DDECH",
-            "multiSelection": null,
-            "selected,": null
+            "suggestionId": "suggest_DDECH"
         },
         {
             "id": "DCACHT",
             "type": 1,
             "displayName": "J:",
             "displayNameTC": "焦耳：",
-            "elements": null,
             "remark": "去顫電擊(焦耳)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "N",
-            "type": null,
             "displayName": "NURSING",
             "displayNameTC": "護理",
-            "elements": "[NCH;NTU;NLA;NBL;NLI;",
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "elements": "[NCH;NTU;NLA;NBL;NLI;"
         },
         {
             "id": "NCH",
             "type": 0,
             "displayName": "Check",
             "displayNameTC": "護理確認",
-            "elements": null,
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NCHI",
             "type": 3,
-            "displayName": null,
-            "displayNameTC": null,
             "elements": [
                 "NCHI"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": true,
-            "selected,": null
+            "multiSelection": true
         },
         {
             "id": "NCHID",
             "type": 4,
             "displayName": "Identity",
             "displayNameTC": "身份確認",
-            "elements": null,
             "remark": "身份確認",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
             "selected,": false
         },
         {
@@ -2775,34 +1503,15 @@
                 "NCHDNY",
                 "NCHDNN"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": false,
-            "selected,": null
+            "multiSelection": false
         },
         {
             "id": "NCHDNY",
             "type": 4,
             "displayName": "YES",
             "displayNameTC": "是",
-            "elements": null,
             "remark": "不急救同意書：否",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
             "selected,": false
         },
         {
@@ -2810,17 +1519,8 @@
             "type": 4,
             "displayName": "NO",
             "displayNameTC": "否",
-            "elements": null,
             "remark": "不急救同意書：否",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
             "selected,": false
         },
         {
@@ -2828,54 +1528,27 @@
             "type": 1,
             "displayName": "Allergy:",
             "displayNameTC": "過敏：",
-            "elements": null,
             "remark": "過敏：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 0,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 0
         },
         {
             "id": "NCHIS",
             "type": 1,
             "displayName": "Isolation:",
             "displayNameTC": "隔離：",
-            "elements": null,
             "remark": "隔離：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 0,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 0
         },
         {
             "id": "NCHPR",
             "type": 1,
             "displayName": "Precaution:",
             "displayNameTC": "注意：",
-            "elements": null,
             "remark": "注意：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 0,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 0
         },
         {
             "id": "NTU",
@@ -2890,17 +1563,7 @@
                 "NTUPI",
                 "NTUCH"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NTUNG",
@@ -2911,53 +1574,25 @@
                 "NTUNGF",
                 "NTUNGC"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NTUNGF",
             "type": 1,
             "displayName": "Fr:",
             "displayNameTC": "管徑：",
-            "elements": null,
             "remark": "鼻胃管：管徑(Fr)：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUNGC",
             "type": 1,
             "displayName": "cm:",
             "displayNameTC": "深度：",
-            "elements": null,
             "remark": "鼻胃管：深度(cm)：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUSB",
@@ -2967,35 +1602,16 @@
             "elements": [
                 "NTUSBM"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NTUSBM",
             "type": 1,
             "displayName": "mmHg:",
             "displayNameTC": "壓力：",
-            "elements": null,
             "remark": "胃食道球：壓力(mmHg)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUET",
@@ -3006,53 +1622,25 @@
                 "NTUETF",
                 "NTUETC"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NTUETF",
             "type": 1,
             "displayName": "Fr:",
             "displayNameTC": "管徑：",
-            "elements": null,
             "remark": "氣管內管：管徑(Fr)：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUETC",
             "type": 1,
             "displayName": "cm:",
             "displayNameTC": "深度：",
-            "elements": null,
             "remark": "氣管內管：深度(cm)：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUFO",
@@ -3062,35 +1650,16 @@
             "elements": [
                 "NTUFOF"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NTUFOF",
             "type": 1,
             "displayName": "Fr:",
             "displayNameTC": "管徑：",
-            "elements": null,
             "remark": "尿管：管徑(Fr)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUPI",
@@ -3106,17 +1675,7 @@
                 "NTUPILAL",
                 "NTUPILAR"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NTUPIH",
@@ -3127,53 +1686,25 @@
                 "NTUPIHF",
                 "NTUPIHC"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NTUPIHF",
             "type": 1,
             "displayName": "Fr:",
             "displayNameTC": "管徑：",
-            "elements": null,
             "remark": "豬尾巴：心臟：管徑(Fr)：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUPIHC",
             "type": 1,
             "displayName": "cm:",
             "displayNameTC": "深度：",
-            "elements": null,
             "remark": "豬尾巴：心臟：深度(cm)：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUPILC1",
@@ -3184,53 +1715,25 @@
                 "NTUPILC1F",
                 "NTUPILC1C"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NTUPILC1F",
             "type": 1,
             "displayName": "Fr:",
             "displayNameTC": "管徑：",
-            "elements": null,
             "remark": "豬尾巴：左上胸腔：管徑(Fr)：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUPILC1C",
             "type": 1,
             "displayName": "cm:",
             "displayNameTC": "深度：",
-            "elements": null,
             "remark": "豬尾巴：左上胸腔：深度(cm)：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUPILC2",
@@ -3241,53 +1744,25 @@
                 "NTUPILC2F",
                 "NTUPILC2C"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NTUPILC2F",
             "type": 1,
             "displayName": "Fr:",
             "displayNameTC": "管徑：",
-            "elements": null,
             "remark": "豬尾巴：左下胸腔：管徑(Fr)：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUPILC2C",
             "type": 1,
             "displayName": "cm:",
             "displayNameTC": "深度：",
-            "elements": null,
             "remark": "豬尾巴：左下胸腔：深度(cm)：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUPILC1R",
@@ -3298,53 +1773,25 @@
                 "NTUPILC1RF",
                 "NTUPILC1RC"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NTUPILC1RF",
             "type": 1,
             "displayName": "Fr:",
             "displayNameTC": "管徑：",
-            "elements": null,
             "remark": "豬尾巴：右上胸腔：管徑(Fr)：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUPILC1RC",
             "type": 1,
             "displayName": "cm:",
             "displayNameTC": "深度：",
-            "elements": null,
             "remark": "豬尾巴：右上胸腔：深度(cm)：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUPILC2R",
@@ -3355,53 +1802,25 @@
                 "NTUPILC2RF",
                 "NTUPILC2RC"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NTUPILC2RF",
             "type": 1,
             "displayName": "Fr:",
             "displayNameTC": "管徑：",
-            "elements": null,
             "remark": "豬尾巴：右下胸腔：管徑(Fr)：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUPILC2RC",
             "type": 1,
             "displayName": "cm:",
             "displayNameTC": "深度：",
-            "elements": null,
             "remark": "豬尾巴：右下胸腔：深度(cm)：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUPILAL",
@@ -3412,53 +1831,25 @@
                 "NTUPILALF",
                 "NTUPILALC"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NTUPILALF",
             "type": 1,
             "displayName": "Fr:",
             "displayNameTC": "管徑：",
-            "elements": null,
             "remark": "豬尾巴：左側腹：管徑(Fr)：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUPILALC",
             "type": 1,
             "displayName": "cm:",
             "displayNameTC": "深度：",
-            "elements": null,
             "remark": "豬尾巴：左側腹：深度(cm)：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUPILAR",
@@ -3469,53 +1860,25 @@
                 "NTUPILARF",
                 "NTUPILARC"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NTUPILARF",
             "type": 1,
             "displayName": "Fr:",
             "displayNameTC": "管徑：",
-            "elements": null,
             "remark": "豬尾巴：右側腹：管徑(Fr)：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUPILARC",
             "type": 1,
             "displayName": "cm:",
             "displayNameTC": "深度：",
-            "elements": null,
             "remark": "豬尾巴：右側腹：深度(cm)：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUCH",
@@ -3528,17 +1891,7 @@
                 "NTUCHCR1",
                 "NTUCHCR2"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NTUCHCL1",
@@ -3549,53 +1902,25 @@
                 "NTUCHCL1F",
                 "NTUCHCL1C"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NTUCHCL1F",
             "type": 1,
             "displayName": "Fr:",
             "displayNameTC": "管徑：",
-            "elements": null,
             "remark": "胸管：左上胸腔：管徑(Fr)：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUCHCL1C",
             "type": 1,
             "displayName": "cm:",
             "displayNameTC": "深度：",
-            "elements": null,
             "remark": "胸管：左上胸腔：深度(cm)：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUCHCL2",
@@ -3606,53 +1931,25 @@
                 "NTUCHCL2F",
                 "NTUCHCL2C"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NTUCHCL2F",
             "type": 1,
             "displayName": "Fr:",
             "displayNameTC": "管徑：",
-            "elements": null,
             "remark": "胸管：左下胸腔：管徑(Fr)：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUCHCL2C",
             "type": 1,
             "displayName": "cm:",
             "displayNameTC": "深度：",
-            "elements": null,
             "remark": "胸管：左下胸腔：深度(cm)：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUCHCR1",
@@ -3663,53 +1960,25 @@
                 "NTUCHCR1F",
                 "NTUCHCR1C"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NTUCHCR1F",
             "type": 1,
             "displayName": "Fr:",
             "displayNameTC": "管徑：",
-            "elements": null,
             "remark": "胸管：右下胸腔：管徑(Fr)：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUCHCR1C",
             "type": 1,
             "displayName": "cm:",
             "displayNameTC": "深度：",
-            "elements": null,
             "remark": "胸管：右下胸腔：深度(cm)：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUCHCR2",
@@ -3720,53 +1989,25 @@
                 "NTUCHCR2F",
                 "NTUCHCR2C"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NTUCHCR2F",
             "type": 1,
             "displayName": "Fr:",
             "displayNameTC": "管徑：",
-            "elements": null,
             "remark": "胸管：右上胸腔：管徑(Fr)：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NTUCHCR2C",
             "type": 1,
             "displayName": "cm:",
             "displayNameTC": "深度：",
-            "elements": null,
             "remark": "胸管：右上胸腔：深度(cm)：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLA",
@@ -3776,23 +2017,11 @@
             "elements": [
                 "NLADP"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLADP",
             "type": 3,
-            "displayName": null,
-            "displayNameTC": null,
             "elements": [
                 "NLACB",
                 "NLABC",
@@ -3803,34 +2032,15 @@
                 "NLAPT",
                 "NLATO"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": true,
-            "selected,": null
+            "multiSelection": true
         },
         {
             "id": "NLACB",
             "type": 4,
             "displayName": "CBC/DC",
             "displayNameTC": "CBC/DC",
-            "elements": null,
             "remark": "抽血檢驗：CBC/DC",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
             "selected,": true
         },
         {
@@ -3838,17 +2048,8 @@
             "type": 4,
             "displayName": "BCS",
             "displayNameTC": "BCS",
-            "elements": null,
             "remark": "抽血檢驗：BCS",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
             "selected,": true
         },
         {
@@ -3856,17 +2057,8 @@
             "type": 4,
             "displayName": "GAS",
             "displayNameTC": "GAS",
-            "elements": null,
             "remark": "抽血檢驗：GAS",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
             "selected,": true
         },
         {
@@ -3874,17 +2066,8 @@
             "type": 4,
             "displayName": "Ammonia",
             "displayNameTC": "Ammonia",
-            "elements": null,
             "remark": "抽血檢驗：Ammonia",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
             "selected,": false
         },
         {
@@ -3892,17 +2075,8 @@
             "type": 4,
             "displayName": "Lactate",
             "displayNameTC": "Lactate",
-            "elements": null,
             "remark": "抽血檢驗：Lactate",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
             "selected,": true
         },
         {
@@ -3910,17 +2084,8 @@
             "type": 4,
             "displayName": "Sugar",
             "displayNameTC": "Sugar",
-            "elements": null,
             "remark": "抽血檢驗：Sugar",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
             "selected,": true
         },
         {
@@ -3928,17 +2093,8 @@
             "type": 4,
             "displayName": "PT/PTT",
             "displayNameTC": "PT/PTT",
-            "elements": null,
             "remark": "抽血檢驗：PT/PTT",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
             "selected,": false
         },
         {
@@ -3946,17 +2102,9 @@
             "type": 5,
             "displayName": "Toxin:",
             "displayNameTC": "毒物：",
-            "elements": null,
             "remark": "抽血檢驗：Toxin：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
             "inputType": 0,
-            "suggestionId": null,
-            "multiSelection": null,
             "selected,": false
         },
         {
@@ -3973,35 +2121,16 @@
                 "NBLCR",
                 "NBLOT"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NBLAB",
             "type": 0,
             "displayName": "ABO,RhD crossmatch",
             "displayNameTC": "備血",
-            "elements": null,
             "remark": "備血",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NBLPR",
@@ -4011,35 +2140,16 @@
             "elements": [
                 "NBLPRT"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NBLPRT",
             "type": 1,
             "displayName": "PRBC(U):",
             "displayNameTC": "紅血球濃厚液(U)：",
-            "elements": null,
             "remark": "輸血：PRBC(U)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NBLWB",
@@ -4049,35 +2159,16 @@
             "elements": [
                 "NBLWBT"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NBLWBT",
             "type": 1,
             "displayName": "Whole blood(U):",
             "displayNameTC": "全血(U)：",
-            "elements": null,
             "remark": "輸血：全血(U)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NBLPL",
@@ -4087,35 +2178,16 @@
             "elements": [
                 "NBLPLT"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NBLPLT",
             "type": 1,
             "displayName": "Platelet(U):",
             "displayNameTC": "血小板(U)：",
-            "elements": null,
             "remark": "輸血：血小板(U)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NBLFF",
@@ -4125,35 +2197,16 @@
             "elements": [
                 "NBLFFT"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NBLFFT",
             "type": 1,
             "displayName": "FFP(U):",
             "displayNameTC": "新鮮冷凍血漿(U)：",
-            "elements": null,
             "remark": "輸血：新鮮冷凍血漿(U)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NBLCR",
@@ -4163,35 +2216,16 @@
             "elements": [
                 "NBLCRT"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NBLCRT",
             "type": 1,
             "displayName": "Cryo(U):",
             "displayNameTC": "冷凍沈澱品(U)：",
-            "elements": null,
             "remark": "輸血：冷凍沈澱品(U)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NBLOT",
@@ -4201,35 +2235,16 @@
             "elements": [
                 "NBLOTT"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NBLOTT",
             "type": 1,
             "displayName": "Other:",
             "displayNameTC": "其他：",
-            "elements": null,
             "remark": "輸血：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 0,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 0
         },
         {
             "id": "NLI",
@@ -4245,17 +2260,7 @@
                 "NVS",
                 "NNO"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIIV",
@@ -4275,17 +2280,7 @@
                 "NLIIVRNE",
                 "NLIIVSCA"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIIVLUA",
@@ -4295,35 +2290,16 @@
             "elements": [
                 "NLIIVLUAG"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIIVLUAG",
             "type": 1,
             "displayName": "L upper arm(G):",
             "displayNameTC": "左上臂(G)：",
-            "elements": null,
             "remark": "靜脈留置針：左上臂(G)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLIIVRUA",
@@ -4333,35 +2309,16 @@
             "elements": [
                 "NLIIVRUAG"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIIVRUAG",
             "type": 1,
             "displayName": "R upper arm(G):",
             "displayNameTC": "右上臂(G)：",
-            "elements": null,
             "remark": "靜脈留置針：右上臂(G)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLIIVLFA",
@@ -4371,35 +2328,16 @@
             "elements": [
                 "NLIIVLFAG"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIIVLFAG",
             "type": 1,
             "displayName": "L forearm(G):",
             "displayNameTC": "左下臂(G)：",
-            "elements": null,
             "remark": "靜脈留置針：左下臂(G)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLIIVRFA",
@@ -4409,35 +2347,16 @@
             "elements": [
                 "NLIIVRFAG"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIIVRFAG",
             "type": 1,
             "displayName": " R forearm(G):",
             "displayNameTC": "右下臂(G)：",
-            "elements": null,
             "remark": "靜脈留置針：右下臂(G)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLIIVLTH",
@@ -4447,35 +2366,16 @@
             "elements": [
                 "NLIIVLTHG"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIIVLTHG",
             "type": 1,
             "displayName": "L thigh(G):",
             "displayNameTC": "左大腿(G)：",
-            "elements": null,
             "remark": "靜脈留置針：左大腿(G)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLIIVRTH",
@@ -4485,35 +2385,16 @@
             "elements": [
                 "NLIIVRTHG"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIIVRTHG",
             "type": 1,
             "displayName": "R thigh(G):",
             "displayNameTC": "右大腿(G)：",
-            "elements": null,
             "remark": "靜脈留置針：右大腿(G)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLIIVLLE",
@@ -4523,35 +2404,16 @@
             "elements": [
                 "NLIIVLLEG"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIIVLLEG",
             "type": 1,
             "displayName": "L lower leg(G):",
             "displayNameTC": "左小腿(G)：",
-            "elements": null,
             "remark": "靜脈留置針：右大腿(G)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLIIVRLE",
@@ -4561,35 +2423,16 @@
             "elements": [
                 "NLIIVRLEG"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIIVRLEG",
             "type": 1,
             "displayName": "R lower leg(G):",
             "displayNameTC": "右小腿(G)：",
-            "elements": null,
             "remark": "靜脈留置針：右小腿(G)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLIIVLNE",
@@ -4599,35 +2442,16 @@
             "elements": [
                 "NLIIVLNEG"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIIVLNEG",
             "type": 1,
             "displayName": "L neck(G):",
             "displayNameTC": "左脖子(G)：",
-            "elements": null,
             "remark": "靜脈留置針：左脖子(G)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLIIVRNE",
@@ -4637,35 +2461,16 @@
             "elements": [
                 "NLIIVRNEG"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIIVRNEG",
             "type": 1,
             "displayName": "R neck(G):",
             "displayNameTC": "右脖子(G)：",
-            "elements": null,
             "remark": "靜脈留置針：右脖子(G)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLIIVSCA",
@@ -4675,35 +2480,16 @@
             "elements": [
                 "NLIIVSCAG"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIIVSCAG",
             "type": 1,
             "displayName": "scalp(G):",
             "displayNameTC": "頭皮(G)：",
-            "elements": null,
             "remark": "靜脈留置針：頭皮(G)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLICVC",
@@ -4718,17 +2504,7 @@
                 "NLICVCLF",
                 "NLICVCRF"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLICVCLI",
@@ -4738,35 +2514,16 @@
             "elements": [
                 "NLICVCLIC"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLICVCLIC",
             "type": 1,
             "displayName": "L internal jugular vein(cm):",
             "displayNameTC": "左內頸靜脈(cm)：",
-            "elements": null,
             "remark": "中心靜脈導管：左內頸靜脈(cm)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLICVCRI",
@@ -4776,35 +2533,16 @@
             "elements": [
                 "NLICVCRIC"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLICVCRIC",
             "type": 1,
             "displayName": "R internal jugular vein(cm):",
             "displayNameTC": "右內頸靜脈(cm)：",
-            "elements": null,
             "remark": "中心靜脈導管：右內頸靜脈(cm)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLICVCLS",
@@ -4814,35 +2552,16 @@
             "elements": [
                 "NLICVCLSC"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLICVCLSC",
             "type": 1,
             "displayName": "L subclavian vein(cm):",
             "displayNameTC": "左鎖骨下靜脈(cm)：",
-            "elements": null,
             "remark": "中心靜脈導管：左鎖骨下靜脈(cm)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLICVCRS",
@@ -4852,35 +2571,16 @@
             "elements": [
                 "NLICVCRSC"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLICVCRSC",
             "type": 1,
             "displayName": "R subclavian vein(cm):",
             "displayNameTC": "右鎖骨下靜脈(cm)：",
-            "elements": null,
             "remark": "中心靜脈導管：右鎖骨下靜脈(cm)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLICVCLF",
@@ -4890,35 +2590,16 @@
             "elements": [
                 "NLICVCLFC"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLICVCLFC",
             "type": 1,
             "displayName": "L femoral vein(cm):",
             "displayNameTC": "左股靜脈(cm)：",
-            "elements": null,
             "remark": "中心靜脈導管：左股靜脈(cm)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLICVCRF",
@@ -4928,35 +2609,16 @@
             "elements": [
                 "NLICVCRFC"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLICVCRFC",
             "type": 1,
             "displayName": "R femoral vein(cm):",
             "displayNameTC": "右股靜脈(cm)：",
-            "elements": null,
             "remark": "中心靜脈導管：右股靜脈(cm)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLIIO",
@@ -4972,17 +2634,7 @@
                 "NLIIORT",
                 "NLIIOST"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIIOLH",
@@ -4992,35 +2644,16 @@
             "elements": [
                 "NLIIOLHG"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIIOLHG",
             "type": 1,
             "displayName": "L humerus(G):",
             "displayNameTC": "左肱骨(G)：",
-            "elements": null,
             "remark": "骨針：左肱骨(G)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLIIORH",
@@ -5030,35 +2663,16 @@
             "elements": [
                 "NLIIORHG"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIIORHG",
             "type": 1,
             "displayName": "R humerus(G):",
             "displayNameTC": "右肱股(G)：",
-            "elements": null,
             "remark": "骨針：右肱股(G)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLIIOLF",
@@ -5068,35 +2682,16 @@
             "elements": [
                 "NLIIOLFG"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIIOLFG",
             "type": 1,
             "displayName": "L femur(G):",
             "displayNameTC": "左股骨(G)：",
-            "elements": null,
             "remark": "骨針：左股骨(G)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLIIORF",
@@ -5106,35 +2701,16 @@
             "elements": [
                 "NLIIORFG"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIIORFG",
             "type": 1,
             "displayName": "R femur(G):",
             "displayNameTC": "右股骨(G)：",
-            "elements": null,
             "remark": "骨針：右股骨(G)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLIIOLT",
@@ -5144,35 +2720,16 @@
             "elements": [
                 "NLIIOLTG"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIIOLTG",
             "type": 1,
             "displayName": "L tibia(G):",
             "displayNameTC": "左脛骨(G)：",
-            "elements": null,
             "remark": "骨針：左脛骨(G)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLIIORT",
@@ -5182,35 +2739,16 @@
             "elements": [
                 "NLIIORTG"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIIORTG",
             "type": 1,
             "displayName": "R tibia(G):",
             "displayNameTC": "右脛骨(G)：",
-            "elements": null,
             "remark": "骨針：右脛骨(G)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLIIOST",
@@ -5220,35 +2758,16 @@
             "elements": [
                 "NLIIOSTG"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIIOSTG",
             "type": 1,
             "displayName": "sternum(G):",
             "displayNameTC": "胸骨(G)：",
-            "elements": null,
             "remark": "骨針：胸骨(G)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLIAL",
@@ -5265,17 +2784,7 @@
                 "NLIALLFA",
                 "NLIALRFA"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIALRA",
@@ -5285,35 +2794,16 @@
             "elements": [
                 "NLIALRAG"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIALRAG",
             "type": 1,
             "displayName": "L radial artery(G):",
             "displayNameTC": "左橈動脈(G)：",
-            "elements": null,
             "remark": "動脈導管：左橈動脈(G)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLIALRR",
@@ -5323,35 +2813,16 @@
             "elements": [
                 "NLIALRRG"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIALRRG",
             "type": 1,
             "displayName": "R radial artery(G):",
             "displayNameTC": "右橈動脈(G)：",
-            "elements": null,
             "remark": "動脈導管：右橈動脈(G)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLIALLBA",
@@ -5361,35 +2832,16 @@
             "elements": [
                 "NLIALLBAG"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIALLBAG",
             "type": 1,
             "displayName": "L brachial artery(G):",
             "displayNameTC": "左肱動脈(G)：",
-            "elements": null,
             "remark": "動脈導管：左肱動脈(G)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLIALRBA",
@@ -5399,35 +2851,16 @@
             "elements": [
                 "NLIALRBAG"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIALRBAG",
             "type": 1,
             "displayName": "R brachial artery(G):",
             "displayNameTC": "右肱動脈(G)：",
-            "elements": null,
             "remark": "動脈導管：右肱動脈(G)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLIALLDP",
@@ -5437,35 +2870,16 @@
             "elements": [
                 "NLIALLDPG"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIALLDPG",
             "type": 1,
             "displayName": "L dorsalis pedis artery(G):",
             "displayNameTC": "左足背動脈(G)：",
-            "elements": null,
             "remark": "動脈導管：左足背動脈(G)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLIALRDP",
@@ -5475,35 +2889,16 @@
             "elements": [
                 "NLIALRDPG"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIALRDPG",
             "type": 1,
             "displayName": "R dorsalis pedis artery(G):",
             "displayNameTC": "右足背動脈(G)：",
-            "elements": null,
             "remark": "動脈導管：右足背動脈(G)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLIALLFA",
@@ -5513,35 +2908,16 @@
             "elements": [
                 "NLIALLFAG"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIALLFAG",
             "type": 1,
             "displayName": "L femoral artery(G):",
             "displayNameTC": "左股動脈(G)",
-            "elements": null,
             "remark": "動脈導管：左股動脈(G)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NLIALRFA",
@@ -5551,53 +2927,24 @@
             "elements": [
                 "NLIALRFAG"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NLIALRFAG",
             "type": 1,
             "displayName": "R femoral artery(G):",
             "displayNameTC": "右股動脈(G)：",
-            "elements": null,
             "remark": "動脈導管：右股動脈(G)：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NRS",
             "type": 0,
             "displayName": "Rapid Sequence Intubation",
             "displayNameTC": "插管前麻醉",
-            "elements": null,
             "remark": "插管前麻醉",
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NVS",
@@ -5611,107 +2958,52 @@
                 "NVSBP",
                 "NVSSP"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NVST",
             "type": 1,
             "displayName": "T:",
             "displayNameTC": "T:",
-            "elements": null,
             "remark": "生命徵象：T：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NVSP",
             "type": 1,
             "displayName": "P:",
             "displayNameTC": "P:",
-            "elements": null,
             "remark": "生命徵象：P：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NVSR",
             "type": 1,
             "displayName": "R:",
             "displayNameTC": "R:",
-            "elements": null,
             "remark": "生命徵象：R：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NVSBP",
             "type": 1,
             "displayName": "BP:",
             "displayNameTC": "BP:",
-            "elements": null,
             "remark": "生命徵象：BP：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NVSSP",
             "type": 1,
             "displayName": "SpO2:",
             "displayNameTC": "SpO2:",
-            "elements": null,
             "remark": "生命徵象：SpO2：__text__",
             "shouldSubmit": false,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "NNO",
@@ -5724,17 +3016,7 @@
                 "MNOBL",
                 "MNOBT"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NNOFT",
@@ -5744,93 +3026,46 @@
             "elements": [
                 "MNOFTT"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NNOFTT",
             "type": 1,
             "displayName": "free text:",
             "displayNameTC": "free text：",
-            "elements": null,
             "remark": "文字註記：__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 0,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 0
         },
         {
             "id": "NNOBS",
             "type": 0,
             "displayName": "快速血糖檢驗",
             "displayNameTC": "快速血糖檢驗",
-            "elements": null,
             "remark": "文字註記：快速血糖檢驗",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NNOBL",
             "type": 0,
             "displayName": "抽血檢查",
             "displayNameTC": "抽血檢查",
-            "elements": null,
             "remark": "文字註記：抽血檢查",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "NNOBT",
             "type": 0,
             "displayName": "緊急輸血",
             "displayNameTC": "緊急輸血",
-            "elements": null,
             "remark": "文字註記：緊急輸血",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "P",
-            "type": null,
             "displayName": "DRUG",
             "displayNameTC": "藥物",
             "elements": [
@@ -5852,18 +3087,7 @@
                 "PKE",
                 "PSU",
                 "PMI"
-            ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            ]
         },
         {
             "id": "PIV",
@@ -5877,269 +3101,158 @@
                 "PIV45",
                 "PIV41"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "PIVN5",
             "type": 0,
             "displayName": "N/S 500ml/bag IVF",
             "displayNameTC": "生理食鹽水 500ml/bag IVF",
-            "elements": null,
             "remark": "藥物：生理食鹽水 500ml/bag IVF",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "PIVN1",
             "type": 0,
             "displayName": "N/S 1000ml/bag IVF",
             "displayNameTC": "生理食鹽水1000ml/bag IVF",
-            "elements": null,
             "remark": "藥物：生理食鹽水1000ml/bag IVF",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "PIVLR",
             "type": 0,
             "displayName": "L/R 500ml/bag IVF",
             "displayNameTC": "乳酸林格氏液500ml/bag IVF",
-            "elements": null,
             "remark": "藥物：乳酸林格氏液500ml/bag IVF",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "PIV45",
             "type": 0,
             "displayName": "4,C N/S 500ml/bag IVF",
             "displayNameTC": "4,C 生理食鹽水 500ml/bag IVF",
-            "elements": null,
             "remark": "藥物：4,C 生理食鹽水 500ml/bag IVF",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "PIV41",
             "type": 0,
             "displayName": "4,C N/S 1000ml/bag IVF",
             "displayNameTC": "4,C 生理食鹽水 1000ml/bag IVF",
-            "elements": null,
             "remark": "藥物：4,C 生理食鹽水 1000ml/bag IVF",
             "shouldSubmit": true,
-            "referenceElement": null,
-            "actions": null,
-            "shouldDisplayCount": false,
-            "count": null,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "shouldDisplayCount": false
         },
         {
             "id": "PAD",
             "type": 0,
             "displayName": "Adrenaline 1mg/amp",
             "displayNameTC": "Adrenaline 1mg/amp",
-            "elements": null,
             "remark": "藥物：Adrenaline 1mg/amp",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_stopRepeat_PAD",
                 "action_highlight_PAD_repeat",
                 "action_addCount_PAD"
             ],
             "shouldDisplayCount": true,
-            "count": 0,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "count": 0
         },
         {
             "id": "PBI",
             "type": 0,
             "displayName": "Bicarbonate 16.6 meq/amp",
             "displayNameTC": "Bicarbonate 16.6 meq/amp",
-            "elements": null,
             "remark": "藥物：Bicarbonate 16.6 meq/amp",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_addCount_PBI"
             ],
             "shouldDisplayCount": true,
-            "count": 0,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "count": 0
         },
         {
             "id": "PCA",
             "type": 0,
             "displayName": "Cal. Chloride 5.4 meq/amp",
             "displayNameTC": "Cal. Chloride 5.4 meq/amp",
-            "elements": null,
             "remark": "藥物：Cal. Chloride 5.4 meq/amp",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_addCount_PCA"
             ],
             "shouldDisplayCount": true,
-            "count": 0,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "count": 0
         },
         {
             "id": "PAT",
             "type": 0,
             "displayName": "Atropone 1mg/amp",
             "displayNameTC": "Atropone 1mg/amp",
-            "elements": null,
             "remark": "藥物：Atropone 1mg/amp",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_addCount_PAT"
             ],
             "shouldDisplayCount": true,
-            "count": 0,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "count": 0
         },
         {
             "id": "PAM",
             "type": 0,
             "displayName": "Amiodarone 150mg/amp",
             "displayNameTC": "Amiodarone 150mg/amp",
-            "elements": null,
             "remark": "藥物：Amiodarone 150mg/amp",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_addCount_PAM"
             ],
             "shouldDisplayCount": true,
-            "count": 0,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "count": 0
         },
         {
             "id": "PMG",
             "type": 0,
             "displayName": "MgSO4 16mEq/amp",
             "displayNameTC": "MgSO4 16mEq/amp",
-            "elements": null,
             "remark": "藥物：MgSO4 16mEq/amp",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_addCount_PMG"
             ],
             "shouldDisplayCount": true,
-            "count": 0,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "count": 0
         },
         {
             "id": "PLI",
             "type": 0,
             "displayName": "Lidocaine 100mg/amp",
             "displayNameTC": "Lidocaine 100mg/amp",
-            "elements": null,
             "remark": "藥物：Lidocaine 100mg/amp",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_addCount_PLI"
             ],
             "shouldDisplayCount": true,
-            "count": 0,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "count": 0
         },
         {
             "id": "PGL",
             "type": 0,
             "displayName": "Glucose water 50% 20ml",
             "displayNameTC": "Glucose water 50% 20ml",
-            "elements": null,
             "remark": "藥物：Glucose water 50% 20ml",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_addCount_PGL"
             ],
             "shouldDisplayCount": true,
-            "count": 0,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "count": 0
         },
         {
             "id": "PRE",
@@ -6149,197 +3262,124 @@
             "elements": [
                 "PRET"
             ],
-            "remark": null,
-            "shouldSubmit": null,
-            "referenceElement": null,
-            "actions": null,
             "shouldDisplayCount": true,
-            "count": 0,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "count": 0
         },
         {
             "id": "PRET",
             "type": 1,
             "displayName": "Regular Insulin(1000 U/10 ml):",
             "displayNameTC": "Regular Insulin(1000 U/10 ml):",
-            "elements": null,
             "remark": "藥物：Regular Insulin(U) :__text__",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_addCount_PRE"
             ],
-            "shouldDisplayCount": null,
-            "count": null,
-            "defaultText": null,
-            "inputType": 1,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "inputType": 1
         },
         {
             "id": "PD4",
             "type": 0,
             "displayName": "Dopamine permix(400mg/250ml)",
             "displayNameTC": "Dopamine permix(400mg/250ml)",
-            "elements": null,
             "remark": "藥物：Dopamine permix(400mg/250ml)",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_addCount_PD4"
             ],
             "shouldDisplayCount": true,
-            "count": 0,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "count": 0
         },
         {
             "id": "PD8",
             "type": 0,
             "displayName": "Dopamine (800mg/250ml) IVF",
             "displayNameTC": "Dopamine (800mg/250ml) IVF",
-            "elements": null,
             "remark": "藥物：Dopamine (800mg/250ml) IVF",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_addCount_PD8"
             ],
             "shouldDisplayCount": true,
-            "count": 0,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "count": 0
         },
         {
             "id": "PN8",
             "type": 0,
             "displayName": "Norepinephrine (8mg/250ml) IVF",
             "displayNameTC": "Norepinephrine (8mg/250ml) IVF",
-            "elements": null,
             "remark": "藥物：Norepinephrine (8mg/250ml) IVF",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_addCount_PN8"
             ],
             "shouldDisplayCount": true,
-            "count": 0,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "count": 0
         },
         {
             "id": "PNO",
             "type": 0,
             "displayName": "Norepinephrine (16mg/250mg) IVF ",
             "displayNameTC": "Norepinephrine (16mg/250mg) IVF ",
-            "elements": null,
             "remark": "藥物：Norepinephrine (16mg/250mg) IVF ",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_addCount_PNO"
             ],
             "shouldDisplayCount": true,
-            "count": 0,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "count": 0
         },
         {
             "id": "PAT",
             "type": 0,
             "displayName": "Atracurim (10mg/amp)",
             "displayNameTC": "Atracurim (10mg/amp)",
-            "elements": null,
             "remark": "藥物：Atracurim (10mg/amp)",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_addCount_PAT"
             ],
             "shouldDisplayCount": true,
-            "count": 0,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "count": 0
         },
         {
             "id": "PKE",
             "type": 0,
             "displayName": "Ketamine (500mg/10 ml)",
             "displayNameTC": "Ketamine (500mg/10 ml)",
-            "elements": null,
             "remark": "藥物：Ketamine (500mg/10 ml)",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_addCount_PKE"
             ],
             "shouldDisplayCount": true,
-            "count": 0,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "count": 0
         },
         {
             "id": "PSU",
             "type": 0,
             "displayName": "Succnylcholine (500mg/10ml)",
             "displayNameTC": "Succnylcholine (500mg/10ml)",
-            "elements": null,
             "remark": "藥物：Succnylcholine (500mg/10ml)",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_addCount_PSU"
             ],
             "shouldDisplayCount": true,
-            "count": 0,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "count": 0
         },
         {
             "id": "PMI",
             "type": 0,
             "displayName": "Midazolam (5mg/amp)",
             "displayNameTC": "Midazolam (5mg/amp)",
-            "elements": null,
             "remark": "藥物：Midazolam (5mg/amp)",
             "shouldSubmit": true,
-            "referenceElement": null,
             "actions": [
                 "action_addCount_PMI"
             ],
             "shouldDisplayCount": true,
-            "count": 0,
-            "defaultText": null,
-            "inputType": null,
-            "suggestionId": null,
-            "multiSelection": null,
-            "selected,": null
+            "count": 0
         }
     ],
     "version": "0.0.1"
