@@ -101,28 +101,31 @@
 
 
 
-## 7/6 - 待配床清單 [/assignBed/department/{departmentCode}]
+## 7/6 - 待配床清單 [/assignBed/list{?sessionkey,departmentCode,chartNo}]
 ### 取得待配床病患清單[GET]
 
 + Parameters
-    + departmentCode (string)    ... 科別代碼
+    + departmentCode (string) ... 科別代碼
+    + chartNo (string)  ... 病患病例號
 
 + Response 200 (application/json)
 
         {
             "content" : [   //病患資訊陣列
                 {   //病患資訊
-                    "patName" : "王小明",                    //病患姓名[string]
-                    "patSexCode" : "M",                     //性別[string]（男性："M";女性："F"）
-                    "patBirthday" : 1406938026,             //出生日期[number(timestamp)]
-                    "chartNo" : "12345678",                 //病歷號[string]
-                    "priority": "Ａ",                        //優先順序[string]
-                    "waitStartDate": 1416938026,              //候床起始時間 [number(timestamp)]
-                    "waitEndDate": 1416938326,                //候床結束時間 [number(timestamp), optional] 若無則不用回傳
-                    "source" : "轉",                         //來源[string]
-                    "hospital" : "總院",                      //原院[string]
-                    "department" : "腫瘤",                    //原科[string]
-                    "note" : "註記"                           //註[string]
+                    "patName" : "王小明",                          //病患姓名[string]
+                    "patSexCode" : "M",                         //性別[string]（男性："M";女性："F"）
+                    "patBirthday" : 1406938026,                 //出生日期[number(timestamp)]
+                    "chartNo" : "12345678",                     //病歷號[string]
+                    "priority": "Ａ",                            //優先順序[string]
+                    "waitStartDate": 1416938026,                //候床起始時間 [number(timestamp)]
+                    "waitEndDate": 1416938326,                  //候床結束時間 [number(timestamp), optional] 若無則不用回傳
+                    "source" : "轉",                             //來源[string]
+                    "hospital" : "總院",                          //原院[string]
+                    "department" : "腫瘤",                        //原科[string]
+                    "note" : "註記",                              //註[string]
+                    "departmentName": "內科",                     //[string, optional] 科別名稱，在病患收尋清單的時候才需回傳
+                    "waitBedNo": "1408992"                      //[string, optional] 候床代號
                 },
                 ...
             ],

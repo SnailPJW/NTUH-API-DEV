@@ -342,7 +342,12 @@
 
         {
             "content": [
-                "IF",           // [string] 途徑代號
+                {
+                    "code": "IF",                   // [string] 途徑代號
+                    "isContinue": false,            // [boolean] 是否連續
+                    "infusionTimeControl": 0,       // [number] 輸注時間管控碼 0為不需要 1為可編輯 2為必輸入
+                    "mlPerHourRequired": false      // [boolean] 是否要求輸入流速
+                },
                 ...
             ]
         }
