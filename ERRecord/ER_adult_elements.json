@@ -1468,7 +1468,16 @@
             "id": "N",
             "displayName": "NURSING",
             "displayNameTC": "護理",
-            "elements": "[NCH;NTU;NLA;NBL;NLI;"
+            "elements": [
+              "NCH",
+              "NTU",
+              "NLA",
+              "NBL",
+              "NLI",
+              "NRS",
+              "NVS",
+              "NNO"
+            ]
         },
         {
             "id": "NCH",

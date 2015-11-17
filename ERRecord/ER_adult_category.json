@@ -1,94 +1,100 @@
-{
-    "content": [
-        {
-            "id": "S",
-            "displayName": "STATUS",
-            "displayNameTC": "狀態評估",
-            "elements": [
-                "SCON",
-                "SCON2",
-                "SCPR",
-                "SROSC",
-                "STERM"
-            ]
-        },
-        {
-            "id": "A",
-            "displayName": "AIRWAY",
-            "displayNameTC": "呼吸道",
-            "elements": [
-                "AOP",
-                "ACH",
-                "AAD",
-                "ASU",
-                "ARF",
-                "ADA",
-                "ACOSC",
-                "ACOBS",
-                "ACOET",
-                "ACOTR"
-            ]
-        },
-        {
-            "id": "B",
-            "displayName": "BREATH",
-            "displayNameTC": "呼吸",
-            "elements": [
-                "BCB",
-                "BOX",
-                "BVE",
-                "BME"
-            ]
-        },
-        {
-            "id": "C",
-            "displayName": "CIRCULATION",
-            "displayNameTC": "循環",
-            "elements": [
-                "CCP",
-                "CCC"
-            ]
-        },
-        {
-            "id": "D",
-            "displayName": "DEFIBRILLATION",
-            "displayNameTC": "電擊",
-            "elements": [
-                "DMO",
-                "DCR"
-            ]
-        },
-        {
-            "id": "N",
-            "displayName": "NURSING",
-            "displayNameTC": "護理",
-            "elements": "[NCH;NTU;NLA;NBL;NLI;"
-        },
-        {
-            "id": "P",
-            "displayName": "DRUG",
-            "displayNameTC": "藥物",
-            "elements": [
-                "PIV",
-                "PAD",
-                "PBI",
-                "PCA",
-                "PAT",
-                "PAM",
-                "PMG",
-                "PLI",
-                "PGL",
-                "PRE",
-                "PD4",
-                "PD8",
-                "PN8",
-                "PNO",
-                "PAT",
-                "PKE",
-                "PSU",
-                "PMI"
-            ]
-        }
-    ],
-    "version": "0.0.1"
-}
+[
+  {
+    "id": "S",
+    "displayName": "STATUS",
+    "displayNameTC": "狀態評估",
+    "elements": [
+      "SCON",
+      "SCON2",
+      "SCPR",
+      "SROSC",
+      "STERM"
+    ]
+  },
+  {
+    "id": "A",
+    "displayName": "AIRWAY",
+    "displayNameTC": "呼吸道",
+    "elements": [
+      "AOP",
+      "ACH",
+      "AAD",
+      "ASU",
+      "ARF",
+      "ADA",
+      "ACOSC",
+      "ACOBS",
+      "ACOET",
+      "ACOTR"
+    ]
+  },
+  {
+    "id": "B",
+    "displayName": "BREATH",
+    "displayNameTC": "呼吸",
+    "elements": [
+      "BCB",
+      "BOX",
+      "BVE",
+      "BME"
+    ]
+  },
+  {
+    "id": "C",
+    "displayName": "CIRCULATION",
+    "displayNameTC": "循環",
+    "elements": [
+      "CCP",
+      "CCC"
+    ]
+  },
+  {
+    "id": "D",
+    "displayName": "DEFIBRILLATION",
+    "displayNameTC": "電擊",
+    "elements": [
+      "DMO",
+      "DCR"
+    ]
+  },
+  {
+    "id": "N",
+    "displayName": "NURSING",
+    "displayNameTC": "護理",
+    "elements": [
+      "NCH",
+      "NTU",
+      "NLA",
+      "NBL",
+      "NLI",
+      "NRS",
+      "NVS",
+      "NNO"
+    ]
+  },
+  {
+    "id": "P",
+    "displayName": "DRUG",
+    "displayNameTC": "藥物",
+    "elements": [
+      "PIV",
+      "PAD",
+      "PBI",
+      "PCA",
+      "PAT",
+      "PAM",
+      "PMG",
+      "PLI",
+      "PGL",
+      "PRE",
+      "PD4",
+      "PD8",
+      "PN8",
+      "PNO",
+      "PAT",
+      "PKE",
+      "PSU",
+      "PMI"
+    ]
+  }
+]
