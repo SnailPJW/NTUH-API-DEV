@@ -120,11 +120,11 @@
                     "priority": "Ａ",                            //優先順序[string]
                     "waitStartDate": 1416938026,                //候床起始時間 [number(timestamp)]
                     "waitEndDate": 1416938326,                  //候床結束時間 [number(timestamp), optional] 若無則不用回傳
-                    "source" : "轉",                             //來源[string]
-                    "hospital" : "總院",                          //原院[string]
-                    "department" : "腫瘤",                        //原科[string]
-                    "note" : "註記",                              //註[string]
-                    "departmentName": "內科",                     //[string, optional] 科別名稱，在病患收尋清單的時候才需回傳
+                    "source" : "轉",                            //來源[string]
+                    "originalHospital" : "總院",                //原院[string]
+                    "originalDepartmentName" : "腫瘤",          //原科[string]
+                    "note" : "註記",                             //註[string]
+                    "departmentName": "內科",                    //[string, optional] 科別名稱
                     "waitBedNo": "1408992"                      //[string, optional] 候床代號
                 },
                 ...
@@ -138,8 +138,8 @@
 ### 取得病患配床資訊[GET]
 
 + Parameters
-
-   + chartNo (string)    ... 病歷號
+    + chartNo (string)    ... 病歷號
+    + waitBedNo (string)  ... 候床代號
 
 + Response 200 (application/json)
 
