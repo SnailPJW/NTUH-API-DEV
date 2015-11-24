@@ -459,7 +459,8 @@
                         "value": 130032013,                 // [number(timestamp), optional] 預計執行時間預設值之 unix timestamp 如果沒有不用回傳
                         "editable": true,                   // [boolean] 是否可以修改
                         "message": "不需排程"                 // [string, optional] 如果有回傳的話 不會顯示時間額是改顯示 message 的文字內容
-                    }
+                    },
+                    "requestSheetNo": "T0159100468"         // [string, optional] 檢查單號 檢查E 影醫X 核醫N 使用
                 },
                 ...
             ]
@@ -691,6 +692,7 @@
                 "frequency": "QD",                   // [string] 頻率碼 K類醫囑使用
                 "isBedside": false,                  // [boolean, optional] 是否為床邊攝影 X類醫囑使用
                 "specimenValue": "sp1",               // [string] 檢體代碼 L類醫囑使用
+                "requestSheetNo": "T0159100468",      // [string, optional] 檢查單號 檢查E 影醫X 核醫N 使用
                 "questionaries": [                     // [optional] 問題清單答案
                     {
                         "title": "SINGLE_SELECTION",            // [string] 問題顯示題目
