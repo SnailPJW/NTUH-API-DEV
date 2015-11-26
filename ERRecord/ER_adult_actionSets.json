@@ -14,8 +14,8 @@
                     "delay": 2
                 },
                 {
-                    "id": "action_playSound_CPR",
-                    "delay": 4
+                    "id": "action_playSound_CPR_30",
+                    "delay": 2
                 }
             ],
             "flag": {

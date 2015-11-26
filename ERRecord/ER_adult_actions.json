@@ -94,6 +94,15 @@
             ]
         },
         {
+            "id": "action_playSound_CPR_30",
+            "selector": "playSound:",
+            "repeat": 30,
+            "interval": 0.5,
+            "values": [
+                "CPR"
+            ]
+        },
+        {
             "id": "action_playSound_respiration_repeat",
             "selector": "playSound:",
             "repeat": -1,
@@ -169,7 +178,8 @@
             "id": "action_stopRepeat_playCPR",
             "selector": "stopRepeat:",
             "values": [
-                "action_playSound_CPR"
+                "action_playSound_CPR",
+                "action_playSound_CPR_30"
             ]
         },
         {
