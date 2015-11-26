@@ -1,6 +1,6 @@
 # Group MedicationOrder
 
-## 7/8 - 醫令搜尋 [/medications{?name,packageCode,orderType,patientClass,hospitalCode,accountNo,searchType,sessionKey}]
+## 7/8 - 醫令搜尋 [/medications{?name,packageCode,orderType,patientClass,hospitalCode,accountNo,searchType,searchRange,sessionKey}]
 ### 取得藥物清單 [GET]
 
 + Parameters
@@ -11,6 +11,7 @@
     + hospitalCode (string, optional)   ... 院區碼 如台大本院為 T0
     + accountNo (string, optional)      ... 病患帳號
     + searchType (string)               ... 搜尋來源種類 P 為來自醫令套餐 A 為來自病患帳號 N 為來自字串搜尋
+    + searchRange (number, optional)    ... 搜尋種類為 A 時指定搜尋日期範圍
 
 + Response 200 (application/json)
 
