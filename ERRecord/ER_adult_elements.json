@@ -39,6 +39,12 @@
                 "SCON1U"
             ],
             "referenceElement": "SCON1U",
+            "registeredTargets" : [
+                {
+                    "elementId" : "SCON1U",
+                    "shouldPerformActions": true
+                }
+            ],
             "shouldDisplayCount": false
         },
         {
@@ -130,6 +136,12 @@
                 "SCPRPO"
             ],
             "referenceElement": "SCPRET",
+            "registeredTargets" : [
+                {
+                    "elementId" : "SCPRET",
+                    "shouldPerformActions": true
+                }
+            ],
             "shouldDisplayCount": false
         },
         {
@@ -275,6 +287,12 @@
                 "AOPJT"
             ],
             "referenceElement": "AOPHC",
+            "registeredTargets" : [
+                {
+                    "elementId" : "AOPHC",
+                    "shouldPerformActions": true
+                }
+            ],
             "shouldDisplayCount": false
         },
         {
@@ -312,6 +330,12 @@
                 "ACHO"
             ],
             "referenceElement": "ACHP",
+            "registeredTargets" : [
+                {
+                    "elementId" : "ACHP",
+                    "shouldPerformActions": true
+                }
+            ],
             "shouldDisplayCount": false
         },
         {
@@ -767,6 +791,12 @@
                 "BCBDY"
             ],
             "referenceElement": "BCBAP",
+            "registeredTargets" : [
+                {
+                    "elementId" : "BCBAP",
+                    "shouldPerformActions": true
+                }
+            ],
             "shouldDisplayCount": false
         },
         {
@@ -1146,6 +1176,12 @@
                 "DMOAE"
             ],
             "referenceElement": "DMOEC",
+            "registeredTargets" : [
+                {
+                    "elementId" : "DMOEC",
+                    "shouldPerformActions": true
+                }
+            ],
             "shouldDisplayCount": false
         },
         {
@@ -1256,6 +1292,12 @@
                 "DDECH"
             ],
             "referenceElement": "DDE20",
+            "registeredTargets" : [
+                {
+                    "elementId" : "DDE20",
+                    "shouldPerformActions": true
+                }
+            ],
             "shouldDisplayCount": false
         },
         {
