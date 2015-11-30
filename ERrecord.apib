@@ -19,169 +19,31 @@
             ]
         }
 
-## 9/21 - 急救紀錄事件按鈕 [/ERRecord/layout]
-### 取得急救紀錄事件按鈕 [GET]
+## 11/30 - 病患身分 [/ERRecord/patient{?chartNo,name,birthday}]
+## 取得病患身分資料 [GET]
+
++ Parameters
+    + chartNo (string)
+    + name (string, optional)
+    + birthday (string, optional) ... YYYYMMDD
 
 + Response 200 (application/json)
 
         {
-            "example": [
-                {
-                    "category": "S",    //類別代碼 [string]
-                    "displayName": "STATUS",    //類別顯示名稱 [string]
-                    "displayNameTC": "狀態評估",    //類別顯示名稱(中文) [string]
-                    "items": [    //類別含有的按紐
-                        {
-                            "itemCode": "SCON",   //步驟(元件)代碼  [string]
-                            "items": [  //下層選項  [optional]
-                                {
-                                    "itemCode" : "SCON1OP"
-                                }
-                            ]
-                        },
-                        {
-                            "itemCode": "SCON2",
-                            "items": [  //下層選項  [optional]
-                                {
-                                    "itemCode" : "SCON2E"
-                                },
-                                {
-                                    "itemCode" : "SCON2M"
-                                },
-                                {
-                                    "itemCode" : "SCON2V"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ],
-            "content": [
-            ]
-        }
-
-
-## 9/21 - 急救紀錄步驟 [/ERRecord/items]
-### 取得急救紀錄步驟 [GET]
-
-+ Response 200 (application/json)
-
-        {
-            "example": {
-                "SCON" : {  //example for button
-                    "type": "button",   //元件類別 (button, option, textfield, optionItem) [string]
-                    "displayName": "Consciousness", //元件顯示名稱 [string]
-                    "displayNameTC": "意識評估",    //元件顯示名稱(中文) [string]
-                    "count" : true, //此元件(按鈕)需要被計數，未回傳此參數時，預設為 false [boolean, optional]
-                    "isNeededSetDefault" : true,  //是否需要將使用者於此急救過程中第一次選擇的選項作為預設值，未回傳此參數時，預設為 false [boolean, optional]
-                    "default" : "SCON1U"   //此按鈕有預設值時回傳 itemCode，[string, optional]
-                },
-                "SCON2E" : {    //example for textfield
-                    "type": "textfield",   //元件類別 (button, option, textfield, optionItem) [string]
-                    "displayName": "E:",    //元件顯示名稱 [string]
-                    "displayNameTC": "E:",  //元件顯示名稱(中文) [string]
-                    "default": "1", //預設數值，未回傳此參數時，預設為空值 [string. optional]
-                    "number": true, //值是否只能填入數值，未回傳此參數時，預設為 false [string. optional]
-                    "require" : false //當require為 false 時，使用者可選擇不填入此數值，當使用者不填入數值時，不用紀錄此項，未回傳此參數時，預設為 true [boolean, optional]
-                },
-                "SCON1OP" : {   //example for option
-                    "type": "option",   //元件類別 (button, option, textfield, optionItem) [string]
-                    "options" : [   //選項 (optionItem)
-                        "SCON1A",
-                        "SCON1V",
-                        "SCON1P",
-                        "SCON1U"
-                    ]
-                },
-                "SCON1A" :{ //example for optionItem
-                    "type": "optionItem",
-                    "displayName": "A",
-                    "displayNameTC": "A",
-                    "textInput": true,  //當此選項有附帶欄位可讓使用者填入值，未回傳此參數時，預設為 false[boolean, optional]
-                    "default": "1",  //預設數值 [string. optional]
-                    "number" : true    //當此參數為 true 時，表示此欄位只能填入數值，未回傳此參數時，預設為 false [boolean, optional]
-                }
-            },
             "content": {
-
+                "chartNo": "123123",
+                "name": "TEST",
+                "birthday": "19970202"
             }
-
         }
 
-
-## 9/21 - 急救紀錄元件紀錄內容 [/ERRecord/record]
-### 急救紀錄元件紀錄內容 [GET]
-
-+ Response 200 (application/json)
++ Response 400 (application/json)
 
         {
-            "example": {    //每一個record Object，皆會產生一筆紀錄，紀錄欄位為time[timestamp]、itemCode、recordNote、text(使用者輸入值)，當無參數 require = false 時，所有選項與欄位皆為必填。
-                "SCON2E" : "昏迷指數:E [\1]",    //當此 item 有使用者填入欄位時，使用者填入值已[\1]表示，如使用者填入值為 2 ，recordNote 將紀錄為 "昏迷指數:E 2"
-                "SCON1A" : "意識評估:清"
-            },
-            "content": {
-
-            }
-
+            "error": 104,
+            "message": "xxx is not found"
         }
 
-
-## 11/06 - 急救紀錄動作邏輯 [/ERRecord/logic/action]
-### 取得急救紀錄動作邏輯 [GET]
-
-+ Response 200 (application/json)
-
-        {
-            "content": [
-                {
-                    "id": "action_start",
-                    "selector": "setHighlighted:",
-                    "values": [
-                        true,
-                        "BCB",
-                        "SCON"
-                    ]
-                },
-                ...
-            ]
-        }
-
-## 11/06 - 急救紀錄動作組合邏輯 [/ERRecord/logic/actionSet]
-### 取得急救紀錄動作組合邏輯 [GET]
-
-+ Response 200 (application/json)
-
-        {
-            "content": [
-                {
-                    "id": "set_pauseCPR",
-                    "actions": [
-                        {
-                            "id": "action_stopRepeat_playCPR"
-                        },
-                        {
-                            "id": "action_playSound_respiration"
-                        },
-                        {
-                            "id": "action_playSound_respiration",
-                            "delay": 2  //[optional]
-                        },
-                        {
-                            "id": "action_playSound_CPR",
-                            "delay": 4  //[optional]
-                        }
-                    ],
-                    "flag": {
-                        "value": "FALSE",
-                        "key": "ACO"
-                    },
-                    "delay": "15",
-                    "repeat": "-1",
-                    "interval": "19.0"
-                },
-                ...
-            ]
-        }
 
 
 ## 10/15 - 急救記錄 [/ERRecord/record]
