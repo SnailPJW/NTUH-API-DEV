@@ -19,7 +19,7 @@
                 }
             ],
             "flag": {
-                "value": "FALSE",
+                "value": false,
                 "key": "ACO"
             },
             "delay": 15,
