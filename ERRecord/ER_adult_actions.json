@@ -306,7 +306,7 @@
         },
         {
             "id": "action_addflag_DMO",
-            "selector": "setHighlighted:",
+            "selector": "setFlag:",
             "values": [
                 true,
                 "DMO"
