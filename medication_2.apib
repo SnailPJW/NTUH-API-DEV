@@ -90,8 +90,10 @@
                 "doseUnit":                 "mg",                     // [string] 藥品劑量使用單位名稱
                 "packUnit":                 "mg",                     // [string] 藥品包裝劑量使用單位名稱
                 "packConvertRate":          1,                        // [number] 一個包裝內有幾個 dose unit
+                "contentAmount":            10,                       // [number] contentAmount
+                "contentAmountDividerUnit": "ml",                     // [string] contentAmountDividerUnit
+                "contentAmountDivider":     1,                        // [number]
                 "billType":                 "Z",                      // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
-                "createdTime":              1435744800,               // [number(timestamp)] 此項處方醫令編輯起始時間 (UI 介面顯示用)
                 "specialDose":              "TEXT_CONTENT ...",       // [string, optional] 特殊劑量 若無則不用回傳
                 "repeatReason":             "TEXT_CONTENT ...",       // [string, optional] 用要原因 若無則不用回傳
                 "needVaccinePanel":         false,                    // [boolean] 是否需要顯示疫苗相關介面
@@ -188,7 +190,14 @@
                     "repeatedPattern": "QD",                        // [string, optional] 預設頻率
                     "route": "IF",                                  // [string, optional] 預設途徑
                     "useDays": 1,                                   // [number, optional] 預設􏲟開藥天數
-                    "orderReason":  "xxx"                           // [string, optional] 用藥原因 (例如事前檢核帶入的結果)
+                    "orderReason":  "xxx",                          // [string, optional] 用藥原因 (例如事前檢核帶入的結果)
+                    "creator": "111281",                            // [string] 開立者員編
+                    "billType": "Z",                                // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
+                    "createdTime": 1435744800,                      // [number] 開立時間 timestamp
+                    "modifier": "111283",                           // [string, optional] 前次修改者員編 若沒有不用回傳
+                    "modifiedTime": 1435745800,                     // [number, optional] 前次修改時間 timestamp 若沒有不用回傳
+                    "verifier": "111301",                           // [string, optional] 前次確認者員編 若沒有不用回傳
+                    "confirmedTime": 1435745900                     // [number, optional] 前次確認時間 timestamp 若沒有不用回傳
                 },
                 ...
             ]
@@ -398,7 +407,12 @@
                     "20150721",
                     ...
                 ],
-                "dailyAmount": 5                                   // [number, optional] 每日劑量, 若無則不會傳入
+                "dailyAmount": 5,                               // [number, optional] 每日劑量, 若無則不會傳入
+                "createdTime": 1435744800,                      // [number] 開立時間 timestamp
+                "modifier": "111283",                           // [string, optional] 前次修改者員編 若沒有不用回傳
+                "modifiedTime": 1435745800,                     // [number, optional] 前次修改時間 timestamp 若沒有不用回傳
+                "verifier": "111301",                           // [string, optional] 前次確認者員編 若沒有不用回傳
+                "confirmedTime": 1435745900                     // [number, optional] 前次確認時間 timestamp 若沒有不用回傳
             }
         }
 
