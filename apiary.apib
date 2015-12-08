@@ -3282,7 +3282,7 @@ HOST: http://www.wantoto.com
                     "orderStage": "1",                      // [string, optional] 預設執行階段的代號 如果沒有預設不用會傳
                     "specialInstruction": "特殊醫囑敘述",     // [string, optional] 預設特殊醫囑的帶入值 如果沒有預設不用會傳
                     "frequency": "STAT",                    // [string, optional] orderType = K 時使用 如果沒有預設不用回傳
-                    "endActiveDatetime": "20151301",        // [string, optional] orderType = K 時使用 如果沒有預設不用回傳
+                    "endActivateDatetime": 1438423200,      // [number(timestamp), optional] 醫令有效迄日 K類醫囑使用
                     "specimenValue": "BLO",                 // [string, optional] orderType = L 時使用 如果沒有預設不用回傳
                     "planExecutionTime": {                  // 預計執行時間相關資訊
                         "value": 130032013,                 // [number(timestamp), optional] 預計執行時間預設值之 unix timestamp 如果沒有不用回傳
@@ -3589,53 +3589,51 @@ HOST: http://www.wantoto.com
 + Request ModifyOrder (application/json)
 
         {
-            "content": [
-                {
-                    "requstID": "account_0001_0001",     // [string]
-                    "hospitalCode": "HQ",                // [string] 院區碼
-                    "quantity": 3,                       // [number] 數量
-                    "billType": "E",                     // [string] 記帳類別
-                    "confirmedTime": 1438423200,         // [number(timestamp)] 確認時間
-                    "verifier": "111283",                // [string]  確認醫師員工編號
-                    "isEmergency": false,                // [boolean] 是否急做
-                    "planExecutionTime": {              // [optional] 預計執行時間相關資訊
-                        "timestamp": 13001322,     // [number(timestamp)] 執行時間的 timestamp 數值
-                        "format": "YYYY/MM/DD"     // [string] 有關執行時間要如何顯示的 datetime format
+            "content": {
+                "requstID": "account_0001_0001",     // [string]
+                "hospitalCode": "HQ",                // [string] 院區碼
+                "quantity": 3,                       // [number] 數量
+                "billType": "E",                     // [string] 記帳類別
+                "confirmedTime": 1438423200,         // [number(timestamp)] 確認時間
+                "verifier": "111283",                // [string]  確認醫師員工編號
+                "isEmergency": false,                // [boolean] 是否急做
+                "planExecutionTime": {              // [optional] 預計執行時間相關資訊
+                    "timestamp": 13001322,     // [number(timestamp)] 執行時間的 timestamp 數值
+                    "format": "YYYY/MM/DD"     // [string] 有關執行時間要如何顯示的 datetime format
+                },
+                "specialInstruction": "Test 1",      // [string] 特殊醫囑
+                "startActivateDatetime": 1435744800, // [number(timestamp), optional] 醫令有效起日 K類醫囑使用
+                "endActivateDatetime": 1438423200,   // [number(timestamp), optional] 醫令有效迄日 K類醫囑使用
+                "frequency": "QD",                   // [string] 頻率碼 K類醫囑使用
+                "isBedside": false,                  // [boolean, optional] 是否為床邊攝影 X類醫囑使用
+                "orderStage": "0",                   // [string] 階段
+                "specimenValue": "sp1",              // [string] 檢體代碼 L類醫囑使用
+                "questionaries": [                   // [optional] 問答題答案，若無則不會傳入
+                    {
+                        "returnKey": "d_selection_example",     // [string] 問答題對應鍵值
+                        "type": "S",                            // [string] 問答題類型
+                        "selected": [                           // [optional] 選取之選項，若單選則 list 只會有一個值
+                            "option_001"                        // [string]
+                        ]
                     },
-                    "specialInstruction": "Test 1",      // [string] 特殊醫囑
-                    "startActivateDatetime": 1435744800, // [number(timestamp), optional] 醫令有效起日 K類醫囑使用
-                    "endActivateDatetime": 1438423200,   // [number(timestamp), optional] 醫令有效迄日 K類醫囑使用
-                    "frequency": "QD",                   // [string] 頻率碼 K類醫囑使用
-                    "isBedside": false,                  // [boolean, optional] 是否為床邊攝影 X類醫囑使用
-                    "orderStage": "0",                   // [string] 階段
-                    "specimenValue": "sp1",              // [string] 檢體代碼 L類醫囑使用
-                    "questionaries": [                   // [optional] 問答題答案，若無則不會傳入
-                        {
-                            "returnKey": "d_selection_example",     // [string] 問答題對應鍵值
-                            "type": "S",                            // [string] 問答題類型
-                            "selected": [                           // [optional] 選取之選項，若單選則 list 只會有一個值
-                                "option_001"                        // [string]
-                            ]
-                        },
-                        {
-                            "returnKey": "input_box_example",       // [string] 問答題對應鍵值
-                            "type": "T",                            // [string] 問答題類型
-                            "value": "this is the input content"    // [string, optional] 輸入之文字
-                        },
-                        {
-                            "returnKey": "d_selection_example",     // [string] 回傳結果時該問題所對應的鍵值
-                            "type": "D",                            // [string] 問題種類，如日期為 D，單選為 S
-                            "value": "20151001"                     // [string, optional] dateFormat 會依照 /order 回來的指示
-                        }
-                        ...
-                    ],
-                    "appendOrders": [ // [optional] 附帶醫令，若無則不會傳入
-                        "T0_SA123001_T",  // [string] 醫令碼 orderCode
-                        "T0_00123110_K",
-                        ...
-                    ]
-                }
-            ],
+                    {
+                        "returnKey": "input_box_example",       // [string] 問答題對應鍵值
+                        "type": "T",                            // [string] 問答題類型
+                        "value": "this is the input content"    // [string, optional] 輸入之文字
+                    },
+                    {
+                        "returnKey": "d_selection_example",     // [string] 回傳結果時該問題所對應的鍵值
+                        "type": "D",                            // [string] 問題種類，如日期為 D，單選為 S
+                        "value": "20151001"                     // [string, optional] dateFormat 會依照 /order 回來的指示
+                    }
+                    ...
+                ],
+                "appendOrders": [ // [optional] 附帶醫令，若無則不會傳入
+                    "T0_SA123001_T",  // [string] 醫令碼 orderCode
+                    "T0_00123110_K",
+                    ...
+                ]
+            },
             "sessionKey": "E0B27FAAAE68415BA9E011E569FE4009"
         }
 
@@ -3817,8 +3815,10 @@ HOST: http://www.wantoto.com
                 "doseUnit":                 "mg",                     // [string] 藥品劑量使用單位名稱
                 "packUnit":                 "mg",                     // [string] 藥品包裝劑量使用單位名稱
                 "packConvertRate":          1,                        // [number] 一個包裝內有幾個 dose unit
+                "contentAmount":            10,                       // [number] contentAmount
+                "contentAmountDividerUnit": "ml",                     // [string] contentAmountDividerUnit
+                "contentAmountDivider":     1,                        // [number]
                 "billType":                 "Z",                      // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
-                "createdTime":              1435744800,               // [number(timestamp)] 此項處方醫令編輯起始時間 (UI 介面顯示用)
                 "specialDose":              "TEXT_CONTENT ...",       // [string, optional] 特殊劑量 若無則不用回傳
                 "repeatReason":             "TEXT_CONTENT ...",       // [string, optional] 用要原因 若無則不用回傳
                 "needVaccinePanel":         false,                    // [boolean] 是否需要顯示疫苗相關介面
@@ -3915,7 +3915,14 @@ HOST: http://www.wantoto.com
                     "repeatedPattern": "QD",                        // [string, optional] 預設頻率
                     "route": "IF",                                  // [string, optional] 預設途徑
                     "useDays": 1,                                   // [number, optional] 預設􏲟開藥天數
-                    "orderReason":  "xxx"                           // [string, optional] 用藥原因 (例如事前檢核帶入的結果)
+                    "orderReason":  "xxx",                          // [string, optional] 用藥原因 (例如事前檢核帶入的結果)
+                    "creator": "111281",                            // [string] 開立者員編
+                    "billType": "Z",                                // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
+                    "createdTime": 1435744800,                      // [number] 開立時間 timestamp
+                    "modifier": "111283",                           // [string, optional] 前次修改者員編 若沒有不用回傳
+                    "modifiedTime": 1435745800,                     // [number, optional] 前次修改時間 timestamp 若沒有不用回傳
+                    "verifier": "111301",                           // [string, optional] 前次確認者員編 若沒有不用回傳
+                    "confirmedTime": 1435745900                     // [number, optional] 前次確認時間 timestamp 若沒有不用回傳
                 },
                 ...
             ]
@@ -4125,7 +4132,12 @@ HOST: http://www.wantoto.com
                     "20150721",
                     ...
                 ],
-                "dailyAmount": 5                                   // [number, optional] 每日劑量, 若無則不會傳入
+                "dailyAmount": 5,                               // [number, optional] 每日劑量, 若無則不會傳入
+                "createdTime": 1435744800,                      // [number] 開立時間 timestamp
+                "modifier": "111283",                           // [string, optional] 前次修改者員編 若沒有不用回傳
+                "modifiedTime": 1435745800,                     // [number, optional] 前次修改時間 timestamp 若沒有不用回傳
+                "verifier": "111301",                           // [string, optional] 前次確認者員編 若沒有不用回傳
+                "confirmedTime": 1435745900                     // [number, optional] 前次確認時間 timestamp 若沒有不用回傳
             }
         }
 
