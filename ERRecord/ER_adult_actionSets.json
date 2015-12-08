@@ -50,7 +50,7 @@
                     "id": "action_unhighlight_setACON"
                 },
                 {
-                    "id": "action_rmflag_ADA"
+                    "id": "action_rmflag_setADA"
                 }
             ]
         },
@@ -103,6 +103,54 @@
                     "id": "action_highlight_PAM"
                 }
             ]
+        },
+        {
+            "id": "set_highlight&push_CCP",
+            "actions": [
+                {
+                    "id": "action_popCountdownIndicator_CCP"
+                },
+                {
+                    "id": "action_pushCountdownIndicator_CCP"
+                },
+                {
+                    "id": "action_highlight_CCP_repeat"
+                }
+            ],
+            "repeat": -1,
+            "interval": 120.0
+        },
+        {
+            "id": "set_highlight&push_DCR",
+            "actions": [
+                {
+                    "id": "action_popCountdownIndicator_DCR"
+                },
+                {
+                    "id": "action_pushCountdownIndicator_DCR"
+                },
+                {
+                    "id": "action_highlight_DCR_repeat"
+                }
+            ],
+            "repeat": -1,
+            "interval": 120.0
+        },
+        {
+            "id": "set_highlight&push_SCPRET",
+            "actions": [
+                {
+                    "id": "action_popCountdownIndicator_SCPRET"
+                },
+                {
+                    "id": "action_pushCountdownIndicator_SCPRET"
+                },
+                {
+                    "id": "action_highlight_SCPRET_repeat"
+                }
+            ],
+            "repeat": -1,
+            "interval": 120.0
         }
     ],
     "version": "0.0.1"

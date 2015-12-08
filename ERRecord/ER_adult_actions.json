@@ -105,6 +105,10 @@
         {
             "id": "action_playSound_respiration_repeat",
             "selector": "playSound:",
+            "flag": {
+                "value": true,
+                "key": "ADA"
+            },
             "repeat": -1,
             "interval": 6,
             "values": [
@@ -112,30 +116,93 @@
             ]
         },
         {
+            "id": "action_popCountdownIndicator_CCP",
+            "selector": "popCountdownIndicator:",
+            "values": [
+                "CCP"
+            ]
+        },
+        {
+            "id": "action_pushCountdownIndicator_CCP",
+            "selector": "pushCountdownIndicator:",
+            "values": [
+                120,
+                "CCP"
+            ]
+        },
+        {
             "id": "action_highlight_CCP_repeat",
             "selector": "setHighlighted:",
-            "repeat": -1,
-            "interval": 120,
             "values": [
                 true,
                 "CCP"
             ]
         },
         {
+            "id": "action_popCountdownIndicator_DCR",
+            "selector": "popCountdownIndicator:",
+            "flag": {
+                "value": true,
+                "key": "DMO"
+            },
+            "values": [
+                "DCR"
+            ]
+        },
+        {
+            "id": "action_pushCountdownIndicator_DCR",
+            "selector": "pushCountdownIndicator:",
+            "flag": {
+                "value": true,
+                "key": "DMO"
+            },
+            "values": [
+                120,
+                "DCP"
+            ]
+        },
+        {
             "id": "action_highlight_DCR_repeat",
             "selector": "setHighlighted:",
-            "repeat": -1,
-            "interval": 120,
+            "flag": {
+                "value": true,
+                "key": "DMO"
+            },
             "values": [
                 true,
                 "DCR"
             ]
         },
         {
+            "id": "action_popCountdownIndicator_SCPRET",
+            "selector": "popCountdownIndicator:",
+            "flag": {
+                "value": true,
+                "key": "EtCO2"
+            },
+            "values": [
+                "SCPRET"
+            ]
+        },
+        {
+            "id": "action_pushCountdownIndicator_SCPRET",
+            "selector": "pushCountdownIndicator:",
+            "flag": {
+                "value": true,
+                "key": "EtCO2"
+            },
+            "values": [
+                120,
+                "SCPRET"
+            ]
+        },
+        {
             "id": "action_highlight_SCPRET_repeat",
             "selector": "setHighlighted:",
-            "repeat": -1,
-            "interval": 120,
+            "flag": {
+                "value": true,
+                "key": "EtCO2"
+            },
             "values": [
                 true,
                 "SCPRET"
@@ -144,6 +211,10 @@
         {
             "id": "action_highlight_PAD",
             "selector": "setHighlighted:",
+            "flag": {
+                "value": false,
+                "key": "CCC"
+            },
             "values": [
                 true,
                 "PAD"
@@ -158,17 +229,25 @@
             ]
         },
         {
-            "id": "action_stopRepeat_PAD",
-            "selector": "stopRepeat:",
+            "id": "action_pushCountdownIndicator_PAD",
+            "selector": "pushCountdownIndicator:",
             "values": [
-                "action_highlight_PAD_repeat"
+                240,
+                "PAD"
             ]
         },
         {
-            "id": "action_highlight_PAD_repeat",
+            "id": "action_popCountdownIndicator_PAD",
+            "selector": "popCountdownIndicator:",
+            "delay": 240,
+            "values": [
+                "PAD"
+            ]
+        },
+        {
+            "id": "action_highlight_PAD_delay",
             "selector": "setHighlighted:",
-            "repeat": -1,
-            "interval": 240,
+            "delay": 240,
             "values": [
                 true,
                 "PAD"
@@ -192,6 +271,10 @@
         {
             "id": "action_addflag_ACO",
             "selector": "setFlag:",
+            "flag": {
+                "value": true,
+                "key": "ADA"
+            },
             "values": [
                 true,
                 "ACO"
@@ -200,6 +283,10 @@
         {
             "id": "action_addflag_ADA",
             "selector": "setFlag:",
+            "flag": {
+                "value": false,
+                "key": "ADA"
+            },
             "values": [
                 true,
                 "ADA"
@@ -208,6 +295,10 @@
         {
             "id": "action_unhighlight_setACOY",
             "selector": "setHighlighted:",
+            "flag": {
+                "value": true,
+                "key": "ACO"
+            },
             "values": [
                 false,
                 "ACOSC",
@@ -266,6 +357,10 @@
         {
             "id": "action_addflag_DDE3",
             "selector": "setFlag:",
+            "flag": {
+                "value": true,
+                "key": "DDE2"
+            },
             "values": [
                 true,
                 "DDE3"
@@ -274,6 +369,10 @@
         {
             "id": "action_addflag_DDE2",
             "selector": "setFlag:",
+            "flag": {
+                "value": true,
+                "key": "DDE"
+            },
             "values": [
                 true,
                 "DDE2"
@@ -282,6 +381,10 @@
         {
             "id": "action_addflag_DDE",
             "selector": "setFlag:",
+            "flag": {
+                "value": false,
+                "key": "DDE3"
+            },
             "values": [
                 true,
                 "DDE"
@@ -290,6 +393,10 @@
         {
             "id": "action_rmflag_setDDE",
             "selector": "setFlag:",
+            "flag": {
+                "value": true,
+                "key": "DDE3"
+            },
             "values": [
                 false,
                 "DDE2",
@@ -299,6 +406,10 @@
         {
             "id": "action_highlight_DCR",
             "selector": "setHighlighted:",
+            "flag": {
+                "value": false,
+                "key": "DMO"
+            },
             "values": [
                 true,
                 "DCR"
@@ -323,6 +434,10 @@
         {
             "id": "action_highlight_PAM",
             "selector": "setHighlighted:",
+            "flag": {
+                "value": true,
+                "key": "DDE2"
+            },
             "values": [
                 true,
                 "PAM"

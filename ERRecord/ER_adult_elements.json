@@ -1143,6 +1143,9 @@
                 "action_playSound_respiration_repeat",
                 "action_highlight_PAD",
                 "action_addflag_CCC",
+                "set_highlight&push_CCP",
+                "set_highlight&push_DCR",
+                "set_highlight&push_SCPRET",
                 "set_pauseCPR"
             ],
             "shouldDisplayCount": false
@@ -3208,9 +3211,10 @@
             "remark": "藥物：Adrenaline 1mg/amp",
             "shouldSubmit": true,
             "actions": [
-                "action_stopRepeat_PAD",
-                "action_highlight_PAD_repeat",
-                "action_addCount_PAD"
+                "action_addCount_PAD",
+                "action_pushCountdownIndicator_PAD",
+                "action_popCountdownIndicator_PAD",
+                "action_highlight_PAD_delay"
             ],
             "shouldDisplayCount": true,
             "count": 0
