@@ -102,7 +102,7 @@
             "displayNameTC": "E:",
             "remark": "昏迷指數：E: __text__",
             "shouldSubmit": false,
-            "defaultText": 1,
+            "defaultText": "1",
             "inputType": 1
         },
         {
@@ -112,7 +112,7 @@
             "displayNameTC": "M:",
             "remark": "昏迷指數：M: __text__",
             "shouldSubmit": false,
-            "defaultText": 1,
+            "defaultText": "1",
             "inputType": 1
         },
         {
@@ -122,7 +122,7 @@
             "displayNameTC": "V:",
             "remark": "昏迷指數：V: __text__",
             "shouldSubmit": false,
-            "defaultText": 1,
+            "defaultText": "1",
             "inputType": 1
         },
         {
