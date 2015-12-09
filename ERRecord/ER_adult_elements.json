@@ -915,6 +915,11 @@
             "type": 0,
             "displayName": "Ventilation",
             "displayNameTC": "正壓呼吸",
+            "elements": [
+                "BVEAB",
+                "BVECP",
+                "BEVBI"
+            ],
             "shouldDisplayCount": false
         },
         {
@@ -923,6 +928,7 @@
             "displayName": "Ambu bag",
             "displayNameTC": "Ambu bag",
             "remark": "正壓呼吸：Ambu bag",
+            "shouldSubmit": true,
             "shouldDisplayCount": false
         },
         {
@@ -931,6 +937,7 @@
             "displayName": "CPAP",
             "displayNameTC": "CPAP",
             "remark": "正壓呼吸：CPAP",
+            "shouldSubmit": true,
             "shouldDisplayCount": false
         },
         {
@@ -939,6 +946,7 @@
             "displayName": "BiPAP",
             "displayNameTC": "BiPAP",
             "remark": "正壓呼吸：BiPAP",
+            "shouldSubmit": true,
             "shouldDisplayCount": false
         },
         {
@@ -953,7 +961,8 @@
                 "BMEPE",
                 "BMEPS",
                 "BMEVT"
-            ]
+            ],
+            "shouldDisplayCount": false
         },
         {
             "id": "BMED",
@@ -1166,6 +1175,7 @@
             "elements": [
                 "DMO",
                 "DCR",
+                "DDE",
                 "DCA"
             ]
         },
@@ -1216,6 +1226,13 @@
             "type": 0,
             "displayName": "Check Rythem",
             "displayNameTC": "檢查心率",
+            "elements": [
+                "DCRAS",
+                "DCRPE",
+                "DCRVT",
+                "DCRVF",
+                "DCROT"
+            ],
             "shouldDisplayCount": false
         },
         {
