@@ -54,7 +54,9 @@
     "displayNameTC": "電擊",
     "elements": [
       "DMO",
-      "DCR"
+      "DCR",
+      "DDE",
+      "DCA"
     ]
   },
   {
