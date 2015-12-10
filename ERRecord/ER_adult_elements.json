@@ -1077,7 +1077,7 @@
             "remark": "檢查脈搏：無脈搏",
             "shouldSubmit": true,
             "actions": [
-                "action_highlight_setCCPNO"
+                "set_CCPNO"
             ],
             "shouldDisplayCount": false
         },
@@ -2327,10 +2327,7 @@
                 "NLIIV",
                 "NLICVC",
                 "NLIIO",
-                "NLIAL",
-                "NRS",
-                "NVS",
-                "NNO"
+                "NLIAL"
             ],
             "shouldDisplayCount": false
         },
@@ -2371,6 +2368,9 @@
             "displayNameTC": "左上臂(G)：",
             "remark": "靜脈留置針：左上臂(G)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2390,6 +2390,9 @@
             "displayNameTC": "右上臂(G)：",
             "remark": "靜脈留置針：右上臂(G)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2409,6 +2412,9 @@
             "displayNameTC": "左下臂(G)：",
             "remark": "靜脈留置針：左下臂(G)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2428,6 +2434,9 @@
             "displayNameTC": "右下臂(G)：",
             "remark": "靜脈留置針：右下臂(G)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2447,6 +2456,9 @@
             "displayNameTC": "左大腿(G)：",
             "remark": "靜脈留置針：左大腿(G)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2466,6 +2478,9 @@
             "displayNameTC": "右大腿(G)：",
             "remark": "靜脈留置針：右大腿(G)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2485,6 +2500,9 @@
             "displayNameTC": "左小腿(G)：",
             "remark": "靜脈留置針：右大腿(G)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2504,6 +2522,9 @@
             "displayNameTC": "右小腿(G)：",
             "remark": "靜脈留置針：右小腿(G)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2523,6 +2544,9 @@
             "displayNameTC": "左脖子(G)：",
             "remark": "靜脈留置針：左脖子(G)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2542,6 +2566,9 @@
             "displayNameTC": "右脖子(G)：",
             "remark": "靜脈留置針：右脖子(G)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2561,6 +2588,9 @@
             "displayNameTC": "頭皮(G)：",
             "remark": "靜脈留置針：頭皮(G)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2595,6 +2625,9 @@
             "displayNameTC": "左內頸靜脈(cm)：",
             "remark": "中心靜脈導管：左內頸靜脈(cm)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2614,6 +2647,9 @@
             "displayNameTC": "右內頸靜脈(cm)：",
             "remark": "中心靜脈導管：右內頸靜脈(cm)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2633,6 +2669,9 @@
             "displayNameTC": "左鎖骨下靜脈(cm)：",
             "remark": "中心靜脈導管：左鎖骨下靜脈(cm)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2652,6 +2691,9 @@
             "displayNameTC": "右鎖骨下靜脈(cm)：",
             "remark": "中心靜脈導管：右鎖骨下靜脈(cm)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2671,6 +2713,9 @@
             "displayNameTC": "左股靜脈(cm)：",
             "remark": "中心靜脈導管：左股靜脈(cm)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2690,6 +2735,9 @@
             "displayNameTC": "右股靜脈(cm)：",
             "remark": "中心靜脈導管：右股靜脈(cm)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2725,6 +2773,9 @@
             "displayNameTC": "左肱骨(G)：",
             "remark": "骨針：左肱骨(G)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2744,6 +2795,9 @@
             "displayNameTC": "右肱股(G)：",
             "remark": "骨針：右肱股(G)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2763,6 +2817,9 @@
             "displayNameTC": "左股骨(G)：",
             "remark": "骨針：左股骨(G)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2782,6 +2839,9 @@
             "displayNameTC": "右股骨(G)：",
             "remark": "骨針：右股骨(G)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2801,6 +2861,9 @@
             "displayNameTC": "左脛骨(G)：",
             "remark": "骨針：左脛骨(G)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2820,6 +2883,9 @@
             "displayNameTC": "右脛骨(G)：",
             "remark": "骨針：右脛骨(G)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2839,6 +2905,9 @@
             "displayNameTC": "胸骨(G)：",
             "remark": "骨針：胸骨(G)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2875,6 +2944,9 @@
             "displayNameTC": "左橈動脈(G)：",
             "remark": "動脈導管：左橈動脈(G)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2894,6 +2966,9 @@
             "displayNameTC": "右橈動脈(G)：",
             "remark": "動脈導管：右橈動脈(G)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2913,6 +2988,9 @@
             "displayNameTC": "左肱動脈(G)：",
             "remark": "動脈導管：左肱動脈(G)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2932,6 +3010,9 @@
             "displayNameTC": "右肱動脈(G)：",
             "remark": "動脈導管：右肱動脈(G)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2951,6 +3032,9 @@
             "displayNameTC": "左足背動脈(G)：",
             "remark": "動脈導管：左足背動脈(G)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2970,6 +3054,9 @@
             "displayNameTC": "右足背動脈(G)：",
             "remark": "動脈導管：右足背動脈(G)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -2989,6 +3076,9 @@
             "displayNameTC": "左股動脈(G)",
             "remark": "動脈導管：左股動脈(G)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {
@@ -3008,6 +3098,9 @@
             "displayNameTC": "右股動脈(G)：",
             "remark": "動脈導管：右股動脈(G)：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
             "inputType": 1
         },
         {

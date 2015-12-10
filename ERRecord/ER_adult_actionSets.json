@@ -151,6 +151,26 @@
             ],
             "repeat": -1,
             "interval": 120.0
+        },
+        {
+            "id": "set_CCPNO",
+            "actions": [
+                {
+                    "id": "action_highlight_AOP"
+                },
+                {
+                    "id": "action_highlight_CCC"
+                },
+                {
+                    "id": "action_highlight_DMO"
+                },
+                {
+                    "id": "action_highlight_ADA_flag"
+                },
+                {
+                    "id": "action_highlight_NLI"
+                }
+            ]
         }
     ],
     "version": "0.0.1"

@@ -42,11 +42,13 @@
         },
         {
             "id": "action_terminate",
-            "selector": "terminate"
+            "selector": "terminate",
+            "flag": {}
         },
         {
             "id": "action_ROSC",
-            "selector": "ROSC"
+            "selector": "ROSC",
+            "flag": {}
         },
         {
             "id": "action_highlight_ACH",
@@ -65,15 +67,79 @@
             ]
         },
         {
-            "id": "action_highlight_setCCPNO",
+            "id": "action_highlight_AOP",
             "selector": "setHighlighted:",
+            "flag": {
+                "value": false,
+                "key": "AOP"
+            },
             "values": [
                 true,
-                "CCC",
-                "DMO",
-                "ADA",
-                "NLI",
                 "AOP"
+            ]
+        },
+        {
+            "id": "action_addflag_AOP",
+            "selector": "setFlag:",
+            "values": [
+                "ture",
+                "AOP"
+            ]
+        },
+        {
+            "id": "action_highlight_CCC",
+            "selector": "setHighlighted:",
+            "flag": {
+                "value": false,
+                "key": "CCC"
+            },
+            "values": [
+                true,
+                "CCC"
+            ]
+        },
+        {
+            "id": "action_highlight_DMO",
+            "selector": "setHighlighted:",
+            "flag": {
+                "value": false,
+                "key": "DMO"
+            },
+            "values": [
+                true,
+                "DMO"
+            ]
+        },
+        {
+            "id": "action_highlight_ADA_flag",
+            "selector": "setHighlighted:",
+            "flag": {
+                "value": false,
+                "key": "ADA"
+            },
+            "values": [
+                true,
+                "ADA"
+            ]
+        },
+        {
+            "id": "action_highlight_NLI",
+            "selector": "setHighlighted:",
+            "flag": {
+                "value": false,
+                "key": "NLI"
+            },
+            "values": [
+                "ture",
+                "NLI"
+            ]
+        },
+        {
+            "id": "action_addflag_NLI",
+            "selector": "setFlag:",
+            "values": [
+                "ture",
+                "NLI"
             ]
         },
         {
