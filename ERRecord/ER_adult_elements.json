@@ -1412,8 +1412,7 @@
             "elements": [
                 "DDECHT"
             ],
-            "shouldDisplayCount": false,
-            "suggestionId": "suggest_DDECH"
+            "shouldDisplayCount": false
         },
         {
             "id": "DDECHT",
@@ -1425,7 +1424,8 @@
             "actions": [
                 "set_DDE"
             ],
-            "inputType": 1
+            "inputType": 1,
+            "suggestionId": "suggest_DDECH"
         },
         {
             "id": "DCA",
