@@ -20,11 +20,11 @@
             ],
             "flag": {
                 "value": false,
-                "key": "ACO"
+                "key": "ADA"
             },
             "delay": 15,
             "repeat": -1,
-            "interval": 19.0
+            "interval": 0.0
         },
         {
             "id": "set_ACOY",
