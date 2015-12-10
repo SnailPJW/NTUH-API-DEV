@@ -3109,6 +3109,7 @@
             "displayName": "Rapid Sequence Intubation",
             "displayNameTC": "插管前麻醉",
             "remark": "插管前麻醉",
+            "shouldSubmit": true,
             "shouldDisplayCount": false
         },
         {
@@ -3176,10 +3177,10 @@
             "displayName": "Note",
             "displayNameTC": "文字註記",
             "elements": [
-                "MNOFT",
-                "MNOBS",
-                "MNOBL",
-                "MNOBT"
+                "NNOFT",
+                "NNOBS",
+                "NNOBL",
+                "NNOBT"
             ],
             "shouldDisplayCount": false
         },
@@ -3189,7 +3190,7 @@
             "displayName": "free text",
             "displayNameTC": "free text",
             "elements": [
-                "MNOFTT"
+                "NNOFTT"
             ],
             "shouldDisplayCount": false
         },
