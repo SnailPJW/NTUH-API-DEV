@@ -3327,7 +3327,6 @@
             "actions": [
                 "action_addCount_PAD",
                 "action_stopRepeat_setPAD",
-                "action_rmflag_setPAD",
                 "set_PAD"
             ],
             "shouldDisplayCount": true,

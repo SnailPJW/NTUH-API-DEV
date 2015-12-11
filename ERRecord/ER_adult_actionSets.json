@@ -176,9 +176,6 @@
             "id": "set_PAD",
             "actions": [
                 {
-                    "id": "action_addflag_setPAD"
-                },
-                {
                     "id": "action_pushCountdownIndicator_PAD"
                 },
                 {
@@ -187,9 +184,7 @@
                 {
                     "id": "action_highlight_PAD_noflag"
                 }
-            ],
-            "repeat": 1,
-            "interval": 0.0
+            ]
         }
     ],
     "version": "0.0.1"
