@@ -41,6 +41,13 @@
             ]
         },
         {
+            "id": "action_popCountdownIndicator",
+            "selector": "popCountdownIndicator:",
+            "values": [
+                "*"
+            ]
+        },
+        {
             "id": "action_terminate",
             "selector": "terminate",
             "flag": {}
@@ -224,7 +231,7 @@
             },
             "values": [
                 120,
-                "DCP"
+                "DCR"
             ]
         },
         {
@@ -295,6 +302,33 @@
             ]
         },
         {
+            "id": "action_stopRepeat_setPAD",
+            "selector": "stopRepeat:",
+            "flag": {
+                "value": true,
+                "key": "setPAD"
+            },
+            "values": [
+                "set_PAD"
+            ]
+        },
+        {
+            "id": "action_rmflag_setPAD",
+            "selector": "setFlag:",
+            "values": [
+                false,
+                "setPAD"
+            ]
+        },
+        {
+            "id": "action_addflag_setPAD",
+            "selector": "setFlag:",
+            "values": [
+                true,
+                "setPAD"
+            ]
+        },
+        {
             "id": "action_pushCountdownIndicator_PAD",
             "selector": "pushCountdownIndicator:",
             "values": [
@@ -311,9 +345,8 @@
             ]
         },
         {
-            "id": "action_highlight_PAD_delay",
+            "id": "action_highlight_PAD_noflag",
             "selector": "setHighlighted:",
-            "delay": 240,
             "values": [
                 true,
                 "PAD"

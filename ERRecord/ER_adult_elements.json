@@ -215,6 +215,7 @@
                 "action_rmflag_CCC",
                 "action_unhighlight",
                 "action_stopRepeat",
+                "action_popCountdownIndicator",
                 "action_ROSC"
             ],
             "shouldDisplayCount": false
@@ -241,6 +242,7 @@
                 "action_rmflag_CCC",
                 "action_unhighlight",
                 "action_stopRepeat",
+                "action_popCountdownIndicator",
                 "action_terminate"
             ],
             "shouldDisplayCount": false
@@ -256,6 +258,7 @@
                 "action_rmflag_CCC",
                 "action_unhighlight",
                 "action_stopRepeat",
+                "action_popCountdownIndicator",
                 "action_terminate"
             ],
             "shouldDisplayCount": false
@@ -3323,9 +3326,9 @@
             "shouldSubmit": true,
             "actions": [
                 "action_addCount_PAD",
-                "action_pushCountdownIndicator_PAD",
-                "action_popCountdownIndicator_PAD",
-                "action_highlight_PAD_delay"
+                "action_stopRepeat_setPAD",
+                "action_rmflag_setPAD",
+                "set_PAD"
             ],
             "shouldDisplayCount": true,
             "count": 0
