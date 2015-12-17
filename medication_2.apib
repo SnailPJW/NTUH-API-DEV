@@ -72,12 +72,10 @@
         }
 
 
-## 處方醫令資訊 [/medicationOrder/{medicationCode}{?sessionKey,stateIndex,accountNo}]
+## 處方醫令資訊 [/medicationOrder/{medicationCode}{?sessionKey}]
 ### 取得處方醫令屬性資料 [GET]
 + Parameters
     + sessionKey    (string) ... SessionKey
-    + stateIndex    (number) ... 請求階段 index 開始為 0
-    + accountNo     (string) ... 病患的 account number
 
 + Response 200 (application/json)
 
@@ -93,10 +91,18 @@
                 "contentAmount":            10,                       // [number] contentAmount
                 "contentAmountDividerUnit": "ml",                     // [string] contentAmountDividerUnit
                 "contentAmountDivider":     1,                        // [number]
-                "billType":                 "Z",                      // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
                 "specialDose":              "TEXT_CONTENT ...",       // [string, optional] 特殊劑量 若無則不用回傳
                 "repeatReason":             "TEXT_CONTENT ...",       // [string, optional] 用要原因 若無則不用回傳
                 "needVaccinePanel":         false,                    // [boolean] 是否需要顯示疫苗相關介面
+                "needSedationPanel":        false,                    // [boolean] 是否需要顯示鎮定深度評估介面
+                "supportedBillTypes": [
+                    {
+                        "title": "自費",                               // [string] 該種 billType 顯示的 title
+                        "code": "P",                                  // [string] 該種 billType 所對應的 code
+                        "charge": 20                                  // [number] 價格
+                    },
+                    ...
+                ],
                 "supportedRoutes":  [                                 // [optional] 注射處方使用 若沒有對應的途徑則不用回傳
                     "IF",                                             // [string] 途徑代碼
                     "IV",
@@ -163,20 +169,21 @@
             }
         }
 
-## 6/25 - 醫令碼所對應的醫令 [/medicationOrder/{medicationCode}/defaultValues{?sessionKey,accountNo,searchType,patientClass,orderIdse,planDate,orderStage,planExecutionTime}]
+## 6/25 - 醫令碼所對應的醫令 [/medicationOrder/{medicationCode}/defaultValues{?sessionKey,accountNo,searchType,patientClass,orderIdse,planDate,orderStage,planExecutionTime,stateIndex}]
 ### 取得醫令範本的預設值 [GET]
 + Parameters
     + sessionKey        (string) ... SessionKey
-    + accountNo         (string) ... 帳號
+    + accountNo         (string) ... 帳號 一定要傳
     + searchType        (string) ... 搜尋類別來源 P,  A
     + patientClass      (string) ... 門住急別
     + orderIdse         (string, optional) ... 搜尋藥囑額外識別碼
+    + stateIndex        (number) ... 檢核指示 預設傳 0 就好
+
 
 + Response 200 (application/json)
 
         {
-            "content": [
-                {
+            "content": {
                     "medicationCode": "T0_3211234_L",                 // [string] 對應的 orderCode 以供處理虛擬醫囑時使用
                     "diluentAbbreviation": "稀釋液簡稱",               // [string, optional] 預設稀釋液簡稱 ???
                     "diluentVolume": 10,                             // [number, optional] 預設稀釋液體積
@@ -195,15 +202,14 @@
                     "orderReason":  "xxx",                          // [string, optional] 用藥原因 (例如事前檢核帶入的結果)
                     "repeatReason": "xxx",                          // [string, optional] 重複用藥原因
                     "creator": "111281",                            // [string] 開立者員編
-                    "billType": "Z",                                // [string] 記帳類別，自費為 Z 健保為 E 內含為 U
+                    "billType": "Z",                                // [string] 預設記帳類別，自費為 Z 健保為 E 內含為 U
                     "createdTime": 1435744800,                      // [number] 開立時間 timestamp
                     "modifier": "111283",                           // [string, optional] 前次修改者員編 若沒有不用回傳
                     "modifiedTime": 1435745800,                     // [number, optional] 前次修改時間 timestamp 若沒有不用回傳
                     "verifier": "111301",                           // [string, optional] 前次確認者員編 若沒有不用回傳
                     "confirmedTime": 1435745900                     // [number, optional] 前次確認時間 timestamp 若沒有不用回傳
-                },
-                ...
-            ]
+            }
+
         }
 
 
