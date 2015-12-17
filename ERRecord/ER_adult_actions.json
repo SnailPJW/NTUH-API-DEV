@@ -647,11 +647,11 @@
             ]
         },
         {
-            "id": "action_addCount_PAT",
+            "id": "action_addCount_PATR",
             "selector": "addCount:",
             "values": [
                 1,
-                "PAT"
+                "PATR"
             ]
         },
         {

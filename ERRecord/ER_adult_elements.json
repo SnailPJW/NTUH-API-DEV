@@ -3252,7 +3252,7 @@
                 "PD8",
                 "PN8",
                 "PNO",
-                "PAT",
+                "PATR",
                 "PKE",
                 "PSU",
                 "PMI"
@@ -3499,14 +3499,14 @@
             "count": 0
         },
         {
-            "id": "PAT",
+            "id": "PATR",
             "type": 0,
             "displayName": "Atracurim (10mg/amp)",
             "displayNameTC": "Atracurim (10mg/amp)",
             "remark": "藥物：Atracurim (10mg/amp)",
             "shouldSubmit": true,
             "actions": [
-                "action_addCount_PAT"
+                "action_addCount_PATR"
             ],
             "shouldDisplayCount": true,
             "count": 0
