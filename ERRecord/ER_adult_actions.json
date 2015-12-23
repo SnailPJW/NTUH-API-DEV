@@ -35,7 +35,7 @@
         },
         {
             "id": "action_stopRepeat",
-            "selector": "stopRepeat:",
+            "selector": "stopRepeat",
             "values": [
                 "*"
             ]
@@ -301,7 +301,7 @@
         },
         {
             "id": "action_stopRepeat_setPAD",
-            "selector": "stopRepeat:",
+            "selector": "stopRepeat",
             "flag": {
                 "value": true,
                 "key": "setPAD"
@@ -352,7 +352,7 @@
         },
         {
             "id": "action_stopRepeat_playCPR",
-            "selector": "stopRepeat:",
+            "selector": "stopRepeat",
             "values": [
                 "action_playSound_CPR",
                 "action_playSound_CPR_30"
