@@ -49,13 +49,11 @@
         },
         {
             "id": "action_terminate",
-            "selector": "terminate",
-            "flag": {}
+            "selector": "terminate"
         },
         {
             "id": "action_ROSC",
-            "selector": "ROSC",
-            "flag": {}
+            "selector": "ROSC"
         },
         {
             "id": "action_highlight_ACH",

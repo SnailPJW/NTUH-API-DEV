@@ -214,9 +214,9 @@
             "actions": [
                 "action_rmflag_CCC",
                 "action_unhighlight",
-                "action_stopRepeat",
                 "action_popCountdownIndicator",
-                "action_ROSC"
+                "action_ROSC",
+                "action_stopRepeat"
             ],
             "shouldDisplayCount": false
         },
@@ -241,9 +241,9 @@
             "actions": [
                 "action_rmflag_CCC",
                 "action_unhighlight",
-                "action_stopRepeat",
                 "action_popCountdownIndicator",
-                "action_terminate"
+                "action_terminate",
+                "action_stopRepeat"
             ],
             "shouldDisplayCount": false
         },
@@ -257,9 +257,9 @@
             "actions": [
                 "action_rmflag_CCC",
                 "action_unhighlight",
-                "action_stopRepeat",
                 "action_popCountdownIndicator",
-                "action_terminate"
+                "action_terminate",
+                "action_stopRepeat"
             ],
             "shouldDisplayCount": false
         },
