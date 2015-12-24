@@ -2265,7 +2265,7 @@ HOST: http://www.wantoto.com
             "message": "無存取權限"
         }
 
-### 刪除留言板某個主題[DELETE]
+### 刪除留言板某個回復[DELETE]
 + Parameters
     + replyId (string)      ... The identifier for the specified reply.
     + sessionKey (string)   ... Session Key
@@ -2694,136 +2694,6 @@ HOST: http://www.wantoto.com
                     },
                     ...
                 ]
-            }
-        }
-
-## 3/20 - 未確認醫令 [/patients/{charNo}/unconfirmOrder{?empNo}]
-### 取得未確認醫令清單 [GET]
-
-+ Parameters
-    + empNo (string)    ...員工編號
-
-+ Response 200 (application/json)
-
-
-        {
-            "content" : [
-                {   // 醫囑部份
-                    "field" : [    //欄位資訊
-                        {
-                            "fieldCode" : "startDate",  //欄位代碼[string]
-                            "displayName" : "開始時間", //欄位顯示名稱[string]
-                            "dateFormat" : "yyyy-MM-dd"   //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
-                        },
-                        {
-                            "fieldCode" : "period",  //欄位代碼[string]
-                            "displayName" : "期間"  //欄位顯示名稱[string]
-                        },
-                        {
-                            "fieldCode" : "category",
-                            "displayName" : "類別"
-                        },
-                        {
-                            "fieldCode" : "drugName",
-                            "displayName" : "學名",
-                            "textAlignment" : "left"  //欄位內容對齊方式  //ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]
-                        },
-                        {
-                            "fieldCode" : "itemName",
-                            "displayName" : "商品名",
-                            "textAlignment" : "left"  //欄位內容對齊方式  //ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]
-                        },
-                        {
-                            "fieldCode" : "status",
-                            "displayName" : "狀態"
-                        },
-                        {
-                            "fieldCode" : "_emp_doctor",
-                            "displayName" : "輸入人員"
-                        }
-                    ],
-                    "data" : [
-                        {
-                            "id" : "v1234567", // 醫囑ID  (非藥碼)
-                            "content" : {   //依據欄位填入資料，無資料則不回傳[optional]
-                                "itemName" : "Depakine Chrono 500 mg/tab",
-                                "category" : "處方",
-                                "startDate" : 1406938026, // [number(timestamp)]
-                                "period" : "長",
-                                "_emp_doctor" : {
-                                    "empNo" : "23454353",
-                                    "name" : "葉小菜"
-                                },
-                                "status" : "開立"
-                            }
-                        },
-                        ...
-                    ]
-                },
-                {   // 診療醫令部份
-                    "field" : [    //欄位資訊
-                        {
-                            "fieldCode" : "startDate",  //欄位代碼[string]
-                            "displayName" : "開始時間", //欄位顯示名稱[string]
-                            "dateFormat" : "yyyy-MM-dd"   //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
-                        },
-                        {
-                            "fieldCode" : "period",  //欄位代碼[string]
-                            "displayName" : "期間"    //欄位顯示名稱[string]
-                        },
-                        {
-                            "fieldCode" : "category",
-                            "displayName" : "類別"
-                        },
-                        {
-                            "fieldCode" : "order",
-                            "displayName" : "醫令名稱",
-                            "textAlignment" : "left"   //欄位內容對齊方式  //ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]
-                        },
-                        {
-                            "fieldCode" : "status",
-                            "displayName" : "狀態"
-                        },
-                        {
-                            "fieldCode" : "_emp_doctor",
-                            "displayName" : "輸入人員"
-                        },
-                        ...
-                    ],
-                    "data" : [
-                        {
-                            "id" : "v7654321",  // 醫囑ID (非醫令碼)
-                            "content" : {   //依據欄位填入資料，無資料則不回傳[optional]
-                                "category" : "檢查",
-                                "startDate" : 1406938026,
-                                "period" : "",
-                                "_emp_doctor" : {
-                                    "empNo" : "23454353",
-                                    "name" : "葉小菜"
-                                },
-                                "status" : "新增"
-                            }
-                        },
-                        ...
-                    ]
-                }
-            ]
-        }
-
-
-## 4/08 - 確認醫令 [/patients/{charNo}/orderConfirm{?orderID%5B%5D,empNo}]
-### 取得未確認醫令清單 [POST]
-
-+ Parameters
-    + orderID%5B%5D   (array[string]) ... 要確認的醫令ID
-    + empNo (string)    ... 確認醫囑員工
-
-+ Response 200 (application/json)
-
-
-        {
-            "content": {
-                "success":  true
             }
         }
 
@@ -3378,21 +3248,21 @@ HOST: http://www.wantoto.com
 + Response 400 (application/json)
 
         {
-            "error": 802,
+            "success": false,
             "content": [
                 {
                     "requestID":"20150907_111281_001",      // [string] 開立請求ID
                     "orderRecordId": "00321123112",         // [string, optional] 開立成功之記錄ID
-                    "success": true                         // [boolean] 是否成功開立該醫囑
+                    "success": true                         // [boolean, optional] 是否成功開立該醫囑
                 },
                 {
                     "requestID":"20150907_111281_002",      // [string] 開立請求ID
-                    "success": false,                       // [boolean] 是否成功開立
+                    "error": 802,                           // [number, optional] 錯誤代碼
                     "message": "無此醫令/超過可開醫令數量"      // [string, optional] 錯誤訊息
                 },
                 {
                     "requestID":"20150907_111281_003",      // [string] 開立請求ID
-                    "success": false,                       // [boolean] 是否成功開立
+                    "error": 802,                           // [number, optional] 錯誤代碼
                     "message": "無此醫令/超過可開醫令數量"      // [string, optional] 錯誤訊息
                 }
             ]
@@ -3415,8 +3285,9 @@ HOST: http://www.wantoto.com
 + Request IssueMedicalImageOrders (application/json)
 
 
+
         {
-            "content": {
+            "content": [{                                       // 考慮到台大的實作所以回傳時會在哦外包一個 list
                 "billType": "E",                                // [string] 記帳類別
                 "isEmergency": false,                           // [boolean] 是否急做
                 "questionaries": [
@@ -3441,10 +3312,10 @@ HOST: http://www.wantoto.com
                 "specialInstruction": "xxx",                    // [string] 特殊醫囑之輸入內容
                 "creInfo": {
                     "cre": 22.3,                                // [number, optional] 如果有需要填入 cre 值時所填入的數值 只有在系統查佈道病患 cre 值且使用者有填值時才會回傳
-                        "emergency": true,                          // [boolean, optional] 生命危及之緊急狀況項目是否被勾選 只有在系統查不到病患 cre 值才要回傳
+                    "emergency": true,                          // [boolean, optional] 生命危及之緊急狀況項目是否被勾選 只有在系統查不到病患 cre 值才要回傳
                     "creatinine": false                         // [boolean] 加開 creatinine 是否被勾選
                 }
-            },
+            }],
             "imageType": "Plain",                               // [string] 影像類別 MRI, CT 或 Plain
             "forMIOrders": true,                                // [boolean] 是否為請求影像醫學的 order
             "sessionKey": "E0B27FAAAE68415BA9E011E569FE4009"    // [string] SessionKey
@@ -3456,11 +3327,11 @@ HOST: http://www.wantoto.com
         {
             "success": True,
             "content": {
-                "orderRecordIds": {
-                    "1": "T12312311111",     // [string] 醫令交易檔 ID
-                    "2": "K23111222222",     // [string] 醫令交易檔 ID
+                "orderRecordIds": [
+                    "T12312311111",     // [string] 醫令交易檔 ID
+                    "K23111222222",     // [string] 醫令交易檔 ID
                     ...
-                }
+                ]
             }
         }
 
@@ -3468,19 +3339,12 @@ HOST: http://www.wantoto.com
 
         {
             "error": 802,
-            "content": {
-                "succeeded": {  // [optional] 回傳成功開立的醫令之清單，若無則不用回傳
-                    "orderRecordIds": {
-                        "2": "K23111222222",
-                        ...
-                    }
-                },
-                "failed": [     // 未能成功開立的醫令之清單，內容為該醫令所對應之鍵值
-                    "1",
-                    "3",
+            "message": "ERROR DESCRIPTION",  // [string] 有關請求錯誤之描述
+            "content": {    // [optional]
+                "orderRecordIds": [
+                    "T12312311111",         // [string] 成功開立之交易檔 ID
                     ...
-                ],
-                "message": "ERROR DESCRIPTION"  // [string] 有關請求錯誤之描述
+                ]
             }
         }
 
@@ -3652,6 +3516,86 @@ HOST: http://www.wantoto.com
         }
 
 
+## 12/24 未確認醫囑清單 [/patient/{chartNo}/unconfirmedOrderRecords{?sessionKey}]
+###  取得未確認醫囑清單[GET]
++ Parameters
+        + sessionKey    (string) ... SessionKey
+
+
++ Response 200 (application/json)
+
+        {
+            "content": {
+                "field" : [    //欄位資訊
+                    {
+                        "fieldCode" : "startDate",     // 欄位代碼[string]
+                        "displayName" : "開始時間",      // 欄位顯示名稱[string]
+                        "dateFormat" : "yyyy-MM-dd"    // 若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                    },
+                    {
+                        "fieldCode" : "endDate",        // 欄位代碼[string]
+                        "displayName" : "結束時間",      // 欄位顯示名稱[string]
+                        "dateFormat" : "yyyy-MM-dd"     // 若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                    },
+                    {
+                        "fieldCode" : "order",
+                        "displayName" : "醫令內容",
+                        "textAlignment" : "left"        // 欄位內容對齊方式  ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]
+                    },
+                    {
+                        "fieldCode" : "status",
+                        "displayName" : "狀態"
+                    }
+                ],
+                "data" : [
+                    {
+                        "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                            "order" : "Chest PA View (Standing)",
+                            "startDate" : 1406938026,
+                            "endDate" : 1406938026,
+                            "_emp_doctor" : {
+                                "empNo" : "23454353",
+                                "name" : "葉小菜"
+                            },
+                            "status" : "已完成",
+                            "orderDate" : 1406938026
+                        },
+                        "filterCode" : [    //篩選類別
+                            "image"
+                        ],
+                        "accountNo": "I15T07315840",                            // [string] 開立醫囑時對應的帳號
+                        "recordId": "T0_11232000112_D",                         // [string] 本筆記錄所對應的交易檔 ID (orderRecordId/medicationRecordId)
+                        "cofirmSelectionIndex": 0,                              // [number] 0 表示不可選 1 表示預設不選 3 表示預設選取
+                        "bgColor" : "FFFFFF"                                    // 如需調整此列背景顏色則回傳16進位色碼[string, optional]
+                    },
+                    ...
+                ],
+                "filter" : [
+                    {
+                        "filterCode" : "order",
+                        "displayName" : "醫囑"
+                    },
+                    {
+                        "filterCode" : "medication",
+                        "displayName" : "處方"
+                    },
+                    {
+                        "filterCode" : "lab",
+                        "displayName" : "檢驗"
+                    },
+                    {
+                        "filterCode" : "image",
+                        "displayName" : "影醫"
+                    },
+                    ...
+                ],
+                "limit" : 50, //最大回傳筆數傳[number]
+                "offset" : 0, //回傳資料偏移數[number]
+                "total" : 100 //此次Query總筆數[number]
+            }
+        }
+
+
 ## 10/27 確認多筆病患醫令記錄 [/order/batch]
 ### 確認或刪除多筆病患醫令記錄 [POST]
 
@@ -3708,18 +3652,40 @@ HOST: http://www.wantoto.com
 
 + Response 200 (application/json)
 
-
         {
-            "requests": [
+            "success": true,
+            "content": [
                 {
-                    "requestId": "request001",
+                    "requestID":"request001",
                     "success": true
                 },
                 {
-                    "requestId": "request002",
+                    "requestID":"request001",
                     "success": true
-                }
+                },
                 ...
+            ]
+        }
+
++ Response 400 (application/json)
+
+        {
+            "success": false,
+            "content": [
+                {
+                    "requestId": "request001",
+                    "success": true                                              // [optional]
+                },
+                {
+                    "requestId": "request002",
+                    "error": 802,                                                // [optional]
+                    "message": "該醫囑不可以被確認"                                 // [optional]
+                },
+                {
+                    "requestId": "request002",
+                    "error": 807,                                                // [optional]
+                    "message": "不具有醫師權限 請輸入授權醫師員編或請醫師本人確認"      // [optional]
+                }
             ]
         }
 
@@ -4283,6 +4249,85 @@ HOST: http://www.wantoto.com
             "success": true
         }
 
+
+## 12/24 未確認醫囑清單 [/patient/{chartNo}/unconfirmedMedicationRecords{?sessionKey}]
+###  取得未確認醫囑清單[GET]
++ Parameters
+    + sessionKey    (string) ... SessionKey
+
+
++ Response 200 (application/json)
+
+        {
+            "content": {
+                "field" : [    //欄位資訊
+                    {
+                        "fieldCode" : "startDate",     // 欄位代碼[string]
+                        "displayName" : "開始時間",      // 欄位顯示名稱[string]
+                        "dateFormat" : "yyyy-MM-dd"    // 若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                    },
+                    {
+                        "fieldCode" : "endDate",        // 欄位代碼[string]
+                        "displayName" : "結束時間",      // 欄位顯示名稱[string]
+                        "dateFormat" : "yyyy-MM-dd"     // 若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                    },
+                    {
+                        "fieldCode" : "order",
+                        "displayName" : "醫令內容",
+                        "textAlignment" : "left"        // 欄位內容對齊方式  ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]
+                    },
+                    {
+                        "fieldCode" : "status",
+                        "displayName" : "狀態"
+                    }
+                ],
+                "data" : [
+                    {
+                        "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                            "order" : "Chest PA View (Standing)",
+                            "startDate" : 1406938026,
+                            "endDate" : 1406938026,
+                            "_emp_doctor" : {
+                                "empNo" : "23454353",
+                                "name" : "葉小菜"
+                            },
+                            "status" : "已完成",
+                            "orderDate" : 1406938026
+                        },
+                        "filterCode" : [    //篩選類別
+                            "image"
+                        ],
+                        "accountNo": "I15T07315840",                            // [string] 開立醫囑時對應的帳號
+                        "recordId": "T0_11232000112_D",                         // [string] 本筆記錄所對應的交易檔 ID (orderRecordId/medicationRecordId)
+                        "cofirmSelectionIndex": 0,                              // [number] 0 表示不可選 1 表示預設不選 3 表示預設選取
+                        "bgColor" : "FFFFFF"                                    // 如需調整此列背景顏色則回傳16進位色碼[string, optional]
+                    },
+                    ...
+                ],
+                "filter" : [
+                    {
+                        "filterCode" : "order",
+                        "displayName" : "醫囑"
+                    },
+                    {
+                        "filterCode" : "medication",
+                        "displayName" : "處方"
+                    },
+                    {
+                        "filterCode" : "lab",
+                        "displayName" : "檢驗"
+                    },
+                    {
+                        "filterCode" : "image",
+                        "displayName" : "影醫"
+                    },
+                    ...
+                ],
+                "limit" : 50, //最大回傳筆數傳[number]
+                "offset" : 0, //回傳資料偏移數[number]
+                "total" : 100 //此次Query總筆數[number]
+            }
+        }
 
 
 ## 10/27 確認多筆病患醫令記錄 [/medication/confirmation/batch]
