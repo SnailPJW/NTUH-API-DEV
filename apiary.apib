@@ -4381,6 +4381,160 @@ HOST: http://www.wantoto.com
             ]
         }
 
+# Group 未確認醫藥囑
+
+## 12/25 - 未確認醫藥囑清單 [/patient/{chartNo}/unconfirmedRecords{?sessionKey}]
+### 取得未確認醫藥囑清單 [GET]
+
++ Parameters
+    + sessionKey    (string) ... SessionKey
+
++ Response 200 (application/json)
+
+        {
+            "content": {
+                "field" : [    //欄位資訊
+                    {
+                        "fieldCode" : "startDate",     // 欄位代碼[string]
+                        "displayName" : "開始時間",      // 欄位顯示名稱[string]
+                        "dateFormat" : "yyyy-MM-dd"    // 若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                    },
+                    {
+                        "fieldCode" : "endDate",        // 欄位代碼[string]
+                        "displayName" : "結束時間",      // 欄位顯示名稱[string]
+                        "dateFormat" : "yyyy-MM-dd"     // 若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                    },
+                    {
+                        "fieldCode" : "order",
+                        "displayName" : "醫令內容",
+                        "textAlignment" : "left"        // 欄位內容對齊方式  ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]
+                    },
+                    {
+                        "fieldCode" : "errorMessage",
+                        "displayName" : "未能確認原因"
+                    }
+                ],
+                "data" : [
+                    {
+                        "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                            "order" : "Chest PA View (Standing)",
+                            "startDate" : 1406938026,
+                            "endDate" : 1406938026,
+                            "_emp_doctor" : {
+                                "empNo" : "23454353",
+                                "name" : "葉小菜"
+                            },
+                            "status" : "已完成",
+                            "errorMessage": "因為 xxx 所以本記錄無法被確認",
+                            "orderDate" : 1406938026
+                        },
+                        "filterCode" : [    //篩選類別
+                            "image"
+                        ],
+                        "accountNo": "I15T07315840",                            // [string] 開立醫囑時對應的帳號
+                        "recordId": "T0_11232000112_D",                         // [string] 本筆記錄所對應的交易檔 ID
+                        "cofirmSelectionIndex": 0                               // [number] 0 表示不可選 1 表示預設不選 3 表示預設選取
+                    },
+                    ...
+                ],
+                "filter" : [
+                    {
+                        "filterCode" : "order",
+                        "displayName" : "醫囑"
+                    },
+                    {
+                        "filterCode" : "medication",
+                        "displayName" : "處方"
+                    },
+                    {
+                        "filterCode" : "lab",
+                        "displayName" : "檢驗"
+                    },
+                    {
+                        "filterCode" : "image",
+                        "displayName" : "影醫"
+                    },
+                    ...
+                ],
+                "limit" : 50, //最大回傳筆數傳[number]
+                "offset" : 0, //回傳資料偏移數[number]
+                "total" : 100 //此次Query總筆數[number]
+            }
+        }
+
+## 12/25 - 確認醫藥囑 [/unconfirmedRecords/batch]
+### 確認多筆醫藥囑記錄 [POST]
+
++ Request Confirm Record(s)
+
+        {
+            "sessionKey": "DE44A33624064BFCB0BBAFDB9A509C16",
+            "requests": [
+                {
+                    "requestId": "request_001",
+                    "path": "/unconfirmedRecord/T32132012",
+                    "method": "PATCH",
+                    "body": {
+                        "content": {
+                            "confirmedTime": 1438423200,         // [number(timestamp)] 確認時間
+                            "verifier": "111283"                 // [string]  確認醫師員工編號
+                        }
+                    }
+                },
+                {
+                    "requestId": "request_001",
+                    "path": "/unconfirmedRecord/T32132013",
+                    "method": "PATCH",
+                    "body": {
+                        "content": {
+                            "confirmedTime": 1438423200,         // [number(timestamp)] 確認時間
+                            "verifier": "111283"                 // [string]  確認醫師員工編號
+                        }
+                    }
+                },
+                ...
+            ]
+        }
+
++ Response 200 (application/json)
+
+
+        {
+            "requests": [
+                {
+                    "requestId": "request001",
+                    "success": true
+                },
+                {
+                    "requestId": "request002",
+                    "success": true
+                }
+                ...
+            ]
+        }
+
++ Response 400 (application/json)
+
+        {
+            "success": false,
+            "content": [
+                {
+                    "requestId": "request001",
+                    "success": true                                              // [optional]
+                },
+                {
+                    "requestId": "request002",
+                    "error": 802,                                                // [optional]
+                    "message": "該醫囑不可以被確認"                                 // [optional]
+                },
+                {
+                    "requestId": "request002",
+                    "error": 807,                                                // [optional]
+                    "message": "不具有醫師權限 請輸入授權醫師員編或請醫師本人確認"      // [optional]
+                }
+            ]
+        }
+
 # Group Blood Order
 
 ## 血品相關病患資訊 [/patients/{chartNo}/bloodInfo{?sessionKey}]
