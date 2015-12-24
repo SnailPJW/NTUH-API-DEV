@@ -559,6 +559,85 @@
         }
 
 
+## 12/24 未確認醫囑清單 [/patient/{chartNo}/unconfirmedMedicationRecords{?sessionKey}]
+###  取得未確認醫囑清單[GET]
++ Parameters
+    + sessionKey    (string) ... SessionKey
+
+
++ Response 200 (application/json)
+
+        {
+            "content": {
+                "field" : [    //欄位資訊
+                    {
+                        "fieldCode" : "startDate",     // 欄位代碼[string]
+                        "displayName" : "開始時間",      // 欄位顯示名稱[string]
+                        "dateFormat" : "yyyy-MM-dd"    // 若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                    },
+                    {
+                        "fieldCode" : "endDate",        // 欄位代碼[string]
+                        "displayName" : "結束時間",      // 欄位顯示名稱[string]
+                        "dateFormat" : "yyyy-MM-dd"     // 若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                    },
+                    {
+                        "fieldCode" : "order",
+                        "displayName" : "醫令內容",
+                        "textAlignment" : "left"        // 欄位內容對齊方式  ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]
+                    },
+                    {
+                        "fieldCode" : "status",
+                        "displayName" : "狀態"
+                    }
+                ],
+                "data" : [
+                    {
+                        "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
+                            "order" : "Chest PA View (Standing)",
+                            "startDate" : 1406938026,
+                            "endDate" : 1406938026,
+                            "_emp_doctor" : {
+                                "empNo" : "23454353",
+                                "name" : "葉小菜"
+                            },
+                            "status" : "已完成",
+                            "orderDate" : 1406938026
+                        },
+                        "filterCode" : [    //篩選類別
+                            "image"
+                        ],
+                        "accountNo": "I15T07315840",                            // [string] 開立醫囑時對應的帳號
+                        "recordId": "T0_11232000112_D",                         // [string] 本筆記錄所對應的交易檔 ID (orderRecordId/medicationRecordId)
+                        "cofirmSelectionIndex": 0,                              // [number] 0 表示不可選 1 表示預設不選 3 表示預設選取
+                        "bgColor" : "FFFFFF"                                    // 如需調整此列背景顏色則回傳16進位色碼[string, optional]
+                    },
+                    ...
+                ],
+                "filter" : [
+                    {
+                        "filterCode" : "order",
+                        "displayName" : "醫囑"
+                    },
+                    {
+                        "filterCode" : "medication",
+                        "displayName" : "處方"
+                    },
+                    {
+                        "filterCode" : "lab",
+                        "displayName" : "檢驗"
+                    },
+                    {
+                        "filterCode" : "image",
+                        "displayName" : "影醫"
+                    },
+                    ...
+                ],
+                "limit" : 50, //最大回傳筆數傳[number]
+                "offset" : 0, //回傳資料偏移數[number]
+                "total" : 100 //此次Query總筆數[number]
+            }
+        }
+
 
 ## 10/27 確認多筆病患醫令記錄 [/medication/confirmation/batch]
 ### 確認多比病患醫令記錄 [POST]
