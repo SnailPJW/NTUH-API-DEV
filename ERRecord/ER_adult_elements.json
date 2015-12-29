@@ -39,7 +39,7 @@
                 "SCON1U"
             ],
             "referenceElement": "SCON1U",
-            "registeredTargets" : [
+            "registeredTargets": [
                 {
                     "elementId" : "SCON1U",
                     "shouldPerformActions": true
@@ -136,7 +136,7 @@
                 "SCPRPO"
             ],
             "referenceElement": "SCPRET",
-            "registeredTargets" : [
+            "registeredTargets": [
                 {
                     "elementId" : "SCPRET",
                     "shouldPerformActions": true
@@ -290,7 +290,7 @@
                 "AOPJT"
             ],
             "referenceElement": "AOPHC",
-            "registeredTargets" : [
+            "registeredTargets": [
                 {
                     "elementId" : "AOPHC",
                     "shouldPerformActions": true
@@ -333,7 +333,7 @@
                 "ACHO"
             ],
             "referenceElement": "ACHP",
-            "registeredTargets" : [
+            "registeredTargets": [
                 {
                     "elementId" : "ACHP",
                     "shouldPerformActions": true
@@ -794,7 +794,7 @@
                 "BCBDY"
             ],
             "referenceElement": "BCBAP",
-            "registeredTargets" : [
+            "registeredTargets": [
                 {
                     "elementId" : "BCBAP",
                     "shouldPerformActions": true
@@ -984,7 +984,7 @@
             "displayNameTC": "VC ",
             "remark": "呼吸器：VC",
             "shouldSubmit": false,
-            "selected,": false
+            "selected": false
         },
         {
             "id": "BMEDAC",
@@ -993,7 +993,7 @@
             "displayNameTC": "AC",
             "remark": "呼吸器：AC",
             "shouldSubmit": false,
-            "selected,": false
+            "selected": false
         },
         {
             "id": "BMEDSI",
@@ -1002,7 +1002,7 @@
             "displayNameTC": "SIMV",
             "remark": "呼吸器：SIMV",
             "shouldSubmit": false,
-            "selected,": false
+            "selected": false
         },
         {
             "id": "BMERR",
@@ -1065,10 +1065,7 @@
             "displayNameTC": "檢查脈搏",
             "elements": [
                 "CCPNO",
-                "CCPCA",
-                "CCPFE",
-                "CCPBR",
-                "CCPRA"
+                "CCPYE"
             ],
             "shouldDisplayCount": false
         },
@@ -1081,6 +1078,19 @@
             "shouldSubmit": true,
             "actions": [
                 "set_CCPNO"
+            ],
+            "shouldDisplayCount": false
+        },
+        {
+            "id": "CCPYE",
+            "type": 0,
+            "displayName": "Yes",
+            "displayNameTC": "有脈搏",
+            "elements": [
+                "CCPCA",
+                "CCPFE",
+                "CCPBR",
+                "CCPRA"
             ],
             "shouldDisplayCount": false
         },
@@ -1192,7 +1202,7 @@
                 "DMOAE"
             ],
             "referenceElement": "DMOEC",
-            "registeredTargets" : [
+            "registeredTargets": [
                 {
                     "elementId" : "DMOEC",
                     "shouldPerformActions": true
@@ -1315,7 +1325,7 @@
                 "DDECH"
             ],
             "referenceElement": "DDE20",
-            "registeredTargets" : [
+            "registeredTargets": [
                 {
                     "elementId" : "DDE20",
                     "shouldPerformActions": true
@@ -1535,14 +1545,14 @@
             "displayName": "NURSING",
             "displayNameTC": "護理",
             "elements": [
-              "NCH",
-              "NTU",
-              "NLA",
-              "NBL",
-              "NLI",
-              "NRS",
-              "NVS",
-              "NNO"
+                "NCH",
+                "NTU",
+                "NLA",
+                "NBL",
+                "NLI",
+                "NRS",
+                "NVS",
+                "NNO"
             ]
         },
         {
@@ -1550,13 +1560,20 @@
             "type": 0,
             "displayName": "Check",
             "displayNameTC": "護理確認",
+            "elements": [
+                "NCHI",
+                "NCHDN",
+                "NCHAL",
+                "NCHIS",
+                "NCHPR"
+            ],
             "shouldDisplayCount": false
         },
         {
             "id": "NCHI",
             "type": 3,
             "elements": [
-                "NCHI"
+                "NCHID"
             ],
             "multiSelection": true
         },
@@ -1567,7 +1584,7 @@
             "displayNameTC": "身份確認",
             "remark": "身份確認",
             "shouldSubmit": false,
-            "selected,": false
+            "selected": false
         },
         {
             "id": "NCHDN",
@@ -1587,7 +1604,7 @@
             "displayNameTC": "是",
             "remark": "不急救同意書：否",
             "shouldSubmit": false,
-            "selected,": false
+            "selected": false
         },
         {
             "id": "NCHDNN",
@@ -1596,7 +1613,7 @@
             "displayNameTC": "否",
             "remark": "不急救同意書：否",
             "shouldSubmit": false,
-            "selected,": false
+            "selected": false
         },
         {
             "id": "NCHAL",
@@ -2116,7 +2133,7 @@
             "displayNameTC": "CBC/DC",
             "remark": "抽血檢驗：CBC/DC",
             "shouldSubmit": false,
-            "selected,": true
+            "selected": true
         },
         {
             "id": "NLABC",
@@ -2125,7 +2142,7 @@
             "displayNameTC": "BCS",
             "remark": "抽血檢驗：BCS",
             "shouldSubmit": false,
-            "selected,": true
+            "selected": true
         },
         {
             "id": "NLAGA",
@@ -2134,7 +2151,7 @@
             "displayNameTC": "GAS",
             "remark": "抽血檢驗：GAS",
             "shouldSubmit": false,
-            "selected,": true
+            "selected": true
         },
         {
             "id": "NLAAM",
@@ -2143,7 +2160,7 @@
             "displayNameTC": "Ammonia",
             "remark": "抽血檢驗：Ammonia",
             "shouldSubmit": false,
-            "selected,": false
+            "selected": false
         },
         {
             "id": "NLALA",
@@ -2152,7 +2169,7 @@
             "displayNameTC": "Lactate",
             "remark": "抽血檢驗：Lactate",
             "shouldSubmit": false,
-            "selected,": true
+            "selected": true
         },
         {
             "id": "NLASU",
@@ -2161,7 +2178,7 @@
             "displayNameTC": "Sugar",
             "remark": "抽血檢驗：Sugar",
             "shouldSubmit": false,
-            "selected,": true
+            "selected": true
         },
         {
             "id": "NLAPT",
@@ -2170,7 +2187,7 @@
             "displayNameTC": "PT/PTT",
             "remark": "抽血檢驗：PT/PTT",
             "shouldSubmit": false,
-            "selected,": false
+            "selected": false
         },
         {
             "id": "NLATO",
@@ -2180,7 +2197,7 @@
             "remark": "抽血檢驗：Toxin：__text__",
             "shouldSubmit": false,
             "inputType": 0,
-            "selected,": false
+            "selected": false
         },
         {
             "id": "NBL",
@@ -3277,7 +3294,7 @@
             "type": 0,
             "displayName": "N/S 500ml/bag IVF",
             "displayNameTC": "生理食鹽水 500ml/bag IVF",
-            "remark": "藥物：生理食鹽水 500ml/bag IVF",
+            "remark": "生理食鹽水 500ml/bag IVF",
             "shouldSubmit": true,
             "shouldDisplayCount": false
         },
@@ -3286,7 +3303,7 @@
             "type": 0,
             "displayName": "N/S 1000ml/bag IVF",
             "displayNameTC": "生理食鹽水1000ml/bag IVF",
-            "remark": "藥物：生理食鹽水1000ml/bag IVF",
+            "remark": "生理食鹽水1000ml/bag IVF",
             "shouldSubmit": true,
             "shouldDisplayCount": false
         },
@@ -3295,7 +3312,7 @@
             "type": 0,
             "displayName": "L/R 500ml/bag IVF",
             "displayNameTC": "乳酸林格氏液500ml/bag IVF",
-            "remark": "藥物：乳酸林格氏液500ml/bag IVF",
+            "remark": "乳酸林格氏液500ml/bag IVF",
             "shouldSubmit": true,
             "shouldDisplayCount": false
         },
@@ -3304,7 +3321,7 @@
             "type": 0,
             "displayName": "4,C N/S 500ml/bag IVF",
             "displayNameTC": "4,C 生理食鹽水 500ml/bag IVF",
-            "remark": "藥物：4,C 生理食鹽水 500ml/bag IVF",
+            "remark": "4,C 生理食鹽水 500ml/bag IVF",
             "shouldSubmit": true,
             "shouldDisplayCount": false
         },
@@ -3313,7 +3330,7 @@
             "type": 0,
             "displayName": "4,C N/S 1000ml/bag IVF",
             "displayNameTC": "4,C 生理食鹽水 1000ml/bag IVF",
-            "remark": "藥物：4,C 生理食鹽水 1000ml/bag IVF",
+            "remark": "4,C 生理食鹽水 1000ml/bag IVF",
             "shouldSubmit": true,
             "shouldDisplayCount": false
         },
@@ -3322,7 +3339,7 @@
             "type": 0,
             "displayName": "Adrenaline 1mg/amp",
             "displayNameTC": "Adrenaline 1mg/amp",
-            "remark": "藥物：Adrenaline 1mg/amp",
+            "remark": "Adrenaline 1mg/amp",
             "shouldSubmit": true,
             "actions": [
                 "action_addCount_PAD",
@@ -3337,7 +3354,7 @@
             "type": 0,
             "displayName": "Bicarbonate 16.6 meq/amp",
             "displayNameTC": "Bicarbonate 16.6 meq/amp",
-            "remark": "藥物：Bicarbonate 16.6 meq/amp",
+            "remark": "Bicarbonate 16.6 meq/amp",
             "shouldSubmit": true,
             "actions": [
                 "action_addCount_PBI"
@@ -3350,7 +3367,7 @@
             "type": 0,
             "displayName": "Cal. Chloride 5.4 meq/amp",
             "displayNameTC": "Cal. Chloride 5.4 meq/amp",
-            "remark": "藥物：Cal. Chloride 5.4 meq/amp",
+            "remark": "Cal. Chloride 5.4 meq/amp",
             "shouldSubmit": true,
             "actions": [
                 "action_addCount_PCA"
@@ -3363,7 +3380,7 @@
             "type": 0,
             "displayName": "Atropone 1mg/amp",
             "displayNameTC": "Atropone 1mg/amp",
-            "remark": "藥物：Atropone 1mg/amp",
+            "remark": "Atropone 1mg/amp",
             "shouldSubmit": true,
             "actions": [
                 "action_addCount_PAT"
@@ -3376,7 +3393,7 @@
             "type": 0,
             "displayName": "Amiodarone 150mg/amp",
             "displayNameTC": "Amiodarone 150mg/amp",
-            "remark": "藥物：Amiodarone 150mg/amp",
+            "remark": "Amiodarone 150mg/amp",
             "shouldSubmit": true,
             "actions": [
                 "action_addCount_PAM"
@@ -3389,7 +3406,7 @@
             "type": 0,
             "displayName": "MgSO4 16mEq/amp",
             "displayNameTC": "MgSO4 16mEq/amp",
-            "remark": "藥物：MgSO4 16mEq/amp",
+            "remark": "MgSO4 16mEq/amp",
             "shouldSubmit": true,
             "actions": [
                 "action_addCount_PMG"
@@ -3402,7 +3419,7 @@
             "type": 0,
             "displayName": "Lidocaine 100mg/amp",
             "displayNameTC": "Lidocaine 100mg/amp",
-            "remark": "藥物：Lidocaine 100mg/amp",
+            "remark": "Lidocaine 100mg/amp",
             "shouldSubmit": true,
             "actions": [
                 "action_addCount_PLI"
@@ -3415,7 +3432,7 @@
             "type": 0,
             "displayName": "Glucose water 50% 20ml",
             "displayNameTC": "Glucose water 50% 20ml",
-            "remark": "藥物：Glucose water 50% 20ml",
+            "remark": "Glucose water 50% 20ml",
             "shouldSubmit": true,
             "actions": [
                 "action_addCount_PGL"
@@ -3439,7 +3456,7 @@
             "type": 1,
             "displayName": "Regular Insulin(1000 U/10 ml):",
             "displayNameTC": "Regular Insulin(1000 U/10 ml):",
-            "remark": "藥物：Regular Insulin(U) :__text__",
+            "remark": "Regular Insulin(U) :__text__",
             "shouldSubmit": true,
             "actions": [
                 "action_addCount_PRE"
@@ -3451,7 +3468,7 @@
             "type": 0,
             "displayName": "Dopamine permix(400mg/250ml)",
             "displayNameTC": "Dopamine permix(400mg/250ml)",
-            "remark": "藥物：Dopamine permix(400mg/250ml)",
+            "remark": "Dopamine permix(400mg/250ml)",
             "shouldSubmit": true,
             "actions": [
                 "action_addCount_PD4"
@@ -3464,7 +3481,7 @@
             "type": 0,
             "displayName": "Dopamine (800mg/250ml) IVF",
             "displayNameTC": "Dopamine (800mg/250ml) IVF",
-            "remark": "藥物：Dopamine (800mg/250ml) IVF",
+            "remark": "Dopamine (800mg/250ml) IVF",
             "shouldSubmit": true,
             "actions": [
                 "action_addCount_PD8"
@@ -3477,7 +3494,7 @@
             "type": 0,
             "displayName": "Norepinephrine (8mg/250ml) IVF",
             "displayNameTC": "Norepinephrine (8mg/250ml) IVF",
-            "remark": "藥物：Norepinephrine (8mg/250ml) IVF",
+            "remark": "Norepinephrine (8mg/250ml) IVF",
             "shouldSubmit": true,
             "actions": [
                 "action_addCount_PN8"
@@ -3490,7 +3507,7 @@
             "type": 0,
             "displayName": "Norepinephrine (16mg/250mg) IVF ",
             "displayNameTC": "Norepinephrine (16mg/250mg) IVF ",
-            "remark": "藥物：Norepinephrine (16mg/250mg) IVF ",
+            "remark": "Norepinephrine (16mg/250mg) IVF ",
             "shouldSubmit": true,
             "actions": [
                 "action_addCount_PNO"
@@ -3503,7 +3520,7 @@
             "type": 0,
             "displayName": "Atracurim (10mg/amp)",
             "displayNameTC": "Atracurim (10mg/amp)",
-            "remark": "藥物：Atracurim (10mg/amp)",
+            "remark": "Atracurim (10mg/amp)",
             "shouldSubmit": true,
             "actions": [
                 "action_addCount_PATR"
@@ -3516,7 +3533,7 @@
             "type": 0,
             "displayName": "Ketamine (500mg/10 ml)",
             "displayNameTC": "Ketamine (500mg/10 ml)",
-            "remark": "藥物：Ketamine (500mg/10 ml)",
+            "remark": "Ketamine (500mg/10 ml)",
             "shouldSubmit": true,
             "actions": [
                 "action_addCount_PKE"
@@ -3529,7 +3546,7 @@
             "type": 0,
             "displayName": "Succnylcholine (500mg/10ml)",
             "displayNameTC": "Succnylcholine (500mg/10ml)",
-            "remark": "藥物：Succnylcholine (500mg/10ml)",
+            "remark": "Succnylcholine (500mg/10ml)",
             "shouldSubmit": true,
             "actions": [
                 "action_addCount_PSU"
@@ -3542,7 +3559,7 @@
             "type": 0,
             "displayName": "Midazolam (5mg/amp)",
             "displayNameTC": "Midazolam (5mg/amp)",
-            "remark": "藥物：Midazolam (5mg/amp)",
+            "remark": "Midazolam (5mg/amp)",
             "shouldSubmit": true,
             "actions": [
                 "action_addCount_PMI"

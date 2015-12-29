@@ -91,18 +91,11 @@
                 "contentAmount":            10,                       // [number] contentAmount
                 "contentAmountDividerUnit": "ml",                     // [string] contentAmountDividerUnit
                 "contentAmountDivider":     1,                        // [number]
+                "isContable":               false,                    // [boolean]
                 "specialDose":              "TEXT_CONTENT ...",       // [string, optional] 特殊劑量 若無則不用回傳
                 "repeatReason":             "TEXT_CONTENT ...",       // [string, optional] 用要原因 若無則不用回傳
                 "needVaccinePanel":         false,                    // [boolean] 是否需要顯示疫苗相關介面
                 "needSedationPanel":        false,                    // [boolean] 是否需要顯示鎮定深度評估介面
-                "supportedBillTypes": [
-                    {
-                        "title": "自費",                               // [string] 該種 billType 顯示的 title
-                        "code": "P",                                  // [string] 該種 billType 所對應的 code
-                        "charge": 20                                  // [number] 價格
-                    },
-                    ...
-                ],
                 "supportedRoutes":  [                                 // [optional] 注射處方使用 若沒有對應的途徑則不用回傳
                     "IF",                                             // [string] 途徑代碼
                     "IV",
@@ -126,22 +119,26 @@
                         "volumeSug": {                                // [optional] 容量輸注指示
                             "max": 1000,
                             "min": 10,
-                            "unit": "ml"
+                            "unit": "ml",
+                            "Description": "xxxxx"
                         },
                         "concentrationSug": {                         // [optional] 濃度輸注指示
                             "max": 100,
                             "min": 20,
-                            "unit": "ml/minute"
+                            "unit": "ml/minute",
+                            "Description": "xxxxx"
                         },
                         "InfusionTimeSug": {                          // [optional] 輸注時間指示
                             "max": 20,
                             "min": 5,
-                            "unit": "min"
+                            "unit": "min",
+                            "Description": "xxxxx"
                         },
                         "VelocitySug": {                              // [optional] 流速指示
                             "max": 300,
                             "min": 30,
-                            "unit": "ml/Hr"
+                            "unit": "ml/Hr",
+                            "Description": "xxxxx"
                         }
                     },
                     ...
@@ -185,15 +182,23 @@
         {
             "content": {
                     "medicationCode": "T0_3211234_L",                 // [string] 對應的 orderCode 以供處理虛擬醫囑時使用
-                    "diluentAbbreviation": "稀釋液簡稱",               // [string, optional] 預設稀釋液簡稱 ???
-                    "diluentVolume": 10,                             // [number, optional] 預設稀釋液體積
-                    "dose": 10,                                      // [number, optional] 預設劑量
+                    "diluent":          {  // [optional] 稀釋液 注射處方使用
+                        "code":     "12332123",                         // [string] 稀釋液代碼
+                        "volume":   100                                 // [number] 稀釋液體積
+                    },
+                    "injection": {                                      // [optional] 注射處方指示
+                        "concentration":    100,                        // [number] 濃度 注射處方使用
+                        "flowVelocity":     100,                        // [number] 速度 注射處方使用
+                        "infusionTime":     10,                         // [number] 輸注時間 注射處方使用
+                        "mlPerHour":        1                           // [number] 流速 注射處方使用
+                    },
+                    "dose": "10",                                    // [string, optional] 預設劑量
                     "specialInstruction": "xxx",                     // [string, optional] 預設特殊醫囑
                     "infusionTime": 10,                              // [number, optional] 預設輸注時間
                     "mlPerHour":  1,                                 // [number, optional] 預設流速
-                    "OrderStage": "階段",                            // [string, optional] ???
                     "isAllergic":               false,              // [boolean] 過敏 是否需要預設勾選
                     "isADR":                    false,              // [boolean] ADR 是否預設勾選
+                    "isUDD":                    false,              // [boolean] isUDD
                     "repeatedPattern": "QD",                        // [string, optional] 預設頻率
                     "route": "IF",                                  // [string, optional] 預設途徑
                     "useDays": 1,                                   // [number, optional] 預設􏲟開藥天數
@@ -207,7 +212,15 @@
                     "modifier": "111283",                           // [string, optional] 前次修改者員編 若沒有不用回傳
                     "modifiedTime": 1435745800,                     // [number, optional] 前次修改時間 timestamp 若沒有不用回傳
                     "verifier": "111301",                           // [string, optional] 前次確認者員編 若沒有不用回傳
-                    "confirmedTime": 1435745900                     // [number, optional] 前次確認時間 timestamp 若沒有不用回傳
+                    "confirmedTime": 1435745900,                  // [number, optional] 前次確認時間 timestamp 若沒有不用回傳
+                    "supportedBillTypes": [
+                        {
+                            "title": "自費",                               // [string] 該種 billType 顯示的 title
+                            "code": "P",                                  // [string] 該種 billType 所對應的 code
+                            "charge": 20                                  // [number] 價格
+                        },
+                        ...
+                    ]
             }
 
         }
@@ -557,135 +570,4 @@
 
         {
             "success": true
-        }
-
-
-## 12/24 未確認醫囑清單 [/patient/{chartNo}/unconfirmedMedicationRecords{?sessionKey}]
-###  取得未確認醫囑清單[GET]
-+ Parameters
-    + sessionKey    (string) ... SessionKey
-
-
-+ Response 200 (application/json)
-
-        {
-            "content": {
-                "field" : [    //欄位資訊
-                    {
-                        "fieldCode" : "startDate",     // 欄位代碼[string]
-                        "displayName" : "開始時間",      // 欄位顯示名稱[string]
-                        "dateFormat" : "yyyy-MM-dd"    // 若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
-                    },
-                    {
-                        "fieldCode" : "endDate",        // 欄位代碼[string]
-                        "displayName" : "結束時間",      // 欄位顯示名稱[string]
-                        "dateFormat" : "yyyy-MM-dd"     // 若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
-                    },
-                    {
-                        "fieldCode" : "order",
-                        "displayName" : "醫令內容",
-                        "textAlignment" : "left"        // 欄位內容對齊方式  ex:"left"(向左對齊)、"center"(置中對齊)、"right"(向右對齊)[string,optional]
-                    },
-                    {
-                        "fieldCode" : "status",
-                        "displayName" : "狀態"
-                    }
-                ],
-                "data" : [
-                    {
-                        "content" : {   //依據欄位填入資料，無資料則不回傳 [optional]
-                            "order" : "Chest PA View (Standing)",
-                            "startDate" : 1406938026,
-                            "endDate" : 1406938026,
-                            "_emp_doctor" : {
-                                "empNo" : "23454353",
-                                "name" : "葉小菜"
-                            },
-                            "status" : "已完成",
-                            "orderDate" : 1406938026
-                        },
-                        "filterCode" : [    //篩選類別
-                            "image"
-                        ],
-                        "accountNo": "I15T07315840",                            // [string] 開立醫囑時對應的帳號
-                        "recordId": "T0_11232000112_D",                         // [string] 本筆記錄所對應的交易檔 ID (orderRecordId/medicationRecordId)
-                        "cofirmSelectionIndex": 0,                              // [number] 0 表示不可選 1 表示預設不選 3 表示預設選取
-                        "bgColor" : "FFFFFF"                                    // 如需調整此列背景顏色則回傳16進位色碼[string, optional]
-                    },
-                    ...
-                ],
-                "filter" : [
-                    {
-                        "filterCode" : "order",
-                        "displayName" : "醫囑"
-                    },
-                    {
-                        "filterCode" : "medication",
-                        "displayName" : "處方"
-                    },
-                    {
-                        "filterCode" : "lab",
-                        "displayName" : "檢驗"
-                    },
-                    {
-                        "filterCode" : "image",
-                        "displayName" : "影醫"
-                    },
-                    ...
-                ],
-                "limit" : 50, //最大回傳筆數傳[number]
-                "offset" : 0, //回傳資料偏移數[number]
-                "total" : 100 //此次Query總筆數[number]
-            }
-        }
-
-
-## 10/27 確認多筆病患醫令記錄 [/medication/confirmation/batch]
-### 確認多比病患醫令記錄 [POST]
-+ Request Confirm orderRecord(s)
-
-        {
-            "sessionKey": "DE44A33624064BFCB0BBAFDB9A509C16",
-            "requests": [
-                {
-                    "requestId": "request_001",
-                    "path": "/account/{accountNo}/orderRecord/T32132012",
-                    "method": "PATCH",
-                    "body": {
-                        "content": {
-                            "confirmedTime": 1438423200,         // [number(timestamp)] 確認時間
-                            "verifier": "111283"                 // [string]  確認醫師員工編號
-                        }
-                    }
-                },
-                {
-                    "requestId": "request_001",
-                    "path": "/account/{accountNo}/orderRecord/T32132013",
-                    "method": "PATCH",
-                    "body": {
-                        "content": {
-                            "confirmedTime": 1438423200,         // [number(timestamp)] 確認時間
-                            "verifier": "111283"                 // [string]  確認醫師員工編號
-                        }
-                    }
-                },
-                ...
-            ]
-        }
-
-+ Response 200 (application/json)
-
-
-        {
-            "requests": [
-                {
-                    "requestId": "request001",
-                    "success": true
-                },
-                {
-                    "requestId": "request002",
-                    "success": true
-                }
-                ...
-            ]
         }
