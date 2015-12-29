@@ -119,22 +119,26 @@
                         "volumeSug": {                                // [optional] 容量輸注指示
                             "max": 1000,
                             "min": 10,
-                            "unit": "ml"
+                            "unit": "ml",
+                            "Description": "xxxxx"
                         },
                         "concentrationSug": {                         // [optional] 濃度輸注指示
                             "max": 100,
                             "min": 20,
-                            "unit": "ml/minute"
+                            "unit": "ml/minute",
+                            "Description": "xxxxx"
                         },
                         "InfusionTimeSug": {                          // [optional] 輸注時間指示
                             "max": 20,
                             "min": 5,
-                            "unit": "min"
+                            "unit": "min",
+                            "Description": "xxxxx"
                         },
                         "VelocitySug": {                              // [optional] 流速指示
                             "max": 300,
                             "min": 30,
-                            "unit": "ml/Hr"
+                            "unit": "ml/Hr",
+                            "Description": "xxxxx"
                         }
                     },
                     ...
@@ -178,9 +182,17 @@
         {
             "content": {
                     "medicationCode": "T0_3211234_L",                 // [string] 對應的 orderCode 以供處理虛擬醫囑時使用
-                    "diluentAbbreviation": "稀釋液簡稱",               // [string, optional] 預設稀釋液簡稱 ???
-                    "diluentVolume": 10,                             // [number, optional] 預設稀釋液體積
-                    "dose": 10,                                      // [number, optional] 預設劑量
+                    "diluent":          {  // [optional] 稀釋液 注射處方使用
+                        "code":     "12332123",                         // [string] 稀釋液代碼
+                        "volume":   100                                 // [number] 稀釋液體積
+                    },
+                    "injection": {                                      // [optional] 注射處方指示
+                        "concentration":    100,                        // [number] 濃度 注射處方使用
+                        "flowVelocity":     100,                        // [number] 速度 注射處方使用
+                        "infusionTime":     10,                         // [number] 輸注時間 注射處方使用
+                        "mlPerHour":        1                           // [number] 流速 注射處方使用
+                    },
+                    "dose": "10",                                    // [string, optional] 預設劑量
                     "specialInstruction": "xxx",                     // [string, optional] 預設特殊醫囑
                     "infusionTime": 10,                              // [number, optional] 預設輸注時間
                     "mlPerHour":  1,                                 // [number, optional] 預設流速
