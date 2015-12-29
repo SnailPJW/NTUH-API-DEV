@@ -713,28 +713,48 @@
         {
             "id": "ACOETY",
             "type": 0,
-            "displayName": ">?",
-            "displayNameTC": "大於__",
-            "remark": "確認呼吸道EtCO2：大於＿",
+            "displayName": ">10",
+            "displayNameTC": "大於10",
+            "elements": [
+                "ACOETYT",
+            ],
+            "shouldDisplayCount": false
+        },
+        {
+            "id": "ACOETYT",
+            "type": 1,
+            "displayName": "EtCO2:",
+            "displayNameTC": "EtCO2:",
+            "remark": "EtCO2: __text__",
             "shouldSubmit": true,
             "actions": [
                 "set_ACOY",
                 "action_addflag_EtCO2"
             ],
-            "shouldDisplayCount": false
+            "inputType": 1
         },
         {
             "id": "ACOETN",
             "type": 0,
-            "displayName": "<?",
-            "displayNameTC": "小於__",
-            "remark": "確認呼吸道EtCO2：小於＿",
+            "displayName": "<10",
+            "displayNameTC": "小於10",
+            "elements": [
+                "ACOETNT",
+            ],
+            "shouldDisplayCount": false
+        },
+        {
+            "id": "ACOETNT",
+            "type": 1,
+            "displayName": "EtCO2:",
+            "displayNameTC": "EtCO2:",
+            "remark": "EtCO2: __text__",
             "shouldSubmit": true,
             "actions": [
                 "set_ACON",
                 "action_addflag_EtCO2"
             ],
-            "shouldDisplayCount": false
+            "inputType": 1
         },
         {
             "id": "ACOTR",
