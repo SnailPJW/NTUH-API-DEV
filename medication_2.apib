@@ -161,8 +161,7 @@
         {
             "error": 805,                                       // [number] error code
             "content": {
-                "message": "THE MESSAGE TO DISPLAY",            // [string] error message to display
-                "link": "EXTERNAL LINK"                         // [string] the redirect link for the Safari
+                "message": "THE MESSAGE TO DISPLAY"             // [string] error message to display
             }
         }
 
@@ -349,22 +348,6 @@
                 ...
             ]
         }
-
-## 平板無法開立藥品品項之外部連結 [/medicationOrder/externalLinks{?sessionKey,hospitalCode}]
-### 取得連結 [GET]
-
-+ Parameters
-    + sessionKey (string)   ... SessionKey
-    + hospitalCode (string) ... 院區碼
-
-+ Response 200 (application/json)
-
-        {
-            "content": {
-                "TPN": "THE EXTERNAL LINK FOR TPN"          // [string] TPN 藥品外部連結的 base url
-            }
-        }
-
 
 ## 藥囑途徑表 [/medicationOrder/supportedRoutes{?sessionKey}]
 ### 取得藥囑頻率表 [GET]

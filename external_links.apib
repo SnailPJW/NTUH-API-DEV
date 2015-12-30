@@ -1,0 +1,22 @@
+# Group 未確認醫藥囑
+
+## 12/30 - 無法開立項目之外部連結 [/externalLlinks{?sessionKey,accountNo,type,orderCode}]
+### 取得無法開立項目之外部連結  [GET]
+
++ Parameters
+    + sessionKey    (string) ... SessionKey
+    + accountNo     (string) ... Patient accountNo
+    + type          (string) ... Indicate the type of external links to be requested. (general, order, medication)
+    + orderCode     (string, optional) ... The identifier of the corresponding order/medicationOrder
+
++ Response 200 (application/json)
+
+        {
+            "content": [
+                {
+                    "title": "TPN",
+                    "link": "THS_EXTERNAL_LINK"
+                },
+                ...
+            ]
+        }
