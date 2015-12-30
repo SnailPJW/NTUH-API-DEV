@@ -2,7 +2,7 @@ FORMAT: 1A
 HOST: http://www.wantoto.com
 
 
-# DEV台大醫院行動醫療資訊系統 Web Service v1.7.3
+# DEV台大醫院行動醫療資訊系統 Web Service v1.7.4
 
 採用 RESTful 架構規劃。所有字串編碼皆為UTF-8。
 
@@ -3767,7 +3767,7 @@ HOST: http://www.wantoto.com
         }
 
 
-## 處方醫令資訊 [/medicationOrder/{medicationCode}{?sessionKey}]
+## 12/30 - 處方醫令資訊 [/medicationOrder/{medicationCode}{?sessionKey}]
 ### 取得處方醫令屬性資料 [GET]
 + Parameters
     + sessionKey    (string) ... SessionKey
@@ -3815,25 +3815,25 @@ HOST: http://www.wantoto.com
                             "max": 1000,
                             "min": 10,
                             "unit": "ml",
-                            "Description": "xxxxx"
+                            "description": "xxxxx"
                         },
                         "concentrationSug": {                         // [optional] 濃度輸注指示
                             "max": 100,
                             "min": 20,
                             "unit": "ml/minute",
-                            "Description": "xxxxx"
+                            "description": "xxxxx"
                         },
-                        "InfusionTimeSug": {                          // [optional] 輸注時間指示
+                        "infusionTimeSug": {                          // [optional] 輸注時間指示
                             "max": 20,
                             "min": 5,
                             "unit": "min",
-                            "Description": "xxxxx"
+                            "description": "xxxxx"
                         },
-                        "VelocitySug": {                              // [optional] 流速指示
+                        "velocitySug": {                              // [optional] 流速指示
                             "max": 300,
                             "min": 30,
                             "unit": "ml/Hr",
-                            "Description": "xxxxx"
+                            "description": "xxxxx"
                         }
                     },
                     ...
@@ -3860,7 +3860,7 @@ HOST: http://www.wantoto.com
             }
         }
 
-## 6/25 - 醫令碼所對應的醫令 [/medicationOrder/{medicationCode}/defaultValues{?sessionKey,accountNo,searchType,patientClass,orderIdse,planDate,orderStage,planExecutionTime,stateIndex}]
+## 12/30 - 醫令碼所對應的醫令 [/medicationOrder/{medicationCode}/defaultValues{?sessionKey,accountNo,searchType,patientClass,orderIdse,planDate,orderStage,planExecutionTime,stateIndex}]
 ### 取得醫令範本的預設值 [GET]
 + Parameters
     + sessionKey        (string) ... SessionKey
@@ -3920,7 +3920,7 @@ HOST: http://www.wantoto.com
         }
 
 
-## 處方醫令開令記錄 [/account/{accountNo}/medicationRecords{?sessionKey,stateIndex,medicationRecordId}]
+## 12/30 - 處方醫令開令記錄 [/account/{accountNo}/medicationRecords{?sessionKey,stateIndex,medicationRecordId}]
 ### 開立處方醫令 [POST]
 
 + Request IssueMedicationOrder (application/json)
@@ -3928,7 +3928,6 @@ HOST: http://www.wantoto.com
         {
             "content": {
                 "medicationCode":   "P1110023",                     // [string] 欲開立之處方代碼
-                "hospitalCode":     "HQ",                           // [string] 院區代碼
                 "stage":            "regular",                      // [string] 階段
                 "dose":             1,                              // [number] 劑量
                 "route":            "IF",                           // [string] 路徑代碼
@@ -4121,13 +4120,12 @@ HOST: http://www.wantoto.com
             }
         }
 
-### 修改醫囑 [PUT]
+### 12/30 - 修改醫囑 [PUT]
 + Request IssueMedicationOrder (application/json)
 
         {
             "content": {
                 "medicationCode":   "P1110023",                     // [string] 欲開立之處方代碼
-                "hospitalCode":     "HQ",                           // [string] 院區代碼
                 "stage":            "regular",                      // [string] 階段
                 "dose":             1,                              // [number] 劑量
                 "route":            "IF",                           // [string] 路徑代碼
@@ -4421,6 +4419,10 @@ HOST: http://www.wantoto.com
             "content": [
                 {
                     "title": "TPN",
+                    "link": "THS_EXTERNAL_LINK"
+                },
+                {
+                    "title": "組合藥",
                     "link": "THS_EXTERNAL_LINK"
                 },
                 ...
