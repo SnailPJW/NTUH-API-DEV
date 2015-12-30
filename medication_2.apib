@@ -225,7 +225,7 @@
         }
 
 
-## 處方醫令開令記錄 [/account/{accountNo}/medicationRecords{?sessionKey,stateIndex,medicationRecordId}]
+## 12/30 - 處方醫令開令記錄 [/account/{accountNo}/medicationRecords{?sessionKey,stateIndex,medicationRecordId}]
 ### 開立處方醫令 [POST]
 
 + Request IssueMedicationOrder (application/json)
@@ -233,7 +233,6 @@
         {
             "content": {
                 "medicationCode":   "P1110023",                     // [string] 欲開立之處方代碼
-                "hospitalCode":     "HQ",                           // [string] 院區代碼
                 "stage":            "regular",                      // [string] 階段
                 "dose":             1,                              // [number] 劑量
                 "route":            "IF",                           // [string] 路徑代碼
@@ -426,13 +425,12 @@
             }
         }
 
-### 修改醫囑 [PUT]
+### 12/30 - 修改醫囑 [PUT]
 + Request IssueMedicationOrder (application/json)
 
         {
             "content": {
                 "medicationCode":   "P1110023",                     // [string] 欲開立之處方代碼
-                "hospitalCode":     "HQ",                           // [string] 院區代碼
                 "stage":            "regular",                      // [string] 階段
                 "dose":             1,                              // [number] 劑量
                 "route":            "IF",                           // [string] 路徑代碼
