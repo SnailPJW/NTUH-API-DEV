@@ -72,7 +72,7 @@
         }
 
 
-## 處方醫令資訊 [/medicationOrder/{medicationCode}{?sessionKey}]
+## 12/30 - 處方醫令資訊 [/medicationOrder/{medicationCode}{?sessionKey}]
 ### 取得處方醫令屬性資料 [GET]
 + Parameters
     + sessionKey    (string) ... SessionKey
@@ -120,25 +120,25 @@
                             "max": 1000,
                             "min": 10,
                             "unit": "ml",
-                            "Description": "xxxxx"
+                            "description": "xxxxx"
                         },
                         "concentrationSug": {                         // [optional] 濃度輸注指示
                             "max": 100,
                             "min": 20,
                             "unit": "ml/minute",
-                            "Description": "xxxxx"
+                            "description": "xxxxx"
                         },
-                        "InfusionTimeSug": {                          // [optional] 輸注時間指示
+                        "infusionTimeSug": {                          // [optional] 輸注時間指示
                             "max": 20,
                             "min": 5,
                             "unit": "min",
-                            "Description": "xxxxx"
+                            "description": "xxxxx"
                         },
-                        "VelocitySug": {                              // [optional] 流速指示
+                        "velocitySug": {                              // [optional] 流速指示
                             "max": 300,
                             "min": 30,
                             "unit": "ml/Hr",
-                            "Description": "xxxxx"
+                            "description": "xxxxx"
                         }
                     },
                     ...
@@ -165,7 +165,7 @@
             }
         }
 
-## 6/25 - 醫令碼所對應的醫令 [/medicationOrder/{medicationCode}/defaultValues{?sessionKey,accountNo,searchType,patientClass,orderIdse,planDate,orderStage,planExecutionTime,stateIndex}]
+## 12/30 - 醫令碼所對應的醫令 [/medicationOrder/{medicationCode}/defaultValues{?sessionKey,accountNo,searchType,patientClass,orderIdse,planDate,orderStage,planExecutionTime,stateIndex}]
 ### 取得醫令範本的預設值 [GET]
 + Parameters
     + sessionKey        (string) ... SessionKey
