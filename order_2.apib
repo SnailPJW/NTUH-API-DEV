@@ -604,8 +604,13 @@
                 ],
                 "indication": "Follo Up",                       // [optional] CT 或 MRI 需要回傳
                 "selections": [                                 // 所有被選取的 item 的 return keys
-                    "whole_brain_scan",
-                    "pherrior_fassa",
+                    {
+                        "returnKey": "whole_brain_scan",
+                        "otherText": "xxx"                      // [optional] The additional input content
+                    },
+                    {
+                        "returnKey": "pherrior_fassa"
+                    }
                     ...
                 ],
                 "orderStage": "0",                              // [string] 階段
@@ -756,7 +761,6 @@
         {
             "content": {
                 "requstID": "account_0001_0001",     // [string]
-                "hospitalCode": "HQ",                // [string] 院區碼
                 "quantity": 3,                       // [number] 數量
                 "billType": "E",                     // [string] 記帳類別
                 "confirmedTime": 1438423200,         // [number(timestamp)] 確認時間
