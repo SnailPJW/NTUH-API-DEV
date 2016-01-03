@@ -41,7 +41,7 @@
             "referenceElement": "SCON1U",
             "registeredTargets": [
                 {
-                    "elementId" : "SCON1U",
+                    "elementId": "SCON1U",
                     "shouldPerformActions": true
                 }
             ],
@@ -138,7 +138,7 @@
             "referenceElement": "SCPRET",
             "registeredTargets": [
                 {
-                    "elementId" : "SCPRET",
+                    "elementId": "SCPRET",
                     "shouldPerformActions": true
                 }
             ],
@@ -292,7 +292,7 @@
             "referenceElement": "AOPHC",
             "registeredTargets": [
                 {
-                    "elementId" : "AOPHC",
+                    "elementId": "AOPHC",
                     "shouldPerformActions": true
                 }
             ],
@@ -335,7 +335,7 @@
             "referenceElement": "ACHP",
             "registeredTargets": [
                 {
-                    "elementId" : "ACHP",
+                    "elementId": "ACHP",
                     "shouldPerformActions": true
                 }
             ],
@@ -716,7 +716,7 @@
             "displayName": ">10",
             "displayNameTC": "大於10",
             "elements": [
-                "ACOETYT",
+                "ACOETYT"
             ],
             "shouldDisplayCount": false
         },
@@ -739,7 +739,7 @@
             "displayName": "<10",
             "displayNameTC": "小於10",
             "elements": [
-                "ACOETNT",
+                "ACOETNT"
             ],
             "shouldDisplayCount": false
         },
@@ -816,7 +816,7 @@
             "referenceElement": "BCBAP",
             "registeredTargets": [
                 {
-                    "elementId" : "BCBAP",
+                    "elementId": "BCBAP",
                     "shouldPerformActions": true
                 }
             ],
@@ -1224,7 +1224,7 @@
             "referenceElement": "DMOEC",
             "registeredTargets": [
                 {
-                    "elementId" : "DMOEC",
+                    "elementId": "DMOEC",
                     "shouldPerformActions": true
                 }
             ],
@@ -1344,10 +1344,37 @@
                 "DDE36",
                 "DDECH"
             ],
-            "referenceElement": "DDE20",
             "registeredTargets": [
                 {
-                    "elementId" : "DDE20",
+                    "elementId": "DDE05",
+                    "shouldPerformActions": true
+                },
+                {
+                    "elementId": "DDE10",
+                    "shouldPerformActions": true
+                },
+                {
+                    "elementId": "DDE12",
+                    "shouldPerformActions": true
+                },
+                {
+                    "elementId": "DDE15",
+                    "shouldPerformActions": true
+                },
+                {
+                    "elementId": "DDE20",
+                    "shouldPerformActions": true
+                },
+                {
+                    "elementId": "DDE30",
+                    "shouldPerformActions": true
+                },
+                {
+                    "elementId": "DDE36",
+                    "shouldPerformActions": true
+                },
+                {
+                    "elementId": "DDECHT",
                     "shouldPerformActions": true
                 }
             ],
@@ -1458,7 +1485,7 @@
                 "set_DDE"
             ],
             "inputType": 1,
-            "suggestionId": "suggest_DDECH"
+            "suggestionId": "suggest_child_DDECH"
         },
         {
             "id": "DCA",
@@ -1548,8 +1575,7 @@
             "elements": [
                 "DCACHT"
             ],
-            "shouldDisplayCount": false,
-            "suggestionId": "suggest_DDECH"
+            "shouldDisplayCount": false
         },
         {
             "id": "DCACHT",
@@ -1558,7 +1584,8 @@
             "displayNameTC": "焦耳：",
             "remark": "整流(焦耳)：__text__",
             "shouldSubmit": true,
-            "inputType": 1
+            "inputType": 1,
+            "suggestionId": "suggest_child_DDECH"
         },
         {
             "id": "N",
@@ -3372,99 +3399,218 @@
         {
             "id": "PBI",
             "type": 0,
-            "displayName": "Bicarbonate 16.6 meq/amp",
-            "displayNameTC": "Bicarbonate 16.6 meq/amp",
-            "remark": "Bicarbonate 16.6 meq/amp",
+            "displayName": "Bicarbonate",
+            "displayNameTC": "Bicarbonate",
+            "elements": [
+                "PBIT"
+            ],
+            "registeredTargets": [
+                {
+                    "elementId": "PBIT",
+                    "shouldPerformActions": true
+                }
+            ],
+            "shouldDisplayCount": true,
+            "count": 0
+        },
+        {
+            "id": "PBIT",
+            "type": 1,
+            "displayName": "Bicarbonate (0.415 mEq/mL。原 0.83 mEq/mL，以NS 1:1 稀釋)",
+            "displayNameTC": "Bicarbonate (0.415 mEq/mL。原 0.83 mEq/mL，以NS 1:1 稀釋)",
+            "remark": "Bicarbonate (0.415 mEq/mL。原 0.83 mEq/mL，以NS 1:1 稀釋)：__text__ mL",
             "shouldSubmit": true,
             "actions": [
                 "action_addCount_PBI"
             ],
-            "shouldDisplayCount": true,
-            "count": 0
+            "inputType": 1,
+            "suggestionId": "suggest_PBI"
         },
         {
             "id": "PCA",
             "type": 0,
-            "displayName": "Cal. Chloride 5.4 meq/amp",
-            "displayNameTC": "Cal. Chloride 5.4 meq/amp",
-            "remark": "Cal. Chloride 5.4 meq/amp",
+            "displayName": "Cal. Chloride",
+            "displayNameTC": "Cal. Chloride",
+            "elements": [
+                "PCAT"
+            ],
+            "registeredTargets": [
+                {
+                    "elementId": "PCAT",
+                    "shouldPerformActions": true
+                }
+            ],
+            "shouldDisplayCount": true,
+            "count": 0
+        },
+        {
+            "id": "PCAT",
+            "type": 1,
+            "displayName": "Cal. Chloride (0.27 mEq/mL)",
+            "displayNameTC": "Cal. Chloride (0.27 mEq/mL)",
+            "remark": "Cal. Chloride (0.27 mEq/mL)：__text__ mL",
             "shouldSubmit": true,
             "actions": [
                 "action_addCount_PCA"
             ],
-            "shouldDisplayCount": true,
-            "count": 0
+            "inputType": 1,
+            "suggestionId": "suggest_PCA"
         },
         {
             "id": "PAT",
             "type": 0,
-            "displayName": "Atropone 1mg/amp",
-            "displayNameTC": "Atropone 1mg/amp",
-            "remark": "Atropone 1mg/amp",
+            "displayName": "Atropone",
+            "displayNameTC": "Atropone",
+            "elements": [
+                "PATT"
+            ],
+            "registeredTargets": [
+                {
+                    "elementId": "PATT",
+                    "shouldPerformActions": true
+                }
+            ],
+            "shouldDisplayCount": true,
+            "count": 0
+        },
+        {
+            "id": "PATT",
+            "type": 1,
+            "displayName": "Atropone (1mg/mL)",
+            "displayNameTC": "Atropone (1mg/mlL",
+            "remark": "Atropone (1mg/mL)：__text__ mL",
             "shouldSubmit": true,
             "actions": [
                 "action_addCount_PAT"
             ],
-            "shouldDisplayCount": true,
-            "count": 0
+            "inputType": 1,
+            "suggestionId": "suggest_PAT"
         },
         {
             "id": "PAM",
             "type": 0,
-            "displayName": "Amiodarone 150mg/amp",
-            "displayNameTC": "Amiodarone 150mg/amp",
-            "remark": "Amiodarone 150mg/amp",
+            "displayName": "Amiodarone",
+            "displayNameTC": "Amiodarone",
+            "elements": [
+                "PAMT"
+            ],
+            "registeredTargets": [
+                {
+                    "elementId": "PAMT",
+                    "shouldPerformActions": true
+                }
+            ],
+            "shouldDisplayCount": true,
+            "count": 0
+        },
+        {
+            "id": "PAMT",
+            "type": 1,
+            "displayName": "Amiodarone (50mg/mL)",
+            "displayNameTC": "Amiodarone (50mg/mL)",
+            "remark": "Amiodarone (50mg/mL) ：__text__ mL",
             "shouldSubmit": true,
             "actions": [
                 "action_addCount_PAM"
             ],
-            "shouldDisplayCount": true,
-            "count": 0
+            "inputType": 1,
+            "suggestionId": "suggest_PAM"
         },
         {
             "id": "PMG",
             "type": 0,
-            "displayName": "MgSO4 16mEq/amp",
-            "displayNameTC": "MgSO4 16mEq/amp",
-            "remark": "MgSO4 16mEq/amp",
+            "displayName": "MgSO4",
+            "displayNameTC": "MgSO4",
+            "elements": [
+                "PMGT"
+            ],
+            "registeredTargets": [
+                {
+                    "elementId": "PMGT",
+                    "shouldPerformActions": true
+                }
+            ],
+            "shouldDisplayCount": true,
+            "count": 0
+        },
+        {
+            "id": "PMGT",
+            "type": 1,
+            "displayName": "MgSO4 (0.8 mEq/mL)",
+            "displayNameTC": "MgSO4 (0.8 mEq/mL)",
+            "remark": "MgSO4 (0.8 mEq/mL)：__text__ mL",
             "shouldSubmit": true,
             "actions": [
                 "action_addCount_PMG"
             ],
-            "shouldDisplayCount": true,
-            "count": 0
+            "inputType": 1,
+            "suggestionId": "suggest_PMG"
         },
         {
             "id": "PLI",
             "type": 0,
-            "displayName": "Lidocaine 100mg/amp",
-            "displayNameTC": "Lidocaine 100mg/amp",
-            "remark": "Lidocaine 100mg/amp",
+            "displayName": "Lidocaine",
+            "displayNameTC": "Lidocaine",
+            "elements": [
+                "PLIT"
+            ],
+            "registeredTargets": [
+                {
+                    "elementId": "PLIT",
+                    "shouldPerformActions": true
+                }
+            ],
+            "shouldDisplayCount": true,
+            "count": 0
+        },
+        {
+            "id": "PLIT",
+            "type": 1,
+            "displayName": "Lidocaine (20 mg/mL)",
+            "displayNameTC": "Lidocaine (20 mg/mL)",
+            "remark": "Lidocaine (20 mg/mL)：__text__ mL",
             "shouldSubmit": true,
             "actions": [
                 "action_addCount_PLI"
             ],
-            "shouldDisplayCount": true,
-            "count": 0
+            "inputType": 1,
+            "suggestionId": "suggest_PLI"
         },
         {
             "id": "PGL",
             "type": 0,
-            "displayName": "Glucose water 50% 20ml",
-            "displayNameTC": "Glucose water 50% 20ml",
-            "remark": "Glucose water 50% 20ml",
-            "shouldSubmit": true,
-            "actions": [
-                "action_addCount_PGL"
+            "displayName": "Glucose water",
+            "displayNameTC": "Glucose water",
+            "elements": [
+                "PGLT"
+            ],
+            "registeredTargets": [
+                {
+                    "elementId": "PGLT",
+                    "shouldPerformActions": true
+                }
             ],
             "shouldDisplayCount": true,
             "count": 0
         },
         {
+            "id": "PGLT",
+            "type": 1,
+            "displayName": "Glucose water (0.5 g/mL。以 sterile water 稀釋5倍成 Glucose 10%)",
+            "displayNameTC": "Glucose water (0.5 g/mL。以 sterile water 稀釋5倍成 Glucose 10%)",
+            "remark": "Glucose water (0.5 g/mL。以 sterile water 稀釋5倍成 Glucose 10%)：__text__ mL",
+            "shouldSubmit": true,
+            "actions": [
+                "action_addCount_PGL"
+            ],
+            "inputType": 1,
+            "suggestionId": "suggest_PGL"
+        },
+        {
             "id": "PRE",
             "type": 0,
-            "displayName": "Regular Insulin 1000 U/10 ml",
-            "displayNameTC": "Regular Insulin 1000 U/10 ml",
+            "displayName": "Regular Insulin",
+            "displayNameTC": "Regular Insulin",
             "elements": [
                 "PRET"
             ],
@@ -3564,28 +3710,62 @@
         {
             "id": "PSU",
             "type": 0,
-            "displayName": "Succnylcholine (500mg/10ml)",
-            "displayNameTC": "Succnylcholine (500mg/10ml)",
-            "remark": "Succnylcholine (500mg/10ml)",
-            "shouldSubmit": true,
-            "actions": [
-                "action_addCount_PSU"
+            "displayName": "Succnylcholine",
+            "displayNameTC": "Succnylcholine",
+            "elements": [
+                "PSUT"
+            ],
+            "registeredTargets": [
+                {
+                    "elementId": "PSUT",
+                    "shouldPerformActions": true
+                }
             ],
             "shouldDisplayCount": true,
             "count": 0
         },
         {
+            "id": "PSUT",
+            "type": 1,
+            "displayName": "Succnylcholine (50mg/mL)",
+            "displayNameTC": "Succnylcholine (50mg/mL)",
+            "remark": "Succnylcholine (50mg/mL)：__text__ mL",
+            "shouldSubmit": true,
+            "actions": [
+                "action_addCount_PSU"
+            ],
+            "inputType": 1,
+            "suggestionId": "suggest_PSU"
+        },
+        {
             "id": "PMI",
             "type": 0,
-            "displayName": "Midazolam (5mg/amp)",
-            "displayNameTC": "Midazolam (5mg/amp)",
-            "remark": "Midazolam (5mg/amp)",
+            "displayName": "Midazolam",
+            "displayNameTC": "Midazolam",
+            "elements": [
+                "PMIT"
+            ],
+            "registeredTargets": [
+                {
+                    "elementId": "PMIT",
+                    "shouldPerformActions": true
+                }
+            ],
+            "shouldDisplayCount": true,
+            "count": 0
+        },
+        {
+            "id": "PMIT",
+            "type": 1,
+            "displayName": "Midazolam (5mg/mL)",
+            "displayNameTC": "Midazolam (5mg/mL)",
+            "remark": "Midazolam (5mg/mL)：__text__ mL",
             "shouldSubmit": true,
             "actions": [
                 "action_addCount_PMI"
             ],
-            "shouldDisplayCount": true,
-            "count": 0
+            "inputType": 1,
+            "suggestionId": "suggest_PMI"
         }
     ],
     "version": "0.0.1"
