@@ -1548,8 +1548,7 @@
             "elements": [
                 "DCACHT"
             ],
-            "shouldDisplayCount": false,
-            "suggestionId": "suggest_DDECH"
+            "shouldDisplayCount": false
         },
         {
             "id": "DCACHT",
@@ -1558,7 +1557,8 @@
             "displayNameTC": "焦耳：",
             "remark": "整流(焦耳)：__text__",
             "shouldSubmit": true,
-            "inputType": 1
+            "inputType": 1,
+            "suggestionId": "suggest_DDECH"
         },
         {
             "id": "N",
