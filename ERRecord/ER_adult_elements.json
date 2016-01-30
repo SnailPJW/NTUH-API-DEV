@@ -20,12 +20,57 @@
             "displayName": "STATUS",
             "displayNameTC": "狀態評估",
             "elements": [
+                "SFLAO",
                 "SCON",
-                "SCON2",
                 "SCPR",
                 "SROSC",
                 "STERM"
             ]
+        },
+        {
+            "id": "SFLA",
+            "type": 0,
+            "displayName": "Flag",
+            "displayNameTC": "急救標記",
+            "elements": [
+                "SFLAO"
+            ],
+            "shouldDisplayCount": false
+        },
+        {
+            "id": "SFLAO",
+            "type": 3,
+            "elements": [
+                "SFLAOET",
+                "SFLAOIV"
+            ],
+            "multiSelection": true
+        },
+        {
+            "id": "SFLAOET",
+            "type": 4,
+            "displayName": "EtCO2",
+            "displayNameTC": "EtCO2",
+            "remark": "Flag：EtCO2",
+            "shouldSubmit": false,
+            "actions": [
+                "action_addflag_EtCO2",
+                "action_highlight_SFLA"
+            ],
+            "selected": false
+        },
+        {
+            "id": "SFLAOIV",
+            "type": 4,
+            "displayName": "IV",
+            "displayNameTC": "IV",
+            "remark": "Flag：IV",
+            "shouldSubmit": false,
+            "actions": [
+                "action_addflag_NLI",
+                "action_highlight_SFLA"
+            ],
+            "selected": false
         },
         {
             "id": "SCON",
@@ -33,17 +78,9 @@
             "displayName": "Consciousness",
             "displayNameTC": "意識評估 ",
             "elements": [
-                "SCON1A",
-                "SCON1V",
-                "SCON1P",
-                "SCON1U"
-            ],
-            "referenceElement": "SCON1U",
-            "registeredTargets": [
-                {
-                    "elementId" : "SCON1U",
-                    "shouldPerformActions": true
-                }
+                "SCON2E",
+                "SCON2M",
+                "SCON2V"
             ],
             "shouldDisplayCount": false
         },
@@ -100,7 +137,7 @@
             "type": 1,
             "displayName": "E:",
             "displayNameTC": "E:",
-            "remark": "昏迷指數：E: __text__",
+            "remark": "意識評估：E: __text__",
             "shouldSubmit": false,
             "defaultText": "1",
             "inputType": 1
@@ -110,7 +147,7 @@
             "type": 1,
             "displayName": "M:",
             "displayNameTC": "M:",
-            "remark": "昏迷指數：M: __text__",
+            "remark": "意識評估：M: __text__",
             "shouldSubmit": false,
             "defaultText": "1",
             "inputType": 1
@@ -120,7 +157,7 @@
             "type": 1,
             "displayName": "V:",
             "displayNameTC": "V:",
-            "remark": "昏迷指數：V: __text__",
+            "remark": "意識評估：V: __text__",
             "shouldSubmit": false,
             "defaultText": "1",
             "inputType": 1
@@ -137,11 +174,11 @@
             ],
             "referenceElement": "SCPRET",
             "registeredTargets": [
-                {
-                    "elementId" : "SCPRET",
-                    "shouldPerformActions": true
-                }
-            ],
+                                  {
+                                  "elementId": "SCPRET",
+                                  "shouldPerformActions": true
+                                  }
+                                  ],
             "shouldDisplayCount": false
         },
         {
@@ -277,7 +314,8 @@
                 "ACOSC",
                 "ACOBS",
                 "ACOET",
-                "ACOTR"
+                "ACOTR",
+                "ARAA"
             ]
         },
         {
@@ -291,11 +329,11 @@
             ],
             "referenceElement": "AOPHC",
             "registeredTargets": [
-                {
-                    "elementId" : "AOPHC",
-                    "shouldPerformActions": true
-                }
-            ],
+                                  {
+                                  "elementId": "AOPHC",
+                                  "shouldPerformActions": true
+                                  }
+                                  ],
             "shouldDisplayCount": false
         },
         {
@@ -334,11 +372,11 @@
             ],
             "referenceElement": "ACHP",
             "registeredTargets": [
-                {
-                    "elementId" : "ACHP",
-                    "shouldPerformActions": true
-                }
-            ],
+                                  {
+                                  "elementId": "ACHP",
+                                  "shouldPerformActions": true
+                                  }
+                                  ],
             "shouldDisplayCount": false
         },
         {
@@ -416,7 +454,8 @@
                 "ASUSP",
                 "ASUBL",
                 "ASUFO",
-                "ASUMI"
+                "ASUMI",
+                "ASUOT"
             ],
             "shouldDisplayCount": false
         },
@@ -455,6 +494,25 @@
             "remark": "抽吸：牛奶",
             "shouldSubmit": true,
             "shouldDisplayCount": false
+        },
+        {
+            "id": "ASUOT",
+            "type": 0,
+            "displayName": "Other",
+            "displayNameTC": "其他",
+            "elements": [
+                "ASUOTT"
+            ],
+            "shouldDisplayCount": false
+        },
+        {
+            "id": "ASUOTT",
+            "type": 1,
+            "displayName": "Other:",
+            "displayNameTC": "其他:",
+            "remark": "抽吸：__text__",
+            "shouldSubmit": true,
+            "inputType": 0
         },
         {
             "id": "ARF",
@@ -705,8 +763,7 @@
             "displayName": "CONFIRM AIRWAY-EtCO2",
             "displayNameTC": "確認呼吸道\nEtCO2",
             "elements": [
-                "ACOETY",
-                "ACOETN"
+                "ACOETYT"
             ],
             "shouldDisplayCount": false
         },
@@ -716,7 +773,7 @@
             "displayName": ">10",
             "displayNameTC": "大於10",
             "elements": [
-                "ACOETYT",
+                "ACOETYT"
             ],
             "shouldDisplayCount": false
         },
@@ -739,7 +796,7 @@
             "displayName": "<10",
             "displayNameTC": "小於10",
             "elements": [
-                "ACOETNT",
+                "ACOETNT"
             ],
             "shouldDisplayCount": false
         },
@@ -792,6 +849,18 @@
             "shouldDisplayCount": false
         },
         {
+            "id": "ARAA",
+            "type": 0,
+            "displayName": "移除進階呼吸道",
+            "displayNameTC": "移除進階呼吸道",
+            "remark": "移除進階呼吸道",
+            "shouldSubmit": true,
+            "actions": [
+                "set_ACON"
+            ],
+            "shouldDisplayCount": false
+        },
+        {
             "id": "B",
             "displayName": "BREATH",
             "displayNameTC": "呼吸",
@@ -815,11 +884,11 @@
             ],
             "referenceElement": "BCBAP",
             "registeredTargets": [
-                {
-                    "elementId" : "BCBAP",
-                    "shouldPerformActions": true
-                }
-            ],
+                                  {
+                                  "elementId": "BCBAP",
+                                  "shouldPerformActions": true
+                                  }
+                                  ],
             "shouldDisplayCount": false
         },
         {
@@ -1183,7 +1252,7 @@
             "actions": [
                 "action_playSound_CPR",
                 "action_playSound_respiration_repeat",
-                "action_highlight_PAD",
+                "action_highlight_PAD_Flag",
                 "action_addflag_CCC",
                 "set_highlight&push_CCP",
                 "set_highlight&push_DCR",
@@ -1216,18 +1285,18 @@
             "id": "DMO",
             "type": 0,
             "displayName": "Monitor",
-            "displayNameTC": "接上心率監視器",
+            "displayNameTC": "接上心律監視器",
             "elements": [
                 "DMOEC",
                 "DMOAE"
             ],
             "referenceElement": "DMOEC",
             "registeredTargets": [
-                {
-                    "elementId" : "DMOEC",
-                    "shouldPerformActions": true
-                }
-            ],
+                                  {
+                                  "elementId": "DMOEC",
+                                  "shouldPerformActions": true
+                                  }
+                                  ],
             "shouldDisplayCount": false
         },
         {
@@ -1235,7 +1304,7 @@
             "type": 0,
             "displayName": "ECG",
             "displayNameTC": "ECG",
-            "remark": "接上心率監視器：ECG",
+            "remark": "接上心律監視器：ECG",
             "shouldSubmit": true,
             "actions": [
                 "set_DMO"
@@ -1247,7 +1316,7 @@
             "type": 0,
             "displayName": "AED",
             "displayNameTC": "AED",
-            "remark": "接上心率監視器：AED",
+            "remark": "接上心律監視器：AED",
             "shouldSubmit": true,
             "actions": [
                 "set_DMO"
@@ -1258,7 +1327,7 @@
             "id": "DCR",
             "type": 0,
             "displayName": "Check Rythem",
-            "displayNameTC": "檢查心率",
+            "displayNameTC": "檢查心律",
             "elements": [
                 "DCRAS",
                 "DCRPE",
@@ -1272,9 +1341,12 @@
             "id": "DCRAS",
             "type": 0,
             "displayName": "Asytole",
-            "displayNameTC": "無心率",
-            "remark": "檢查心率：無心率",
+            "displayNameTC": "無心律",
+            "remark": "檢查心律：無心律",
             "shouldSubmit": true,
+            "actions": [
+                "action_highlight_SCPRET"
+            ],
             "shouldDisplayCount": false
         },
         {
@@ -1282,19 +1354,23 @@
             "type": 0,
             "displayName": "PEA",
             "displayNameTC": "無脈搏電氣活動",
-            "remark": "檢查心率：無脈搏電氣活動",
+            "remark": "檢查心律：無脈搏電氣活動",
             "shouldSubmit": true,
+            "actions": [
+                "action_highlight_SCPRET"
+            ],
             "shouldDisplayCount": false
         },
         {
             "id": "DCRVT",
             "type": 0,
             "displayName": "VT",
-            "displayNameTC": "心室頻脈",
-            "remark": "檢查心率：心室頻脈",
+            "displayNameTC": "心室頻脈(VT)",
+            "remark": "檢查心律：心室頻脈(VT)",
             "shouldSubmit": true,
             "actions": [
-                "set_DCR"
+                "set_DCR",
+                "action_highlight_SCPRET"
             ],
             "shouldDisplayCount": false
         },
@@ -1302,11 +1378,12 @@
             "id": "DCRVF",
             "type": 0,
             "displayName": "VF",
-            "displayNameTC": "心室顫動",
-            "remark": "檢查心率：心室顫動",
+            "displayNameTC": "心室顫動(VF)",
+            "remark": "檢查心律：心室顫動(VF)",
             "shouldSubmit": true,
             "actions": [
-                "set_DCR"
+                "set_DCR",
+                "action_highlight_SCPRET"
             ],
             "shouldDisplayCount": false
         },
@@ -1325,8 +1402,11 @@
             "type": 1,
             "displayName": "Other:",
             "displayNameTC": "其他：",
-            "remark": "檢查心率：__text__",
+            "remark": "檢查心律：__text__",
             "shouldSubmit": true,
+            "actions": [
+                "action_highlight_SCPRET"
+            ],
             "inputType": 0
         },
         {
@@ -1347,9 +1427,9 @@
             "referenceElement": "DDE20",
             "registeredTargets": [
                 {
-                    "elementId" : "DDE20",
-                    "shouldPerformActions": true
-                }
+"elementId": "DDE20",
+"shouldPerformActions": true
+}
             ],
             "shouldDisplayCount": false
         },
@@ -1572,7 +1652,9 @@
                 "NLI",
                 "NRS",
                 "NVS",
-                "NNO"
+                "NNO",
+                "NSPTE",
+                "NIE"
             ]
         },
         {
@@ -2366,6 +2448,7 @@
             "elements": [
                 "NLIIV",
                 "NLICVC",
+                "NLIFVC",
                 "NLIIO",
                 "NLIAL"
             ],
@@ -2379,10 +2462,6 @@
             "elements": [
                 "NLIIVLUA",
                 "NLIIVRUA",
-                "NLIIVLFA",
-                "NLIIVRFA",
-                "NLIIVLTH",
-                "NLIIVRTH",
                 "NLIIVLLE",
                 "NLIIVRLE",
                 "NLIIVLNE",
@@ -2394,8 +2473,8 @@
         {
             "id": "NLIIVLUA",
             "type": 0,
-            "displayName": "L upper arm",
-            "displayNameTC": "左上臂",
+            "displayName": "L arm",
+            "displayNameTC": "左臂",
             "elements": [
                 "NLIIVLUAG"
             ],
@@ -2404,9 +2483,9 @@
         {
             "id": "NLIIVLUAG",
             "type": 1,
-            "displayName": "L upper arm(G):",
-            "displayNameTC": "左上臂(G)：",
-            "remark": "靜脈留置針：左上臂(G)：__text__",
+            "displayName": "L arm(G):",
+            "displayNameTC": "左臂(G)：",
+            "remark": "靜脈留置針：左臂(G)：__text__",
             "shouldSubmit": true,
             "actions": [
                 "action_addflag_NLI"
@@ -2416,8 +2495,8 @@
         {
             "id": "NLIIVRUA",
             "type": 0,
-            "displayName": "R upper arm",
-            "displayNameTC": "右上臂",
+            "displayName": "R arm",
+            "displayNameTC": "右臂",
             "elements": [
                 "NLIIVRUAG"
             ],
@@ -2426,97 +2505,9 @@
         {
             "id": "NLIIVRUAG",
             "type": 1,
-            "displayName": "R upper arm(G):",
-            "displayNameTC": "右上臂(G)：",
-            "remark": "靜脈留置針：右上臂(G)：__text__",
-            "shouldSubmit": true,
-            "actions": [
-                "action_addflag_NLI"
-            ],
-            "inputType": 1
-        },
-        {
-            "id": "NLIIVLFA",
-            "type": 0,
-            "displayName": "L forearm",
-            "displayNameTC": "左下臂",
-            "elements": [
-                "NLIIVLFAG"
-            ],
-            "shouldDisplayCount": false
-        },
-        {
-            "id": "NLIIVLFAG",
-            "type": 1,
-            "displayName": "L forearm(G):",
-            "displayNameTC": "左下臂(G)：",
-            "remark": "靜脈留置針：左下臂(G)：__text__",
-            "shouldSubmit": true,
-            "actions": [
-                "action_addflag_NLI"
-            ],
-            "inputType": 1
-        },
-        {
-            "id": "NLIIVRFA",
-            "type": 0,
-            "displayName": " R forearm",
-            "displayNameTC": "右下臂",
-            "elements": [
-                "NLIIVRFAG"
-            ],
-            "shouldDisplayCount": false
-        },
-        {
-            "id": "NLIIVRFAG",
-            "type": 1,
-            "displayName": " R forearm(G):",
-            "displayNameTC": "右下臂(G)：",
-            "remark": "靜脈留置針：右下臂(G)：__text__",
-            "shouldSubmit": true,
-            "actions": [
-                "action_addflag_NLI"
-            ],
-            "inputType": 1
-        },
-        {
-            "id": "NLIIVLTH",
-            "type": 0,
-            "displayName": "L thigh",
-            "displayNameTC": "左大腿",
-            "elements": [
-                "NLIIVLTHG"
-            ],
-            "shouldDisplayCount": false
-        },
-        {
-            "id": "NLIIVLTHG",
-            "type": 1,
-            "displayName": "L thigh(G):",
-            "displayNameTC": "左大腿(G)：",
-            "remark": "靜脈留置針：左大腿(G)：__text__",
-            "shouldSubmit": true,
-            "actions": [
-                "action_addflag_NLI"
-            ],
-            "inputType": 1
-        },
-        {
-            "id": "NLIIVRTH",
-            "type": 0,
-            "displayName": "R thigh",
-            "displayNameTC": "右大腿",
-            "elements": [
-                "NLIIVRTHG"
-            ],
-            "shouldDisplayCount": false
-        },
-        {
-            "id": "NLIIVRTHG",
-            "type": 1,
-            "displayName": "R thigh(G):",
-            "displayNameTC": "右大腿(G)：",
-            "remark": "靜脈留置針：右大腿(G)：__text__",
+            "displayName": "R arm(G):",
+            "displayNameTC": "右臂(G)：",
+            "remark": "靜脈留置針：右臂(G)：__text__",
             "shouldSubmit": true,
             "actions": [
                 "action_addflag_NLI"
@@ -2526,8 +2517,8 @@
         {
             "id": "NLIIVLLE",
             "type": 0,
-            "displayName": "L lower leg",
-            "displayNameTC": "左小腿",
+            "displayName": "L leg",
+            "displayNameTC": "左腿",
             "elements": [
                 "NLIIVLLEG"
             ],
@@ -2536,9 +2527,9 @@
         {
             "id": "NLIIVLLEG",
             "type": 1,
-            "displayName": "L lower leg(G):",
-            "displayNameTC": "左小腿(G)：",
-            "remark": "靜脈留置針：右大腿(G)：__text__",
+            "displayName": "L leg(G):",
+            "displayNameTC": "左腿(G)：",
+            "remark": "靜脈留置針：左腿(G)：__text__",
             "shouldSubmit": true,
             "actions": [
                 "action_addflag_NLI"
@@ -2548,8 +2539,8 @@
         {
             "id": "NLIIVRLE",
             "type": 0,
-            "displayName": "R lower leg",
-            "displayNameTC": "右小腿",
+            "displayName": "R leg",
+            "displayNameTC": "右腿",
             "elements": [
                 "NLIIVRLEG"
             ],
@@ -2558,9 +2549,9 @@
         {
             "id": "NLIIVRLEG",
             "type": 1,
-            "displayName": "R lower leg(G):",
-            "displayNameTC": "右小腿(G)：",
-            "remark": "靜脈留置針：右小腿(G)：__text__",
+            "displayName": "R leg(G):",
+            "displayNameTC": "右腿(G)：",
+            "remark": "靜脈留置針：右腿(G)：__text__",
             "shouldSubmit": true,
             "actions": [
                 "action_addflag_NLI"
@@ -2774,6 +2765,153 @@
             "displayName": "R femoral vein(cm):",
             "displayNameTC": "右股靜脈(cm)：",
             "remark": "中心靜脈導管：右股靜脈(cm)：__text__",
+            "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
+            "inputType": 1
+        },
+        {
+            "id": "NLIFVC",
+            "type": 0,
+            "displayName": "雙腔導管",
+            "displayNameTC": "雙腔導管",
+            "elements": [
+                "NLIFVCLI",
+                "NLIFVCRI",
+                "NLIFVCLS",
+                "NLIFVCRS",
+                "NLIFVCLF",
+                "NLIFVCRF"
+            ],
+            "shouldDisplayCount": false
+        },
+        {
+            "id": "NLIFVCLI",
+            "type": 0,
+            "displayName": "L internal jugular vein",
+            "displayNameTC": "左內頸靜脈",
+            "elements": [
+                "NLIFVCLIC"
+            ],
+            "shouldDisplayCount": false
+        },
+        {
+            "id": "NLIFVCLIC",
+            "type": 1,
+            "displayName": "L internal jugular vein(cm):",
+            "displayNameTC": "左內頸靜脈(cm)：",
+            "remark": "雙腔導管：左內頸靜脈(cm)：__text__",
+            "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
+            "inputType": 1
+        },
+        {
+            "id": "NLIFVCRI",
+            "type": 0,
+            "displayName": "R internal jugular vein",
+            "displayNameTC": "右內頸靜脈",
+            "elements": [
+                "NLIFVCRIC"
+            ],
+            "shouldDisplayCount": false
+        },
+        {
+            "id": "NLIFVCRIC",
+            "type": 1,
+            "displayName": "R internal jugular vein(cm):",
+            "displayNameTC": "右內頸靜脈(cm)：",
+            "remark": "雙腔導管：右內頸靜脈(cm)：__text__",
+            "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
+            "inputType": 1
+        },
+        {
+            "id": "NLIFVCLS",
+            "type": 0,
+            "displayName": "L subclavian vein",
+            "displayNameTC": "左鎖骨下靜脈",
+            "elements": [
+                "NLIFVCLSC"
+            ],
+            "shouldDisplayCount": false
+        },
+        {
+            "id": "NLIFVCLSC",
+            "type": 1,
+            "displayName": "L subclavian vein(cm):",
+            "displayNameTC": "左鎖骨下靜脈(cm)：",
+            "remark": "雙腔導管：左鎖骨下靜脈(cm)：__text__",
+            "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
+            "inputType": 1
+        },
+        {
+            "id": "NLIFVCRS",
+            "type": 0,
+            "displayName": "R subclavian vein",
+            "displayNameTC": "右鎖骨下靜脈",
+            "elements": [
+                "NLIFVCRSC"
+            ],
+            "shouldDisplayCount": false
+        },
+        {
+            "id": "NLIFVCRSC",
+            "type": 1,
+            "displayName": "R subclavian vein(cm):",
+            "displayNameTC": "右鎖骨下靜脈(cm)：",
+            "remark": "雙腔導管：右鎖骨下靜脈(cm)：__text__",
+            "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
+            "inputType": 1
+        },
+        {
+            "id": "NLIFVCLF",
+            "type": 0,
+            "displayName": "L femoral vein",
+            "displayNameTC": "左股靜脈",
+            "elements": [
+                "NLIFVCLFC"
+            ],
+            "shouldDisplayCount": false
+        },
+        {
+            "id": "NLIFVCLFC",
+            "type": 1,
+            "displayName": "L femoral vein(cm):",
+            "displayNameTC": "左股靜脈(cm)：",
+            "remark": "雙腔導管：左股靜脈(cm)：__text__",
+            "shouldSubmit": true,
+            "actions": [
+                "action_addflag_NLI"
+            ],
+            "inputType": 1
+        },
+        {
+            "id": "NLIFVCRF",
+            "type": 0,
+            "displayName": "R femoral vein",
+            "displayNameTC": "右股靜脈",
+            "elements": [
+                "NLIFVCRFC"
+            ],
+            "shouldDisplayCount": false
+        },
+        {
+            "id": "NLIFVCRFC",
+            "type": 1,
+            "displayName": "R femoral vein(cm):",
+            "displayNameTC": "右股靜脈(cm)：",
+            "remark": "雙腔導管：右股靜脈(cm)：__text__",
             "shouldSubmit": true,
             "actions": [
                 "action_addflag_NLI"
@@ -3271,6 +3409,104 @@
             "shouldDisplayCount": false
         },
         {
+            "id": "NSPTE",
+            "type": 0,
+            "displayName": "特殊治療",
+            "displayNameTC": "特殊治療",
+            "elements": [
+                "NSPTEEC",
+                "NSPTEIA",
+                "NSPTEOP",
+                "NSPTEOT"
+            ],
+            "shouldDisplayCount": false
+        },
+        {
+            "id": "NSPTEEC",
+            "type": 0,
+            "displayName": "ECMO",
+            "displayNameTC": "ECMO",
+            "remark": "特殊治療：ECMO",
+            "shouldSubmit": true,
+            "shouldDisplayCount": false
+        },
+        {
+            "id": "NSPTEIA",
+            "type": 0,
+            "displayName": "IABP",
+            "displayNameTC": "IABP",
+            "remark": "特殊治療：IABP",
+            "shouldSubmit": true,
+            "shouldDisplayCount": false
+        },
+        {
+            "id": "NSPTEOP",
+            "type": 0,
+            "displayName": "開胸",
+            "displayNameTC": "開胸",
+            "remark": "特殊治療：開胸",
+            "shouldSubmit": true,
+            "shouldDisplayCount": false
+        },
+        {
+            "id": "NSPTEOT",
+            "type": 0,
+            "displayName": "Others",
+            "displayNameTC": "其他",
+            "elements": [
+                "NSPTEOTT"
+            ],
+            "shouldDisplayCount": false
+        },
+        {
+            "id": "NSPTEOTT",
+            "type": 1,
+            "displayName": "Others:",
+            "displayNameTC": "其他:",
+            "remark": "特殊治療：__text__",
+            "shouldSubmit": true,
+            "inputType": 0
+        },
+        {
+            "id": "NIE",
+            "type": 0,
+            "displayName": "通知人員",
+            "displayNameTC": "通知人員",
+            "elements": [
+                "NIEF",
+                "NIECR",
+                "NIEVS"
+            ],
+            "shouldDisplayCount": false
+        },
+        {
+            "id": "NIEF",
+            "type": 0,
+            "displayName": "通知家屬",
+            "displayNameTC": "通知家屬",
+            "remark": "通知家屬",
+            "shouldSubmit": true,
+            "shouldDisplayCount": false
+        },
+        {
+            "id": "NIECR",
+            "type": 0,
+            "displayName": "通知總醫師",
+            "displayNameTC": "通知總醫師",
+            "remark": "通知總醫師",
+            "shouldSubmit": true,
+            "shouldDisplayCount": false
+        },
+        {
+            "id": "NIEVS",
+            "type": 0,
+            "displayName": "通知主治醫師",
+            "displayNameTC": "通知主治醫師",
+            "remark": "通知主治醫師",
+            "shouldSubmit": true,
+            "shouldDisplayCount": false
+        },
+        {
             "id": "P",
             "displayName": "DRUG",
             "displayNameTC": "藥物",
@@ -3292,7 +3528,9 @@
                 "PATR",
                 "PKE",
                 "PSU",
-                "PMI"
+                "PMI",
+                "PIO",
+                "PET"
             ]
         },
         {
@@ -3363,6 +3601,9 @@
             "shouldSubmit": true,
             "actions": [
                 "action_addCount_PAD",
+                "action_addCount_PIOPAD",
+                "action_addCount_PETPAD",
+                "action_highlight_PAD",
                 "action_stopRepeat_setPAD",
                 "set_PAD"
             ],
@@ -3377,7 +3618,9 @@
             "remark": "Bicarbonate 16.6 meq/amp",
             "shouldSubmit": true,
             "actions": [
-                "action_addCount_PBI"
+                "action_addCount_PBI",
+                "action_addCount_PIOPBI",
+                "action_highlight_PIOPBI"
             ],
             "shouldDisplayCount": true,
             "count": 0
@@ -3390,7 +3633,9 @@
             "remark": "Cal. Chloride 5.4 meq/amp",
             "shouldSubmit": true,
             "actions": [
-                "action_addCount_PCA"
+                "action_addCount_PCA",
+                "action_addCount_PIOPCA",
+                "action_highlight_PIOPCA"
             ],
             "shouldDisplayCount": true,
             "count": 0
@@ -3403,7 +3648,10 @@
             "remark": "Atropone 1mg/amp",
             "shouldSubmit": true,
             "actions": [
-                "action_addCount_PAT"
+                "action_addCount_PAT",
+                "action_addCount_PIOPAT",
+                "action_addCount_PETPAT",
+                "action_highlight_PETPAT"
             ],
             "shouldDisplayCount": true,
             "count": 0
@@ -3416,7 +3664,9 @@
             "remark": "Amiodarone 150mg/amp",
             "shouldSubmit": true,
             "actions": [
-                "action_addCount_PAM"
+                "action_addCount_PAM",
+                "action_addCount_PIOPAM",
+                "action_highlight_PIOPAM"
             ],
             "shouldDisplayCount": true,
             "count": 0
@@ -3429,7 +3679,9 @@
             "remark": "MgSO4 16mEq/amp",
             "shouldSubmit": true,
             "actions": [
-                "action_addCount_PMG"
+                "action_addCount_PMG",
+                "action_addCount_PIOPMG",
+                "action_highlight_PIOPMG"
             ],
             "shouldDisplayCount": true,
             "count": 0
@@ -3442,7 +3694,10 @@
             "remark": "Lidocaine 100mg/amp",
             "shouldSubmit": true,
             "actions": [
-                "action_addCount_PLI"
+                "action_addCount_PLI",
+                "action_addCount_PIOPL",
+                "action_addCount_PETPLI",
+                "action_highlight_PETPLI"
             ],
             "shouldDisplayCount": true,
             "count": 0
@@ -3455,7 +3710,9 @@
             "remark": "Glucose water 50% 20ml",
             "shouldSubmit": true,
             "actions": [
-                "action_addCount_PGL"
+                "action_addCount_PGL",
+                "action_addCount_PIOPGL",
+                "action_highlight_PIOPGL"
             ],
             "shouldDisplayCount": true,
             "count": 0
@@ -3479,7 +3736,9 @@
             "remark": "Regular Insulin(U) :__text__",
             "shouldSubmit": true,
             "actions": [
-                "action_addCount_PRE"
+                "action_addCount_PRE",
+                "action_addCount_PIOPRE",
+                "action_highlight_PIOPRE"
             ],
             "inputType": 1
         },
@@ -3491,7 +3750,8 @@
             "remark": "Dopamine permix(400mg/250ml)",
             "shouldSubmit": true,
             "actions": [
-                "action_addCount_PD4"
+                "action_addCount_PD4",
+                "action_highlight_PD4"
             ],
             "shouldDisplayCount": true,
             "count": 0
@@ -3504,7 +3764,8 @@
             "remark": "Dopamine (800mg/250ml) IVF",
             "shouldSubmit": true,
             "actions": [
-                "action_addCount_PD8"
+                "action_addCount_PD8",
+                "action_highlight_PD8"
             ],
             "shouldDisplayCount": true,
             "count": 0
@@ -3517,7 +3778,8 @@
             "remark": "Norepinephrine (8mg/250ml) IVF",
             "shouldSubmit": true,
             "actions": [
-                "action_addCount_PN8"
+                "action_addCount_PN8",
+                "action_highlight_PN8"
             ],
             "shouldDisplayCount": true,
             "count": 0
@@ -3530,7 +3792,8 @@
             "remark": "Norepinephrine (16mg/250mg) IVF ",
             "shouldSubmit": true,
             "actions": [
-                "action_addCount_PNO"
+                "action_addCount_PNO",
+                "action_highlight_PNO"
             ],
             "shouldDisplayCount": true,
             "count": 0
@@ -3543,7 +3806,8 @@
             "remark": "Atracurim (10mg/amp)",
             "shouldSubmit": true,
             "actions": [
-                "action_addCount_PATR"
+                "action_addCount_PATR",
+                "action_highlight_PATR"
             ],
             "shouldDisplayCount": true,
             "count": 0
@@ -3556,7 +3820,8 @@
             "remark": "Ketamine (500mg/10 ml)",
             "shouldSubmit": true,
             "actions": [
-                "action_addCount_PKE"
+                "action_addCount_PKE",
+                "action_highlight_PKE"
             ],
             "shouldDisplayCount": true,
             "count": 0
@@ -3569,7 +3834,8 @@
             "remark": "Succnylcholine (500mg/10ml)",
             "shouldSubmit": true,
             "actions": [
-                "action_addCount_PSU"
+                "action_addCount_PSU",
+                "action_highlight_PSU"
             ],
             "shouldDisplayCount": true,
             "count": 0
@@ -3582,11 +3848,242 @@
             "remark": "Midazolam (5mg/amp)",
             "shouldSubmit": true,
             "actions": [
-                "action_addCount_PMI"
+                "action_addCount_PMI",
+                "action_highlight_PMI"
+            ],
+            "shouldDisplayCount": true,
+            "count": 0
+        },
+        {
+            "id": "PIO",
+            "type": 0,
+            "displayName": "IO給藥",
+            "displayNameTC": "IO給藥",
+            "elements": [
+                "PIOPAD",
+                "PIOPBI",
+                "PIOPCA",
+                "PIOPAT",
+                "PIOPAM",
+                "PIOPMG",
+                "PIOPLI",
+                "PIOPGL",
+                "PIOPRE"
+            ],
+            "shouldDisplayCount": false
+        },
+        {
+            "id": "PIOPAD",
+            "type": 0,
+            "displayName": "Adrenaline 1mg/amp",
+            "displayNameTC": "Adrenaline 1mg/amp",
+            "remark": "IO:Adrenaline 1mg/amp",
+            "shouldSubmit": true,
+            "actions": [
+                "action_addCount_PAD",
+                "action_addCount_PIOPAD",
+                "action_addCount_PETPAD",
+                "action_highlight_PIOPAD",
+                "action_stopRepeat_setPAD",
+                "set_PIOPAD"
+            ],
+            "shouldDisplayCount": true,
+            "count": 0
+        },
+        {
+            "id": "PIOPBI",
+            "type": 0,
+            "displayName": "Bicarbonate 16.6 meq/amp",
+            "displayNameTC": "Bicarbonate 16.6 meq/amp",
+            "remark": "IO:Bicarbonate 16.6 meq/amp",
+            "shouldSubmit": true,
+            "actions": [
+                "action_addCount_PBI",
+                "action_addCount_PIOPBI",
+                "action_highlight_PIOPBI"
+            ],
+            "shouldDisplayCount": true,
+            "count": 0
+        },
+        {
+            "id": "PIOPCA",
+            "type": 0,
+            "displayName": "Cal. Chloride 5.4 meq/amp",
+            "displayNameTC": "Cal. Chloride 5.4 meq/amp",
+            "remark": "IO:Cal. Chloride 5.4 meq/amp",
+            "shouldSubmit": true,
+            "actions": [
+                "action_addCount_PCA",
+                "action_addCount_PIOPCA",
+                "action_highlight_PIOPCA"
+            ],
+            "shouldDisplayCount": true,
+            "count": 0
+        },
+        {
+            "id": "PIOPAT",
+            "type": 0,
+            "displayName": "Atropone 1mg/amp",
+            "displayNameTC": "Atropone 1mg/amp",
+            "remark": "IO:Atropone 1mg/amp",
+            "shouldSubmit": true,
+            "actions": [
+                "action_addCount_PAT",
+                "action_addCount_PIOPAT",
+                "action_addCount_PETPAT",
+                "action_highlight_PETPAT"
+            ],
+            "shouldDisplayCount": true,
+            "count": 0
+        },
+        {
+            "id": "PIOPAM",
+            "type": 0,
+            "displayName": "Amiodarone 150mg/amp",
+            "displayNameTC": "Amiodarone 150mg/amp",
+            "remark": "IO:Amiodarone 150mg/amp",
+            "shouldSubmit": true,
+            "actions": [
+                "action_addCount_PAM",
+                "action_addCount_PIOPAM",
+                "action_highlight_PIOPAM"
+            ],
+            "shouldDisplayCount": true,
+            "count": 0
+        },
+        {
+            "id": "PIOPMG",
+            "type": 0,
+            "displayName": "MgSO4 16mEq/amp",
+            "displayNameTC": "MgSO4 16mEq/amp",
+            "remark": "IO:MgSO4 16mEq/amp",
+            "shouldSubmit": true,
+            "actions": [
+                "action_addCount_PMG",
+                "action_addCount_PIOPMG",
+                "action_highlight_PIOPMG"
+            ],
+            "shouldDisplayCount": true,
+            "count": 0
+        },
+        {
+            "id": "PIOPLI",
+            "type": 0,
+            "displayName": "Lidocaine 100mg/amp",
+            "displayNameTC": "Lidocaine 100mg/amp",
+            "remark": "IO:Lidocaine 100mg/amp",
+            "shouldSubmit": true,
+            "actions": [
+                "action_addCount_PLI",
+                "action_addCount_PIOPL",
+                "action_addCount_PETPLI",
+                "action_highlight_PETPLI"
+            ],
+            "shouldDisplayCount": true,
+            "count": 0
+        },
+        {
+            "id": "PIOPGL",
+            "type": 0,
+            "displayName": "Glucose water 50% 20ml",
+            "displayNameTC": "Glucose water 50% 20ml",
+            "remark": "IO:Glucose water 50% 20ml",
+            "shouldSubmit": true,
+            "actions": [
+                "action_addCount_PGL",
+                "action_addCount_PIOPGL",
+                "action_highlight_PIOPGL"
+            ],
+            "shouldDisplayCount": true,
+            "count": 0
+        },
+        {
+            "id": "PIOPRE",
+            "type": 0,
+            "displayName": "Regular Insulin 1000 U/10 ml",
+            "displayNameTC": "Regular Insulin 1000 U/10 ml",
+            "elements": [
+                "PRET"
+            ],
+            "shouldDisplayCount": true,
+            "count": 0
+        },
+        {
+            "id": "PIOPRET",
+            "type": 1,
+            "displayName": "Regular Insulin(1000 U/10 ml):",
+            "displayNameTC": "Regular Insulin(1000 U/10 ml):",
+            "remark": "IO:Regular Insulin(U) :__text__",
+            "shouldSubmit": true,
+            "actions": [
+                "action_addCount_PRE",
+                "action_addCount_PIOPRE",
+                "action_highlight_PIOPRE"
+            ],
+            "inputType": 1
+        },
+        {
+            "id": "PET",
+            "type": 0,
+            "displayName": "ET給藥",
+            "displayNameTC": "ET給藥",
+            "elements": [
+                "PETPAD",
+                "PETPAT",
+                "PETPLI"
+            ],
+            "shouldDisplayCount": false
+        },
+        {
+            "id": "PETPAD",
+            "type": 0,
+            "displayName": "Adrenaline 1mg/amp",
+            "displayNameTC": "Adrenaline 1mg/amp",
+            "remark": "ET:Adrenaline 1mg/amp",
+            "shouldSubmit": true,
+            "actions": [
+                "action_addCount_PAD",
+                "action_addCount_PIOPAD",
+                "action_addCount_PETPAD",
+                "action_highlight_PETPAD",
+                "action_stopRepeat_setPAD",
+                "set_PETPAD"
+            ],
+            "shouldDisplayCount": true,
+            "count": 0
+        },
+        {
+            "id": "PETPAT",
+            "type": 0,
+            "displayName": "Atropone 1mg/amp",
+            "displayNameTC": "Atropone 1mg/amp",
+            "remark": "ET:Atropone 1mg/amp",
+            "shouldSubmit": true,
+            "actions": [
+                "action_addCount_PAT",
+                "action_addCount_PIOPAT",
+                "action_addCount_PETPAT",
+                "action_highlight_PETPAT"
+            ],
+            "shouldDisplayCount": true,
+            "count": 0
+        },
+        {
+            "id": "PETPLI",
+            "type": 0,
+            "displayName": "Lidocaine 100mg/amp",
+            "displayNameTC": "Lidocaine 100mg/amp",
+            "remark": "ET:Lidocaine 100mg/amp",
+            "shouldSubmit": true,
+            "actions": [
+                "action_addCount_PLI",
+                "action_addCount_PIOPL",
+                "action_addCount_PETPLI",
+                "action_highlight_PETPLI"
             ],
             "shouldDisplayCount": true,
             "count": 0
         }
     ],
-    "version": "0.0.1"
+    "version": "0.0.2"
 }

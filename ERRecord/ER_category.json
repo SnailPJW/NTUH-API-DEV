@@ -5,8 +5,8 @@
             "displayName": "STATUS",
             "displayNameTC": "狀態評估",
             "elements": [
+                "SFLA",
                 "SCON",
-                "SCON2",
                 "SCPR",
                 "SROSC",
                 "STERM"
@@ -26,7 +26,8 @@
                 "ACOSC",
                 "ACOBS",
                 "ACOET",
-                "ACOTR"
+                "ACOTR",
+                "ARAA"
             ]
         },
         {
@@ -72,7 +73,9 @@
                 "NLI",
                 "NRS",
                 "NVS",
-                "NNO"
+                "NNO",
+                "NSPTE",
+                "NIE"
             ]
         },
         {
@@ -94,12 +97,14 @@
                 "PD8",
                 "PN8",
                 "PNO",
-                "PAT",
+                "PATR",
                 "PKE",
                 "PSU",
-                "PMI"
+                "PMI",
+                "PIO",
+                "PET"
             ]
         }
     ],
-    "version": "0.0.1"
+    "version": "0.0.2"
 }

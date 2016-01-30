@@ -182,10 +182,38 @@
                     "id": "action_popCountdownIndicator_PAD"
                 },
                 {
-                    "id": "action_highlight_PAD_noflag"
+                    "id": "action_highlight_PAD"
+                }
+            ]
+        },
+        {
+            "id": "set_PIOPAD",
+            "actions": [
+                {
+                    "id": "action_pushCountdownIndicator_PIOPAD"
+                },
+                {
+                    "id": "action_popCountdownIndicator_PIOPAD"
+                },
+                {
+                    "id": "action_highlight_PIOPAD"
+                }
+            ]
+        },
+        {
+            "id": "set_PETPAD",
+            "actions": [
+                {
+                    "id": "action_pushCountdownIndicator_PETPAD"
+                },
+                {
+                    "id": "action_popCountdownIndicator_PETPAD"
+                },
+                {
+                    "id": "action_highlight_PETPAD"
                 }
             ]
         }
     ],
-    "version": "0.0.1"
+    "version": "0.0.2"
 }

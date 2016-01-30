@@ -5,8 +5,17 @@
             "selector": "setHighlighted:",
             "values": [
                 true,
+                "SFLA",
                 "BCB",
                 "SCON"
+            ]
+        },
+        {
+            "id": "action_highlight_SFLA",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "SFLA"
             ]
         },
         {
@@ -21,7 +30,7 @@
             "id": "action_rmflag_CCC",
             "selector": "setFlag:",
             "values": [
-                false,
+                "false",
                 "CCC"
             ]
         },
@@ -29,7 +38,7 @@
             "id": "action_unhighlight",
             "selector": "setHighlighted:",
             "values": [
-                false,
+                "false",
                 "*"
             ]
         },
@@ -75,7 +84,7 @@
             "id": "action_highlight_AOP",
             "selector": "setHighlighted:",
             "flag": {
-                "value": false,
+                "value": "FALSE",
                 "key": "AOP"
             },
             "values": [
@@ -95,7 +104,7 @@
             "id": "action_highlight_CCC",
             "selector": "setHighlighted:",
             "flag": {
-                "value": false,
+                "value": "FALSE",
                 "key": "CCC"
             },
             "values": [
@@ -107,7 +116,7 @@
             "id": "action_highlight_DMO",
             "selector": "setHighlighted:",
             "flag": {
-                "value": false,
+                "value": "FALSE",
                 "key": "DMO"
             },
             "values": [
@@ -119,7 +128,7 @@
             "id": "action_highlight_ADA_flag",
             "selector": "setHighlighted:",
             "flag": {
-                "value": false,
+                "value": "FALSE",
                 "key": "ADA"
             },
             "values": [
@@ -131,7 +140,7 @@
             "id": "action_highlight_NLI",
             "selector": "setHighlighted:",
             "flag": {
-                "value": false,
+                "value": "FALSE",
                 "key": "NLI"
             },
             "values": [
@@ -181,7 +190,7 @@
                 "key": "ADA"
             },
             "repeat": -1,
-            "interval": 6,
+            "interval": 6.0,
             "values": [
                 "respiration"
             ]
@@ -280,10 +289,18 @@
             ]
         },
         {
-            "id": "action_highlight_PAD",
+            "id": "action_highlight_SCPRET",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "SCPRET"
+            ]
+        },
+        {
+            "id": "action_highlight_PAD_Flag",
             "selector": "setHighlighted:",
             "flag": {
-                "value": false,
+                "value": "FALSE",
                 "key": "CCC"
             },
             "values": [
@@ -302,28 +319,10 @@
         {
             "id": "action_stopRepeat_setPAD",
             "selector": "stopRepeat",
-            "flag": {
-                "value": true,
-                "key": "setPAD"
-            },
             "values": [
-                "set_PAD"
-            ]
-        },
-        {
-            "id": "action_rmflag_setPAD",
-            "selector": "setFlag:",
-            "values": [
-                false,
-                "setPAD"
-            ]
-        },
-        {
-            "id": "action_addflag_setPAD",
-            "selector": "setFlag:",
-            "values": [
-                true,
-                "setPAD"
+                "set_PAD",
+                "set_PIOPAD",
+                "set_PETPAD"
             ]
         },
         {
@@ -343,11 +342,35 @@
             ]
         },
         {
-            "id": "action_highlight_PAD_noflag",
-            "selector": "setHighlighted:",
+            "id": "action_pushCountdownIndicator_PIOPAD",
+            "selector": "pushCountdownIndicator:",
             "values": [
-                true,
-                "PAD"
+                240,
+                "PIOPAD"
+            ]
+        },
+        {
+            "id": "action_popCountdownIndicator_PIOPAD",
+            "selector": "popCountdownIndicator:",
+            "delay": 240,
+            "values": [
+                "PIOPAD"
+            ]
+        },
+        {
+            "id": "action_pushCountdownIndicator_PETPAD",
+            "selector": "pushCountdownIndicator:",
+            "values": [
+                240,
+                "PETPAD"
+            ]
+        },
+        {
+            "id": "action_popCountdownIndicator_PETPAD",
+            "selector": "popCountdownIndicator:",
+            "delay": 240,
+            "values": [
+                "PETPAD"
             ]
         },
         {
@@ -381,7 +404,7 @@
             "id": "action_addflag_ADA",
             "selector": "setFlag:",
             "flag": {
-                "value": false,
+                "value": "FALSE",
                 "key": "ADA"
             },
             "values": [
@@ -397,7 +420,7 @@
                 "key": "ACO"
             },
             "values": [
-                false,
+                "false",
                 "ACOSC",
                 "ACOBS",
                 "ACOET",
@@ -416,7 +439,7 @@
             "id": "action_unhighlight_setACON",
             "selector": "setHighlighted:",
             "values": [
-                false,
+                "false",
                 "ACOSC",
                 "ACOBS",
                 "ACOET",
@@ -427,7 +450,7 @@
             "id": "action_rmflag_ADA",
             "selector": "setFlag:",
             "values": [
-                false,
+                "false",
                 "ADA"
             ]
         },
@@ -446,7 +469,7 @@
             "id": "action_rmflag_setADA",
             "selector": "setFlag:",
             "values": [
-                false,
+                "false",
                 "ACO",
                 "ADA"
             ]
@@ -479,7 +502,7 @@
             "id": "action_addflag_DDE",
             "selector": "setFlag:",
             "flag": {
-                "value": false,
+                "value": "FALSE",
                 "key": "DDE3"
             },
             "values": [
@@ -495,7 +518,7 @@
                 "key": "DDE3"
             },
             "values": [
-                false,
+                "false",
                 "DDE2",
                 "DDE"
             ]
@@ -504,7 +527,7 @@
             "id": "action_highlight_DCR",
             "selector": "setHighlighted:",
             "flag": {
-                "value": false,
+                "value": "FALSE",
                 "key": "DMO"
             },
             "values": [
@@ -675,7 +698,335 @@
                 1,
                 "PMI"
             ]
+        },
+        {
+            "id": "action_addCount_PIOPAD",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PIOPAD"
+            ]
+        },
+        {
+            "id": "action_addCount_PIOPBI",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PIOPBI"
+            ]
+        },
+        {
+            "id": "action_addCount_PIOPCA",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PIOPCA"
+            ]
+        },
+        {
+            "id": "action_addCount_PIOPAT",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PIOPAT"
+            ]
+        },
+        {
+            "id": "action_addCount_PIOPAM",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PIOPAM"
+            ]
+        },
+        {
+            "id": "action_addCount_PIOPMG",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PIOPMG"
+            ]
+        },
+        {
+            "id": "action_addCount_PIOPLI",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PIOPLI"
+            ]
+        },
+        {
+            "id": "action_addCount_PIOPGL",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PIOPGL"
+            ]
+        },
+        {
+            "id": "action_addCount_PIOPRE",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PIOPRE"
+            ]
+        },
+        {
+            "id": "action_addCount_PETPAD",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PETPAD"
+            ]
+        },
+        {
+            "id": "action_addCount_PETPAT",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PETPAT"
+            ]
+        },
+        {
+            "id": "action_addCount_PETPLI",
+            "selector": "addCount:",
+            "values": [
+                1,
+                "PETPLI"
+            ]
+        },
+        {
+            "id": "action_highlight_PAD",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PAD"
+            ]
+        },
+        {
+            "id": "action_highlight_PBI",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PBI"
+            ]
+        },
+        {
+            "id": "action_highlight_PCA",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PCA"
+            ]
+        },
+        {
+            "id": "action_highlight_PAT",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PAT"
+            ]
+        },
+        {
+            "id": "action_highlight_PAM",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PAM"
+            ]
+        },
+        {
+            "id": "action_highlight_PMG",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PMG"
+            ]
+        },
+        {
+            "id": "action_highlight_PLI",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PLI"
+            ]
+        },
+        {
+            "id": "action_highlight_PGL",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PGL"
+            ]
+        },
+        {
+            "id": "action_highlight_PRE",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PRE"
+            ]
+        },
+        {
+            "id": "action_highlight_PD4",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PD4"
+            ]
+        },
+        {
+            "id": "action_highlight_PD8",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PD8"
+            ]
+        },
+        {
+            "id": "action_highlight_PN8",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PN8"
+            ]
+        },
+        {
+            "id": "action_highlight_PNO",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PNO"
+            ]
+        },
+        {
+            "id": "action_highlight_PATR",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PATR"
+            ]
+        },
+        {
+            "id": "action_highlight_PKE",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PKE"
+            ]
+        },
+        {
+            "id": "action_highlight_PSU",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PSU"
+            ]
+        },
+        {
+            "id": "action_highlight_PMI",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PMI"
+            ]
+        },
+        {
+            "id": "action_highlight_PIOPAD",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PIOPAD"
+            ]
+        },
+        {
+            "id": "action_highlight_PIOPBI",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PIOPBI"
+            ]
+        },
+        {
+            "id": "action_highlight_PIOPCA",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PIOPCA"
+            ]
+        },
+        {
+            "id": "action_highlight_PIOPAT",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PIOPAT"
+            ]
+        },
+        {
+            "id": "action_highlight_PIOPAM",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PIOPAM"
+            ]
+        },
+        {
+            "id": "action_highlight_PIOPMG",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PIOPMG"
+            ]
+        },
+        {
+            "id": "action_highlight_PIOPLI",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PIOPLI"
+            ]
+        },
+        {
+            "id": "action_highlight_PIOPGL",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PIOPGL"
+            ]
+        },
+        {
+            "id": "action_highlight_PIOPRE",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PIOPRE"
+            ]
+        },
+        {
+            "id": "action_highlight_PETPAD",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PETPAD"
+            ]
+        },
+        {
+            "id": "action_highlight_PETPAT",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PETPAT"
+            ]
+        },
+        {
+            "id": "action_highlight_PETPLI",
+            "selector": "setHighlighted:",
+            "values": [
+                true,
+                "PETPLI"
+            ]
         }
     ],
-    "version": "0.0.1"
+    "version": "0.0.2"
 }
