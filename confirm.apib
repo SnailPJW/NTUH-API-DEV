@@ -50,6 +50,11 @@
                         ],
                         "accountNo": "I15T07315840",                            // [string] 開立醫囑時對應的帳號
                         "recordId": "T0_11232000112_D",                         // [string] 本筆記錄所對應的交易檔 ID
+                        "confirmRecordId": "T0_11232000112_D",                  // [string] 確認本筆記錄時所用的 recordId
+                        "orderType": "K",                                       // [string] 本筆記錄所對應的是醫囑或藥囑 type 醫囑: T, P, X, N,... 藥囑: R, ...
+                        "editable": true,
+                        "deletable": true,
+                        "schedulable": false,
                         "cofirmSelectionIndex": 0                               // [number] 0 表示不可選 1 表示預設不選 3 表示預設選取
                     },
                     ...
@@ -78,7 +83,7 @@
                 "total" : 100 //此次Query總筆數[number]
             }
         }
-        
+
 
 ## 12/25 - 確認醫藥囑 [/unconfirmedRecords/batch]
 ### 確認多筆醫藥囑記錄 [POST]
