@@ -15,24 +15,28 @@
                     "hilight": true                                             // [boolean] 是否要 highlight資訊內容
                 },
                 "specimenInfo": "檢體: -- 採檢: -- 提血期限: 採檢後 3 日內",         // 有效檢體資訊
-                "inspectInfo": {                                                // 檢驗資訊
-                    "HB": {                                                     // [optional] HB相關 若無資料可以不用回傳
+                "inspectInfo": [                                                // 檢驗資訊
+                    {
+                        "title": "HB",
                         "value": 12.0,                                          // [number] 檢驗數值
                         "description": "(20150520-RL)"                          // [string] 檢驗描述
                     },
-                    "PLT": {                                                    // [optional] PLT相關 若無資料可以不用回傳
+                    {
+                        "title": "PLT",
                         "value": 472,                                           // [number] 檢驗數值
                         "description": "(20150520-RL)"                          // [string] 檢驗描述
                     },
-                    "PT": {                                                     // [optional] PT相關 若無資料可以不用回傳
+                    {
+                        "title": "PT",
                         "value": 12.0,                                          // [number] 檢驗數值
                         "description": "(20150520-CT)"                          // [string] 檢驗描述
                     },
-                    "PTT": {                                                    // [optional] PTT相關 若無資料可以不用回傳
+                    {
+                        "title": "PTT",
                         "value": 36.4,                                          // [number] 檢驗數值
                         "description": "(20150521-RL)"                          // [string] 檢驗描述
                     }
-                },
+                ],
                 "dictateBloodType": {                                           // 口述血型
                     "type": "type_unknown",                                     // [string] 血型代號
                     "description": "自過敏史取得口述血型, 資料來源為舊病歷資料"         // [string] 口述血型敘述
