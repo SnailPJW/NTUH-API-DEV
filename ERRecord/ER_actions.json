@@ -196,7 +196,7 @@
                 "key": "ADA"
             },
             "repeat": -1,
-            "interval": "__heartrates__",
+            "interval": "{heartrates}",
             "values": [
                 "CPR"
             ]
@@ -204,8 +204,8 @@
         {
             "id": "action_playSound_CPR_noADA",
             "selector": "playSound:",
-            "repeat": "__heartratef__",
-            "interval": "__heartrates__",
+            "repeat": "{heartratef}",
+            "interval": "{heartrates}",
             "values": [
                 "CPR"
             ]
@@ -218,7 +218,7 @@
                 "key": "ADA"
             },
             "repeat": -1,
-            "interval": "__respiration__",
+            "interval": "{respiration}",
             "values": [
                 "respiration"
             ]
@@ -372,14 +372,14 @@
             "id": "action_pushCountdownIndicator_PAD",
             "selector": "pushCountdownIndicator:",
             "values": [
-                "__adrenaline__",
+                "{adrenaline}",
                 "PAD"
             ]
         },
         {
             "id": "action_popCountdownIndicator_PAD",
             "selector": "popCountdownIndicator:",
-            "delay": "__adrenaline__",
+            "delay": "{adrenaline}",
             "values": [
                 "PAD"
             ]
@@ -388,14 +388,14 @@
             "id": "action_pushCountdownIndicator_PIOPAD",
             "selector": "pushCountdownIndicator:",
             "values": [
-                "__adrenaline__",
+                "{adrenaline}",
                 "PIOPAD"
             ]
         },
         {
             "id": "action_popCountdownIndicator_PIOPAD",
             "selector": "popCountdownIndicator:",
-            "delay": "__adrenaline__",
+            "delay": "{adrenaline}",
             "values": [
                 "PIOPAD"
             ]
@@ -404,14 +404,14 @@
             "id": "action_pushCountdownIndicator_PETPAD",
             "selector": "pushCountdownIndicator:",
             "values": [
-                "__adrenaline__",
+                "{adrenaline}",
                 "PETPAD"
             ]
         },
         {
             "id": "action_popCountdownIndicator_PETPAD",
             "selector": "popCountdownIndicator:",
-            "delay": "__adrenaline__",
+            "delay": "{adrenaline}",
             "values": [
                 "PETPAD"
             ]
