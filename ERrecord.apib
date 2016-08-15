@@ -156,61 +156,61 @@ Content-type: multipart/form-data
                             }
                         }
                     }
-                ]
+                ],
+                "variables": [
+                    {
+                        "display": "3分鐘",
+                        "identifier": "{adrenaline}",
+                        "title": "Adrenaline",
+                        "value": "180"
+                    },
+                    {
+                        "display": "8 秒鐘",
+                        "identifier": "{respiration}",
+                        "title": "Respiration",
+                        "value": "8"
+                    },
+                    {
+                        "display": "120 beat/min",
+                        "identifier": "{heartrates}",
+                        "title": "HR Duration",
+                        "value": "0.5"
+                    },
+                    {
+                        "display": "120 beat/min",
+                        "identifier": "{heartratef}",
+                        "title": "HR Repeats",
+                        "value": "30"
+                    }
+                ],
+                "variableControls": [
+                    {
+                        "type": 0,
+                        "variables": [
+                            "{adrenaline}"
+                        ]
+                    },
+                    {
+                        "type": 0,
+                        "variables": [
+                            "{respiration}"
+                        ]
+                    },
+                    {
+                        "title": "Heart Rate",
+                        "type": 0,
+                        "variables": [
+                            "{heartrates}",
+                            "{heartratef}"
+                        ]
+                    }
+                ],
+                "actionLogicVersion": "0.0.5",
+                "actionSetLogicVersion": "0.0.3",
+                "categoryLogicVersion": "0.0.3",
+                "elementLogicVersion": "0.0.5",
+                "suggestLogicVersion": "0.0.1"
             },
-            "variables": [
-                {
-                    "display": "3分鐘",
-                    "identifier": "{adrenaline}",
-                    "title": "Adrenaline",
-                    "value": "180"
-                },
-                {
-                    "display": "8 秒鐘",
-                    "identifier": "{respiration}",
-                    "title": "Respiration",
-                    "value": "8"
-                },
-                {
-                    "display": "120 beat/min",
-                    "identifier": "{heartrates}",
-                    "title": "HR Duration",
-                    "value": "0.5"
-                },
-                {
-                    "display": "120 beat/min",
-                    "identifier": "{heartratef}",
-                    "title": "HR Repeats",
-                    "value": "30"
-                }
-            ],
-            "variableControls": [
-                {
-                    "type": 0,
-                    "variables": [
-                        "{adrenaline}"
-                    ]
-                },
-                {
-                    "type": 0,
-                    "variables": [
-                        "{respiration}"
-                    ]
-                },
-                {
-                    "title": "Heart Rate",
-                    "type": 0,
-                    "variables": [
-                        "{heartrates}",
-                        "{heartratef}"
-                    ]
-                }
-            ],
-            "actionLogicVersion": "0.0.5",
-            "actionSetLogicVersion": "0.0.3",
-            "categoryLogicVersion": "0.0.3",
-            "elementLogicVersion": "0.0.5",
-            "suggestLogicVersion": "0.0.1",
             "device" : "10.1.1.1",  //裝置IP
             "empNo": "111281",  //員工編號
             "recordNo": "THE_ID_FOR_THE_RECORD",                // [string, optional] 修改的時候使用
