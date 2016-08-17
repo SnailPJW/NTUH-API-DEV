@@ -2,7 +2,7 @@ FORMAT: 1A
 HOST: http://www.wantoto.com
 
 
-# DEV台大醫院行動醫療資訊系統 Web Service v1.7.6
+# DEV台大醫院行動醫療資訊系統 Web Service v1.7.7
 
 採用 RESTful 架構規劃。所有字串編碼皆為UTF-8。
 
@@ -5668,6 +5668,7 @@ Content-type: multipart/form-data
                 "ERReason" : {
                     "commandDoctor" : "111281", //現場指揮醫師
                     "NS" : "123456",    //護理人員
+                    "verifier" : "234567",  //紀錄確核醫師
                     "cardicOrigin": {   //心臟因素
                         "code": "A01,A00",              // [string]
                         "note": "xxxxx"             // [string, optional]
@@ -5796,7 +5797,7 @@ Content-type: multipart/form-data
                         ]
                     },
                     {
-                        "title": "Heart Rate",
+                        "title": "Heart Rate", //[optional]
                         "type": 0,
                         "variables": [
                             "{heartrates}",
