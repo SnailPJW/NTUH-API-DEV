@@ -2,7 +2,7 @@ FORMAT: 1A
 HOST: http://www.wantoto.com
 
 
-# DEV台大醫院行動醫療資訊系統 Web Service v1.7.8
+# DEV台大醫院行動醫療資訊系統 Web Service v1.8.0
 
 採用 RESTful 架構規劃。所有字串編碼皆為UTF-8。
 
@@ -2918,7 +2918,7 @@ HOST: http://www.wantoto.com
             "message": "找不到病患最近三個月的 cre 數值"         // [string] error message
         }
 
-## 7/07 - 影像醫學介面內容 [/interface/order/MI/{imageType}{?sessionKey,hospitalCode}]
+## 11/28 - 影像醫學介面內容 [/interface/order/MI/{imageType}{?sessionKey,hospitalCode}]
 ### 取得介面內容 [GET]
 + Parameters
     + sessionKey        (string) ... SessionKey
@@ -2929,6 +2929,7 @@ HOST: http://www.wantoto.com
 
         {
             "content": {
+                "isNeedSchedule":   false,                      // [boolean, optional] 是否須在開立介面時選擇排程 dafault 為 false
                 "note": "檢查範圍與內容影像 ...",                            // [string, optional] 注意事項，若無（Plain Film）則不用回傳
                 "indicationOptions": [                                    // [optional] indication 所對應的選項，若無（Plain Film）則不用回傳
                     "Follow Up",
@@ -3015,7 +3016,7 @@ HOST: http://www.wantoto.com
             }
         }
 
-## 6/25 - 醫令碼所對應的醫令 [/order/{orderCode}{?sessionKey,patientClass,hospitalCode}]
+## 11/28 - 醫令碼所對應的醫令 [/order/{orderCode}{?sessionKey,patientClass,hospitalCode}]
 ### 取得醫令資訊 [GET]
 
 + Parameters
@@ -3034,6 +3035,7 @@ HOST: http://www.wantoto.com
                     "canEditOrderName": true,                       // [boolean, optional] K 類醫囑使用 是否可以修改醫囑
                     "screenNote":       "重要提示",                  // [string, optional] 重要提示 顯示於介面中
                     "isEmergency":      true,                       // [boolean] 是否支援急做
+                    "isNeedSchedule":   false,                      // [boolean, optional] 是否須在開立介面時選擇排程 dafault 為 false
                     "subType":          "N",                        // [string, optional] orderType = T 時使用 一般為 N, 手術為 O, 麻醉為 A, 齒位為 D, 技工所為 E, 復健為 P
                     "requireCreInfo":   0,                          // [number] 是否需要顯示 cre 介面以及顯示介面的種類, 0. 為不需要顯示 1. 為只需要顯示目前取得之 cre 值 2. 為還需要顯示生命危急和加開 creatimine 的選項
                     "planExecutionTimeFormat": "yyyy/MM/dd HH",      // [string] 預計執行時間的 format
@@ -3167,7 +3169,68 @@ HOST: http://www.wantoto.com
             ]
         }
 
-## 7/20 病患醫令記錄 [/account/{accountNo}/orderRecords{?orderCode,orderName,sessionKey,orderRecordId}]
+## 11/28 - 醫令碼所對應的排程選項 [/order/{orderCode,imageType}/schedule{?sessionKey,accountNo,searchType,patientClass,orderIdse,planDate,orderStage,planExecutionTime,hospitalCode}]
+### 取得醫令範本的預設值 [GET]
++ Parameters
+    + sessionKey        (string) ... SessionKey
+    + accountNo         (string) ... 帳號
+    + searchType        (string) ... 搜尋類別來源 P,  A
+    + patientClass      (string) ... 門住急別
+    + hospitalCode      (string) ... 院區碼
+    + orderIdse         (string, optional) ... 搜尋藥囑而外識別碼
+    + planExecutionTime (string, optional) ... 預設預計執行時間
+    + orderStage        (string, optional) ... 預設預計執行階段代碼
+
++ Response 200 (application/json)
+
+        {
+            "content": {   // [optional] 需要顯示排程選項時使用
+                "isEmergency" : [   // [optional] 急做的選項
+                    {
+                        "title": "OPTIONA: A",          // [string] 選項顯示內容
+                        "returnValue": "optional_a"     // [string, optional] 回傳時該選項所對應的值
+                    },
+                    {
+                        "title": "OPTIONAL: B",         // [string] 項目顯示內容
+                        "children": [   // [optional] 回傳該選項的次選項
+                            {
+                                "title": "OPTIONA: C",          // [string] 選項顯示內容
+                                "returnValue": "optional_c"     // [string, optional] 回傳時該選項所對應的值
+                            },
+                            {
+                                "title": "OPTIONA: D",          // [string] 選項顯示內容
+                                "returnValue": "optional_d"     // [string, optional] 回傳時該選項所對應的值
+                            },
+                            ...
+                        ]
+                    },
+                    ...
+                ],
+                "noEmergency" : [   // [optional] 非急做的選項
+                    {
+                        "title": "OPTIONA: A",          // [string] 選項顯示內容
+                        "returnValue": "optional_a"     // [string, optional] 回傳時該選項所對應的值
+                    },
+                    {
+                        "title": "OPTIONAL: B",         // [string] 項目顯示內容
+                        "children": [   // [optional] 回傳該選項的次選項
+                            {
+                                "title": "OPTIONA: C",          // [string] 選項顯示內容
+                                "returnValue": "optional_c"     // [string, optional] 回傳時該選項所對應的值
+                            },
+                            {
+                                "title": "OPTIONA: D",          // [string] 選項顯示內容
+                                "returnValue": "optional_d"     // [string, optional] 回傳時該選項所對應的值
+                            },
+                            ...
+                        ]
+                    },
+                    ...
+                ]
+            }
+        }
+
+## 11/28 病患醫令記錄 [/account/{accountNo}/orderRecords{?orderCode,orderName,sessionKey,orderRecordId}]
 
 ### 開立醫令 [POST]
 
@@ -3196,6 +3259,7 @@ HOST: http://www.wantoto.com
                         "creatinine": false             // [boolean] 加開 creatinine 是否被勾選
                     },
                     "specialInstruction": "Test 1",     // [string] 特殊醫囑
+                    "schedule" : "optional_d",          // [string, optional] 排程選則，若無則不回傳
                     "questionaries": [                  // [optional] 問答題答案，若無則回傳空陣列
                         {
                             "returnKey": "d_selection_example",     // [string] 問答題對應鍵值
