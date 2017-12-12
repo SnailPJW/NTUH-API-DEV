@@ -38,7 +38,7 @@
 
 # Group 病患清單 Patient List
 病患清單相關 Web Service
-## 7/2 -病患清單 [/patients{?chartNo,ptName,personID,wardCode,empNo,empNoConsult,empNoStarred,ORCode,ERCode,OPDCode,examRoomCode,queryDate}]
+## 2017/12/12 -病患清單 [/patients{?chartNo,ptName,personID,wardCode,empNo,empNoConsult,empNoStarred,ORCode,ERCode,OPDCode,examRoomCode,queryDate}]
 ### 查詢病患清單 [GET]
 可傳入病歷號、姓名、身分證號、病房、醫師員編、開刀房號、急診科別、門診科別、檢查科室等參數，回傳符合參數條件之病患
 + Parameters
@@ -67,6 +67,7 @@
                     "personID" : "A123456789",      //身分證號[string]
                     "bedInfo" : "5W3 01-01",        //病房病床號(住院與急診)，非住院或急診中則不回傳 [string, optional]
                     "inDate" : 1406938026,          //入院日期(住院或急診檢傷時間)，非住院或在急診則不回傳 [number(timestamp), optional]
+                    "outDate" : 1406938026,         //預計出院日期 [number(timestamp), optional]
                     "bedTransferDate" : 1406938026,          //轉床日期，非住院或在急診則不回傳 [number(timestamp), optional]
                     "triageLevels" : "1",           //檢傷分級，非急診則不回傳 Key [string, optional]
                     "_emp_VS" : {                   //主治醫師(如遇回傳資料為醫師者，變數皆為_emp_開頭)[string, optional]
@@ -279,7 +280,7 @@
         }
 
 # Group 病歷資料 Medical Record
-## 7/2 病患醫療基本資料 [/patients/{chartNo}{?startDate,endDate}]
+## 2017/12/12 病患醫療基本資料 [/patients/{chartNo}{?startDate,endDate}]
 ### 取得病患醫療基本資料 [GET]
 + Parameters
     + chartNo (string) ... 病歷號
@@ -449,6 +450,13 @@
                             "encoding" : "utf-16",                      //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
                             "baseURL" : "http://baseUrl.ntuh.gov.tw"    //報告基礎連結(報告中如有相對連結時回傳)[string, optional]
                         }
+                    }
+                ],
+                "schedule" : [    //排程資訊
+                    {
+                        "date" : 1406938026,                        //排程時間(顯示於畫面) [number(timestamp)]
+                        "item" : "xxx 會診資訊",                      //排程資訊 [string]
+                        "type" : "手術",                          //排程類別(手術、檢查、影醫) [string]
                     }
                 ]
             },
@@ -1131,7 +1139,7 @@
         }
 
 
-## 6/4 -處方醫囑 [/patients/{chartNo}/medication]
+## 2017/12/12 -處方醫囑 [/patients/{chartNo}/medication]
 ### 取得病歷資料 [GET]
 
 + Response 200 (application/json)
@@ -1151,8 +1159,9 @@
                     "approach" : "PO",                              //途徑[string]
                     "frequency" : "BID",                            //頻次[string]
                     "orderDate" : 1406938026,                       //開立日期[number(timestamp)]
-                    "startDate" : 1406938026,                       //用藥開始日期[number(timestamp)]
-                    "endDate" : 1406938026,                         //用藥結束日期[number(timestamp)]
+                    "startDate" : 1406938026,                       //處方開始日期[number(timestamp)]
+                    "drugStartDate" : 1406938026,                       //用藥開始日期(用於計算用藥天數)[number(timestamp)]
+                    "endDate" : 1406938026,                         //處方結束日期[number(timestamp)]
                     "_emp_order" : { //開立醫師
                         "empNo" : "23454353",
                         "name" : "葉小菜"
@@ -1390,6 +1399,64 @@
                         "displayName" : "Progress Note"     // [string]
                     },
                     ...
+                ],
+                "limit" : 50, //最大回傳筆數傳  [number]
+                "offset" : 0, //回傳資料偏移數  [number]
+                "total" : 100 //此次Query總筆數 [number]
+            },
+            "startDate" : 1406938026,   // Query 起始日期，以時間序號表示 (包含此日期) [number(timestamp)]
+            "endDate" : 1406938026      // Query 結束日期，以時間序號表示 (包含此日期) [number(timestamp)]
+        }
+
++ Response 404 (application/json)
+
+        {
+            "error": 301,
+            "message": "不存在指定之病患"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "error": 302,
+            "message": "不可瀏覽指定之病患"
+        }
+
+## 2017/12/12 -護理紀錄 [/patients/{chartNo}/nurseNote]
+### 取得病歷資料 [GET]
+
++ Response 200 (application/json)
+
+        {
+            "content" : {
+                "field" : [ //欄位資訊
+                    {
+                        "fieldCode" : "date",               //欄位代碼[string]
+                        "displayName" : "護理紀錄時間",     //欄位顯示名稱[string]
+                        "dateFormat" : "yyyy-MM-dd HH:mm"   //若此欄位資訊為時間，則回傳顯示格式，非時間則不回傳[string, optional]
+                    },
+                    {
+                        "fieldCode" : "nurse",     // [string]
+                        "displayName" : "護理師"      // [string]
+                    }
+                ],
+                "data" : [
+                    {
+                        "content" : { //依據欄位填入資料，無資料則不回傳 [optional]
+                            "date" : 1406938026,            // [number(timestamp)]
+                            "nurse" : "王小美"                 // [string]
+                        },
+                        "report" : { //如有報告則回傳 [optional]
+                            "reportType" : "HTML",                                  //報告型態，HTML或PDF [string]
+                            "reportPath" : "/nurseNote/{progressNoteID}",        //報告路徑 [string]
+                            "encoding" : "utf-16",                                  //編碼 (utf-8 or utf-16，為utf-8時可不回傳) [string, optional]
+                            "baseURL" : "http://baseUrl.ntuh.gov.tw",               //報告基礎連結(報告中如有相對連結時回傳 [string(url), optional]
+
+                        }
+                    },
+                    ...
+                ],
+                "filter" : [
                 ],
                 "limit" : 50, //最大回傳筆數傳  [number]
                 "offset" : 0, //回傳資料偏移數  [number]
