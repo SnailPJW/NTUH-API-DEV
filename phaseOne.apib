@@ -1139,7 +1139,7 @@
         }
 
 
-## 2017/12/12 -處方醫囑 [/patients/{chartNo}/medication]
+## 2017/01/03 -處方醫囑 [/patients/{chartNo}/medication]
 ### 取得病歷資料 [GET]
 
 + Response 200 (application/json)
@@ -1160,7 +1160,14 @@
                     "frequency" : "BID",                            //頻次[string]
                     "orderDate" : 1406938026,                       //開立日期[number(timestamp)]
                     "startDate" : 1406938026,                       //處方開始日期[number(timestamp)]
-                    "drugStartDate" : 1406938026,                       //用藥開始日期(用於計算用藥天數)[number(timestamp)]
+                    "drugDateNote" : [
+                        "第一天",
+                        "第二天",
+                        "",
+                        "",
+                        "第一天",
+                        ...
+                    ] ,                       //用藥天數
                     "endDate" : 1406938026,                         //處方結束日期[number(timestamp)]
                     "_emp_order" : { //開立醫師
                         "empNo" : "23454353",
